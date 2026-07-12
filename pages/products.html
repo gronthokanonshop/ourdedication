@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>সকল পণ্য | নূরুল ইলম শপ</title>
+  <meta name="description" content="ইসলামিক বই, কুরআন শরীফ, তাসবিহ, আতর, মিসওয়াক ও আরও অনেক সুন্নাহ আইটেম — নূরুল ইলম শপে।" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <span>📦 ৫০০ টাকার উপরে অর্ডারে ফ্রি ডেলিভারি সারা বাংলাদেশে</span>
+  <span>☎️ হেল্পলাইন: 01700-000000 &nbsp;|&nbsp; السلام عليكم</span>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <a href="../index.html" class="logo">
+    <div class="logo-icon">📚</div>
+    <div>
+      <div class="logo-name">নূরুল ইলম শপ</div>
+      <div class="logo-sub">বই ও সুন্নাহ আইটেম</div>
+    </div>
+  </a>
+
+  <div class="header-search">
+    <input type="text" placeholder="বই, তাসবিহ, আতর, মিসওয়াক খুঁজুন..." />
+    <button>🔍</button>
+  </div>
+
+  <div class="header-actions">
+    <a href="wishlist.html" class="header-btn">
+      <span class="icon">🤍</span>
+      <span>পছন্দ</span>
+    </a>
+    <a href="cart.html" class="header-btn cart-btn">
+      <span class="icon">🛒</span>
+      <span>কার্ট</span>
+      <span class="cart-count" style="display:none">0</span>
+    </a>
+    <a href="login.html" class="header-btn" id="login-header-btn">
+      <span class="icon">👤</span>
+      <span>লগইন</span>
+    </a>
+  </div>
+</header>
+
+<!-- NAVBAR -->
+<nav class="main-nav">
+  <ul class="nav-list">
+    <li class="nav-item"><a href="../index.html" class="nav-link">🏠 হোম</a></li>
+    <li class="nav-item"><a href="products.html?cat=book" class="nav-link">📖 ইসলামিক বই</a></li>
+    <li class="nav-item"><a href="products.html?cat=quran" class="nav-link">📜 কুরআন শরীফ</a></li>
+    <li class="nav-item"><a href="products.html?cat=tasbih" class="nav-link">📿 তাসবিহ</a></li>
+    <li class="nav-item"><a href="products.html?cat=jaynamaz" class="nav-link">🕌 জায়নামাজ</a></li>
+    <li class="nav-item"><a href="products.html?cat=ator" class="nav-link">🧴 আতর / সুগন্ধি</a></li>
+    <li class="nav-item"><a href="products.html?cat=miswak" class="nav-link">🪥 মিসওয়াক</a></li>
+    <li class="nav-item"><a href="products.html?cat=food" class="nav-link">🍯 মধু / কালোজিরা</a></li>
+    <li class="nav-item"><a href="products.html?cat=dress" class="nav-link">🧕 পোশাক</a></li>
+    <li class="nav-item"><a href="products.html?cat=gift" class="nav-link">🎁 গিফট প্যাক</a></li>
+  </ul>
+</nav>
+
+<main>
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="../index.html">হোম</a>
+      <span>/</span>
+      <span id="breadcrumb-current">সকল পণ্য</span>
+    </div>
+
+    <button class="mobile-filter-btn" id="mobileFilterBtn">🔎 ফিল্টার দেখান</button>
+
+    <div class="products-layout">
+      <!-- FILTER SIDEBAR -->
+      <aside class="filter-box" id="filterBox">
+        <h3>ক্যাটাগরি</h3>
+        <div class="filter-group" id="cat-filters">
+          <label><input type="radio" name="cat" value="" checked> সব ক্যাটাগরি</label>
+          <label><input type="radio" name="cat" value="book"> ইসলামিক বই</label>
+          <label><input type="radio" name="cat" value="quran"> কুরআন শরীফ</label>
+          <label><input type="radio" name="cat" value="tasbih"> তাসবিহ</label>
+          <label><input type="radio" name="cat" value="jaynamaz"> জায়নামাজ</label>
+          <label><input type="radio" name="cat" value="ator"> আতর / সুগন্ধি</label>
+          <label><input type="radio" name="cat" value="miswak"> মিসওয়াক</label>
+          <label><input type="radio" name="cat" value="food"> মধু / কালোজিরা</label>
+          <label><input type="radio" name="cat" value="dress"> পোশাক</label>
+          <label><input type="radio" name="cat" value="gift"> গিফট প্যাক</label>
+          <label><input type="radio" name="cat" value="herbal"> হার্বাল শিফা</label>
+        </div>
+
+        <h3>মূল্য পরিসীমা</h3>
+        <div class="filter-group">
+          <div class="price-inputs">
+            <input type="number" id="minPrice" placeholder="সর্বনিম্ন" min="0" />
+            <span>—</span>
+            <input type="number" id="maxPrice" placeholder="সর্বোচ্চ" min="0" />
+          </div>
+        </div>
+
+        <h3>বিশেষ</h3>
+        <div class="filter-group">
+          <label><input type="checkbox" id="filterBestseller"> বেস্টসেলার</label>
+          <label><input type="checkbox" id="filterSunnah"> সুন্নাহ আইটেম</label>
+          <label><input type="checkbox" id="filterDiscount"> ছাড়যুক্ত পণ্য</label>
+        </div>
+
+        <button class="filter-apply-btn" onclick="applyFilters()">ফিল্টার প্রয়োগ করুন</button>
+        <button class="filter-reset" onclick="resetFilters()">রিসেট করুন</button>
+      </aside>
+
+      <!-- PRODUCT RESULTS -->
+      <div>
+        <div class="products-toolbar">
+          <span class="result-count" id="resultCount"></span>
+          <select class="sort-select" id="sortSelect" onchange="applyFilters()">
+            <option value="relevance">প্রাসঙ্গিকতা</option>
+            <option value="new">নতুন আগে</option>
+            <option value="price-low">মূল্য: কম থেকে বেশি</option>
+            <option value="price-high">মূল্য: বেশি থেকে কম</option>
+            <option value="bestseller">বেস্টসেলার আগে</option>
+          </select>
+        </div>
+
+        <div class="prod-grid" id="products-grid"></div>
+
+        <div class="pagination" id="pagination"></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-top container">
+    <div class="footer-col">
+      <h4>📚 নূরুল ইলম শপ</h4>
+      <p>বাংলাদেশের বিশ্বস্ত ইসলামিক বই ও সুন্নাহ আইটেমের অনলাইন শপ। আমরা বিশুদ্ধ ও মানসম্পন্ন পণ্য সরবরাহ করি।</p>
+      <p>📞 01700-000000</p>
+      <p>✉️ info@nurulilm.com</p>
+      <p>🕐 শনি-বৃহস্পতি: সকাল ৯টা – রাত ১০টা</p>
+    </div>
+    <div class="footer-col">
+      <h4>দ্রুত লিংক</h4>
+      <ul>
+        <li><a href="about.html">আমাদের সম্পর্কে</a></li>
+        <li><a href="products.html">সকল পণ্য</a></li>
+        <li><a href="cart.html">কার্ট</a></li>
+        <li><a href="wishlist.html">উইশলিস্ট</a></li>
+        <li><a href="login.html">লগইন / রেজিস্ট্রেশন</a></li>
+        <li><a href="orders.html">আমার অর্ডার</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>নীতিমালা</h4>
+      <ul>
+        <li><a href="#">ডেলিভারি পলিসি</a></li>
+        <li><a href="#">রিটার্ন পলিসি</a></li>
+        <li><a href="#">প্রাইভেসি পলিসি</a></li>
+        <li><a href="#">শর্তাবলী</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>পেমেন্ট মেথড</h4>
+      <div class="payment-icons">
+        <span class="pay-badge">বিকাশ</span>
+        <span class="pay-badge">নগদ</span>
+        <span class="pay-badge">রকেট</span>
+        <span class="pay-badge">COD</span>
+      </div>
+      <h4 style="margin-top:14px">আমাদের ফলো করুন</h4>
+      <ul>
+        <li><a href="#">📘 Facebook</a></li>
+        <li><a href="#">▶️ YouTube</a></li>
+        <li><a href="#">📸 Instagram</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2025 নূরুল ইলম শপ — সকল অধিকার সংরক্ষিত &nbsp;|&nbsp; Developed with ❤️
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+<script src="../js/products-data.js"></script>
+<script>
+  const PAGE_SIZE = 8;
+  let currentPage = 1;
+
+  function getParams() {
+    return new URLSearchParams(window.location.search);
+  }
+
+  function initFromUrl() {
+    const params = getParams();
+    const cat = params.get('cat') || '';
+    const q = params.get('q') || '';
+    const sort = params.get('sort') || 'relevance';
+
+    if (cat) {
+      const radio = document.querySelector(`input[name="cat"][value="${cat}"]`);
+      if (radio) radio.checked = true;
+    }
+    if (sort === 'new') document.getElementById('sortSelect').value = 'new';
+    else if (sort === 'bestseller') document.getElementById('sortSelect').value = 'bestseller';
+
+    if (q) document.getElementById('breadcrumb-current').textContent = `"${q}" এর অনুসন্ধান ফলাফল`;
+    else if (cat) {
+      const label = document.querySelector(`input[name="cat"][value="${cat}"]`)?.parentElement?.textContent?.trim();
+      if (label) document.getElementById('breadcrumb-current').textContent = label;
+    }
+
+    document.querySelector('.header-search input').value = q;
+  }
+
+  function applyFilters(resetPage = true) {
+    if (resetPage) currentPage = 1;
+
+    const cat = document.querySelector('input[name="cat"]:checked')?.value || '';
+    const q = (getParams().get('q') || '').toLowerCase();
+    const minPrice = parseFloat(document.getElementById('minPrice').value) || 0;
+    const maxPrice = parseFloat(document.getElementById('maxPrice').value) || Infinity;
+    const onlyBestseller = document.getElementById('filterBestseller').checked;
+    const onlySunnah = document.getElementById('filterSunnah').checked;
+    const onlyDiscount = document.getElementById('filterDiscount').checked;
+    const sort = document.getElementById('sortSelect').value;
+
+    let list = PRODUCTS.filter(p => {
+      if (cat && p.cat !== cat) return false;
+      if (q && !p.name.toLowerCase().includes(q) && !(p.author || '').toLowerCase().includes(q)) return false;
+      if (p.price < minPrice || p.price > maxPrice) return false;
+      if (onlyBestseller && !p.bestseller) return false;
+      if (onlySunnah && !p.sunnah) return false;
+      if (onlyDiscount && !p.oldPrice) return false;
+      return true;
+    });
+
+    if (sort === 'price-low') list.sort((a, b) => a.price - b.price);
+    else if (sort === 'price-high') list.sort((a, b) => b.price - a.price);
+    else if (sort === 'bestseller') list.sort((a, b) => (b.bestseller ? 1 : 0) - (a.bestseller ? 1 : 0));
+    else if (sort === 'new') list.reverse();
+
+    document.getElementById('resultCount').textContent = `${list.length.toLocaleString('bn-BD')} টি পণ্য পাওয়া গেছে`;
+
+    const totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
+    if (currentPage > totalPages) currentPage = totalPages;
+    const pageItems = list.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+
+    renderProducts('products-grid', pageItems);
+    renderPagination(totalPages);
+  }
+
+  function renderPagination(totalPages) {
+    const el = document.getElementById('pagination');
+    if (totalPages <= 1) { el.innerHTML = ''; return; }
+    let html = '';
+    for (let i = 1; i <= totalPages; i++) {
+      html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i.toLocaleString('bn-BD')}</button>`;
+    }
+    el.innerHTML = html;
+  }
+
+  function goToPage(n) {
+    currentPage = n;
+    applyFilters(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function resetFilters() {
+    document.querySelector('input[name="cat"][value=""]').checked = true;
+    document.getElementById('minPrice').value = '';
+    document.getElementById('maxPrice').value = '';
+    document.getElementById('filterBestseller').checked = false;
+    document.getElementById('filterSunnah').checked = false;
+    document.getElementById('filterDiscount').checked = false;
+    document.getElementById('sortSelect').value = 'relevance';
+    document.getElementById('breadcrumb-current').textContent = 'সকল পণ্য';
+    window.history.replaceState({}, '', 'products.html');
+    applyFilters();
+  }
+
+  document.querySelectorAll('input[name="cat"]').forEach(r => r.addEventListener('change', () => applyFilters()));
+
+  document.getElementById('mobileFilterBtn').addEventListener('click', () => {
+    document.getElementById('filterBox').classList.toggle('open');
+  });
+
+  initFromUrl();
+  applyFilters();
+</script>
+</body>
+</html>

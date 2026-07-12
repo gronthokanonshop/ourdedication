@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="pageTitle">পণ্যের বিবরণ | নূরুল ইলম শপ</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <span>📦 ৫০০ টাকার উপরে অর্ডারে ফ্রি ডেলিভারি সারা বাংলাদেশে</span>
+  <span>☎️ হেল্পলাইন: 01700-000000 &nbsp;|&nbsp; السلام عليكم</span>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <a href="../index.html" class="logo">
+    <div class="logo-icon">📚</div>
+    <div>
+      <div class="logo-name">নূরুল ইলম শপ</div>
+      <div class="logo-sub">বই ও সুন্নাহ আইটেম</div>
+    </div>
+  </a>
+
+  <div class="header-search">
+    <input type="text" placeholder="বই, তাসবিহ, আতর, মিসওয়াক খুঁজুন..." />
+    <button>🔍</button>
+  </div>
+
+  <div class="header-actions">
+    <a href="wishlist.html" class="header-btn">
+      <span class="icon">🤍</span>
+      <span>পছন্দ</span>
+    </a>
+    <a href="cart.html" class="header-btn cart-btn">
+      <span class="icon">🛒</span>
+      <span>কার্ট</span>
+      <span class="cart-count" style="display:none">0</span>
+    </a>
+    <a href="login.html" class="header-btn" id="login-header-btn">
+      <span class="icon">👤</span>
+      <span>লগইন</span>
+    </a>
+  </div>
+</header>
+
+<!-- NAVBAR -->
+<nav class="main-nav">
+  <ul class="nav-list">
+    <li class="nav-item"><a href="../index.html" class="nav-link">🏠 হোম</a></li>
+    <li class="nav-item"><a href="products.html?cat=book" class="nav-link">📖 ইসলামিক বই</a></li>
+    <li class="nav-item"><a href="products.html?cat=quran" class="nav-link">📜 কুরআন শরীফ</a></li>
+    <li class="nav-item"><a href="products.html?cat=tasbih" class="nav-link">📿 তাসবিহ</a></li>
+    <li class="nav-item"><a href="products.html?cat=jaynamaz" class="nav-link">🕌 জায়নামাজ</a></li>
+    <li class="nav-item"><a href="products.html?cat=ator" class="nav-link">🧴 আতর / সুগন্ধি</a></li>
+    <li class="nav-item"><a href="products.html?cat=miswak" class="nav-link">🪥 মিসওয়াক</a></li>
+    <li class="nav-item"><a href="products.html?cat=food" class="nav-link">🍯 মধু / কালোজিরা</a></li>
+    <li class="nav-item"><a href="products.html?cat=dress" class="nav-link">🧕 পোশাক</a></li>
+    <li class="nav-item"><a href="products.html?cat=gift" class="nav-link">🎁 গিফট প্যাক</a></li>
+  </ul>
+</nav>
+
+<main>
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="../index.html">হোম</a>
+      <span>/</span>
+      <a href="products.html" id="breadcrumb-cat">পণ্য</a>
+      <span>/</span>
+      <span id="breadcrumb-name">...</span>
+    </div>
+
+    <div id="pd-content"></div>
+
+    <div class="section-divider"></div>
+
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">🔗 সম্পর্কিত পণ্য</h2>
+      </div>
+      <div class="prod-grid" id="related-grid"></div>
+    </section>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-top container">
+    <div class="footer-col">
+      <h4>📚 নূরুল ইলম শপ</h4>
+      <p>বাংলাদেশের বিশ্বস্ত ইসলামিক বই ও সুন্নাহ আইটেমের অনলাইন শপ। আমরা বিশুদ্ধ ও মানসম্পন্ন পণ্য সরবরাহ করি।</p>
+      <p>📞 01700-000000</p>
+      <p>✉️ info@nurulilm.com</p>
+      <p>🕐 শনি-বৃহস্পতি: সকাল ৯টা – রাত ১০টা</p>
+    </div>
+    <div class="footer-col">
+      <h4>দ্রুত লিংক</h4>
+      <ul>
+        <li><a href="about.html">আমাদের সম্পর্কে</a></li>
+        <li><a href="products.html">সকল পণ্য</a></li>
+        <li><a href="cart.html">কার্ট</a></li>
+        <li><a href="wishlist.html">উইশলিস্ট</a></li>
+        <li><a href="login.html">লগইন / রেজিস্ট্রেশন</a></li>
+        <li><a href="orders.html">আমার অর্ডার</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>নীতিমালা</h4>
+      <ul>
+        <li><a href="#">ডেলিভারি পলিসি</a></li>
+        <li><a href="#">রিটার্ন পলিসি</a></li>
+        <li><a href="#">প্রাইভেসি পলিসি</a></li>
+        <li><a href="#">শর্তাবলী</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>পেমেন্ট মেথড</h4>
+      <div class="payment-icons">
+        <span class="pay-badge">বিকাশ</span>
+        <span class="pay-badge">নগদ</span>
+        <span class="pay-badge">রকেট</span>
+        <span class="pay-badge">COD</span>
+      </div>
+      <h4 style="margin-top:14px">আমাদের ফলো করুন</h4>
+      <ul>
+        <li><a href="#">📘 Facebook</a></li>
+        <li><a href="#">▶️ YouTube</a></li>
+        <li><a href="#">📸 Instagram</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2025 নূরুল ইলম শপ — সকল অধিকার সংরক্ষিত &nbsp;|&nbsp; Developed with ❤️
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+<script src="../js/products-data.js"></script>
+<script>
+  const id = new URLSearchParams(window.location.search).get('id');
+  const product = getProductById(id);
+  const contentEl = document.getElementById('pd-content');
+
+  if (!product) {
+    contentEl.innerHTML = `
+      <div class="empty-state" style="padding:80px 20px">
+        😔 দুঃখিত, এই পণ্যটি খুঁজে পাওয়া যায়নি।<br><br>
+        <a href="products.html" class="hero-btn" style="background:var(--green-dark);color:#fff">সকল পণ্য দেখুন</a>
+      </div>`;
+  } else {
+    document.getElementById('pageTitle').textContent = product.name + ' | নূরুল ইলম শপ';
+    document.getElementById('breadcrumb-name').textContent = product.name;
+    document.getElementById('breadcrumb-cat').href = 'products.html?cat=' + product.cat;
+
+    const stars = '★'.repeat(Math.round(product.rating || 0)) + '☆'.repeat(5 - Math.round(product.rating || 0));
+
+    contentEl.innerHTML = `
+      <div class="pd-layout">
+        <div class="pd-image-box">${product.emoji}</div>
+        <div class="pd-info">
+          <h1>${product.name}</h1>
+          ${product.author ? `<div class="pd-author">লেখক/উৎস: ${product.author}</div>` : ''}
+          ${product.rating ? `
+            <div class="pd-rating">
+              <span class="stars">${stars}</span>
+              <span class="rating-count">(${(product.reviews || 0).toLocaleString('bn-BD')} রিভিউ)</span>
+            </div>` : ''}
+          <div class="pd-price-box">
+            <span class="pd-price">${money(product.price)}</span>
+            ${product.oldPrice ? `<span class="pd-old-price">${money(product.oldPrice)}</span>` : ''}
+            ${product.oldPrice ? `<span class="prod-discount">${Math.round((1 - product.price / product.oldPrice) * 100)}% ছাড়</span>` : ''}
+          </div>
+          <div class="pd-stock">✅ স্টকে আছে (${(product.stock || 0).toLocaleString('bn-BD')} পিস)</div>
+          <p class="pd-desc">${product.description || 'এই পণ্যটির বিস্তারিত বিবরণ শীঘ্রই যুক্ত করা হবে।'}</p>
+          <div class="pd-actions">
+            <div class="qty-box">
+              <button onclick="changeQty(-1)">−</button>
+              <input type="number" id="pdQty" min="1" value="1" />
+              <button onclick="changeQty(1)">+</button>
+            </div>
+            <button class="pd-add-btn" onclick="addPdToCart()">🛒 কার্টে যোগ করুন</button>
+            <button class="pd-wish-btn" id="pdWishBtn" data-wishlist-id="${product.id}"
+              onclick="toggleWishlist('${product.id}','${product.name}')">🤍</button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    updateWishlistBtns();
+
+    const related = PRODUCTS.filter(p => p.cat === product.cat && p.id !== product.id).slice(0, 4);
+    renderProducts('related-grid', related);
+  }
+
+  function changeQty(delta) {
+    const input = document.getElementById('pdQty');
+    const val = Math.max(1, (parseInt(input.value, 10) || 1) + delta);
+    input.value = val;
+  }
+
+  function addPdToCart() {
+    const qty = parseInt(document.getElementById('pdQty').value, 10) || 1;
+    addToCart(product.id, product.name, product.price, product.emoji, qty);
+  }
+</script>
+</body>
+</html>
