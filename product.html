@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>পণ্যের বিবরণ — OurDedication</title>
 <meta name="description" id="metaDesc" content="OurDedication-এ ইসলামিক ও সাধারণ বই — সারাদেশে হোম ডেলিভারি, ক্যাশ অন ডেলিভারি সুবিধা।">
-<link rel="canonical" id="metaCanonical" href="https://PLACEHOLDER_DOMAIN/product.html">
+<link rel="canonical" id="metaCanonical" href="https://ourdedication.com/product.html">
 <meta property="og:type" content="product">
 <meta property="og:site_name" content="OurDedication">
 <meta property="og:title" id="metaOgTitle" content="OurDedication">
 <meta property="og:description" id="metaOgDesc" content="OurDedication-এ ইসলামিক ও সাধারণ বই — সারাদেশে হোম ডেলিভারি।">
-<meta property="og:image" id="metaOgImage" content="https://PLACEHOLDER_DOMAIN/icon-512.png">
-<meta property="og:url" id="metaOgUrl" content="https://PLACEHOLDER_DOMAIN/product.html">
+<meta property="og:image" id="metaOgImage" content="https://ourdedication.com/icon-512.png">
+<meta property="og:url" id="metaOgUrl" content="https://ourdedication.com/product.html">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -767,7 +767,7 @@ function renderBook(b){
 
   // SEO — প্রতিটা বইয়ের জন্য আলাদা মেটা ডেসক্রিপশন/OG ট্যাগ
   const seoDesc = `${b.name}${b.author ? ' — ' + b.author : ''} — ৳${b.price} — OurDedication-এ অর্ডার করুন, সারাদেশে হোম ডেলিভারি ও ক্যাশ অন ডেলিভারি সুবিধা।`;
-  const pageUrl = `https://PLACEHOLDER_DOMAIN/product.html?id=${encodeURIComponent(b.bid)}`;
+  const pageUrl = `https://ourdedication.com/product.html?id=${encodeURIComponent(b.bid)}`;
   document.getElementById('metaDesc').setAttribute('content', seoDesc);
   document.getElementById('metaCanonical').setAttribute('href', pageUrl);
   document.getElementById('metaOgTitle').setAttribute('content', b.name + ' — OurDedication');
