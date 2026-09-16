@@ -1,303 +1,1546 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>নূরুল ইলম শপ | ইসলামিক বই ও সুন্নাহ আইটেম</title>
-  <meta name="description" content="বাংলাদেশের বিশ্বস্ত ইসলামিক বই ও সুন্নাহ আইটেমের অনলাইন শপ। বই, তাসবিহ, আতর, মিসওয়াক ও আরও অনেক কিছু।" />
-  <link rel="stylesheet" href="css/style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OurDedication — সেরা পণ্য, সেরা দাম</title>
+<meta name="description" content="OurDedication — ইসলামিক ও সাধারণ বইয়ের অনলাইন দোকান। সারাদেশে হোম ডেলিভারি, ক্যাশ অন ডেলিভারি সুবিধা সহ সেরা দামে বই কিনুন।">
+<link rel="canonical" href="https://PLACEHOLDER_DOMAIN/index.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="OurDedication">
+<meta property="og:title" content="OurDedication — সেরা পণ্য, সেরা দামে">
+<meta property="og:description" content="ইসলামিক ও সাধারণ বইয়ের অনলাইন দোকান — সারাদেশে হোম ডেলিভারি, ক্যাশ অন ডেলিভারি সুবিধা।">
+<meta property="og:image" content="https://PLACEHOLDER_DOMAIN/icon-512.png">
+<meta property="og:url" content="https://PLACEHOLDER_DOMAIN/index.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#6366f1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════
+   OurDedication — Design Tokens
+══════════════════════════════════════ */
+:root {
+  --navy:     #f8f9ff;
+  --navy2:    #eef2ff;
+  --indigo:   #6366f1;
+  --indigo2:  #4f46e5;
+  --amber:    #f59e0b;
+  --amber2:   #d97706;
+  --white:    #ffffff;
+  --muted:    #6b7280;
+  --border:   #e5e7eb;
+  --border-i: #c7d2fe;
+  --card-bg:  #ffffff;
+  --glass:    rgba(255,255,255,0.92);
+  --red:      #ef4444;
+  --green:    #10b981;
+  --font-en:  'Sora', sans-serif;
+  --font-bn:  'Hind Siliguri', sans-serif;
+  --r:        18px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--font-bn);
+  background:var(--navy);
+  color:#1e1b4b;
+  overflow-x:hidden;
+  min-height:100vh;
+}
+
+/* ── AMBIENT ORBS ── */
+.orb{position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(80px);}
+.orb-1{width:500px;height:500px;background:rgba(99,102,241,0.07);top:-120px;left:-100px;animation:drift 18s ease-in-out infinite alternate;}
+.orb-2{width:400px;height:400px;background:rgba(245,158,11,0.05);bottom:-80px;right:-80px;animation:drift 22s ease-in-out infinite alternate-reverse;}
+.orb-3{width:300px;height:300px;background:rgba(99,102,241,0.05);top:50%;left:60%;animation:drift 15s ease-in-out infinite alternate;}
+@keyframes drift{0%{transform:translate(0,0);}100%{transform:translate(30px,20px);}}
+body>*:not(:where(.orb,.cart-drawer,.cart-overlay,.bottom-nav,.toast-wrap,.wa-float,.menu-drawer,.menu-overlay)){position:relative;z-index:1;}
+
+/* ── NOISE GRAIN ── */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:0.012;pointer-events:none;z-index:0;
+}
+
+/* ══════════════════════════════════════
+   NAVBAR
+══════════════════════════════════════ */
+.nav{
+  position:sticky;top:0;z-index:200;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid #e5e7eb;
+  box-shadow:0 2px 12px rgba(99,102,241,0.07);
+}
+.nav-wrap{
+  max-width:1200px;margin:0 auto;
+  padding:0 20px;height:64px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+}
+/* Logo */
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;}
+.logo-icon{
+  width:38px;height:38px;border-radius:10px;
+  background:linear-gradient(135deg,var(--indigo),var(--amber));
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 16px rgba(99,102,241,0.4);
+}
+.logo-icon svg{width:20px;height:20px;}
+.logo-name{font-family:var(--font-en);font-size:1.05rem;font-weight:800;letter-spacing:-0.3px;color:#1e1b4b;}
+.logo-name span{color:var(--indigo2);}
+/* Search */
+.nav-search{
+  flex:1;max-width:480px;
+  display:flex;align-items:center;
+  background:#f8f9ff;
+  border:1.5px solid #e5e7eb;
+  border-radius:12px;overflow:hidden;
+  transition:border-color 0.2s;
+}
+.nav-search:focus-within{border-color:var(--indigo);}
+.search-wrap-outer{position:relative;flex:1;max-width:480px;}
+.nav-search input{
+  flex:1;background:none;border:none;outline:none;
+  padding:9px 14px;font-family:var(--font-bn);font-size:0.88rem;color:#1e1b4b;
+}
+.nav-search input::placeholder{color:var(--muted);}
+.nav-search button{
+  background:var(--indigo);border:none;
+  padding:9px 14px;cursor:pointer;color:white;font-size:1rem;
+  transition:background 0.2s;
+}
+.nav-search button:hover{background:var(--indigo2);}
+/* গ্রন্থকাননের মতো লাইন-স্টাইল SVG আইকন — currentColor ব্যবহার করে, তাই হোভার/থিম রং নিজে থেকেই বদলায় */
+.eico{width:18px;height:18px;flex-shrink:0;display:block;}
+.nav-search button .eico{width:19px;height:19px;}
+/* সার্চ সাজেশন ড্রপডাউন */
+.search-suggest{
+  position:absolute;top:calc(100% + 8px);left:0;right:0;
+  background:#fff;border:1.5px solid #e5e7eb;border-radius:14px;
+  box-shadow:0 16px 40px rgba(0,0,0,0.14);
+  max-height:70vh;overflow-y:auto;z-index:250;
+  display:none;
+}
+.search-suggest.show{display:block;}
+.ss-item{display:flex;gap:10px;padding:10px 14px;text-decoration:none;color:inherit;border-bottom:1px solid #f3f4f6;transition:background 0.15s;}
+.ss-item:last-child{border-bottom:none;}
+.ss-item:hover{background:#f8f9ff;}
+.ss-img{width:38px;height:50px;border-radius:6px;background:#eef2ff;flex-shrink:0;overflow:hidden;}
+.ss-img img{width:100%;height:100%;object-fit:contain;}
+.ss-info{flex:1;min-width:0;}
+.ss-name{font-size:0.85rem;font-weight:600;color:#1e1b4b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ss-author{font-size:0.72rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ss-price{font-family:var(--font-en);font-size:0.8rem;font-weight:700;color:var(--indigo2);flex-shrink:0;align-self:center;}
+.ss-more{display:block;text-align:center;padding:10px;font-size:0.82rem;font-weight:600;color:var(--indigo2);text-decoration:none;background:#f8f9ff;}
+.ss-empty{padding:18px;text-align:center;font-size:0.85rem;color:var(--muted);}
+/* Nav actions */
+.nav-actions{display:flex;align-items:center;gap:6px;}
+.nav-btn{
+  width:38px;height:38px;border-radius:10px;
+  background:#ffffff;
+  border:1.5px solid #e5e7eb;
+  color:#6b7280;font-size:1.1rem;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;text-decoration:none;position:relative;
+  transition:border-color 0.2s,color 0.2s,background 0.2s;
+}
+.nav-btn:hover{border-color:var(--indigo);color:var(--indigo);background:#eef2ff;}
+.nav-badge{
+  position:absolute;top:-5px;right:-5px;
+  background:var(--amber);color:#000;
+  font-size:9px;font-weight:700;
+  min-width:17px;height:17px;border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-en);
+}
+/* মেনু বাটন (☰) এখন মোবাইল ও ডেস্কটপ — সবখানেই সবসময় দেখা যাবে (গ্রন্থকাননের মতো) */
+@media(max-width:700px){
+  .search-wrap-outer{display:none;}
+}
+
+/* ══════════════════════════════════════
+   CATEGORY BAR
+══════════════════════════════════════ */
+.cat-bar{
+  background:#ffffff;
+  border-bottom:1px solid #e5e7eb;
+  padding:0 20px;overflow-x:auto;
+  scrollbar-width:none;
+}
+.cat-bar::-webkit-scrollbar{display:none;}
+.cat-inner{max-width:1200px;margin:0 auto;display:flex;gap:4px;padding:8px 0;}
+.cat-chip{
+  flex-shrink:0;padding:7px 16px;border-radius:30px;
+  font-family:var(--font-bn);font-size:0.82rem;font-weight:500;
+  border:1.5px solid #e5e7eb;
+  background:transparent;color:#6b7280;cursor:pointer;
+  text-decoration:none;transition:all 0.2s;white-space:nowrap;
+}
+.cat-chip:hover,.cat-chip.active{
+  background:rgba(99,102,241,0.15);
+  border-color:rgba(99,102,241,0.4);color:var(--indigo2);
+}
+.cat-chip.active{font-weight:700;}
+
+/* ══════════════════════════════════════
+   HERO
+══════════════════════════════════════ */
+.hero{
+  padding:56px 20px 0;
+  max-width:1200px;margin:0 auto;
+}
+.hero-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:20px;
+  height:420px;
+}
+@media(max-width:860px){.hero-grid{grid-template-columns:1fr;height:auto;}}
+
+/* Big hero card */
+.hero-main{
+  position:relative;overflow:hidden;border-radius:24px;
+  background:linear-gradient(135deg,#1a1040 0%,#0d1535 50%,#0b1a3d 100%);
+  border:1px solid rgba(99,102,241,0.2);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:32px;cursor:pointer;
+  box-shadow:0 24px 64px rgba(0,0,0,0.4);
+}
+.hero-main-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 60% at 80% 20%,rgba(99,102,241,0.25) 0%,transparent 65%),
+    radial-gradient(ellipse 40% 40% at 20% 80%,rgba(245,158,11,0.12) 0%,transparent 60%);
+}
+.hero-main-emoji{
+  position:absolute;right:28px;top:24px;
+  font-size:5rem;opacity:0.7;
+  animation:float 4s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+.hero-tag{
+  display:inline-block;font-family:var(--font-en);
+  font-size:0.72rem;font-weight:700;letter-spacing:1px;
+  background:rgba(245,158,11,0.2);color:var(--amber2);
+  border:1px solid rgba(245,158,11,0.3);
+  padding:5px 12px;border-radius:20px;margin-bottom:14px;
+  position:relative;z-index:1;
+}
+.hero-main h1{
+  font-family:var(--font-en);font-size:clamp(1.6rem,3.5vw,2.5rem);
+  font-weight:800;line-height:1.18;
+  position:relative;z-index:1;
+  background:linear-gradient(135deg,#fff 40%,var(--indigo2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-sub{
+  font-size:0.9rem;color:var(--muted);line-height:1.6;
+  margin:10px 0 20px;position:relative;z-index:1;max-width:340px;
+}
+.hero-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,var(--indigo),#4f46e5);
+  color:white;padding:12px 26px;border-radius:12px;
+  font-family:var(--font-en);font-size:0.9rem;font-weight:700;
+  text-decoration:none;border:none;cursor:pointer;
+  box-shadow:0 8px 24px rgba(99,102,241,0.35);
+  position:relative;z-index:1;
+  transition:transform 0.2s,box-shadow 0.2s;
+}
+.hero-cta:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(99,102,241,0.45);}
+
+/* Small hero cards */
+.hero-side{display:grid;grid-template-rows:1fr 1fr;gap:20px;}
+.hero-mini{
+  position:relative;overflow:hidden;border-radius:20px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:24px 26px;cursor:pointer;border:1px solid rgba(255,255,255,0.07);
+  transition:transform 0.2s,border-color 0.2s;
+}
+.hero-mini:hover{transform:translateY(-2px);border-color:rgba(99,102,241,0.3);}
+.hero-mini-1{background:linear-gradient(135deg,#14203a,#1a1a3e);}
+.hero-mini-2{background:linear-gradient(135deg,#1a1409,#2a1a04);}
+.hero-mini-emoji{font-size:3rem;opacity:0.8;}
+.hero-mini-text h3{font-family:var(--font-en);font-size:1.05rem;font-weight:700;color:white;margin-bottom:4px;}
+.hero-mini-text p{font-size:0.82rem;color:var(--muted);}
+.hero-mini-badge{
+  font-family:var(--font-en);font-size:0.72rem;font-weight:700;
+  padding:4px 10px;border-radius:8px;margin-top:8px;display:inline-block;
+}
+.badge-indigo{background:rgba(99,102,241,0.15);color:var(--indigo2);border:1px solid rgba(99,102,241,0.25);}
+.badge-amber{background:rgba(245,158,11,0.15);color:var(--amber2);border:1px solid rgba(245,158,11,0.25);}
+
+/* ══════════════════════════════════════
+   SECTION SHARED
+══════════════════════════════════════ */
+.section{padding:52px 20px;}
+.section-wrap{max-width:1200px;margin:0 auto;}
+.section-head{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  margin-bottom:24px;gap:16px;flex-wrap:wrap;
+}
+.section-head h2{
+  font-family:var(--font-en);font-size:1.35rem;font-weight:800;
+  color:#1e1b4b;letter-spacing:-0.3px;
+}
+.section-head h2 span{color:var(--indigo2);}
+.see-all{
+  font-family:var(--font-en);font-size:0.82rem;font-weight:600;
+  color:var(--indigo2);text-decoration:none;
+  display:flex;align-items:center;gap:4px;white-space:nowrap;
+  transition:color 0.2s;
+}
+.see-all:hover{color:var(--amber2);}
+
+/* ══════════════════════════════════════
+   MARQUEE TRUST BAR
+══════════════════════════════════════ */
+.trust-wrap{
+  overflow:hidden;border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  background:#f0f4ff;
+  padding:14px 0;
+}
+.trust-track{
+  display:flex;gap:48px;white-space:nowrap;
+  animation:marquee 28s linear infinite;
+}
+.trust-track:hover{animation-play-state:paused;}
+@keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.trust-item{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--font-en);font-size:0.82rem;font-weight:600;
+  color:var(--muted);flex-shrink:0;
+}
+.trust-item span{color:var(--amber2);}
+.trust-dot{width:4px;height:4px;background:var(--indigo);border-radius:50%;}
+
+/* ══════════════════════════════════════
+   PRODUCT CARD
+══════════════════════════════════════ */
+.products-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(132px,1fr));
+  gap:12px;
+}
+@media(max-width:500px){.products-grid{grid-template-columns:repeat(3,1fr);gap:8px;}}
+/* ল্যাপটপ/বড় স্ক্রিনে auto-fill সীমাহীনভাবে বেশি কলাম বানিয়ে কার্ড ছোট করে ফেলছিল — এখানে সীমা বেঁধে দেওয়া হলো */
+@media(min-width:701px) and (max-width:999px){.products-grid{grid-template-columns:repeat(4,1fr);}}
+@media(min-width:1000px) and (max-width:1299px){.products-grid{grid-template-columns:repeat(5,1fr);}}
+@media(min-width:1300px){.products-grid{grid-template-columns:repeat(6,1fr);}}
+
+.p-card{
+  background:#ffffff;
+  border:1.5px solid #e5e7eb;
+  border-radius:var(--r);overflow:hidden;
+  cursor:pointer;text-decoration:none;
+  display:flex;flex-direction:column;
+  transition:transform 0.22s,box-shadow 0.22s,border-color 0.22s;
+  position:relative;
+}
+.p-card:hover{
+  transform:translateY(-5px);
+  border-color:#c7d2fe;
+  box-shadow:0 8px 32px rgba(99,102,241,0.12);
+}
+.p-card:hover .p-img-inner{transform:scale(1.05);}
+
+/* Card badges */
+.p-badges{position:absolute;top:10px;left:10px;z-index:2;display:flex;flex-direction:column;gap:5px;}
+.badge{
+  font-family:var(--font-en);font-size:0.68rem;font-weight:700;
+  padding:3px 9px;border-radius:6px;
+}
+.badge-hot{background:#ef4444;color:white;}
+.badge-new{background:var(--indigo);color:white;}
+.badge-sale{background:var(--amber);color:#000;}
+.badge-stock{background:rgba(255,255,255,0.12);color:var(--muted);}
+
+/* Wishlist btn */
+.p-wish{
+  position:absolute;top:10px;right:10px;z-index:2;
+  width:30px;height:30px;border-radius:8px;
+  background:rgba(255,255,255,0.9);backdrop-filter:blur(4px);
+  border:1.5px solid #e5e7eb;
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.9rem;cursor:pointer;transition:background 0.2s;
+}
+.p-wish:hover{background:rgba(239,68,68,0.2);border-color:rgba(239,68,68,0.3);}
+.p-wish.active{background:rgba(239,68,68,0.25);color:#ef4444;}
+
+/* Image area */
+.p-img{
+  aspect-ratio:3/4;overflow:hidden;
+  background:linear-gradient(135deg,#f8f9ff,#eef2ff);
+  display:flex;align-items:center;justify-content:center;
+}
+.p-img-inner{width:100%;height:100%;object-fit:contain;padding:8px;font-size:4.5rem;transition:transform 0.3s;user-select:none;}
+
+/* Card body */
+.p-body{padding:8px 9px 10px;flex:1;display:flex;flex-direction:column;}
+.p-cat{font-family:var(--font-en);font-size:0.6rem;font-weight:600;color:var(--indigo);margin-bottom:3px;text-transform:uppercase;letter-spacing:0.5px;}
+.p-name{font-size:0.76rem;font-weight:600;color:#1e1b4b;line-height:1.35;margin-bottom:5px;flex:1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.p-rating{display:flex;align-items:center;gap:5px;margin-bottom:9px;}
+.p-stars{color:var(--amber);font-size:0.7rem;letter-spacing:1px;}
+.p-count{font-size:0.7rem;color:var(--muted);font-family:var(--font-en);}
+.p-footer{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:auto;}
+.p-price{font-family:var(--font-en);font-size:0.92rem;font-weight:800;color:#1e1b4b;}
+.p-price .cur{font-size:0.75rem;color:var(--indigo2);margin-right:1px;}
+.p-old{font-family:var(--font-en);font-size:0.75rem;color:var(--muted);text-decoration:line-through;}
+.p-cart{
+  width:32px;height:32px;border-radius:9px;
+  background:#eef2ff;
+  border:1.5px solid #c7d2fe;
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.95rem;cursor:pointer;flex-shrink:0;
+  transition:background 0.2s,border-color 0.2s,transform 0.15s;
+}
+.p-cart:hover{background:var(--indigo);border-color:var(--indigo);transform:scale(1.1);}
+
+/* ══════════════════════════════════════
+   BANNER STRIP
+══════════════════════════════════════ */
+.banner-strip{
+  max-width:1200px;margin:0 auto;padding:0 20px;
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;
+}
+@media(max-width:700px){.banner-strip{grid-template-columns:1fr;}}
+.b-card{
+  border-radius:18px;padding:24px 22px;
+  display:flex;align-items:center;gap:18px;
+  border:1px solid rgba(255,255,255,0.07);
+  cursor:pointer;transition:transform 0.2s,border-color 0.2s;
+}
+.b-card:hover{transform:translateY(-3px);border-color:rgba(99,102,241,0.3);}
+.b-card-1{background:linear-gradient(135deg,#3730a3,#4f46e5);}
+.b-card-2{background:linear-gradient(135deg,#92400e,#d97706);}
+.b-card-3{background:linear-gradient(135deg,#065f46,#059669);}
+.b-emoji{font-size:2.6rem;flex-shrink:0;}
+.b-text h3{font-family:var(--font-en);font-size:1rem;font-weight:700;color:#fff;margin-bottom:4px;}
+.b-text p{font-size:0.82rem;color:var(--muted);}
+
+/* ══════════════════════════════════════
+   FLASH SALE SECTION
+══════════════════════════════════════ */
+.flash-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.flash-title{
+  font-family:var(--font-en);font-size:1.35rem;font-weight:800;
+  color:white;display:flex;align-items:center;gap:8px;
+}
+.flash-fire{animation:flicker 1.2s ease-in-out infinite alternate;}
+@keyframes flicker{0%{opacity:1;}100%{opacity:0.7;transform:scale(1.05);}}
+.countdown{
+  display:flex;gap:6px;align-items:center;
+  background:#fef2f2;border:1px solid #fecaca;
+  border-radius:10px;padding:6px 14px;
+}
+.cd-block{text-align:center;}
+.cd-num{
+  font-family:var(--font-en);font-size:1.1rem;font-weight:800;
+  color:#f87171;display:block;line-height:1;
+}
+.cd-label{font-family:var(--font-en);font-size:0.58rem;color:var(--muted);display:block;margin-top:1px;}
+.cd-sep{font-family:var(--font-en);font-size:1rem;font-weight:800;color:#f87171;padding-bottom:8px;}
+
+/* ══════════════════════════════════════
+   BOTTOM NAV (Mobile)
+══════════════════════════════════════ */
+.bottom-nav{
+  position:fixed;bottom:0;left:0;right:0;z-index:150;
+  background:rgba(255,255,255,0.95);
+  backdrop-filter:blur(16px);
+  box-shadow:0 -2px 12px rgba(0,0,0,0.06);
+  border-top:1px solid #e5e7eb;
+  display:flex;
+  padding:8px 0 max(8px,env(safe-area-inset-bottom));
+}
+.bn-item{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+  text-decoration:none;cursor:pointer;
+  font-family:var(--font-bn);font-size:0.65rem;color:#6b7280;
+  padding:4px 0;transition:color 0.2s;position:relative;
+  background:none;border:none;
+}
+.bn-item.active{color:var(--indigo2);}
+.bn-item:hover{color:var(--indigo2);}
+.bn-icon{font-size:1.25rem;line-height:1;display:flex;align-items:center;justify-content:center;}
+.bn-icon .eico{width:21px;height:21px;}
+.bn-icon.has-wish .eico{fill:currentColor;color:#ef4444;}
+.bn-badge{
+  position:absolute;top:2px;right:calc(50% - 18px);
+  background:var(--amber);color:#000;
+  font-size:8px;font-weight:700;min-width:15px;height:15px;
+  border-radius:8px;display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-en);
+}
+body{padding-bottom:70px;}
+/* বড় স্ক্রিনেও বটম-ন্যাভ থাকবে — গ্রন্থকাননের মতো মাঝখানে ভাসমান ডক আকারে */
+@media(min-width:900px){
+  .bottom-nav{
+    left:50%;right:auto;transform:translateX(-50%);
+    width:520px;max-width:calc(100vw - 40px);
+    bottom:18px;border-radius:18px;border-top:1px solid #e5e7eb;
+    box-shadow:0 10px 34px rgba(0,0,0,0.14);
+  }
+  body{padding-bottom:76px;}
+}
+
+/* ══════════════════════════════════════
+   CART DRAWER
+══════════════════════════════════════ */
+.cart-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,0.35);
+  z-index:9000;opacity:0;pointer-events:none;
+  transition:opacity 0.3s;
+}
+.cart-overlay.open{opacity:1;pointer-events:all;}
+
+.cart-drawer{
+  position:fixed;top:0;right:0;bottom:0;
+  width:min(420px,100vw);
+  background:#fff;
+  z-index:9001;
+  display:flex;flex-direction:column;
+  transform:translateX(110%);
+  transition:transform 0.35s cubic-bezier(.4,0,.2,1);
+  box-shadow:-8px 0 40px rgba(0,0,0,0.12);
+}
+.cart-drawer.open{transform:translateX(0);}
+
+/* drawer head */
+.cd-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 20px;border-bottom:1px solid #e5e7eb;
+  flex-shrink:0;
+}
+.cd-head h3{
+  font-family:'Sora',sans-serif;font-size:1rem;font-weight:800;
+  color:#1e1b4b;display:flex;align-items:center;gap:8px;
+}
+.cd-head-badge{
+  background:#eef2ff;color:#6366f1;
+  font-size:0.72rem;font-weight:700;
+  padding:2px 8px;border-radius:12px;
+  font-family:'Sora',sans-serif;
+}
+.cd-close{
+  width:34px;height:34px;border-radius:9px;
+  background:#f3f4f6;border:none;
+  font-size:1rem;cursor:pointer;color:#6b7280;
+  display:flex;align-items:center;justify-content:center;
+  transition:background 0.2s;
+}
+.cd-close:hover{background:#e5e7eb;color:#1e1b4b;}
+
+/* drawer items */
+.cd-items{
+  flex:1;overflow-y:auto;padding:12px 0;
+  scrollbar-width:thin;scrollbar-color:#e5e7eb transparent;
+}
+.cd-items::-webkit-scrollbar{width:4px;}
+.cd-items::-webkit-scrollbar-track{background:transparent;}
+.cd-items::-webkit-scrollbar-thumb{background:#e5e7eb;border-radius:4px;}
+
+.cd-item{
+  display:flex;gap:12px;padding:12px 20px;
+  border-bottom:1px solid #f3f4f6;
+  transition:background 0.15s;
+}
+.cd-item:hover{background:#fafafa;}
+.cd-item-img{
+  width:56px;height:74px;border-radius:10px;
+  background:linear-gradient(135deg,#f8f9ff,#eef2ff);
+  border:1px solid #e5e7eb;overflow:hidden;flex-shrink:0;
+}
+.cd-item-img img{width:100%;height:100%;object-fit:contain;padding:4px;}
+.cd-item-info{flex:1;min-width:0;}
+.cd-item-name{
+  font-size:0.85rem;font-weight:600;color:#1e1b4b;
+  line-height:1.35;margin-bottom:3px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.cd-item-author{font-size:0.72rem;color:#6b7280;margin-bottom:8px;}
+.cd-item-bottom{display:flex;align-items:center;justify-content:space-between;}
+.cd-item-price{
+  font-family:'Sora',sans-serif;font-size:0.95rem;
+  font-weight:800;color:#6366f1;
+}
+.cd-item-qty{
+  display:flex;align-items:center;gap:0;
+  border:1.5px solid #e5e7eb;border-radius:8px;overflow:hidden;
+}
+.cd-qbtn{
+  width:26px;height:26px;background:none;border:none;
+  color:#6b7280;font-size:0.9rem;cursor:pointer;
+  transition:background 0.15s;font-family:'Sora',sans-serif;
+}
+.cd-qbtn:hover{background:#f3f4f6;}
+.cd-qval{
+  width:26px;text-align:center;
+  font-family:'Sora',sans-serif;font-size:0.82rem;font-weight:700;color:#1e1b4b;
+}
+.cd-item-del{
+  width:26px;height:26px;border-radius:7px;
+  background:none;border:none;color:#d1d5db;
+  cursor:pointer;font-size:0.85rem;
+  transition:all 0.15s;flex-shrink:0;
+}
+.cd-item-del:hover{background:#fef2f2;color:#ef4444;}
+
+/* wishlist ড্রয়ার আইটেম */
+.wl-item{display:flex;align-items:center;gap:12px;padding:12px 20px;border-bottom:1px solid #f3f4f6;}
+.wl-item:hover{background:#fafafa;}
+.wl-img{width:50px;height:66px;border-radius:10px;background:linear-gradient(135deg,#f8f9ff,#eef2ff);border:1px solid #e5e7eb;overflow:hidden;flex-shrink:0;display:block;}
+.wl-img img{width:100%;height:100%;object-fit:contain;padding:4px;}
+.wl-info{flex:1;min-width:0;}
+.wl-name{font-size:0.85rem;font-weight:600;color:#1e1b4b;text-decoration:none;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.wl-price{font-family:var(--font-en);font-size:0.85rem;font-weight:800;color:var(--indigo2);margin-top:3px;}
+.wl-cart-btn,.wl-del-btn{width:30px;height:30px;border-radius:8px;border:1.5px solid #e5e7eb;background:#fff;cursor:pointer;flex-shrink:0;transition:all 0.15s;display:flex;align-items:center;justify-content:center;color:#6b7280;}
+.wl-cart-btn:hover{background:var(--indigo);border-color:var(--indigo);color:#fff;}
+.wl-del-btn:hover{background:#fef2f2;border-color:#fecaca;color:#ef4444;}
+
+/* empty state */
+.cd-empty{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:40px 20px;text-align:center;color:#9ca3af;
+}
+.cd-empty-icon{margin-bottom:14px;opacity:0.5;display:flex;justify-content:center;}
+.cd-empty h4{font-size:0.95rem;font-weight:700;color:#6b7280;margin-bottom:6px;}
+.cd-empty p{font-size:0.85rem;}
+
+/* drawer footer */
+.cd-footer{
+  padding:16px 20px;border-top:1px solid #e5e7eb;
+  flex-shrink:0;background:#fff;
+}
+.cd-totals{margin-bottom:14px;}
+.cd-total-row{
+  display:flex;justify-content:space-between;
+  font-size:0.85rem;color:#6b7280;padding:3px 0;
+}
+.cd-total-row.grand{
+  font-size:1rem;font-weight:800;color:#1e1b4b;
+  padding-top:8px;margin-top:4px;
+  border-top:1.5px solid #e5e7eb;
+}
+.cd-total-row.grand span:last-child{color:#6366f1;}
+.cd-checkout-btn{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;padding:14px;border-radius:12px;border:none;
+  background:linear-gradient(135deg,#6366f1,#4f46e5);
+  color:white;font-family:'Hind Siliguri',sans-serif;
+  font-size:1rem;font-weight:700;cursor:pointer;
+  box-shadow:0 6px 20px rgba(99,102,241,0.3);
+  transition:transform 0.2s,box-shadow 0.2s;
+  text-decoration:none;
+}
+.cd-checkout-btn:hover{transform:translateY(-1px);box-shadow:0 8px 26px rgba(99,102,241,0.4);}
+.cd-continue{
+  display:block;text-align:center;margin-top:10px;
+  font-size:0.82rem;color:#6366f1;cursor:pointer;
+  background:none;border:none;font-family:'Hind Siliguri',sans-serif;
+  width:100%;padding:4px;
+}
+.cd-continue:hover{text-decoration:underline;}
+
+/* ══════════════════════════════════════
+   TOAST
+══════════════════════════════════════ */
+.toast-wrap{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);z-index:9999;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none;}
+.toast-item{
+  background:#1e1b4b;
+  border:1px solid rgba(99,102,241,0.3);
+  backdrop-filter:blur(16px);
+  color:#ffffff;font-family:var(--font-bn);font-size:0.88rem;
+  padding:10px 20px;border-radius:25px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.4);
+  animation:toastIn 0.3s ease;
+}
+@keyframes toastIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+/* ══════════════════════════════════════
+   WA FLOAT
+══════════════════════════════════════ */
+.wa-float{
+  position:fixed;bottom:84px;right:18px;z-index:140;
+  width:48px;height:48px;background:#25D366;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:1.5rem;
+  box-shadow:0 6px 20px rgba(37,211,102,0.4);text-decoration:none;
+  transition:transform 0.2s;
+}
+.wa-float:hover{transform:scale(1.1);}
+@media(min-width:900px){.wa-float{bottom:28px;right:24px;}}
+
+/* ══════════════════════════════════════
+   MISC UTILS
+══════════════════════════════════════ */
+.divider{height:1px;background:#e5e7eb;margin:0 20px;}
+.section-dark{background:#f0f4ff;}
+
+/* ══════════════════════════════════════
+   MOBILE RESPONSIVE FIXES
+══════════════════════════════════════ */
+
+/* NAV - mobile fix */
+@media(max-width:600px){
+  .nav-wrap{padding:0 12px;height:54px;gap:8px;}
+  .logo-name{font-size:0.88rem;}
+  .logo-icon{width:32px;height:32px;}
+  .nav-search{flex:1;min-width:0;}
+  .nav-search input{font-size:0.82rem;padding:7px 10px;}
+  .nav-search button{padding:7px 10px;}
+  .nav-btn{width:32px;height:32px;font-size:0.9rem;}
+}
+
+/* CATEGORY BAR */
+@media(max-width:600px){
+  .cat-chip{padding:5px 12px;font-size:0.75rem;}
+}
+
+/* HERO */
+@media(max-width:600px){
+  .hero{padding:20px 12px 0;}
+  .hero-grid{gap:12px;}
+  .hero-main{padding:20px 16px;border-radius:16px;}
+  .hero-main h1{font-size:1.5rem;}
+  .hero-sub{font-size:0.85rem;margin-bottom:18px;}
+  .hero-cta{padding:10px 18px;font-size:0.85rem;}
+  .hero-main-emoji{font-size:3rem;right:14px;top:14px;}
+  .hero-mini{padding:16px 14px;border-radius:14px;}
+  .hero-mini-emoji{font-size:2rem;}
+  .hero-mini-text h3{font-size:0.88rem;}
+  .hero-mini-text p{font-size:0.72rem;}
+}
+
+/* TRUST BAR */
+@media(max-width:600px){
+  .trust-item{font-size:0.75rem;}
+}
+
+/* SECTION */
+@media(max-width:600px){
+  .section{padding:28px 12px;}
+  .section-head h2{font-size:1.05rem;}
+  .see-all{font-size:0.78rem;}
+}
+
+/* PRODUCTS GRID - mobile 3 col (গ্রন্থকাননের মতো ছোট, ঘন কার্ড) */
+@media(max-width:600px){
+  .products-grid{
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+  }
+  .p-body{padding:7px 8px 9px;}
+  .p-cat{font-size:0.56rem;}
+  .p-name{font-size:0.7rem;margin-bottom:4px;}
+  .p-price{font-size:0.8rem;}
+  .p-old{font-size:0.6rem;}
+  .p-cart{width:26px;height:26px;font-size:0.75rem;}
+  .p-rating{display:none;}
+}
+
+/* FLASH SALE COUNTDOWN */
+@media(max-width:600px){
+  .flash-head{gap:8px;flex-wrap:wrap;}
+  .flash-title{font-size:1rem;}
+  .countdown{padding:5px 10px;gap:4px;}
+  .cd-num{font-size:0.9rem;}
+  .cd-label{font-size:0.5rem;}
+}
+
+/* BANNER STRIP */
+@media(max-width:600px){
+  .banner-strip{padding:0 12px;gap:10px;}
+  .b-card{padding:16px 14px;border-radius:14px;gap:12px;}
+  .b-emoji{font-size:1.8rem;}
+  .b-text h3{font-size:0.85rem;}
+  .b-text p{font-size:0.72rem;}
+}
+
+/* HERO GRID single col on small screens */
+@media(max-width:600px){
+  .hero-grid{grid-template-columns:1fr;}
+  .hero-side{grid-template-rows:auto auto;gap:10px;}
+  .hero-main{min-height:260px;}
+}
+
+/* BOTTOM NAV */
+@media(max-width:900px){
+  body{padding-bottom:68px;}
+  .bottom-nav{padding:6px 0 max(6px,env(safe-area-inset-bottom));}
+  .bn-item{font-size:0.6rem;}
+  .bn-icon{font-size:1.1rem;}
+}
+
+/* ══════════════════════════════════════
+   MENU DRAWER (হ্যামবার্গার)
+══════════════════════════════════════ */
+.menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.35);z-index:9000;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.menu-overlay.open{opacity:1;pointer-events:all;}
+.menu-drawer{position:fixed;top:0;left:0;bottom:0;width:min(300px,82vw);background:#fff;z-index:9001;display:flex;flex-direction:column;transform:translateX(-110%);transition:transform 0.35s cubic-bezier(.4,0,.2,1);box-shadow:8px 0 40px rgba(0,0,0,0.12);}
+.menu-drawer.open{transform:translateX(0);}
+.md-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid #e5e7eb;flex-shrink:0;}
+.md-head .logo-name{font-size:1rem;}
+.md-close{width:32px;height:32px;border-radius:8px;background:#f3f4f6;border:none;font-size:1.1rem;cursor:pointer;color:#6b7280;display:flex;align-items:center;justify-content:center;}
+.md-body{flex:1;overflow-y:auto;padding:8px 0 20px;}
+.md-section-title{font-family:var(--font-en);font-size:0.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;padding:14px 20px 6px;}
+.md-link{display:flex;align-items:center;gap:12px;padding:12px 20px;color:#1e1b4b;text-decoration:none;font-size:0.9rem;font-weight:500;transition:background 0.15s;}
+.md-link:hover{background:#f8f9ff;}
+.md-link .ic{font-size:1.1rem;width:22px;text-align:center;flex-shrink:0;}
+
+/* ══════════════════════════════════════
+   FOOTER
+══════════════════════════════════════ */
+.site-footer{background:#0d1535;color:#c7d2fe;padding:32px 20px 20px;margin-top:12px;}
+.footer-wrap{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:24px;}
+@media(max-width:700px){.footer-wrap{grid-template-columns:1fr;gap:20px;text-align:center;}}
+.footer-brand .logo-name{color:#fff;}
+.footer-brand p{font-size:0.82rem;color:#9ca8d8;margin-top:8px;line-height:1.6;}
+.footer-col h4{font-family:var(--font-en);font-size:0.85rem;font-weight:700;color:#fff;margin-bottom:10px;}
+.footer-col a{display:block;font-size:0.82rem;color:#9ca8d8;text-decoration:none;margin-bottom:7px;transition:color 0.2s;}
+.footer-col a:hover{color:var(--amber);}
+.footer-bottom{max-width:1200px;margin:20px auto 0;padding-top:16px;border-top:1px solid rgba(255,255,255,0.1);font-size:0.75rem;color:#7d89bd;text-align:center;}
+</style>
 </head>
 <body>
 
-<!-- TOPBAR -->
-<div class="topbar">
-  <span>📦 ৫০০ টাকার উপরে অর্ডারে ফ্রি ডেলিভারি সারা বাংলাদেশে</span>
-  <span>☎️ হেল্পলাইন: 01700-000000 &nbsp;|&nbsp; السلام عليكم</span>
-</div>
+<!-- Ambient orbs -->
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
 
-<!-- HEADER -->
-<header class="site-header">
-  <a href="index.html" class="logo">
-    <div class="logo-icon">📚</div>
-    <div>
-      <div class="logo-name">নূরুল ইলম শপ</div>
-      <div class="logo-sub">বই ও সুন্নাহ আইটেম</div>
+<!-- ══════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════ -->
+<nav class="nav">
+  <div class="nav-wrap">
+    <!-- Logo -->
+    <a href="index.html" class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L3 7v10l9 5 9-5V7L12 2z" fill="rgba(255,255,255,0.9)"/>
+          <path d="M12 2L3 7l9 5 9-5-9-5z" fill="rgba(255,255,255,0.3)"/>
+          <circle cx="12" cy="12" r="3" fill="rgba(245,158,11,0.9)"/>
+        </svg>
+      </div>
+      <div class="logo-name">Our<span>Dedication</span></div>
+    </a>
+
+    <!-- Search -->
+    <div class="search-wrap-outer">
+      <div class="nav-search">
+        <input type="text" id="searchInp" placeholder="পণ্য খুঁজুন... Search products" autocomplete="off"
+          oninput="handleSearchInput()" onkeydown="if(event.key==='Enter') doSearch()" onfocus="handleSearchInput()">
+        <button onclick="doSearch()"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+      </div>
+      <div class="search-suggest" id="searchSuggest"></div>
     </div>
-  </a>
 
-  <div class="header-search">
-    <input type="text" placeholder="বই, তাসবিহ, আতর, মিসওয়াক খুঁজুন..." />
-    <button>🔍</button>
+    <!-- Actions -->
+    <div class="nav-actions">
+      <button class="nav-btn" id="wishNavBtn" title="পছন্দের তালিকা" onclick="openWishlist()">
+        <svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+        <span class="nav-badge" id="wishCount" style="display:none;">0</span>
+      </button>
+      <button class="nav-btn" id="cartNavBtn" title="cart" onclick="openCart()">
+        <svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="nav-badge" id="cartCount">0</span>
+      </button>
+      <button class="nav-btn ham" id="hamBtn" onclick="toggleMenu()"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
   </div>
-
-  <div class="header-actions">
-    <a href="pages/wishlist.html" class="header-btn">
-      <span class="icon">🤍</span>
-      <span>পছন্দ</span>
-    </a>
-    <a href="pages/cart.html" class="header-btn cart-btn">
-      <span class="icon">🛒</span>
-      <span>কার্ট</span>
-      <span class="cart-count" style="display:none">0</span>
-    </a>
-    <a href="pages/login.html" class="header-btn">
-      <span class="icon">👤</span>
-      <span>লগইন</span>
-    </a>
-  </div>
-</header>
-
-<!-- NAVBAR -->
-<nav class="main-nav">
-  <ul class="nav-list">
-    <li class="nav-item"><a href="index.html" class="nav-link active">🏠 হোম</a></li>
-    <li class="nav-item"><a href="pages/products.html?cat=book" class="nav-link">📖 ইসলামিক বই</a></li>
-    <li class="nav-item"><a href="pages/products.html?cat=quran" class="nav-link">📜 কুরআন শরীফ</a></li>
-    <li class="nav-item"><a href="pages/products.html?cat=tasbih" class="nav-link">📿 তাসবিহ</a></li>
-    <li class="nav-item"><a href="pages/products.html?cat=jaynamaz" class="nav-link">🕌 জায়নামাজ</a></li>
-    <li class="nav-item"><a href="pages/products.html?cat=ator" class="nav-link">🧴 আতর / সুগন্ধি</a></li>
-    <li class="nav-item"><a href="pages/products.html?cat=miswak" class="nav-link">🪥 মিসওয়াক</a></li>
-    <li class="nav-item"><a href="pages/products.html?cat=food" class="nav-link">🍯 মধু / কালোজিরা</a></li>
-    <li class="nav-item"><a href="pages/products.html?cat=dress" class="nav-link">🧕 পোশাক</a></li>
-    <li class="nav-item"><a href="pages/products.html?cat=gift" class="nav-link">🎁 গিফট প্যাক</a></li>
-  </ul>
 </nav>
 
-<!-- MAIN CONTENT -->
-<main>
-  <div class="container">
+<!-- ══════════════════════════════════════
+     CATEGORY BAR
+══════════════════════════════════════ -->
+<div class="cat-bar">
+  <div class="cat-inner" id="catChips">
+    <a href="filter.html" class="cat-chip active">📚 সব বই</a>
+    <a href="filter.html?sort=bestsell" class="cat-chip">⭐ বেস্টসেলার</a>
+    <a href="filter.html?sort=discount" class="cat-chip">💥 ছাড়ে আছে</a>
+  </div>
+</div>
 
-    <!-- HERO BANNER -->
-    <div class="hero-banner">
-      <div class="hero-text">
-        <h1>জ্ঞান ও সুন্নাহর পথে স্বাগতম</h1>
-        <p>ইসলামিক বই, তাসবিহ, আতর ও সুন্নাহ আইটেম<br>এক জায়গায় — সেরা দামে, দ্রুত ডেলিভারি</p>
-        <a href="pages/products.html" class="hero-btn">🛒 সব পণ্য দেখুন</a>
-      </div>
-      <div class="hero-emoji">📚</div>
+<!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-grid">
+    <!-- Main hero -->
+    <div class="hero-main" onclick="location.href='filter.html'">
+      <div class="hero-main-bg"></div>
+      <div class="hero-main-emoji">🛍️</div>
+      <div class="hero-tag">✦ নতুন কালেকশন এসেছে</div>
+      <h1>সেরা পণ্য,<br>সেরা দামে</h1>
+      <p class="hero-sub">আপনার পছন্দের সব পণ্য এক জায়গায়। দ্রুত ডেলিভারি, সহজ রিটার্ন।</p>
+      <a href="filter.html" class="hero-cta">এখনই দেখুন →</a>
     </div>
 
-    <!-- PROMO STRIP -->
-    <div class="promo-strip">
-      <div class="promo-item">
-        <div class="promo-icon">🚚</div>
-        <div>
-          <div class="promo-title">ফ্রি ডেলিভারি</div>
-          <div class="promo-sub">৫০০ টাকার উপরে</div>
+    <!-- Side cards -->
+    <div class="hero-side">
+      <div class="hero-mini hero-mini-1" onclick="location.href='filter.html?cat=book'">
+        <div class="hero-mini-text">
+          <h3>বই ও স্টেশনারি</h3>
+          <p>৫০০+ পণ্য পাওয়া যাচ্ছে</p>
+          <div class="hero-mini-badge badge-indigo">নতুন আসছে ↗</div>
         </div>
+        <div class="hero-mini-emoji">📚</div>
       </div>
-      <div class="promo-item">
-        <div class="promo-icon">✅</div>
-        <div>
-          <div class="promo-title">১০০% অরিজিনাল</div>
-          <div class="promo-sub">সকল পণ্য বিশ্বস্ত</div>
+      <div class="hero-mini hero-mini-2" onclick="location.href='filter.html?cat=electronics'">
+        <div class="hero-mini-text">
+          <h3>ইলেকট্রনিক্স</h3>
+          <p>সেরা ব্র্যান্ডের পণ্য</p>
+          <div class="hero-mini-badge badge-amber">৩০% ছাড় ↗</div>
         </div>
-      </div>
-      <div class="promo-item">
-        <div class="promo-icon">🔄</div>
-        <div>
-          <div class="promo-title">৭ দিন রিটার্ন</div>
-          <div class="promo-sub">সহজ রিটার্ন পলিসি</div>
-        </div>
-      </div>
-      <div class="promo-item">
-        <div class="promo-icon">📞</div>
-        <div>
-          <div class="promo-title">২৪/৭ সাপোর্ট</div>
-          <div class="promo-sub">যেকোনো সময় কল করুন</div>
-        </div>
+        <div class="hero-mini-emoji">⚡</div>
       </div>
     </div>
-
-    <!-- CATEGORIES -->
-    <section class="section">
-      <div class="section-header">
-        <h2 class="section-title">ক্যাটাগরি</h2>
-        <a href="pages/products.html" class="see-all">সব দেখুন →</a>
-      </div>
-      <div class="cat-grid">
-        <a href="pages/products.html?cat=book" class="cat-card">
-          <div class="cat-icon" style="background:#f0fdf4">📖</div>
-          <span class="cat-name">ইসলামিক বই</span>
-        </a>
-        <a href="pages/products.html?cat=quran" class="cat-card">
-          <div class="cat-icon" style="background:#fefce8">📜</div>
-          <span class="cat-name">কুরআন শরীফ</span>
-        </a>
-        <a href="pages/products.html?cat=tasbih" class="cat-card">
-          <div class="cat-icon" style="background:#fff7ed">📿</div>
-          <span class="cat-name">তাসবিহ</span>
-        </a>
-        <a href="pages/products.html?cat=jaynamaz" class="cat-card">
-          <div class="cat-icon" style="background:#f0f9ff">🕌</div>
-          <span class="cat-name">জায়নামাজ</span>
-        </a>
-        <a href="pages/products.html?cat=ator" class="cat-card">
-          <div class="cat-icon" style="background:#fdf4ff">🧴</div>
-          <span class="cat-name">আতর / সুগন্ধি</span>
-        </a>
-        <a href="pages/products.html?cat=miswak" class="cat-card">
-          <div class="cat-icon" style="background:#f0fdf4">🪥</div>
-          <span class="cat-name">মিসওয়াক</span>
-        </a>
-        <a href="pages/products.html?cat=food" class="cat-card">
-          <div class="cat-icon" style="background:#fffbeb">🍯</div>
-          <span class="cat-name">মধু / কালোজিরা</span>
-        </a>
-        <a href="pages/products.html?cat=dress" class="cat-card">
-          <div class="cat-icon" style="background:#fef2f2">🧕</div>
-          <span class="cat-name">পোশাক</span>
-        </a>
-        <a href="pages/products.html?cat=gift" class="cat-card">
-          <div class="cat-icon" style="background:#fefce8">🎁</div>
-          <span class="cat-name">গিফট প্যাক</span>
-        </a>
-        <a href="pages/products.html?cat=herbal" class="cat-card">
-          <div class="cat-icon" style="background:#f0fdf4">🌿</div>
-          <span class="cat-name">হার্বাল শিফা</span>
-        </a>
-      </div>
-    </section>
-
-  </div><!-- /container -->
-
-  <div class="section-divider"></div>
-
-  <div class="container">
-    <!-- BESTSELLER -->
-    <section class="section">
-      <div class="section-header">
-        <h2 class="section-title">🔥 বেস্টসেলার পণ্য</h2>
-        <a href="pages/products.html?sort=bestseller" class="see-all">সব দেখুন →</a>
-      </div>
-      <div class="prod-grid" id="bestseller-grid">
-        <!-- JS দিয়ে render হবে -->
-      </div>
-    </section>
   </div>
+</div>
 
-  <div class="section-divider"></div>
-
-  <div class="container">
-    <!-- NEW BOOKS -->
-    <section class="section">
-      <div class="section-header">
-        <h2 class="section-title">📖 নতুন বই</h2>
-        <a href="pages/products.html?cat=book&sort=new" class="see-all">সব দেখুন →</a>
-      </div>
-      <div class="prod-grid" id="newbook-grid"></div>
-    </section>
+<!-- ══════════════════════════════════════
+     TRUST BAR (Marquee)
+══════════════════════════════════════ -->
+<div class="trust-wrap" style="margin-top:32px;">
+  <div class="trust-track" id="trustTrack">
+    <div class="trust-item">🚚 সারাদেশে ডেলিভারি <span>৪৮ঘণ্টায়</span></div>
+    <div class="trust-dot"></div>
+    <div class="trust-item">🔒 নিরাপদ পেমেন্ট <span>ক্যাশ অন ডেলিভারি</span></div>
+    <div class="trust-dot"></div>
+    <div class="trust-item">↩️ সহজ রিটার্ন <span>৭ দিনের মধ্যে</span></div>
+    <div class="trust-dot"></div>
+    <div class="trust-item">⭐ <span>১০,০০০+</span> সন্তুষ্ট গ্রাহক</div>
+    <div class="trust-dot"></div>
+    <div class="trust-item">💬 WhatsApp সাপোর্ট <span>সার্বক্ষণিক</span></div>
+    <div class="trust-dot"></div>
+    <div class="trust-item">🎁 বিশেষ অফার <span>প্রতিদিন</span></div>
+    <div class="trust-dot"></div>
+    <!-- Duplicate for infinite loop -->
+    <div class="trust-item">🚚 সারাদেশে ডেলিভারি <span>৪৮ঘণ্টায়</span></div>
+    <div class="trust-dot"></div>
+    <div class="trust-item">🔒 নিরাপদ পেমেন্ট <span>ক্যাশ অন ডেলিভারি</span></div>
+    <div class="trust-dot"></div>
+    <div class="trust-item">↩️ সহজ রিটার্ন <span>৭ দিনের মধ্যে</span></div>
+    <div class="trust-dot"></div>
+    <div class="trust-item">⭐ <span>১০,০০০+</span> সন্তুষ্ট গ্রাহক</div>
+    <div class="trust-dot"></div>
+    <div class="trust-item">💬 WhatsApp সাপোর্ট <span>সার্বক্ষণিক</span></div>
+    <div class="trust-dot"></div>
+    <div class="trust-item">🎁 বিশেষ অফার <span>প্রতিদিন</span></div>
+    <div class="trust-dot"></div>
   </div>
+</div>
 
-  <div class="section-divider"></div>
-
-  <div class="container">
-    <!-- SUNNAH ITEMS -->
-    <section class="section">
-      <div class="section-header">
-        <h2 class="section-title">🌙 সুন্নাহ আইটেম</h2>
-        <a href="pages/products.html?cat=sunnah" class="see-all">সব দেখুন →</a>
+<!-- ══════════════════════════════════════
+     FLASH SALE
+══════════════════════════════════════ -->
+<section class="section section-dark" style="padding-bottom:32px;">
+  <div class="section-wrap">
+    <div class="section-head">
+      <div class="flash-head">
+        <div class="flash-title">
+          <span class="flash-fire">🔥</span> Flash Sale
+        </div>
+        <div class="countdown" id="countdown">
+          <div class="cd-block"><span class="cd-num" id="cd-h">05</span><span class="cd-label">ঘণ্টা</span></div>
+          <span class="cd-sep">:</span>
+          <div class="cd-block"><span class="cd-num" id="cd-m">42</span><span class="cd-label">মিনিট</span></div>
+          <span class="cd-sep">:</span>
+          <div class="cd-block"><span class="cd-num" id="cd-s">18</span><span class="cd-label">সেকেন্ড</span></div>
+        </div>
       </div>
-      <div class="prod-grid" id="sunnah-grid"></div>
-    </section>
-
-    <!-- NOTICE -->
-    <div class="notice-bar">
-      <span>⚠️</span>
-      <span><strong>বিশেষ সতর্কতা:</strong> আমাদের অফিশিয়াল ওয়েবসাইট ও পেজ ছাড়া অন্য কোনো মাধ্যমে অর্ডার বা পেমেন্ট করবেন না। সন্দেহ হলে আমাদের হেল্পলাইনে কল করুন।</span>
+      <a href="filter.html?sale=1" class="see-all">সব দেখুন →</a>
     </div>
 
+    <div class="products-grid" id="flashGrid"></div>
   </div>
-</main>
+</section>
 
-<!-- FOOTER -->
+<!-- ══════════════════════════════════════
+     BANNER STRIP
+══════════════════════════════════════ -->
+<div class="banner-strip">
+  <div class="b-card b-card-1">
+    <div class="b-emoji">📖</div>
+    <div class="b-text">
+      <h3>শিক্ষামূলক বই</h3>
+      <p>ক্লাস ওয়ান থেকে ভার্সিটি</p>
+    </div>
+  </div>
+  <div class="b-card b-card-2">
+    <div class="b-emoji">🎁</div>
+    <div class="b-text">
+      <h3>গিফট কালেকশন</h3>
+      <p>প্রিয়জনকে চমকে দিন</p>
+    </div>
+  </div>
+  <div class="b-card b-card-3">
+    <div class="b-emoji">🚀</div>
+    <div class="b-text">
+      <h3>দ্রুত ডেলিভারি</h3>
+      <p>ঢাকায় ২৪ ঘণ্টায়</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     NEW ARRIVALS
+══════════════════════════════════════ -->
+<section class="section">
+  <div class="section-wrap">
+    <div class="section-head">
+      <h2>✨ নতুন <span>পণ্য</span></h2>
+      <a href="filter.html?sort=new" class="see-all">সব দেখুন →</a>
+    </div>
+    <div class="products-grid" id="newGrid"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════
+     BESTSELLERS
+══════════════════════════════════════ -->
+<section class="section">
+  <div class="section-wrap">
+    <div class="section-head">
+      <h2>🏆 বেস্টসেলার <span>পণ্য</span></h2>
+      <a href="filter.html?sort=bestseller" class="see-all">সব দেখুন →</a>
+    </div>
+    <div class="products-grid" id="bestGrid"></div>
+  </div>
+</section>
+
+<!-- ══ মেনু ড্রয়ার ══ -->
+<div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
+<div class="menu-drawer" id="menuDrawer">
+  <div class="md-head">
+    <div class="logo-name">Our<span style="color:var(--indigo2);">Dedication</span></div>
+    <button class="md-close" onclick="closeMenu()"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="md-body">
+    <a class="md-link" href="index.html"><span class="ic">🏠</span> হোম</a>
+    <a class="md-link" href="filter.html"><span class="ic">📚</span> সব পণ্য</a>
+    <a class="md-link" href="filter.html?sort=bestsell"><span class="ic">⭐</span> বেস্টসেলার</a>
+    <a class="md-link" href="filter.html?sort=discount"><span class="ic">💥</span> ছাড়ে আছে</a>
+    <div class="md-section-title" id="mdCatTitle" style="display:none;">বিভাগ</div>
+    <div id="mdCatLinks"></div>
+    <div class="md-section-title">আমার অ্যাকাউন্ট</div>
+    <a class="md-link" href="track.html"><span class="ic">📦</span> অর্ডার ট্র্যাক করুন</a>
+    <a class="md-link" href="checkout.html"><span class="ic">🛒</span> কার্ট দেখুন</a>
+    <div class="md-section-title">সহায়তা</div>
+    <a class="md-link" href="about.html"><span class="ic">ℹ️</span> আমাদের সম্পর্কে</a>
+    <a class="md-link" href="contact.html"><span class="ic">📞</span> যোগাযোগ</a>
+    <a class="md-link" href="faq.html"><span class="ic">❓</span> সচরাচর জিজ্ঞাসা</a>
+    <a class="md-link" href="delivery.html"><span class="ic">🚚</span> ডেলিভারি তথ্য</a>
+    <a class="md-link" href="return.html"><span class="ic">↩️</span> রিটার্ন নীতি</a>
+  </div>
+</div>
+
+<!-- ══ CART DRAWER ══ -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cd-head">
+    <h3>🛒 আমার কার্ট <span class="cd-head-badge" id="cdBadge">0 টি</span></h3>
+    <button class="cd-close" onclick="closeCart()"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="cd-items" id="cdItems"></div>
+  <div class="cd-footer" id="cdFooter" style="display:none;">
+    <div class="cd-totals">
+      <div class="cd-total-row"><span>পণ্যের মোট</span><span id="cdSub">৳০</span></div>
+      <div class="cd-total-row"><span>ডেলিভারি</span><span>পরে নির্ধারিত হবে</span></div>
+      <div class="cd-total-row grand"><span>সর্বমোট</span><span id="cdTotal">৳০</span></div>
+    </div>
+    <a class="cd-checkout-btn" href="checkout.html">✅ চেকআউট করুন →</a>
+    <button class="cd-continue" onclick="closeCart()">← কেনাকাটা চালিয়ে যান</button>
+  </div>
+</div>
+
+<!-- ══ WISHLIST ড্রয়ার ══ -->
+<div class="cart-overlay" id="wishOverlay" onclick="closeWishlist()"></div>
+<div class="cart-drawer" id="wishDrawer">
+  <div class="cd-head">
+    <h3>♡ পছন্দের তালিকা <span class="cd-head-badge" id="wlBadge">0 টি</span></h3>
+    <button class="cd-close" onclick="closeWishlist()"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="cd-items" id="wishItems" style="padding:0;"></div>
+</div>
+
+<!-- ══ FOOTER ══ -->
 <footer class="site-footer">
-  <div class="footer-top container">
-    <div class="footer-col">
-      <h4>📚 নূরুল ইলম শপ</h4>
-      <p>বাংলাদেশের বিশ্বস্ত ইসলামিক বই ও সুন্নাহ আইটেমের অনলাইন শপ। আমরা বিশুদ্ধ ও মানসম্পন্ন পণ্য সরবরাহ করি।</p>
-      <p>📞 01700-000000</p>
-      <p>✉️ info@nurulilm.com</p>
-      <p>🕐 শনি-বৃহস্পতি: সকাল ৯টা – রাত ১০টা</p>
+  <div class="footer-wrap">
+    <div class="footer-brand">
+      <div class="logo-name">Our<span style="color:var(--amber);">Dedication</span></div>
+      <p>ইসলামিক ও সাধারণ বইয়ের অনলাইন দোকান — সারাদেশে হোম ডেলিভারি, ক্যাশ অন ডেলিভারি সুবিধা সহ।</p>
     </div>
     <div class="footer-col">
-      <h4>দ্রুত লিংক</h4>
-      <ul>
-        <li><a href="pages/about.html">আমাদের সম্পর্কে</a></li>
-        <li><a href="pages/products.html">সকল পণ্য</a></li>
-        <li><a href="pages/cart.html">কার্ট</a></li>
-        <li><a href="pages/wishlist.html">উইশলিস্ট</a></li>
-        <li><a href="pages/login.html">লগইন / রেজিস্ট্রেশন</a></li>
-        <li><a href="pages/orders.html">আমার অর্ডার</a></li>
-      </ul>
+      <h4>সহায়তা</h4>
+      <a href="about.html">আমাদের সম্পর্কে</a>
+      <a href="contact.html">যোগাযোগ</a>
+      <a href="faq.html">সচরাচর জিজ্ঞাসা</a>
+      <a href="delivery.html">ডেলিভারি তথ্য</a>
+      <a href="return.html">রিটার্ন নীতি</a>
     </div>
     <div class="footer-col">
-      <h4>নীতিমালা</h4>
-      <ul>
-        <li><a href="#">ডেলিভারি পলিসি</a></li>
-        <li><a href="#">রিটার্ন পলিসি</a></li>
-        <li><a href="#">প্রাইভেসি পলিসি</a></li>
-        <li><a href="#">শর্তাবলী</a></li>
-        <li><a href="#">FAQ</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>পেমেন্ট মেথড</h4>
-      <div class="payment-icons">
-        <span class="pay-badge">বিকাশ</span>
-        <span class="pay-badge">নগদ</span>
-        <span class="pay-badge">রকেট</span>
-        <span class="pay-badge">COD</span>
-      </div>
-      <h4 style="margin-top:14px">আমাদের ফলো করুন</h4>
-      <ul>
-        <li><a href="#">📘 Facebook</a></li>
-        <li><a href="#">▶️ YouTube</a></li>
-        <li><a href="#">📸 Instagram</a></li>
-      </ul>
+      <h4>যোগাযোগ</h4>
+      <a href="tel:01842970565">📱 01842970565</a>
+      <a href="mailto:sajidurr317@gmail.com">✉️ sajidurr317@gmail.com</a>
+      <a href="https://wa.me/8801842970565" target="_blank">💬 WhatsApp-এ মেসেজ দিন</a>
+      <a href="https://www.facebook.com/Sajidbookshop" target="_blank">📘 ফেসবুক পেজ</a>
+      <a href="https://www.tiktok.com/@sajidurrahman9804" target="_blank">🎵 টিকটক</a>
     </div>
   </div>
-  <div class="footer-bottom">
-    © 2025 নূরুল ইলম শপ — সকল অধিকার সংরক্ষিত &nbsp;|&nbsp; Developed with ❤️
-  </div>
+  <div class="footer-bottom">© <span id="fyear"></span> OurDedication — সর্বস্বত্ব সংরক্ষিত</div>
 </footer>
 
-<script src="js/main.js"></script>
-<script src="js/products-data.js"></script>
+<!-- ══ BOTTOM NAV ══ -->
+<nav class="bottom-nav">
+  <button class="bn-item active" onclick="location.href='index.html'">
+    <span class="bn-icon"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg></span>হোম
+  </button>
+  <button class="bn-item" onclick="location.href='filter.html'">
+    <span class="bn-icon"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>খুঁজুন
+  </button>
+  <button class="bn-item" onclick="openWishlist()">
+    <span class="bn-icon" id="bnWishIcon"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></span>পছন্দ
+  </button>
+  <button class="bn-item" id="cartBnBtn" onclick="openCart()">
+    <span class="bn-icon"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></span>কার্ট
+    <span class="bn-badge" id="bnCart">0</span>
+  </button>
+  <button class="bn-item" onclick="location.href='track.html'">
+    <span class="bn-icon"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5v8l9 5 9-5V8z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/></svg></span>অর্ডার
+  </button>
+</nav>
+
+<!-- WhatsApp -->
+<a href="https://wa.me/8801842970565" class="wa-float" target="_blank" title="WhatsApp">💬</a>
+
+<!-- Toast container -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<!-- Firebase SDK + config (ধাপ ০ শেষ না হওয়া পর্যন্ত এগুলো নিষ্ক্রিয় থাকবে) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="firebase-config.js"></script>
+<!-- Meta Pixel (siteConfig/metaPixelId থেকে অ্যাডমিন প্যানেলে সেট করলে চালু হবে) -->
 <script>
-  // Render product cards on homepage
-  function renderProducts(containerId, items) {
-    const el = document.getElementById(containerId);
-    if (!el) return;
-    el.innerHTML = items.map(p => `
-      <a href="pages/product-detail.html?id=${p.id}" class="prod-card">
-        <div class="prod-img-box">
-          <span>${p.emoji}</span>
-          ${p.badge ? `<span class="prod-badge badge-${p.badgeType}">${p.badge}</span>` : ''}
-          <button class="wishlist-btn" data-wishlist-id="${p.id}"
-            onclick="event.preventDefault(); toggleWishlist('${p.id}','${p.name}')">🤍</button>
+(function(){
+  if(!window.OD_DB_URL) return;
+  fetch(window.OD_DB_URL.replace(/\/$/,'') + '/siteConfig/metaPixelId.json')
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(id){
+      if(!id || !/^\d{5,20}$/.test(id)) return;
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', id);
+      fbq('track', 'PageView');
+    }).catch(function(){});
+})();
+</script>
+<!-- বইয়ের ডেটা: book.js (মূল তালিকা) + books-live.js (অ্যাডমিন থেকে সেভ করা পরিবর্তন লাইভ দেখায়) -->
+<script src="book.js"></script>
+<script src="books-live.js"></script>
+<script>
+
+/* ══════════════════════════════════════
+   REAL BOOK DATA from book.js
+══════════════════════════════════════ */
+/* কিছু ব্রাউজার/মোডে localStorage বন্ধ থাকতে পারে — তখনও যেন সাইট ক্র্যাশ না করে */
+function odGet(k, fb){ try{ const v = localStorage.getItem(k); return v!==null ? JSON.parse(v) : fb; }catch(e){ return fb; } }
+function odSet(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+const cart = odGet('od_cart2', []);
+let wishlist = odGet('od_wishlist', []);
+
+function getImg(b){
+  return b.img && /^https?:\/\//.test(b.img)
+    ? b.img
+    : 'https://via.placeholder.com/200x260/eef2ff/6366f1?text=📚';
+}
+function stars(r){ return '★★★★★'.slice(0, Math.round(r||4)) + '☆☆☆☆☆'.slice(0, 5-Math.round(r||4)); }
+function rnd(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
+
+function makeCard(b){
+  const isBs = b.tags && b.tags.includes('Best Selling');
+  const disc = b.original_price > b.price ? Math.round((1-b.price/b.original_price)*100) : 0;
+  const inCart = cart.find(i=>i.bid===b.bid);
+  const isWished = wishlist.includes(b.bid);
+  const img = getImg(b);
+  return `
+  <a class="p-card" href="product.html?id=${b.bid}">
+    <div class="p-badges">
+      ${isBs ? '<span class="badge badge-hot">⭐ Best</span>' : ''}
+      ${disc>=20 ? `<span class="badge badge-sale">${disc}% ছাড়</span>` : ''}
+    </div>
+    <button class="p-wish ${isWished?'active':''}" onclick="wishToggle(event,this,'${b.bid}')" title="পছন্দে যোগ করুন">${isWished?'❤️':'♡'}</button>
+    <div class="p-img">
+      <img class="p-img-inner" src="${img}" alt="${b.name}" loading="lazy"
+        onerror="this.src='https://via.placeholder.com/200x260/eef2ff/6366f1?text=📚'">
+    </div>
+    <div class="p-body">
+      <div class="p-cat">${b.cat||'বই'}</div>
+      <div class="p-name">${b.name}</div>
+      <div class="p-footer">
+        <div>
+          <div class="p-price"><span class="cur">৳</span>${b.price.toLocaleString('bn-BD')}</div>
+          ${b.original_price > b.price ? `<div class="p-old">৳${b.original_price.toLocaleString('bn-BD')}</div>` : ''}
         </div>
-        <div class="prod-info">
-          <div class="prod-name">${p.name}</div>
-          ${p.author ? `<div class="prod-author">${p.author}</div>` : ''}
-          <div class="prod-price-row">
-            <span class="prod-price">৳ ${p.price.toLocaleString('bn-BD')}</span>
-            ${p.oldPrice ? `<span class="prod-old-price">৳ ${p.oldPrice.toLocaleString('bn-BD')}</span>` : ''}
-            ${p.oldPrice ? `<span class="prod-discount">${Math.round((1-p.price/p.oldPrice)*100)}% ছাড়</span>` : ''}
-          </div>
-          <button class="add-cart-btn"
-            onclick="event.preventDefault(); addToCart('${p.id}','${p.name}',${p.price},'${p.emoji}')">
-            🛒 কার্টে যোগ করুন
-          </button>
-        </div>
-      </a>
-    `).join('');
-    updateWishlistBtns();
+        <button class="p-cart ${inCart?'added':''}" onclick="addCart(event,'${b.bid}')" title="কার্টে যোগ করুন">
+          ${inCart ? '✓' : '🛒'}
+        </button>
+      </div>
+    </div>
+  </a>`;
+}
+
+/* Flash Sale: discount >= 25% */
+function renderFlash(){
+  const el = document.getElementById('flashGrid');
+  if(!el) return;
+  const sale = books.filter(b => b.original_price > b.price &&
+    ((b.original_price-b.price)/b.original_price) >= 0.25).slice(0,6);
+  el.innerHTML = sale.map(makeCard).join('');
+}
+/* New Arrivals: first 6 non-bestseller */
+function renderNew(){
+  const el = document.getElementById('newGrid');
+  if(!el) return;
+  const newBooks = books.filter(b => !b.tags || !b.tags.includes('Best Selling')).slice(0,6);
+  el.innerHTML = newBooks.map(makeCard).join('');
+}
+/* Bestsellers */
+function renderBest(){
+  const el = document.getElementById('bestGrid');
+  if(!el) return;
+  const best = books.filter(b => b.tags && b.tags.includes('Best Selling')).slice(0,6);
+  el.innerHTML = best.map(makeCard).join('');
+}
+
+renderFlash();
+renderNew();
+renderBest();
+
+/* ══ DYNAMIC SUBCAT CHIPS + মেনু ড্রয়ারের বিভাগ লিংক ══ */
+(function(){
+  if(!books) return;
+  const subcats = [...new Set(books.map(b=>b.subcat).filter(Boolean))].slice(0,8);
+
+  const chips = document.getElementById('catChips');
+  if(chips){
+    subcats.forEach(s => {
+      const a = document.createElement('a');
+      a.href = `filter.html?subcat=${encodeURIComponent(s)}`;
+      a.className = 'cat-chip';
+      a.textContent = s;
+      chips.appendChild(a);
+    });
   }
 
-  renderProducts('bestseller-grid', PRODUCTS.filter(p => p.bestseller).slice(0, 4));
-  renderProducts('newbook-grid',    PRODUCTS.filter(p => p.cat === 'book').slice(0, 4));
-  renderProducts('sunnah-grid',     PRODUCTS.filter(p => p.sunnah).slice(0, 4));
+  const mdCatLinks = document.getElementById('mdCatLinks');
+  const mdCatTitle = document.getElementById('mdCatTitle');
+  if(mdCatLinks && subcats.length){
+    mdCatTitle.style.display = 'block';
+    mdCatLinks.innerHTML = subcats.map(s =>
+      `<a class="md-link" href="filter.html?subcat=${encodeURIComponent(s)}"><span class="ic">📖</span> ${s}</a>`
+    ).join('');
+  }
+})();
+
+/* ══ CART ══ */
+function addCart(e, bid){
+  e.preventDefault(); e.stopPropagation();
+  const c = odGet('od_cart2', []);
+  if(!c.find(i=>i.bid===bid)) c.push({bid, qty:1});
+  odSet('od_cart2', c);
+  updateCartBadge();
+  const btn = e.currentTarget;
+  btn.textContent = '✓';
+  btn.classList.add('added');
+  btn.style.background = 'var(--indigo)';
+  showToast('কার্টে যোগ হয়েছে! 🛒');
+}
+function updateCartBadge(){
+  const c = odGet('od_cart2', []).reduce((s,i)=>s+(i.qty||1),0);
+  const el = document.getElementById('cartCount');
+  const bn = document.getElementById('bnCart');
+  if(el) el.textContent = c;
+  if(bn) bn.textContent = c;
+}
+updateCartBadge();
+updateWishBadge();
+
+/* ══ WISHLIST ══ */
+function wishToggle(e, btn, bid){
+  e.preventDefault(); e.stopPropagation();
+  const idx = wishlist.indexOf(bid);
+  if(idx >= 0){ wishlist.splice(idx,1); }
+  else { wishlist.push(bid); }
+  odSet('od_wishlist', wishlist);
+  document.querySelectorAll(`.p-wish[onclick*="'${bid}'"]`).forEach(b => {
+    const active = wishlist.includes(bid);
+    b.classList.toggle('active', active);
+    b.textContent = active ? '❤️' : '♡';
+  });
+  updateWishBadge();
+  showToast(wishlist.includes(bid) ? 'পছন্দে যোগ হয়েছে! ♥' : 'পছন্দ থেকে সরানো হয়েছে');
+  if(document.getElementById('wishDrawer').classList.contains('open')) renderWishDrawer();
+}
+
+function updateWishBadge(){
+  const n = wishlist.length;
+  const badge = document.getElementById('wishCount');
+  if(badge){ badge.textContent = n; badge.style.display = n ? 'flex' : 'none'; }
+  const icon = document.getElementById('bnWishIcon');
+  if(icon) icon.classList.toggle('has-wish', n > 0);
+}
+
+/* ══ WISHLIST ড্রয়ার ══ */
+function openWishlist(){
+  renderWishDrawer();
+  document.getElementById('wishDrawer').classList.add('open');
+  document.getElementById('wishOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeWishlist(){
+  document.getElementById('wishDrawer').classList.remove('open');
+  document.getElementById('wishOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function renderWishDrawer(){
+  const wrap = document.getElementById('wishItems');
+  document.getElementById('wlBadge').textContent = wishlist.length + ' টি';
+  if(!wishlist.length){
+    wrap.innerHTML = '<div style="padding:40px 20px;text-align:center;color:var(--muted);">💔 পছন্দের তালিকা খালি</div>';
+    return;
+  }
+  wrap.innerHTML = wishlist.map(bid => {
+    const b = books.find(x => x.bid === bid);
+    if(!b) return '';
+    const img = getImg(b);
+    return `<div class="wl-item">
+      <a href="product.html?id=${b.bid}" class="wl-img"><img src="${img}" alt="${b.name}" onerror="this.src='https://via.placeholder.com/50x66/eef2ff/6366f1?text=📚'"></a>
+      <div class="wl-info">
+        <a href="product.html?id=${b.bid}" class="wl-name">${b.name}</a>
+        <div class="wl-price">৳${b.price.toLocaleString('bn-BD')}</div>
+      </div>
+      <button class="wl-cart-btn" onclick="wishAddCart('${b.bid}')" title="কার্টে যোগ করুন"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></button>
+      <button class="wl-del-btn" onclick="wishRemove('${b.bid}')" title="সরান"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>`;
+  }).join('');
+}
+function wishRemove(bid){
+  wishlist = wishlist.filter(x => x !== bid);
+  odSet('od_wishlist', wishlist);
+  document.querySelectorAll(`.p-wish[onclick*="'${bid}'"]`).forEach(b => { b.classList.remove('active'); b.textContent = '♡'; });
+  updateWishBadge();
+  renderWishDrawer();
+}
+function wishAddCart(bid){
+  if(!cart.find(i=>i.bid===bid)) cart.push({bid, qty:1});
+  odSet('od_cart2', cart);
+  updateCartBadge();
+  showToast('কার্টে যোগ হয়েছে! 🛒');
+}
+
+/* ══ TOAST ══ */
+function showToast(msg){
+  const wrap = document.getElementById('toastWrap');
+  const t = document.createElement('div');
+  t.className = 'toast-item';
+  t.textContent = msg;
+  wrap.appendChild(t);
+  setTimeout(()=>t.remove(), 2400);
+}
+
+/* ══ COUNTDOWN ══ */
+let endTime = Date.now() + (5*3600 + 42*60 + 18)*1000;
+function updateCountdown(){
+  const diff = Math.max(0, endTime - Date.now());
+  const h = Math.floor(diff/3600000);
+  const m = Math.floor((diff%3600000)/60000);
+  const s = Math.floor((diff%60000)/1000);
+  document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+  document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+  document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+}
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+/* ══ CATEGORY CHIPS ══ */
+document.querySelectorAll('.cat-chip').forEach(chip=>{
+  chip.addEventListener('click', function(e){
+    e.preventDefault();
+    document.querySelectorAll('.cat-chip').forEach(c=>c.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+/* ══ CART DRAWER ══ */
+function openCart(){
+  try {
+    renderCartDrawer();
+    var d = document.getElementById('cartDrawer');
+    var o = document.getElementById('cartOverlay');
+    if(d) d.classList.add('open');
+    if(o) o.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  } catch(e){ console.error('openCart error:', e); }
+}
+function closeCart(){
+  var d = document.getElementById('cartDrawer');
+  var o = document.getElementById('cartOverlay');
+  if(d) d.classList.remove('open');
+  if(o) o.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function renderCartDrawer(){
+  const cartData = odGet('od_cart2', []);
+  const itemsEl = document.getElementById('cdItems');
+  const footerEl = document.getElementById('cdFooter');
+  const badgeEl = document.getElementById('cdBadge');
+
+  const totalQty = cartData.reduce((s,i) => s+(i.qty||1), 0);
+  badgeEl.textContent = totalQty + ' টি';
+
+  if(!cartData.length){
+    itemsEl.innerHTML = `
+      <div class="cd-empty">
+        <div class="cd-empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:56px;height:56px;"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div>
+        <h4>কার্ট খালি আছে</h4>
+        <p>পণ্য বেছে কার্টে যোগ করুন</p>
+      </div>`;
+    footerEl.style.display = 'none';
+    return;
+  }
+
+  let sub = 0;
+  itemsEl.innerHTML = cartData.map((item, i) => {
+    const book = books.find(b => b.bid === item.bid);
+    if(!book) return '';
+    const qty = item.qty || 1;
+    const total = book.price * qty;
+    sub += total;
+    const img = book.img && /^https?:\/\//.test(book.img)
+      ? book.img
+      : 'https://via.placeholder.com/56x74/eef2ff/6366f1?text=📚';
+    return `
+    <div class="cd-item" id="cdi-${i}">
+      <div class="cd-item-img">
+        <img src="${img}" alt="${book.name}"
+          onerror="this.src='https://via.placeholder.com/56x74/eef2ff/6366f1?text=📚'">
+      </div>
+      <div class="cd-item-info">
+        <div class="cd-item-name">${book.name}</div>
+        <div class="cd-item-author">${book.author || ''}</div>
+        <div class="cd-item-bottom">
+          <div class="cd-item-price">৳${(book.price * qty).toLocaleString('bn-BD')}</div>
+          <div class="cd-item-qty">
+            <button class="cd-qbtn" onclick="cdQty(${i},-1)">−</button>
+            <div class="cd-qval">${qty}</div>
+            <button class="cd-qbtn" onclick="cdQty(${i},1)">+</button>
+          </div>
+          <button class="cd-item-del" onclick="cdRemove(${i})" title="সরান">🗑</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('cdSub').textContent = '৳' + sub.toLocaleString('bn-BD');
+  document.getElementById('cdTotal').textContent = '৳' + sub.toLocaleString('bn-BD');
+  footerEl.style.display = 'block';
+}
+
+function cdQty(i, d){
+  const cartData = odGet('od_cart2', []);
+  if(!cartData[i]) return;
+  cartData[i].qty = Math.max(1, (cartData[i].qty || 1) + d);
+  odSet('od_cart2', cartData);
+  updateCartBadge();
+  renderCartDrawer();
+}
+
+function cdRemove(i){
+  const cartData = odGet('od_cart2', []);
+  cartData.splice(i, 1);
+  odSet('od_cart2', cartData);
+  updateCartBadge();
+  renderCartDrawer();
+  showToast('কার্ট থেকে সরানো হয়েছে');
+}
+
+/* ══ SEARCH ══ */
+function doSearch(){
+  const q = document.getElementById('searchInp').value.trim();
+  if(q) location.href = 'filter.html?q=' + encodeURIComponent(q);
+  else location.href = 'filter.html';
+}
+
+/* ══ সার্চ সাজেশন (টাইপ করার সাথে সাথে) ══ */
+let __searchTimer = null;
+function handleSearchInput(){
+  clearTimeout(__searchTimer);
+  __searchTimer = setTimeout(runSearchSuggest, 180);
+}
+function runSearchSuggest(){
+  const box = document.getElementById('searchSuggest');
+  const q = document.getElementById('searchInp').value.trim().toLowerCase();
+  if(!q){ box.classList.remove('show'); box.innerHTML=''; return; }
+  if(typeof books === 'undefined' || !books.length){
+    box.innerHTML = '<div class="ss-empty">লোড হচ্ছে...</div>';
+    box.classList.add('show');
+    return;
+  }
+  const found = books.filter(b =>
+    b.name.toLowerCase().includes(q) ||
+    (b.author||'').toLowerCase().includes(q) ||
+    (b.pub||'').toLowerCase().includes(q)
+  );
+  if(!found.length){
+    box.innerHTML = '<div class="ss-empty">😔 কিছু পাওয়া যায়নি</div>';
+    box.classList.add('show');
+    return;
+  }
+  const shown = found.slice(0,8);
+  box.innerHTML = shown.map(b => `
+    <a class="ss-item" href="product.html?id=${encodeURIComponent(b.bid)}">
+      <div class="ss-img"><img src="${b.img}" alt="" onerror="this.style.display='none'"></div>
+      <div class="ss-info">
+        <div class="ss-name">${b.name}</div>
+        <div class="ss-author">${b.author||b.pub||''}</div>
+      </div>
+      <div class="ss-price">৳${b.price.toLocaleString('bn-BD')}</div>
+    </a>`).join('') +
+    `<a class="ss-more" href="filter.html?q=${encodeURIComponent(q)}">🔍 "${q}" — ${found.length.toLocaleString('bn-BD')}টি ফলাফল সব দেখুন</a>`;
+  box.classList.add('show');
+}
+document.addEventListener('click', function(e){
+  const wrap = document.querySelector('.search-wrap-outer');
+  if(wrap && !wrap.contains(e.target)) document.getElementById('searchSuggest').classList.remove('show');
+});
+
+/* ══ মোবাইল হ্যামবার্গার মেনু (আগে এখানে ছিল, এখন openMenu/closeMenu ব্যবহার হয়) ══ */
+function toggleMenu(){ openMenu(); }
+function openMenu(){
+  document.getElementById('menuDrawer').classList.add('open');
+  document.getElementById('menuOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeMenu(){
+  document.getElementById('menuDrawer').classList.remove('open');
+  document.getElementById('menuOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+const fy = document.getElementById('fyear'); if(fy) fy.textContent = new Date().getFullYear().toLocaleString('bn-BD');
+
+/* PWA: অফলাইন সাপোর্টের জন্য service worker রেজিস্টার করা */
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
+}
 </script>
 </body>
 </html>

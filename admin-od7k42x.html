@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>OD Panel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<style>
+:root{
+  --primary:#6366f1; --primary-d:#4f46e5; --primary-l:#eef2ff;
+  --bg:#f4f5f9; --surface:#ffffff; --border:#e5e7eb; --text:#1f2330; --text-2:#6b7280;
+  --green:#16a34a; --green-l:#dcfce7; --red:#dc2626; --red-l:#fee2e2;
+  --amber:#d97706; --amber-l:#fef3c7; --blue:#2563eb; --blue-l:#dbeafe; --purple:#7c3aed; --purple-l:#f3e8ff;
+  --radius:12px;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:'Hind Siliguri', sans-serif; background:var(--bg); color:var(--text);
+  min-height:100vh; font-size:15px;
+}
+a{color:inherit;}
+button{font-family:inherit; cursor:pointer;}
+input,select,textarea{font-family:inherit; font-size:14px;}
+
+/* ---------- Login screen ---------- */
+#loginScreen{
+  min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px;
+  background:linear-gradient(135deg,#6366f1 0%,#4338ca 100%);
+}
+.login-card{
+  background:var(--surface); border-radius:16px; padding:36px 32px; width:100%; max-width:380px;
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
+}
+.login-card h1{font-size:20px; margin:0 0 4px; text-align:center; color:var(--primary-d);}
+.login-card p.sub{text-align:center; color:var(--text-2); font-size:13px; margin:0 0 24px;}
+.field{margin-bottom:14px;}
+.field label{display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:var(--text);}
+.field input, .field select, .field textarea{
+  width:100%; padding:10px 12px; border:1.5px solid var(--border); border-radius:8px; outline:none;
+  transition:border-color .15s;
+}
+.field input:focus, .field select:focus, .field textarea:focus{border-color:var(--primary);}
+.btn{
+  border:none; border-radius:8px; padding:10px 16px; font-weight:600; font-size:14px;
+  display:inline-flex; align-items:center; gap:6px; justify-content:center;
+}
+.btn-primary{background:var(--primary); color:#fff;}
+.btn-primary:hover{background:var(--primary-d);}
+.btn-block{width:100%;}
+.btn-ghost{background:transparent; color:var(--primary-d); text-decoration:underline; padding:4px;}
+.btn-outline{background:#fff; border:1.5px solid var(--border); color:var(--text);}
+.btn-outline:hover{border-color:var(--primary);}
+.btn-danger{background:var(--red-l); color:var(--red);}
+.btn-danger:hover{background:#fecaca;}
+.btn-sm{padding:6px 10px; font-size:12.5px; border-radius:6px;}
+.login-links{display:flex; justify-content:space-between; margin-top:14px; font-size:12.5px;}
+.login-msg{margin-top:14px; padding:10px 12px; border-radius:8px; font-size:13px; text-align:center;}
+.login-msg.err{background:var(--red-l); color:var(--red);}
+.login-msg.ok{background:var(--green-l); color:var(--green);}
+.login-msg.info{background:var(--amber-l); color:var(--amber);}
+[hidden]{display:none!important;}
+
+/* ---------- App shell ---------- */
+#app{display:none; min-height:100vh;}
+#app.show{display:flex;}
+.sidebar{
+  width:230px; flex-shrink:0; background:#1e1b3a; color:#e5e7eb; min-height:100vh;
+  display:flex; flex-direction:column; position:sticky; top:0; align-self:flex-start; height:100vh; overflow-y:auto;
+}
+.sidebar .brand{padding:20px 18px 14px; font-weight:700; font-size:17px; color:#fff; border-bottom:1px solid rgba(255,255,255,.1);}
+.sidebar .brand small{display:block; font-weight:400; font-size:11px; color:#a5b4fc; margin-top:2px;}
+.navlist{list-style:none; margin:0; padding:10px;}
+.navlist li{margin-bottom:2px;}
+.navlist button{
+  width:100%; text-align:right; background:transparent; border:none; color:#cbd5e1; padding:11px 14px;
+  border-radius:8px; font-size:14px; display:flex; align-items:center; gap:10px; justify-content:flex-start;
+}
+.navlist button:hover{background:rgba(255,255,255,.08); color:#fff;}
+.navlist button.active{background:var(--primary); color:#fff;}
+.sidebar-foot{margin-top:auto; padding:14px; border-top:1px solid rgba(255,255,255,.1); font-size:12px; color:#9ca3af;}
+.sidebar-foot .who{color:#e5e7eb; font-weight:600; margin-bottom:8px; word-break:break-all;}
+
+.main{flex:1; min-width:0; padding:22px 26px 60px;}
+.topbar{display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:10px;}
+.topbar h2{margin:0; font-size:21px;}
+.tab-section{display:none;}
+.tab-section.active{display:block;}
+
+.cards-row{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:14px; margin-bottom:22px;}
+.stat-card{background:var(--surface); border-radius:var(--radius); padding:18px; border:1px solid var(--border);}
+.stat-card .lbl{font-size:12.5px; color:var(--text-2); margin-bottom:6px;}
+.stat-card .val{font-size:26px; font-weight:700; color:var(--primary-d);}
+
+.card{background:var(--surface); border-radius:var(--radius); border:1px solid var(--border); padding:18px; margin-bottom:16px;}
+.card h3{margin:0 0 14px; font-size:16px;}
+
+.empty-state{text-align:center; padding:40px 20px; color:var(--text-2);}
+.empty-state .emoji{font-size:34px; margin-bottom:10px;}
+
+.filter-row{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;}
+.chip{
+  background:#fff; border:1.5px solid var(--border); border-radius:20px; padding:7px 14px; font-size:13px;
+  color:var(--text-2);
+}
+.chip.active{background:var(--primary); color:#fff; border-color:var(--primary);}
+.chip .cnt{opacity:.75; margin-right:4px;}
+
+.order-card{border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-bottom:12px; background:#fff;}
+.order-card .ohead{display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap;}
+.order-card .oid{font-weight:700; font-size:14.5px;}
+.badge{padding:3px 10px; border-radius:20px; font-size:12px; font-weight:600; white-space:nowrap;}
+.b-pending{background:var(--amber-l); color:var(--amber);}
+.b-confirmed{background:var(--blue-l); color:var(--blue);}
+.b-processing{background:var(--purple-l); color:var(--purple);}
+.b-shipped{background:#ffedd5; color:#c2410c;}
+.b-delivered{background:var(--green-l); color:var(--green);}
+.b-cancelled{background:var(--red-l); color:var(--red);}
+.order-card .meta{font-size:13px; color:var(--text-2); margin-top:4px;}
+.order-card .items{margin:10px 0; font-size:13.5px; background:#f9fafb; border-radius:8px; padding:8px 12px;}
+.order-card .items div{padding:2px 0;}
+.order-card .row-actions{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; align-items:center;}
+.order-card select{padding:7px 10px; border-radius:7px; border:1.5px solid var(--border);}
+.order-card textarea.note{width:100%; min-height:44px; margin-top:8px; padding:8px; border-radius:7px; border:1.5px solid var(--border); resize:vertical;}
+.tag-coupon{background:var(--primary-l); color:var(--primary-d); padding:2px 8px; border-radius:6px; font-size:12px;}
+
+.toolbar{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:16px; align-items:center;}
+.toolbar input[type=text], .toolbar input[type=search]{padding:9px 12px; border:1.5px solid var(--border); border-radius:8px; min-width:200px;}
+.toolbar select{padding:9px 12px; border:1.5px solid var(--border); border-radius:8px;}
+
+.book-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px;}
+.book-card{border:1px solid var(--border); border-radius:10px; padding:12px; background:#fff; display:flex; flex-direction:column; gap:6px;}
+.book-card img{width:100%; height:130px; object-fit:cover; border-radius:6px; background:#f3f4f6;}
+.book-card .bname{font-weight:600; font-size:13.5px; line-height:1.3; min-height:34px;}
+.book-card .bmeta{font-size:12px; color:var(--text-2);}
+.book-card .bprice{font-weight:700; color:var(--primary-d);}
+.book-card .bactions{display:flex; gap:6px; flex-wrap:wrap; margin-top:auto;}
+.stock-ok{color:var(--green);} .stock-no{color:var(--red);}
+
+.modal-overlay{
+  position:fixed; inset:0; background:rgba(15,15,30,.55); display:flex; align-items:flex-start; justify-content:center;
+  padding:30px 16px; overflow-y:auto; z-index:1000;
+}
+.modal-overlay[hidden]{display:none;}
+.modal{background:#fff; border-radius:14px; width:100%; max-width:640px; padding:24px; margin-bottom:30px;}
+.modal.modal-wide{max-width:900px;}
+.modal h3{margin-top:0;}
+.modal-close-row{display:flex; justify-content:flex-end;}
+.form-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+.form-grid .full{grid-column:1/-1;}
+@media (max-width:640px){.form-grid{grid-template-columns:1fr;}}
+.attr-row{display:flex; gap:8px; margin-bottom:6px;}
+.attr-row input{flex:1;}
+
+table.simple{width:100%; border-collapse:collapse; font-size:13.5px;}
+table.simple th, table.simple td{padding:8px 10px; border-bottom:1px solid var(--border); text-align:right;}
+table.simple th{color:var(--text-2); font-weight:600; font-size:12.5px;}
+.table-wrap{overflow-x:auto;}
+
+.toast-wrap{position:fixed; bottom:20px; left:20px; z-index:2000; display:flex; flex-direction:column; gap:8px;}
+.toast{background:#1f2330; color:#fff; padding:12px 18px; border-radius:8px; font-size:13.5px; box-shadow:0 6px 20px rgba(0,0,0,.25); animation:toastin .2s ease;}
+.toast.ok{background:#166534;} .toast.err{background:#991b1b;}
+@keyframes toastin{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+
+.masked{font-family:monospace; letter-spacing:1px;}
+.pill-mod{background:var(--primary-l); color:var(--primary-d); padding:2px 8px; border-radius:6px; font-size:12px;}
+.hint{font-size:12.5px; color:var(--text-2); margin-top:4px;}
+.note-box{background:var(--amber-l); color:#92400e; border-radius:8px; padding:10px 12px; font-size:13px; margin-bottom:14px;}
+hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
+.flex-between{display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;}
+.small-btn-group{display:flex; gap:6px; flex-wrap:wrap;}
+.load-more-wrap{text-align:center; margin-top:16px;}
+#invoiceOffscreen{position:fixed; left:-9999px; top:0; width:750px; background:#fff;}
+.inv-box{padding:30px; font-family:'Hind Siliguri',sans-serif; color:#111;}
+.inv-box h2{margin:0 0 2px;}
+.inv-table{width:100%; border-collapse:collapse; margin:16px 0;}
+.inv-table th,.inv-table td{border:1px solid #ccc; padding:8px; font-size:13px;}
+.inv-total-row td{font-weight:700;}
+@media print{
+  body *{visibility:hidden;}
+  #printArea, #printArea *{visibility:visible;}
+  #printArea{position:absolute; left:0; top:0; width:100%;}
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== LOGIN SCREEN ===================== -->
+<div id="loginScreen">
+  <div class="login-card">
+    <h1>OurDedication</h1>
+    <p class="sub" id="loginSub">নিয়ন্ত্রণ প্যানেল — লগইন করুন</p>
+
+    <form id="loginForm">
+      <div class="field">
+        <label>ইমেইল</label>
+        <input type="email" id="loginEmail" required autocomplete="username">
+      </div>
+      <div class="field">
+        <label>পাসওয়ার্ড</label>
+        <input type="password" id="loginPassword" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">লগইন করুন</button>
+    </form>
+
+    <form id="signupForm" hidden>
+      <div class="field">
+        <label>নাম</label>
+        <input type="text" id="suName" required>
+      </div>
+      <div class="field">
+        <label>ইমেইল</label>
+        <input type="email" id="suEmail" required autocomplete="username">
+      </div>
+      <div class="field">
+        <label>পাসওয়ার্ড</label>
+        <input type="password" id="suPassword" required minlength="6" autocomplete="new-password">
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">অনুরোধ পাঠান</button>
+    </form>
+
+    <div class="login-links">
+      <button type="button" class="btn-ghost" id="toggleSignup">মডারেটর হিসেবে সাইনআপ করুন</button>
+      <button type="button" class="btn-ghost" id="forgotPass">পাসওয়ার্ড ভুলে গেছেন?</button>
+    </div>
+    <div id="loginMsg" class="login-msg" hidden></div>
+  </div>
+</div>
+
+<!-- ===================== APP SHELL ===================== -->
+<div id="app">
+  <div class="sidebar">
+    <div class="brand">OurDedication<small>নিয়ন্ত্রণ প্যানেল</small></div>
+    <ul class="navlist" id="navList">
+      <li><button data-tab="dashboard" class="active">📊 ড্যাশবোর্ড</button></li>
+      <li><button data-tab="orders">🧾 অর্ডারসমূহ</button></li>
+      <li><button data-tab="books">📚 বই/প্রোডাক্ট</button></li>
+      <li><button data-tab="coupons">🏷️ কুপন</button></li>
+      <li><button data-tab="moderators" id="navModerators">👥 মডারেটর</button></li>
+      <li><button data-tab="settings" id="navSettings">⚙️ সেটিংস</button></li>
+    </ul>
+    <div class="sidebar-foot">
+      <div class="who" id="whoAmI"></div>
+      <button class="btn btn-outline btn-sm btn-block" id="logoutBtn">লগআউট</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <!-- ---------- DASHBOARD ---------- -->
+    <section class="tab-section active" id="tab-dashboard">
+      <div class="topbar"><h2>ড্যাশবোর্ড</h2></div>
+      <div class="cards-row">
+        <div class="stat-card"><div class="lbl">মোট অর্ডার</div><div class="val" id="stTotalOrders">০</div></div>
+        <div class="stat-card"><div class="lbl">অপেক্ষমাণ অর্ডার</div><div class="val" id="stPendingOrders">০</div></div>
+        <div class="stat-card"><div class="lbl">আজকের বিক্রি (৳)</div><div class="val" id="stTodayRevenue">০</div></div>
+        <div class="stat-card"><div class="lbl">মোট বই/প্রোডাক্ট</div><div class="val" id="stTotalBooks">০</div></div>
+      </div>
+      <div class="card">
+        <h3>সাম্প্রতিক অর্ডার</h3>
+        <div id="recentOrders"><div class="empty-state"><div class="emoji">🗒️</div>এখনো কিছু নেই</div></div>
+      </div>
+    </section>
+
+    <!-- ---------- ORDERS ---------- -->
+    <section class="tab-section" id="tab-orders">
+      <div class="topbar">
+        <h2>অর্ডারসমূহ</h2>
+        <button class="btn btn-outline" id="refreshOrders">🔄 রিফ্রেশ</button>
+      </div>
+      <div class="note-box">কুরিয়ারে পাঠাতে হলে Settings-এ courier API key এবং একটি Cloudflare Worker proxy URL লাগবে (পরে দেওয়া হবে)।</div>
+      <div class="filter-row" id="orderFilters"></div>
+      <div id="ordersList"><div class="empty-state"><div class="emoji">🧾</div>এখনো কিছু নেই</div></div>
+    </section>
+
+    <!-- ---------- BOOKS ---------- -->
+    <section class="tab-section" id="tab-books">
+      <div class="topbar">
+        <h2>বই / প্রোডাক্ট</h2>
+        <div class="small-btn-group">
+          <button class="btn btn-outline btn-sm" id="btnTemplate">📥 টেমপ্লেট ডাউনলোড করুন</button>
+          <button class="btn btn-outline btn-sm" id="btnBulkOpen">📤 বাল্ক আপলোড</button>
+          <button class="btn btn-primary btn-sm" id="btnAddBook">➕ নতুন যোগ করুন</button>
+        </div>
+      </div>
+      <div class="toolbar">
+        <input type="search" id="bookSearch" placeholder="নাম দিয়ে খুঁজুন...">
+        <select id="bookTypeFilter"><option value="">সব ধরন</option><option value="বই">বই</option><option value="প্রোডাক্ট">প্রোডাক্ট</option></select>
+        <select id="bookCatFilter"><option value="">সব বিভাগ</option></select>
+      </div>
+      <div id="bookGrid" class="book-grid"></div>
+      <div class="load-more-wrap"><button class="btn btn-outline" id="loadMoreBooks" hidden>আরও দেখুন</button></div>
+    </section>
+
+    <!-- ---------- COUPONS ---------- -->
+    <section class="tab-section" id="tab-coupons">
+      <div class="topbar"><h2>কুপন</h2></div>
+      <div class="card">
+        <h3>নতুন কুপন যোগ করুন</h3>
+        <form id="couponForm" class="form-grid">
+          <div class="field"><label>কোড</label><input type="text" id="cpCode" placeholder="SAVE10" required></div>
+          <div class="field"><label>ধরন</label>
+            <select id="cpType">
+              <option value="percent">শতাংশ ছাড় (percent)</option>
+              <option value="taka">টাকায় ছাড় (taka)</option>
+              <option value="delivery">ফ্রি ডেলিভারি (delivery)</option>
+              <option value="delivery_fixed">নির্দিষ্ট ডেলিভারি চার্জ (delivery_fixed)</option>
+            </select>
+          </div>
+          <div class="field" id="cpValueWrap"><label>মান</label><input type="number" id="cpValue" min="0" value="0"></div>
+          <div class="field"><label><input type="checkbox" id="cpActive" checked style="width:auto; margin-left:6px;"> সক্রিয়</label></div>
+          <div class="full"><button type="submit" class="btn btn-primary">যোগ করুন</button></div>
+        </form>
+      </div>
+      <div class="card">
+        <h3>সকল কুপন</h3>
+        <div id="couponsList"><div class="empty-state"><div class="emoji">🏷️</div>এখনো কিছু নেই</div></div>
+      </div>
+    </section>
+
+    <!-- ---------- MODERATORS ---------- -->
+    <section class="tab-section" id="tab-moderators">
+      <div class="topbar"><h2>মডারেটর</h2></div>
+      <div class="card">
+        <h3>অনুরোধসমূহ</h3>
+        <div id="modRequestsList"><div class="empty-state"><div class="emoji">📨</div>এখনো কিছু নেই</div></div>
+      </div>
+      <div class="card">
+        <h3>বর্তমান মডারেটর</h3>
+        <div id="modListActive"><div class="empty-state"><div class="emoji">👥</div>এখনো কিছু নেই</div></div>
+      </div>
+    </section>
+
+    <!-- ---------- SETTINGS ---------- -->
+    <section class="tab-section" id="tab-settings">
+      <div class="topbar"><h2>সেটিংস</h2></div>
+
+      <div class="card">
+        <h3>imgbb API Key (ছবি আপলোডের জন্য)</h3>
+        <div class="form-grid">
+          <div class="field full"><input type="text" id="setImgbbKey" placeholder="imgbb API key"></div>
+        </div>
+        <div class="hint" id="imgbbMaskedHint"></div>
+        <button class="btn btn-primary btn-sm" id="saveImgbbKey" style="margin-top:8px;">সংরক্ষণ করুন</button>
+      </div>
+
+      <div class="card">
+        <h3>Steadfast কুরিয়ার API</h3>
+        <div class="form-grid">
+          <div class="field"><label>Api Key</label><input type="text" id="setSfKey"></div>
+          <div class="field"><label>Secret Key</label><input type="text" id="setSfSecret"></div>
+        </div>
+        <button class="btn btn-primary btn-sm" id="saveSf" style="margin-top:8px;">সংরক্ষণ করুন</button>
+      </div>
+
+      <div class="card">
+        <h3>RedX কুরিয়ার API</h3>
+        <div class="form-grid">
+          <div class="field full"><label>Token</label><input type="text" id="setRdxTok"></div>
+        </div>
+        <button class="btn btn-primary btn-sm" id="saveRdx" style="margin-top:8px;">সংরক্ষণ করুন</button>
+      </div>
+
+      <div class="card">
+        <h3>Cloudflare Worker Proxy URL (কুরিয়ার API কল করার জন্য)</h3>
+        <div class="form-grid">
+          <div class="field full"><input type="text" id="setProxyUrl" placeholder="https://your-worker.workers.dev/?u="></div>
+        </div>
+        <div class="hint">কুরিয়ার API ব্রাউজার থেকে সরাসরি কল করা যায় না (CORS)। নিজের Cloudflare Worker ডিপ্লয় করে তার URL এখানে বসান।</div>
+        <button class="btn btn-primary btn-sm" id="saveProxy" style="margin-top:8px;">সংরক্ষণ করুন</button>
+      </div>
+
+      <div class="card">
+        <h3>Meta Pixel ID</h3>
+        <div class="form-grid">
+          <div class="field full"><input type="text" id="setPixelId" placeholder="123456789012345"></div>
+        </div>
+        <button class="btn btn-primary btn-sm" id="savePixel" style="margin-top:8px;">সংরক্ষণ করুন</button>
+      </div>
+
+      <div class="card" id="ownerOnlyNote" hidden>
+        <p class="hint">মডারেটর হিসেবে আপনি এই সেটিংস দেখতে পারবেন কিন্তু পরিবর্তন করতে পারবেন না।</p>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ===================== MODALS ===================== -->
+
+<!-- Book add/edit modal -->
+<div class="modal-overlay" id="bookModalOverlay" hidden>
+  <div class="modal modal-wide">
+    <div class="modal-close-row"><button class="btn-ghost" data-close="bookModalOverlay">✕ বন্ধ করুন</button></div>
+    <h3 id="bookModalTitle">নতুন বই/প্রোডাক্ট যোগ করুন</h3>
+    <form id="bookForm">
+      <input type="hidden" id="bkOrigBid">
+      <div class="form-grid">
+        <div class="field"><label>ধরন</label>
+          <select id="bkType"><option value="বই">বই</option><option value="প্রোডাক্ট">প্রোডাক্ট</option></select>
+        </div>
+        <div class="field"><label>নাম *</label><input type="text" id="bkName" required></div>
+        <div class="field"><label>BID (ফাঁকা রাখলে স্বয়ংক্রিয়)</label><input type="text" id="bkBid" placeholder="স্বয়ংক্রিয়ভাবে তৈরি হবে"></div>
+        <div class="field"><label>মূল্য (৳) *</label><input type="number" id="bkPrice" required min="0"></div>
+        <div class="field"><label>আসল মূল্য (৳)</label><input type="number" id="bkOrigPrice" min="0"></div>
+        <div class="field"><label>বিভাগ (cat)</label><input type="text" id="bkCat"></div>
+        <div class="field"><label>উপবিভাগ (subcat)</label><input type="text" id="bkSubcat"></div>
+
+        <div class="field bk-book-field"><label>লেখক</label><input type="text" id="bkAuthor"></div>
+        <div class="field bk-book-field"><label>বিষয় (subject)</label><input type="text" id="bkSubject"></div>
+        <div class="field bk-book-field"><label>বাঁধাই (cover)</label><input type="text" id="bkCover" placeholder="Paperback / Hardcover"></div>
+        <div class="field bk-book-field"><label>প্রকাশনী (pub)</label><input type="text" id="bkPub"></div>
+        <div class="field bk-book-field"><label>পৃষ্ঠা</label><input type="text" id="bkPages" placeholder="১৯২ পৃষ্ঠা"></div>
+
+        <div class="field bk-product-field"><label>ব্র্যান্ড</label><input type="text" id="bkBrand"></div>
+
+        <div class="field full"><label>ছবির URL</label><input type="text" id="bkImg" placeholder="https://..."></div>
+        <div class="field full"><label>ছবি আপলোড (imgbb)</label><input type="file" id="bkImgUpload" accept="image/*"><div class="hint" id="bkImgUploadStatus"></div></div>
+        <div class="field full"><label>বিবরণ</label><textarea id="bkDesc" rows="3"></textarea></div>
+        <div class="field full"><label>ট্যাগ (কমা দিয়ে আলাদা)</label><input type="text" id="bkTags" placeholder="Best Selling, নতুন"></div>
+
+        <div class="field full bk-product-field">
+          <label>অতিরিক্ত তথ্য (Attributes)</label>
+          <div id="attrRows"></div>
+          <button type="button" class="btn btn-outline btn-sm" id="addAttrRow">➕ সারি যোগ করুন</button>
+        </div>
+      </div>
+      <hr class="sep">
+      <div class="flex-between">
+        <button type="submit" class="btn btn-primary">সংরক্ষণ করুন</button>
+        <button type="button" class="btn btn-danger" id="bkDeleteBtn" hidden>মুছে ফেলুন</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Stock notify modal -->
+<div class="modal-overlay" id="notifyModalOverlay" hidden>
+  <div class="modal">
+    <div class="modal-close-row"><button class="btn-ghost" data-close="notifyModalOverlay">✕ বন্ধ করুন</button></div>
+    <h3>স্টক নোটিফাই তালিকা</h3>
+    <div id="notifyListBody"></div>
+  </div>
+</div>
+
+<!-- Bulk upload modal -->
+<div class="modal-overlay" id="bulkModalOverlay" hidden>
+  <div class="modal modal-wide">
+    <div class="modal-close-row"><button class="btn-ghost" data-close="bulkModalOverlay">✕ বন্ধ করুন</button></div>
+    <h3>বাল্ক আপলোড (.xlsx)</h3>
+    <p class="hint">প্রথমে টেমপ্লেট ডাউনলোড করে সেটার ফরম্যাট অনুযায়ী পূরণ করুন, তারপর এখানে আপলোড করুন।</p>
+    <input type="file" id="bulkFileInput" accept=".xlsx">
+    <div id="bulkPreviewWrap" style="margin-top:14px;"></div>
+    <div class="flex-between" style="margin-top:14px;">
+      <button class="btn btn-primary" id="bulkConfirmBtn" hidden>বৈধ সারিগুলো যোগ করুন</button>
+    </div>
+  </div>
+</div>
+
+<!-- Courier send modal -->
+<div class="modal-overlay" id="courierModalOverlay" hidden>
+  <div class="modal">
+    <div class="modal-close-row"><button class="btn-ghost" data-close="courierModalOverlay">✕ বন্ধ করুন</button></div>
+    <h3>কুরিয়ারে পাঠান</h3>
+    <p class="hint" id="courierOrderInfo"></p>
+    <div class="small-btn-group">
+      <button class="btn btn-primary" id="sendSteadfast">Steadfast এ পাঠান</button>
+      <button class="btn btn-primary" id="sendRedx">RedX এ পাঠান</button>
+    </div>
+  </div>
+</div>
+
+<!-- Invoice modal -->
+<div class="modal-overlay" id="invoiceModalOverlay" hidden>
+  <div class="modal modal-wide">
+    <div class="modal-close-row"><button class="btn-ghost" data-close="invoiceModalOverlay">✕ বন্ধ করুন</button></div>
+    <div id="printArea"></div>
+    <div class="flex-between" style="margin-top:14px;">
+      <button class="btn btn-outline" id="btnPrintInvoice">🖨️ প্রিন্ট করুন</button>
+      <button class="btn btn-primary" id="btnPdfInvoice">⬇️ PDF ডাউনলোড করুন</button>
+    </div>
+  </div>
+</div>
+
+<div id="invoiceOffscreen"></div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<!-- ===================== Firebase + data ===================== -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="book.js"></script>
+
+<script>
+(function(){
+'use strict';
+
+/* ==========================================================================
+   বদলে দিন: এই ঠিকানাটা firebase-rules.json এ যে sajidurr317@gmail.com
+   আছে তার সাথে হুবহু মিলিয়ে বসাতে হবে (find & replace উভয় ফাইলে)।
+   ========================================================================== */
+const ADMIN_EMAIL = 'sajidurr317@gmail.com';
+
+// কুরিয়ার API কল CORS এর কারণে ব্রাউজার থেকে সরাসরি করা যায় না, তাই একটা
+// Cloudflare Worker প্রক্সির মাধ্যমে কল করতে হবে। ব্যবহারকারী নিজের Worker
+// ডিপ্লয় করে এই ভ্যালুটা বদলে দেবেন (অথবা Settings ট্যাব থেকে siteConfig তে সেভ করবেন)।
+let COURIER_PROXY = 'PLACEHOLDER_CLOUDFLARE_WORKER_URL'; // ব্যবহারকারী নিজের Cloudflare Worker ডিপ্লয় করে এখানে বসাবে
+
+/* ------------------------------------------------------------------------
+   NOTE on bookList storage shape:
+   We store `bookList` in Firebase as a JSON ARRAY (index-based) of the exact
+   book-schema objects, written wholesale with db.ref('bookList').set(arr)
+   every time something changes. We always filter out empty/null holes
+   before writing (arrayWithoutHoles) since Firebase turns sparse arrays into
+   objects with numeric string keys otherwise. This matches what books-live.js
+   expects to receive back (an array it can directly assign to `books`).
+   ------------------------------------------------------------------------ */
+
+let currentUser = null;
+let isOwner = false;
+let isModerator = false;
+let workingBooks = []; // merged in-memory book/product list (source of truth while editing)
+let allOrders = [];
+let allCoupons = {};
+let courierKeys = {};
+let currentOrderFilter = 'all';
+let bookRenderOffset = 0;
+const BOOK_PAGE_SIZE = 40;
+let filteredBooksCache = [];
+let currentCourierOrder = null;
+let bulkValidRows = [];
+
+const STATUS_KEYS = ['pending','confirmed','processing','shipped','delivered','cancelled'];
+const STATUS_LABELS = {
+  pending:'অপেক্ষমাণ', confirmed:'নিশ্চিত হয়েছে', processing:'প্রস্তুত হচ্ছে',
+  shipped:'পাঠানো হয়েছে', delivered:'পৌঁছে গেছে', cancelled:'বাতিল'
+};
+
+/* ---------------- Toast helper ---------------- */
+function toast(msg, type){
+  const wrap = document.getElementById('toastWrap');
+  const el = document.createElement('div');
+  el.className = 'toast' + (type ? ' '+type : '');
+  el.textContent = msg;
+  wrap.appendChild(el);
+  setTimeout(()=>{ el.remove(); }, 3800);
+}
+
+/* ---------------- Bengali-safe slugify for bid ---------------- */
+function slugify(name){
+  let s = (name||'').trim().replace(/\s+/g,'-');
+  s = s.replace(/[^ঀ-৿\w-]/g,''); // keep Bengali block + word chars + hyphen
+  s = s.replace(/-+/g,'-').replace(/^-|-$/g,'');
+  if(!s) s = 'আইটেম-' + Date.now();
+  return s;
+}
+function uniqueBid(name, excludeBid){
+  const base = slugify(name);
+  const existing = new Set(workingBooks.filter(b=>b.bid!==excludeBid).map(b=>b.bid));
+  if(!existing.has(base)) return base;
+  let i = 2;
+  while(existing.has(base + '-' + i)) i++;
+  return base + '-' + i;
+}
+
+/* ================= AUTH / LOGIN ================= */
+const loginScreen = document.getElementById('loginScreen');
+const appEl = document.getElementById('app');
+const loginMsg = document.getElementById('loginMsg');
+
+function showLoginMsg(text, kind){
+  loginMsg.textContent = text;
+  loginMsg.className = 'login-msg ' + (kind||'err');
+  loginMsg.hidden = false;
+}
+
+document.getElementById('toggleSignup').addEventListener('click', function(){
+  const loginForm = document.getElementById('loginForm');
+  const signupForm = document.getElementById('signupForm');
+  const sub = document.getElementById('loginSub');
+  const isSignup = !signupForm.hidden;
+  loginForm.hidden = !isSignup;
+  signupForm.hidden = isSignup;
+  loginMsg.hidden = true;
+  this.textContent = isSignup ? 'মডারেটর হিসেবে সাইনআপ করুন' : 'লগইন এ ফিরে যান';
+  sub.textContent = isSignup ? 'নিয়ন্ত্রণ প্যানেল — লগইন করুন' : 'মডারেটর অনুরোধ পাঠান';
+});
+
+document.getElementById('forgotPass').addEventListener('click', function(){
+  const email = document.getElementById('loginEmail').value.trim();
+  if(!email){ showLoginMsg('আগে ইমেইল লিখুন।'); return; }
+  auth.sendPasswordResetEmail(email).then(()=>{
+    showLoginMsg('পাসওয়ার্ড রিসেট লিংক ইমেইলে পাঠানো হয়েছে।', 'ok');
+  }).catch(err=>{
+    showLoginMsg('ত্রুটি: ' + (err.message||err.code));
+  });
+});
+
+document.getElementById('loginForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass = document.getElementById('loginPassword').value;
+  loginMsg.hidden = true;
+  auth.signInWithEmailAndPassword(email, pass).catch(err=>{
+    showLoginMsg('লগইন ব্যর্থ: ' + (err.message||err.code));
+  });
+});
+
+document.getElementById('signupForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const name = document.getElementById('suName').value.trim();
+  const email = document.getElementById('suEmail').value.trim();
+  const pass = document.getElementById('suPassword').value;
+  loginMsg.hidden = true;
+  auth.createUserWithEmailAndPassword(email, pass).then(cred=>{
+    return db.ref('modRequests/'+cred.user.uid).set({email:email, name:name, t: Date.now()}).then(()=>{
+      return auth.signOut();
+    });
+  }).then(()=>{
+    showLoginMsg('আপনার অনুরোধ পাঠানো হয়েছে, অ্যাডমিনের অনুমোদনের অপেক্ষা করুন।', 'ok');
+    document.getElementById('signupForm').reset();
+  }).catch(err=>{
+    showLoginMsg('ত্রুটি: ' + (err.message||err.code));
+  });
+});
+
+document.getElementById('logoutBtn').addEventListener('click', function(){
+  auth.signOut();
+});
+
+auth.onAuthStateChanged(function(user){
+  if(!user){
+    currentUser = null; isOwner = false; isModerator = false;
+    appEl.classList.remove('show');
+    loginScreen.style.display = 'flex';
+    return;
+  }
+  currentUser = user;
+  if(user.email === ADMIN_EMAIL){
+    isOwner = true; isModerator = false;
+    enterApp();
+    return;
+  }
+  // check moderator
+  db.ref('moderators/'+user.uid).get().then(snap=>{
+    if(snap.exists()){
+      isOwner = false; isModerator = true;
+      enterApp();
+    } else {
+      db.ref('modRequests/'+user.uid).get().then(snap2=>{
+        if(snap2.exists()){
+          showLoginMsg('আপনার অনুরোধ অনুমোদনের অপেক্ষায় আছে।', 'info');
+        } else {
+          showLoginMsg('আপনার অ্যাডমিন অ্যাক্সেস নেই।');
+        }
+        auth.signOut();
+      }).catch(()=>{ showLoginMsg('আপনার অ্যাডমিন অ্যাক্সেস নেই।'); auth.signOut(); });
+    }
+  }).catch(()=>{
+    // moderators read might be denied for non-owner per rules (only own uid readable) -- that's fine,
+    // rules allow root.child('moderators').child(auth.uid).exists() checks elsewhere; direct get()
+    // on own uid path is allowed by rules ($uid read: auth.uid === $uid). So failure here likely means
+    // truly not a moderator -> treat as no access.
+    db.ref('modRequests/'+user.uid).get().then(snap2=>{
+      if(snap2.exists()){
+        showLoginMsg('আপনার অনুরোধ অনুমোদনের অপেক্ষায় আছে।', 'info');
+      } else {
+        showLoginMsg('আপনার অ্যাডমিন অ্যাক্সেস নেই।');
+      }
+      auth.signOut();
+    }).catch(()=>{ showLoginMsg('আপনার অ্যাডমিন অ্যাক্সেস নেই।'); auth.signOut(); });
+  });
+});
+
+function enterApp(){
+  loginScreen.style.display = 'none';
+  appEl.classList.add('show');
+  document.getElementById('whoAmI').textContent = currentUser.email + (isOwner ? ' (মালিক)' : ' (মডারেটর)');
+  if(isModerator && !isOwner){
+    document.getElementById('navModerators').style.display = 'none';
+    document.getElementById('ownerOnlyNote').hidden = false;
+    ['setSfKey','setSfSecret','setRdxTok','setImgbbKey'].forEach(id=>{
+      const el = document.getElementById(id);
+      if(el) el.disabled = true;
+    });
+    document.getElementById('saveImgbbKey').disabled = true;
+    document.getElementById('saveSf').disabled = true;
+    document.getElementById('saveRdx').disabled = true;
+  }
+  initData();
+}
+
+/* ================= TAB NAVIGATION ================= */
+document.querySelectorAll('#navList button[data-tab]').forEach(btn=>{
+  btn.addEventListener('click', function(){
+    if(this.style.display === 'none') return;
+    switchTab(this.dataset.tab);
+  });
+});
+function switchTab(tab){
+  document.querySelectorAll('#navList button[data-tab]').forEach(b=>b.classList.toggle('active', b.dataset.tab===tab));
+  document.querySelectorAll('.tab-section').forEach(s=>s.classList.toggle('active', s.id === 'tab-'+tab));
+}
+
+/* ================= INITIAL DATA LOAD ================= */
+function initData(){
+  loadBooksMerged();
+  loadOrders();
+  loadCoupons();
+  loadSettings();
+  if(isOwner){
+    loadModerators();
+  }
+  db.ref('courierApiKeys').get().then(snap=>{
+    courierKeys = snap.exists() ? snap.val() : {};
+  }).catch(()=>{ courierKeys = {}; });
+}
+
+/* ================= BOOKS: load/merge ================= */
+function loadBooksMerged(){
+  const baseline = Array.isArray(window.books) ? window.books.slice() : [];
+  db.ref('bookList').get().then(snap=>{
+    if(snap.exists() && snap.val()){
+      const val = snap.val();
+      workingBooks = Array.isArray(val) ? val.filter(Boolean) : Object.values(val).filter(Boolean);
+    } else {
+      workingBooks = baseline;
+    }
+    renderDashboard();
+    renderBookCatFilterOptions();
+    renderBooksTab(true);
+  }).catch(()=>{
+    workingBooks = baseline;
+    renderDashboard();
+    renderBookCatFilterOptions();
+    renderBooksTab(true);
+  });
+}
+
+function saveBookListToFirebase(){
+  const arr = workingBooks.filter(Boolean);
+  return db.ref('bookList').set(arr);
+}
+
+/* ================= DASHBOARD ================= */
+function renderDashboard(){
+  document.getElementById('stTotalBooks').textContent = workingBooks.length.toLocaleString('bn-BD');
+  const totalOrders = allOrders.length;
+  const pending = allOrders.filter(o=>o.status==='pending').length;
+  document.getElementById('stTotalOrders').textContent = totalOrders.toLocaleString('bn-BD');
+  document.getElementById('stPendingOrders').textContent = pending.toLocaleString('bn-BD');
+
+  const startOfDay = new Date(); startOfDay.setHours(0,0,0,0);
+  const todayRevenue = allOrders.filter(o => o.createdAt >= startOfDay.getTime() && o.status !== 'cancelled')
+    .reduce((sum,o)=> sum + (parseFloat(o.total)||0), 0);
+  document.getElementById('stTodayRevenue').textContent = todayRevenue.toLocaleString('bn-BD');
+
+  const recentWrap = document.getElementById('recentOrders');
+  const recent = allOrders.slice().sort((a,b)=>b.createdAt-a.createdAt).slice(0,5);
+  if(recent.length === 0){
+    recentWrap.innerHTML = '<div class="empty-state"><div class="emoji">🗒️</div>এখনো কিছু নেই</div>';
+  } else {
+    recentWrap.innerHTML = recent.map(o=>`
+      <div class="order-card" style="cursor:pointer" data-jump="${escapeHtml(o.orderId)}">
+        <div class="ohead">
+          <span class="oid">#${escapeHtml(o.orderId)} — ${escapeHtml(o.name||'')}</span>
+          <span class="badge b-${o.status}">${STATUS_LABELS[o.status]||o.status}</span>
+        </div>
+        <div class="meta">৳${escapeHtml(String(o.total))} · ${new Date(o.createdAt).toLocaleString('bn-BD')}</div>
+      </div>`).join('');
+    recentWrap.querySelectorAll('[data-jump]').forEach(el=>{
+      el.addEventListener('click', function(){
+        switchTab('orders');
+        currentOrderFilter = 'all';
+        renderOrderFilters();
+        renderOrders();
+        setTimeout(()=>{
+          const target = document.querySelector('[data-orderid="'+CSS.escape(this.dataset.jump)+'"]');
+          if(target) target.scrollIntoView({behavior:'smooth', block:'center'});
+        }, 60);
+      });
+    });
+  }
+}
+
+/* ================= ORDERS ================= */
+function loadOrders(){
+  db.ref('orders').get().then(snap=>{
+    allOrders = [];
+    if(snap.exists()){
+      const val = snap.val();
+      Object.keys(val).forEach(key=>{
+        const o = val[key];
+        o.orderId = o.orderId || key;
+        allOrders.push(o);
+      });
+    }
+    renderOrderFilters();
+    renderOrders();
+    renderDashboard();
+  }).catch(err=>{
+    toast('অর্ডার লোড করতে সমস্যা হয়েছে: ' + err.message, 'err');
+  });
+}
+document.getElementById('refreshOrders').addEventListener('click', function(){
+  loadOrders();
+  toast('অর্ডার রিফ্রেশ হয়েছে', 'ok');
+});
+
+function renderOrderFilters(){
+  const wrap = document.getElementById('orderFilters');
+  const counts = {all: allOrders.length};
+  STATUS_KEYS.forEach(k=> counts[k] = allOrders.filter(o=>o.status===k).length);
+  const defs = [['all','সব']].concat(STATUS_KEYS.map(k=>[k, STATUS_LABELS[k]]));
+  wrap.innerHTML = defs.map(([key,label])=>
+    `<button class="chip ${currentOrderFilter===key?'active':''}" data-filter="${key}"><span class="cnt">${counts[key]||0}</span>${label}</button>`
+  ).join('');
+  wrap.querySelectorAll('[data-filter]').forEach(btn=>{
+    btn.addEventListener('click', function(){
+      currentOrderFilter = this.dataset.filter;
+      renderOrderFilters();
+      renderOrders();
+    });
+  });
+}
+
+function renderOrders(){
+  const wrap = document.getElementById('ordersList');
+  let list = allOrders.slice().sort((a,b)=>b.createdAt-a.createdAt);
+  if(currentOrderFilter !== 'all') list = list.filter(o=>o.status===currentOrderFilter);
+  if(list.length === 0){
+    wrap.innerHTML = '<div class="empty-state"><div class="emoji">🧾</div>এখনো কিছু নেই</div>';
+    return;
+  }
+  wrap.innerHTML = list.map(o=>{
+    const itemsHtml = (o.items||[]).map(it=>`<div>${escapeHtml(it.name)} × ${it.qty} — ৳${it.price}</div>`).join('');
+    const couponHtml = o.coupon ? `<span class="tag-coupon">কুপন: ${escapeHtml(o.coupon)} (${escapeHtml(o.couponType||'')})</span>` : '';
+    return `
+    <div class="order-card" data-orderid="${escapeHtml(o.orderId)}">
+      <div class="ohead">
+        <span class="oid">#${escapeHtml(o.orderId)} — ${escapeHtml(o.name||'')} (${escapeHtml(o.phone||'')})</span>
+        <span class="badge b-${o.status}">${STATUS_LABELS[o.status]||o.status}</span>
+      </div>
+      <div class="meta">${escapeHtml(o.address||'')}, ${escapeHtml(o.district||'')} ${o.upazila?('/ '+escapeHtml(o.upazila)):''}</div>
+      <div class="meta">${new Date(o.createdAt).toLocaleString('bn-BD')} · পেমেন্ট: ${escapeHtml(o.payment||'')} · ডেলিভারি চার্জ: ৳${escapeHtml(String(o.delivery||'0'))} ${couponHtml}</div>
+      <div class="items">${itemsHtml || '<i>আইটেম নেই</i>'}</div>
+      <div class="meta"><b>মোট: ৳${escapeHtml(String(o.total))}</b>${o.discount?(' · ছাড়: ৳'+o.discount):''}</div>
+      ${o.customerNote ? `<div class="meta">নোট (ক্রেতা): ${escapeHtml(o.customerNote)}</div>` : ''}
+      ${o.steadfast ? `<div class="meta">Steadfast: ${escapeHtml(JSON.stringify(o.steadfast))}</div>` : ''}
+      ${o.redx ? `<div class="meta">RedX: ${escapeHtml(JSON.stringify(o.redx))}</div>` : ''}
+      <div class="row-actions">
+        <select data-status-for="${escapeHtml(o.orderId)}">
+          ${STATUS_KEYS.map(k=>`<option value="${k}" ${o.status===k?'selected':''}>${STATUS_LABELS[k]}</option>`).join('')}
+        </select>
+        <button class="btn btn-outline btn-sm" data-courier="${escapeHtml(o.orderId)}">🚚 কুরিয়ারে পাঠান</button>
+        <button class="btn btn-outline btn-sm" data-invoice="${escapeHtml(o.orderId)}">🧾 ইনভয়েস</button>
+      </div>
+      <textarea class="note" placeholder="অ্যাডমিন নোট..." data-note-for="${escapeHtml(o.orderId)}"></textarea>
+      <button class="btn btn-outline btn-sm" data-savenote="${escapeHtml(o.orderId)}" style="margin-top:6px;">নোট সংরক্ষণ করুন</button>
+    </div>`;
+  }).join('');
+
+  // load adminNotes async per order that's visible
+  list.forEach(o=>{
+    db.ref('adminNotes/'+o.orderId).get().then(snap=>{
+      if(snap.exists()){
+        const ta = wrap.querySelector('[data-note-for="'+cssEsc(o.orderId)+'"]');
+        if(ta) ta.value = snap.val();
+      }
+    }).catch(()=>{});
+  });
+
+  wrap.querySelectorAll('[data-status-for]').forEach(sel=>{
+    sel.addEventListener('change', function(){
+      const id = this.dataset.statusFor;
+      const newStatus = this.value;
+      db.ref('orders/'+id+'/status').set(newStatus).then(()=>{
+        const ord = allOrders.find(o=>o.orderId===id);
+        if(ord) ord.status = newStatus;
+        toast('অর্ডার স্ট্যাটাস আপডেট হয়েছে', 'ok');
+        renderOrderFilters();
+        renderOrders();
+        renderDashboard();
+      }).catch(err=> toast('আপডেট ব্যর্থ: '+err.message, 'err'));
+    });
+  });
+  wrap.querySelectorAll('[data-savenote]').forEach(btn=>{
+    btn.addEventListener('click', function(){
+      const id = this.dataset.savenote;
+      const ta = wrap.querySelector('[data-note-for="'+cssEsc(id)+'"]');
+      db.ref('adminNotes/'+id).set(ta.value).then(()=>{
+        toast('নোট সংরক্ষণ হয়েছে', 'ok');
+      }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
+    });
+  });
+  wrap.querySelectorAll('[data-courier]').forEach(btn=>{
+    btn.addEventListener('click', function(){
+      const id = this.dataset.courier;
+      openCourierModal(allOrders.find(o=>o.orderId===id));
+    });
+  });
+  wrap.querySelectorAll('[data-invoice]').forEach(btn=>{
+    btn.addEventListener('click', function(){
+      const id = this.dataset.invoice;
+      openInvoice(allOrders.find(o=>o.orderId===id));
+    });
+  });
+}
+function cssEsc(s){ return String(s).replace(/([ #.;?%&,+*~':"!^$\[\]()=>|\/@])/g,'\\$1'); }
+
+/* ---------- Courier ---------- */
+function openCourierModal(order){
+  currentCourierOrder = order;
+  document.getElementById('courierOrderInfo').textContent = `অর্ডার #${order.orderId} — ${order.name} (${order.phone})`;
+  document.getElementById('courierModalOverlay').hidden = false;
+}
+document.getElementById('sendSteadfast').addEventListener('click', function(){ sendToCourier('steadfast'); });
+document.getElementById('sendRedx').addEventListener('click', function(){ sendToCourier('redx'); });
+
+function sendToCourier(which){
+  const o = currentCourierOrder;
+  if(!o) return;
+  const proxy = COURIER_PROXY;
+  if(!proxy || proxy === 'PLACEHOLDER_CLOUDFLARE_WORKER_URL'){
+    toast('আগে Settings-এ Cloudflare Worker প্রক্সি URL সেট করুন।', 'err');
+    return;
+  }
+  if(which === 'steadfast'){
+    const sfKey = courierKeys.sfKey, sfSecret = courierKeys.sfSecret;
+    if(!sfKey || !sfSecret){ toast('Steadfast API key/secret Settings-এ দিন।', 'err'); return; }
+    const url = 'https://portal.packzy.com/api/v1/create_order';
+    const body = {
+      invoice: o.orderId,
+      recipient_name: o.name,
+      recipient_phone: o.phone,
+      recipient_address: (o.address||'') + ', ' + (o.district||''),
+      cod_amount: o.payment === 'cod' ? (parseFloat(o.total)||0) : 0,
+      note: o.customerNote || ''
+    };
+    fetch(proxy + encodeURIComponent(url), {
+      method: 'POST',
+      headers: {'Content-Type':'application/json','Api-Key':sfKey,'Secret-Key':sfSecret},
+      body: JSON.stringify(body)
+    }).then(r=>r.json()).then(data=>{
+      db.ref('orders/'+o.orderId+'/steadfast').set(data);
+      toast('Steadfast এ পাঠানো হয়েছে', 'ok');
+      document.getElementById('courierModalOverlay').hidden = true;
+      loadOrders();
+    }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
+  } else {
+    const rdxTok = courierKeys.rdxTok;
+    if(!rdxTok){ toast('RedX token Settings-এ দিন।', 'err'); return; }
+    const url = 'https://openapi.redx.com.bd/v1.0.0-beta/parcel';
+    const body = {
+      customer_name: o.name,
+      customer_phone: o.phone,
+      delivery_area: o.district || '',
+      delivery_area_id: 1,
+      merchant_invoice_id: o.orderId,
+      cash_collection_amount: o.payment === 'cod' ? (parseFloat(o.total)||0) : 0,
+      parcel_weight: 500,
+      instruction: o.customerNote || ''
+    };
+    fetch(proxy + encodeURIComponent(url), {
+      method: 'POST',
+      headers: {'Content-Type':'application/json','Authorization':'Bearer '+rdxTok},
+      body: JSON.stringify(body)
+    }).then(r=>r.json()).then(data=>{
+      db.ref('orders/'+o.orderId+'/redx').set(data);
+      toast('RedX এ পাঠানো হয়েছে', 'ok');
+      document.getElementById('courierModalOverlay').hidden = true;
+      loadOrders();
+    }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
+  }
+}
+
+/* ---------- Invoice ---------- */
+function buildInvoiceHtml(o){
+  const dateStr = new Date(o.createdAt).toLocaleString('bn-BD');
+  const rows = (o.items||[]).map(it=>`
+    <tr><td>${escapeHtml(it.name)}</td><td>${it.qty}</td><td>৳${it.price}</td><td>৳${(it.price*it.qty).toFixed(0)}</td></tr>
+  `).join('');
+  return `
+  <div class="inv-box">
+    <h2>OurDedication</h2>
+    <div>ইনভয়েস #${escapeHtml(o.orderId)}</div>
+    <div>তারিখ: ${dateStr}</div>
+    <hr class="sep">
+    <div><b>ক্রেতা:</b> ${escapeHtml(o.name||'')} — ${escapeHtml(o.phone||'')}</div>
+    <div><b>ঠিকানা:</b> ${escapeHtml(o.address||'')}, ${escapeHtml(o.district||'')} ${o.upazila?('/ '+escapeHtml(o.upazila)):''}</div>
+    <table class="inv-table">
+      <thead><tr><th>পণ্য</th><th>পরিমাণ</th><th>একক মূল্য</th><th>মোট</th></tr></thead>
+      <tbody>${rows}</tbody>
+      <tfoot>
+        <tr><td colspan="3">ডেলিভারি চার্জ</td><td>৳${escapeHtml(String(o.delivery||'0'))}</td></tr>
+        ${o.discount ? `<tr><td colspan="3">ছাড় ${o.coupon?('('+escapeHtml(o.coupon)+')'):''}</td><td>-৳${o.discount}</td></tr>` : ''}
+        <tr class="inv-total-row"><td colspan="3">সর্বমোট</td><td>৳${escapeHtml(String(o.total))}</td></tr>
+      </tfoot>
+    </table>
+    <div><b>পেমেন্ট:</b> ${escapeHtml(o.payment||'')} &nbsp; <b>স্ট্যাটাস:</b> ${STATUS_LABELS[o.status]||o.status}</div>
+  </div>`;
+}
+let currentInvoiceOrder = null;
+function openInvoice(order){
+  currentInvoiceOrder = order;
+  document.getElementById('printArea').innerHTML = buildInvoiceHtml(order);
+  document.getElementById('invoiceModalOverlay').hidden = false;
+}
+document.getElementById('btnPrintInvoice').addEventListener('click', function(){
+  window.print();
+});
+document.getElementById('btnPdfInvoice').addEventListener('click', function(){
+  if(!currentInvoiceOrder) return;
+  const off = document.getElementById('invoiceOffscreen');
+  off.innerHTML = buildInvoiceHtml(currentInvoiceOrder);
+  html2canvas(off).then(canvas=>{
+    const pdf = new window.jspdf.jsPDF({orientation:'portrait', unit:'mm', format:'a4'});
+    const imgData = canvas.toDataURL('image/png');
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const imgHeight = canvas.height * pageWidth / canvas.width;
+    pdf.addImage(imgData, 'PNG', 0, 0, pageWidth, imgHeight);
+    pdf.save('OD-invoice-' + currentInvoiceOrder.orderId + '.pdf');
+    off.innerHTML = '';
+  }).catch(err=> toast('PDF তৈরি ব্যর্থ: '+err.message, 'err'));
+});
+
+/* ================= BOOKS TAB ================= */
+function renderBookCatFilterOptions(){
+  const sel = document.getElementById('bookCatFilter');
+  const cats = Array.from(new Set(workingBooks.map(b=>b.cat).filter(Boolean))).sort();
+  sel.innerHTML = '<option value="">সব বিভাগ</option>' + cats.map(c=>`<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
+}
+
+function getFilteredBooks(){
+  const q = document.getElementById('bookSearch').value.trim().toLowerCase();
+  const type = document.getElementById('bookTypeFilter').value;
+  const cat = document.getElementById('bookCatFilter').value;
+  return workingBooks.filter(b=>{
+    if(q && !(b.name||'').toLowerCase().includes(q)) return false;
+    if(type && b.type !== type) return false;
+    if(cat && b.cat !== cat) return false;
+    return true;
+  });
+}
+
+function renderBooksTab(reset){
+  if(reset){ bookRenderOffset = 0; filteredBooksCache = getFilteredBooks(); }
+  const grid = document.getElementById('bookGrid');
+  if(filteredBooksCache.length === 0){
+    grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;"><div class="emoji">📚</div>এখনো কিছু নেই</div>';
+    document.getElementById('loadMoreBooks').hidden = true;
+    return;
+  }
+  const slice = filteredBooksCache.slice(0, bookRenderOffset + BOOK_PAGE_SIZE);
+  bookRenderOffset = slice.length;
+  grid.innerHTML = slice.map(b=>{
+    const stockKey = 'stock_' + b.bid;
+    return `
+    <div class="book-card" data-bid="${escapeHtml(b.bid)}">
+      <img src="${escapeHtml(b.img||'')}" loading="lazy" onerror="this.style.opacity=0.3">
+      <div class="bname">${escapeHtml(b.name)}</div>
+      <div class="bmeta">${escapeHtml(b.type)} ${b.type==='বই' ? '· '+escapeHtml(b.author||'') : '· '+escapeHtml(b.brand||'')}</div>
+      <div class="bprice">৳${b.price} ${b.original_price ? `<s style="color:#9ca3af; font-weight:400;">৳${b.original_price}</s>` : ''}</div>
+      <div class="bmeta stock-label" data-stock-label="${escapeHtml(b.bid)}">লোড হচ্ছে...</div>
+      <div class="bactions">
+        <button class="btn btn-outline btn-sm" data-edit="${escapeHtml(b.bid)}">✏️ এডিট</button>
+        <button class="btn btn-outline btn-sm" data-toggle-stock="${escapeHtml(b.bid)}">স্টক টগল</button>
+        <button class="btn btn-outline btn-sm" data-notify="${escapeHtml(b.bid)}">🔔 নোটিফাই</button>
+      </div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('loadMoreBooks').hidden = bookRenderOffset >= filteredBooksCache.length;
+
+  // async stock status
+  slice.forEach(b=>{
+    db.ref('stock/'+b.bid).get().then(snap=>{
+      const inStock = !(snap.exists() && snap.val() === false);
+      const lbl = grid.querySelector('[data-stock-label="'+cssEsc(b.bid)+'"]');
+      if(lbl) lbl.innerHTML = inStock ? '<span class="stock-ok">● স্টকে আছে</span>' : '<span class="stock-no">● স্টকে নেই</span>';
+    }).catch(()=>{});
+  });
+
+  grid.querySelectorAll('[data-edit]').forEach(btn=>{
+    btn.addEventListener('click', function(){ openBookModal(this.dataset.edit); });
+  });
+  grid.querySelectorAll('[data-toggle-stock]').forEach(btn=>{
+    btn.addEventListener('click', function(){
+      const bid = this.dataset.toggleStock;
+      db.ref('stock/'+bid).get().then(snap=>{
+        const inStock = !(snap.exists() && snap.val() === false);
+        return db.ref('stock/'+bid).set(!inStock ? true : false);
+      }).then(()=>{
+        toast('স্টক অবস্থা আপডেট হয়েছে', 'ok');
+        renderBooksTab(false);
+        // refresh just visible slice status by re-render current page
+        const grid2 = document.getElementById('bookGrid');
+        db.ref('stock/'+bid).get().then(snap=>{
+          const inStock = !(snap.exists() && snap.val() === false);
+          const lbl = grid2.querySelector('[data-stock-label="'+cssEsc(bid)+'"]');
+          if(lbl) lbl.innerHTML = inStock ? '<span class="stock-ok">● স্টকে আছে</span>' : '<span class="stock-no">● স্টকে নেই</span>';
+        });
+      }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
+    });
+  });
+  grid.querySelectorAll('[data-notify]').forEach(btn=>{
+    btn.addEventListener('click', function(){ openNotifyModal(this.dataset.notify); });
+  });
+}
+document.getElementById('bookSearch').addEventListener('input', ()=> renderBooksTab(true));
+document.getElementById('bookTypeFilter').addEventListener('change', ()=> renderBooksTab(true));
+document.getElementById('bookCatFilter').addEventListener('change', ()=> renderBooksTab(true));
+document.getElementById('loadMoreBooks').addEventListener('click', ()=> renderBooksTab(false));
+
+function openNotifyModal(bid){
+  db.ref('stockNotify/'+bid).get().then(snap=>{
+    const body = document.getElementById('notifyListBody');
+    if(!snap.exists()){
+      body.innerHTML = '<div class="empty-state"><div class="emoji">📵</div>এখনো কিছু নেই</div>';
+    } else {
+      const val = snap.val();
+      const rows = Object.values(val).map(v=>`<tr><td>${escapeHtml(v.phone)}</td><td>${escapeHtml(v.bookName||'')}</td><td>${new Date(v.requestedAt).toLocaleString('bn-BD')}</td></tr>`).join('');
+      body.innerHTML = `<div class="table-wrap"><table class="simple"><thead><tr><th>ফোন</th><th>বই</th><th>সময়</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+    }
+    document.getElementById('notifyModalOverlay').hidden = false;
+  }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
+}
+
+/* ---------- Book add/edit modal ---------- */
+const bookModalOverlay = document.getElementById('bookModalOverlay');
+function toggleTypeFields(type){
+  document.querySelectorAll('.bk-book-field').forEach(el=> el.style.display = type==='বই' ? '' : 'none');
+  document.querySelectorAll('.bk-product-field').forEach(el=> el.style.display = type==='প্রোডাক্ট' ? '' : 'none');
+}
+document.getElementById('bkType').addEventListener('change', function(){ toggleTypeFields(this.value); });
+
+function renderAttrRows(attrs){
+  const wrap = document.getElementById('attrRows');
+  wrap.innerHTML = '';
+  (attrs && attrs.length ? attrs : []).forEach(a=> addAttrRow(a.label, a.value));
+}
+function addAttrRow(label, value){
+  const wrap = document.getElementById('attrRows');
+  const row = document.createElement('div');
+  row.className = 'attr-row';
+  row.innerHTML = `<input type="text" placeholder="লেবেল" class="attr-label" value="${escapeAttr(label||'')}">
+    <input type="text" placeholder="মান" class="attr-value" value="${escapeAttr(value||'')}">
+    <button type="button" class="btn btn-danger btn-sm" data-remove-attr>✕</button>`;
+  row.querySelector('[data-remove-attr]').addEventListener('click', ()=> row.remove());
+  wrap.appendChild(row);
+}
+document.getElementById('addAttrRow').addEventListener('click', ()=> addAttrRow('',''));
+
+function openBookModal(bid){
+  const book = bid ? workingBooks.find(b=>b.bid===bid) : null;
+  document.getElementById('bookModalTitle').textContent = book ? 'এডিট করুন' : 'নতুন বই/প্রোডাক্ট যোগ করুন';
+  document.getElementById('bkOrigBid').value = book ? book.bid : '';
+  document.getElementById('bkType').value = book ? book.type : 'বই';
+  document.getElementById('bkName').value = book ? book.name : '';
+  document.getElementById('bkBid').value = book ? book.bid : '';
+  document.getElementById('bkPrice').value = book ? book.price : '';
+  document.getElementById('bkOrigPrice').value = book ? book.original_price : '';
+  document.getElementById('bkCat').value = book ? book.cat : '';
+  document.getElementById('bkSubcat').value = book ? book.subcat : '';
+  document.getElementById('bkAuthor').value = book ? book.author : '';
+  document.getElementById('bkSubject').value = book ? book.subject : '';
+  document.getElementById('bkCover').value = book ? book.cover : '';
+  document.getElementById('bkPub').value = book ? book.pub : '';
+  document.getElementById('bkPages').value = book ? book.pages : '';
+  document.getElementById('bkBrand').value = book ? book.brand : '';
+  document.getElementById('bkImg').value = book ? book.img : '';
+  document.getElementById('bkDesc').value = book ? book.desc : '';
+  document.getElementById('bkTags').value = book ? (book.tags||[]).join(', ') : '';
+  document.getElementById('bkImgUploadStatus').textContent = '';
+  document.getElementById('bkImgUpload').value = '';
+  renderAttrRows(book ? book.attributes : []);
+  toggleTypeFields(book ? book.type : 'বই');
+  document.getElementById('bkDeleteBtn').hidden = !book;
+  bookModalOverlay.hidden = false;
+}
+document.getElementById('btnAddBook').addEventListener('click', ()=> openBookModal(null));
+
+document.getElementById('bookForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const origBid = document.getElementById('bkOrigBid').value;
+  const name = document.getElementById('bkName').value.trim();
+  let bidInput = document.getElementById('bkBid').value.trim();
+  const type = document.getElementById('bkType').value;
+  const bid = bidInput || uniqueBid(name, origBid || null);
+  const tags = document.getElementById('bkTags').value.split(',').map(s=>s.trim()).filter(Boolean);
+  const attrs = Array.from(document.querySelectorAll('#attrRows .attr-row')).map(row=>({
+    label: row.querySelector('.attr-label').value.trim(),
+    value: row.querySelector('.attr-value').value.trim()
+  })).filter(a=>a.label || a.value);
+
+  const bookObj = {
+    bid: bid,
+    type: type,
+    name: name,
+    author: type==='বই' ? document.getElementById('bkAuthor').value.trim() : '',
+    price: parseFloat(document.getElementById('bkPrice').value) || 0,
+    original_price: parseFloat(document.getElementById('bkOrigPrice').value) || 0,
+    cat: document.getElementById('bkCat').value.trim(),
+    subcat: document.getElementById('bkSubcat').value.trim(),
+    subject: type==='বই' ? document.getElementById('bkSubject').value.trim() : '',
+    cover: type==='বই' ? document.getElementById('bkCover').value.trim() : '',
+    pub: type==='বই' ? document.getElementById('bkPub').value.trim() : '',
+    pages: type==='বই' ? document.getElementById('bkPages').value.trim() : '',
+    brand: type==='প্রোডাক্ট' ? document.getElementById('bkBrand').value.trim() : '',
+    img: document.getElementById('bkImg').value.trim(),
+    desc: document.getElementById('bkDesc').value.trim(),
+    tags: tags,
+    attributes: type==='প্রোডাক্ট' ? attrs : []
+  };
+
+  if(origBid){
+    const idx = workingBooks.findIndex(b=>b.bid===origBid);
+    if(idx>=0) workingBooks[idx] = bookObj;
+  } else {
+    workingBooks.push(bookObj);
+  }
+
+  saveBookListToFirebase().then(()=>{
+    toast('সংরক্ষণ হয়েছে', 'ok');
+    bookModalOverlay.hidden = true;
+    renderBookCatFilterOptions();
+    renderBooksTab(true);
+    renderDashboard();
+  }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
+});
+
+document.getElementById('bkDeleteBtn').addEventListener('click', function(){
+  const origBid = document.getElementById('bkOrigBid').value;
+  if(!origBid) return;
+  if(!confirm('আপনি কি নিশ্চিত এটি মুছে ফেলতে চান?')) return;
+  workingBooks = workingBooks.filter(b=>b.bid!==origBid);
+  saveBookListToFirebase().then(()=>{
+    toast('মুছে ফেলা হয়েছে', 'ok');
+    bookModalOverlay.hidden = true;
+    renderBookCatFilterOptions();
+    renderBooksTab(true);
+    renderDashboard();
+  }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
+});
+
+/* ---------- imgbb upload (used by book form) ---------- */
+let imgbbKeyCache = '';
+document.getElementById('bkImgUpload').addEventListener('change', function(){
+  const file = this.files[0];
+  if(!file) return;
+  if(!imgbbKeyCache){
+    document.getElementById('bkImgUploadStatus').textContent = 'ত্রুটি: imgbb key সেট করা নেই (Settings ট্যাব দেখুন)।';
+    return;
+  }
+  document.getElementById('bkImgUploadStatus').textContent = 'আপলোড হচ্ছে...';
+  compressImageIfNeeded(file, 800).then(blob=>{
+    const fd = new FormData();
+    fd.append('image', blob, file.name);
+    return fetch('https://api.imgbb.com/1/upload?key=' + encodeURIComponent(imgbbKeyCache), {
+      method:'POST', body: fd
+    });
+  }).then(r=>r.json()).then(data=>{
+    if(data && data.data && data.data.url){
+      document.getElementById('bkImg').value = data.data.url;
+      document.getElementById('bkImgUploadStatus').textContent = 'আপলোড সম্পন্ন ✓';
+    } else {
+      document.getElementById('bkImgUploadStatus').textContent = 'আপলোড ব্যর্থ';
+    }
+  }).catch(err=>{
+    document.getElementById('bkImgUploadStatus').textContent = 'ব্যর্থ: ' + err.message;
+  });
+});
+
+function compressImageIfNeeded(file, maxW){
+  return new Promise(resolve=>{
+    if(file.type === 'image/gif' || file.size < 150*1024){
+      resolve(file);
+      return;
+    }
+    const img = new Image();
+    const reader = new FileReader();
+    reader.onload = function(e){
+      img.onload = function(){
+        let w = img.width, h = img.height;
+        if(w > maxW){
+          h = Math.round(h * (maxW / w));
+          w = maxW;
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+        canvas.toBlob(function(blob){
+          if(blob && blob.size < file.size){
+            resolve(blob);
+          } else {
+            resolve(file);
+          }
+        }, 'image/jpeg', 0.82);
+      };
+      img.onerror = function(){ resolve(file); };
+      img.src = e.target.result;
+    };
+    reader.onerror = function(){ resolve(file); };
+    reader.readAsDataURL(file);
+  });
+}
+
+/* ---------- Bulk upload ---------- */
+document.getElementById('btnTemplate').addEventListener('click', function(){
+  const headers = ['ধরন','নাম','মূল্য','আসল_মূল্য','বিভাগ','উপবিভাগ','লেখক','প্রকাশনী','পৃষ্ঠা','বাঁধাই','বিষয়','ব্র্যান্ড','ছবির_লিংক','বিবরণ','ট্যাগ'];
+  const ws = XLSX.utils.aoa_to_sheet([headers]);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Template');
+  XLSX.writeFile(wb, 'OD-bulk-template.xlsx');
+});
+
+document.getElementById('btnBulkOpen').addEventListener('click', function(){
+  document.getElementById('bulkFileInput').value = '';
+  document.getElementById('bulkPreviewWrap').innerHTML = '';
+  document.getElementById('bulkConfirmBtn').hidden = true;
+  bulkValidRows = [];
+  document.getElementById('bulkModalOverlay').hidden = false;
+});
+
+document.getElementById('bulkFileInput').addEventListener('change', function(){
+  const file = this.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e){
+    const wb = XLSX.read(e.target.result, {type:'array'});
+    const sheet = wb.Sheets[wb.SheetNames[0]];
+    const rows = XLSX.utils.sheet_to_json(sheet, {defval:''});
+    const valid = [], invalid = [];
+    rows.forEach((r, i)=>{
+      const errs = [];
+      const name = String(r['নাম']||'').trim();
+      const price = parseFloat(r['মূল্য']);
+      if(!name) errs.push('নাম নেই');
+      if(isNaN(price)) errs.push('মূল্য অবৈধ');
+      if(errs.length){
+        invalid.push({row:i+2, name, errors:errs.join(', ')});
+        return;
+      }
+      const typeRaw = String(r['ধরন']||'').trim();
+      const type = typeRaw === 'বই' ? 'বই' : 'প্রোডাক্ট';
+      const tags = String(r['ট্যাগ']||'').split(',').map(s=>s.trim()).filter(Boolean);
+      valid.push({
+        bid: uniqueBid(name, null),
+        type: type,
+        name: name,
+        author: type==='বই' ? String(r['লেখক']||'').trim() : '',
+        price: price,
+        original_price: parseFloat(r['আসল_মূল্য'])||0,
+        cat: String(r['বিভাগ']||'').trim(),
+        subcat: String(r['উপবিভাগ']||'').trim(),
+        subject: type==='বই' ? String(r['বিষয়']||'').trim() : '',
+        cover: type==='বই' ? String(r['বাঁধাই']||'').trim() : '',
+        pub: type==='বই' ? String(r['প্রকাশনী']||'').trim() : '',
+        pages: type==='বই' ? String(r['পৃষ্ঠা']||'').trim() : '',
+        brand: type==='প্রোডাক্ট' ? String(r['ব্র্যান্ড']||'').trim() : '',
+        img: String(r['ছবির_লিংক']||'').trim(),
+        desc: String(r['বিবরণ']||'').trim(),
+        tags: tags,
+        attributes: []
+      });
+    });
+    bulkValidRows = valid;
+    let html = `<div>বৈধ সারি: ${valid.length} · অবৈধ সারি: ${invalid.length}</div>`;
+    if(invalid.length){
+      html += '<div class="table-wrap" style="margin-top:8px;"><table class="simple"><thead><tr><th>সারি</th><th>নাম</th><th>ত্রুটি</th></tr></thead><tbody>' +
+        invalid.map(x=>`<tr><td>${x.row}</td><td>${escapeHtml(x.name)}</td><td>${escapeHtml(x.errors)}</td></tr>`).join('') + '</tbody></table></div>';
+    }
+    if(valid.length){
+      html += '<div class="table-wrap" style="margin-top:8px;"><table class="simple"><thead><tr><th>নাম</th><th>ধরন</th><th>মূল্য</th></tr></thead><tbody>' +
+        valid.slice(0,50).map(x=>`<tr><td>${escapeHtml(x.name)}</td><td>${escapeHtml(x.type)}</td><td>${x.price}</td></tr>`).join('') + '</tbody></table></div>';
+    }
+    document.getElementById('bulkPreviewWrap').innerHTML = html;
+    document.getElementById('bulkConfirmBtn').hidden = valid.length === 0;
+  };
+  reader.readAsArrayBuffer(file);
+});
+
+document.getElementById('bulkConfirmBtn').addEventListener('click', function(){
+  if(!bulkValidRows.length) return;
+  workingBooks = workingBooks.concat(bulkValidRows);
+  saveBookListToFirebase().then(()=>{
+    toast(bulkValidRows.length + ' টি আইটেম যোগ হয়েছে', 'ok');
+    document.getElementById('bulkModalOverlay').hidden = true;
+    renderBookCatFilterOptions();
+    renderBooksTab(true);
+    renderDashboard();
+    bulkValidRows = [];
+  }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
+});
+
+/* ================= COUPONS ================= */
+document.getElementById('cpType').addEventListener('change', function(){
+  document.getElementById('cpValueWrap').style.display = this.value === 'delivery' ? 'none' : '';
+});
+
+function loadCoupons(){
+  db.ref('coupons').get().then(snap=>{
+    allCoupons = snap.exists() ? snap.val() : {};
+    renderCoupons();
+  }).catch(err=> toast('কুপন লোড ব্যর্থ: '+err.message, 'err'));
+}
+
+function renderCoupons(){
+  const wrap = document.getElementById('couponsList');
+  const codes = Object.keys(allCoupons);
+  if(codes.length===0){
+    wrap.innerHTML = '<div class="empty-state"><div class="emoji">🏷️</div>এখনো কিছু নেই</div>';
+    return;
+  }
+  wrap.innerHTML = '<div class="table-wrap"><table class="simple"><thead><tr><th>কোড</th><th>ধরন</th><th>মান</th><th>অবস্থা</th><th>একশন</th></tr></thead><tbody>' +
+    codes.map(code=>{
+      const c = allCoupons[code];
+      return `<tr>
+        <td>${escapeHtml(code)}</td>
+        <td>${escapeHtml(c.type)}</td>
+        <td>${c.type==='delivery' ? '-' : c.value}</td>
+        <td>${c.active ? '<span class="badge b-delivered">সক্রিয়</span>' : '<span class="badge b-cancelled">নিষ্ক্রিয়</span>'}</td>
+        <td>
+          <button class="btn btn-outline btn-sm" data-toggle-coupon="${escapeHtml(code)}">টগল</button>
+          <button class="btn btn-danger btn-sm" data-delete-coupon="${escapeHtml(code)}">মুছুন</button>
+        </td>
+      </tr>`;
+    }).join('') + '</tbody></table></div>';
+
+  wrap.querySelectorAll('[data-toggle-coupon]').forEach(btn=>{
+    btn.addEventListener('click', function(){
+      const code = this.dataset.toggleCoupon;
+      const c = allCoupons[code];
+      db.ref('coupons/'+code+'/active').set(!c.active).then(()=>{
+        c.active = !c.active;
+        toast('আপডেট হয়েছে', 'ok');
+        renderCoupons();
+      }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
+    });
+  });
+  wrap.querySelectorAll('[data-delete-coupon]').forEach(btn=>{
+    btn.addEventListener('click', function(){
+      const code = this.dataset.deleteCoupon;
+      if(!confirm('কুপন "'+code+'" মুছে ফেলতে চান?')) return;
+      db.ref('coupons/'+code).remove().then(()=>{
+        delete allCoupons[code];
+        toast('মুছে ফেলা হয়েছে', 'ok');
+        renderCoupons();
+      }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
+    });
+  });
+}
+
+document.getElementById('couponForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  let code = document.getElementById('cpCode').value.trim().toUpperCase();
+  if(!/^[A-Z0-9]{3,20}$/.test(code)){
+    toast('কোড অবৈধ (শুধু A-Z, 0-9, ৩-২০ অক্ষর)', 'err');
+    return;
+  }
+  const type = document.getElementById('cpType').value;
+  const value = type === 'delivery' ? 0 : (parseFloat(document.getElementById('cpValue').value)||0);
+  const active = document.getElementById('cpActive').checked;
+  db.ref('coupons/'+code).set({type, value, active}).then(()=>{
+    allCoupons[code] = {type, value, active};
+    toast('কুপন যোগ হয়েছে', 'ok');
+    this.reset();
+    document.getElementById('cpActive').checked = true;
+    renderCoupons();
+  }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
+});
+
+/* ================= MODERATORS ================= */
+function loadModerators(){
+  db.ref('modRequests').get().then(snap=>{
+    const wrap = document.getElementById('modRequestsList');
+    if(!snap.exists()){
+      wrap.innerHTML = '<div class="empty-state"><div class="emoji">📨</div>এখনো কিছু নেই</div>';
+    } else {
+      const val = snap.val();
+      wrap.innerHTML = Object.keys(val).map(uid=>{
+        const r = val[uid];
+        return `<div class="order-card">
+          <div class="flex-between">
+            <div><b>${escapeHtml(r.name)}</b> — ${escapeHtml(r.email)}<div class="meta">${new Date(r.t).toLocaleString('bn-BD')}</div></div>
+            <div class="small-btn-group">
+              <button class="btn btn-primary btn-sm" data-approve="${escapeHtml(uid)}">অনুমোদন</button>
+              <button class="btn btn-danger btn-sm" data-reject="${escapeHtml(uid)}">বাতিল</button>
+            </div>
+          </div>
+        </div>`;
+      }).join('');
+      wrap.querySelectorAll('[data-approve]').forEach(btn=>{
+        btn.addEventListener('click', function(){
+          const uid = this.dataset.approve;
+          const r = val[uid];
+          db.ref('moderators/'+uid).set({email:r.email, name:r.name, t:Date.now()}).then(()=>{
+            return db.ref('modRequests/'+uid).remove();
+          }).then(()=>{
+            toast('অনুমোদন করা হয়েছে', 'ok');
+            loadModerators();
+          }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
+        });
+      });
+      wrap.querySelectorAll('[data-reject]').forEach(btn=>{
+        btn.addEventListener('click', function(){
+          const uid = this.dataset.reject;
+          db.ref('modRequests/'+uid).remove().then(()=>{
+            toast('বাতিল করা হয়েছে', 'ok');
+            loadModerators();
+          }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
+        });
+      });
+    }
+  }).catch(err=> toast('লোড ব্যর্থ: '+err.message, 'err'));
+
+  db.ref('moderators').get().then(snap=>{
+    const wrap = document.getElementById('modListActive');
+    if(!snap.exists()){
+      wrap.innerHTML = '<div class="empty-state"><div class="emoji">👥</div>এখনো কিছু নেই</div>';
+    } else {
+      const val = snap.val();
+      wrap.innerHTML = Object.keys(val).map(uid=>{
+        const m = val[uid];
+        return `<div class="order-card">
+          <div class="flex-between">
+            <div><span class="pill-mod">মডারেটর</span> <b>${escapeHtml(m.name||'')}</b> — ${escapeHtml(m.email||'')}</div>
+            <button class="btn btn-danger btn-sm" data-remove-mod="${escapeHtml(uid)}">সরিয়ে দিন</button>
+          </div>
+        </div>`;
+      }).join('');
+      wrap.querySelectorAll('[data-remove-mod]').forEach(btn=>{
+        btn.addEventListener('click', function(){
+          const uid = this.dataset.removeMod;
+          if(!confirm('এই মডারেটরকে সরিয়ে দিতে চান?')) return;
+          db.ref('moderators/'+uid).remove().then(()=>{
+            toast('সরিয়ে দেওয়া হয়েছে', 'ok');
+            loadModerators();
+          }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
+        });
+      });
+    }
+  }).catch(err=> toast('লোড ব্যর্থ: '+err.message, 'err'));
+}
+
+/* ================= SETTINGS ================= */
+function loadSettings(){
+  db.ref('imgbbKey').get().then(snap=>{
+    if(snap.exists() && snap.val()){
+      imgbbKeyCache = snap.val();
+      document.getElementById('imgbbMaskedHint').textContent = 'বর্তমান: ' + maskKey(imgbbKeyCache);
+    }
+  }).catch(()=>{});
+
+  db.ref('courierApiKeys').get().then(snap=>{
+    const v = snap.exists() ? snap.val() : {};
+    courierKeys = v;
+    if(v.sfKey) document.getElementById('setSfKey').value = v.sfKey;
+    if(v.sfSecret) document.getElementById('setSfSecret').value = v.sfSecret;
+    if(v.rdxTok) document.getElementById('setRdxTok').value = v.rdxTok;
+  }).catch(()=>{});
+
+  db.ref('siteConfig').get().then(snap=>{
+    const v = snap.exists() ? snap.val() : {};
+    if(v.courierProxyUrl){
+      COURIER_PROXY = v.courierProxyUrl;
+      document.getElementById('setProxyUrl').value = v.courierProxyUrl;
+    }
+    if(v.metaPixelId) document.getElementById('setPixelId').value = v.metaPixelId;
+  }).catch(()=>{});
+}
+
+function maskKey(k){
+  if(!k || k.length<4) return '••••';
+  return '••••••' + k.slice(-4);
+}
+
+document.getElementById('saveImgbbKey').addEventListener('click', function(){
+  if(!isOwner){ toast('শুধুমাত্র মালিক এটি পরিবর্তন করতে পারবেন', 'err'); return; }
+  const val = document.getElementById('setImgbbKey').value.trim();
+  if(!val){ toast('key দিন', 'err'); return; }
+  db.ref('imgbbKey').set(val).then(()=>{
+    imgbbKeyCache = val;
+    document.getElementById('imgbbMaskedHint').textContent = 'বর্তমান: ' + maskKey(val);
+    document.getElementById('setImgbbKey').value = '';
+    toast('সংরক্ষণ হয়েছে', 'ok');
+  }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
+});
+
+document.getElementById('saveSf').addEventListener('click', function(){
+  if(!isOwner){ toast('শুধুমাত্র মালিক এটি পরিবর্তন করতে পারবেন', 'err'); return; }
+  const sfKey = document.getElementById('setSfKey').value.trim();
+  const sfSecret = document.getElementById('setSfSecret').value.trim();
+  db.ref('courierApiKeys').update({sfKey, sfSecret}).then(()=>{
+    courierKeys.sfKey = sfKey; courierKeys.sfSecret = sfSecret;
+    toast('সংরক্ষণ হয়েছে', 'ok');
+  }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
+});
+
+document.getElementById('saveRdx').addEventListener('click', function(){
+  if(!isOwner){ toast('শুধুমাত্র মালিক এটি পরিবর্তন করতে পারবেন', 'err'); return; }
+  const rdxTok = document.getElementById('setRdxTok').value.trim();
+  db.ref('courierApiKeys').update({rdxTok}).then(()=>{
+    courierKeys.rdxTok = rdxTok;
+    toast('সংরক্ষণ হয়েছে', 'ok');
+  }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
+});
+
+document.getElementById('saveProxy').addEventListener('click', function(){
+  const val = document.getElementById('setProxyUrl').value.trim();
+  db.ref('siteConfig/courierProxyUrl').set(val).then(()=>{
+    COURIER_PROXY = val || COURIER_PROXY;
+    toast('সংরক্ষণ হয়েছে', 'ok');
+  }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
+});
+
+document.getElementById('savePixel').addEventListener('click', function(){
+  const val = document.getElementById('setPixelId').value.trim();
+  if(val && !/^\d{5,20}$/.test(val)){
+    toast('Pixel ID অবৈধ (৫-২০ ডিজিট)', 'err');
+    return;
+  }
+  db.ref('siteConfig/metaPixelId').set(val).then(()=>{
+    toast('সংরক্ষণ হয়েছে', 'ok');
+  }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
+});
+
+/* ================= Modal close handlers ================= */
+document.querySelectorAll('[data-close]').forEach(btn=>{
+  btn.addEventListener('click', function(){
+    document.getElementById(this.dataset.close).hidden = true;
+  });
+});
+document.querySelectorAll('.modal-overlay').forEach(ov=>{
+  ov.addEventListener('click', function(e){
+    if(e.target === ov) ov.hidden = true;
+  });
+});
+
+/* ================= Utility: HTML escaping ================= */
+function escapeHtml(str){
+  return String(str==null?'':str).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+function escapeAttr(str){ return escapeHtml(str); }
+
+})();
+</script>
+</body>
+</html>

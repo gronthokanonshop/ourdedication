@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>যোগাযোগ — OurDedication</title>
+<meta name="description" content="OurDedication-এর সাথে যোগাযোগ করুন — ফোন, WhatsApp, ইমেইল ও ফেসবুকের মাধ্যমে সরাসরি কথা বলুন।">
+<link rel="canonical" href="https://PLACEHOLDER_DOMAIN/contact.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:     #f8f9ff;
+  --navy2:    #eef2ff;
+  --indigo:   #6366f1;
+  --indigo2:  #4f46e5;
+  --amber:    #f59e0b;
+  --amber2:   #d97706;
+  --white:    #ffffff;
+  --muted:    #6b7280;
+  --border:   #e5e7eb;
+  --border-i: #c7d2fe;
+  --card-bg:  #ffffff;
+  --glass:    rgba(255,255,255,0.92);
+  --red:      #ef4444;
+  --green:    #10b981;
+  --font-en:  'Sora', sans-serif;
+  --font-bn:  'Hind Siliguri', sans-serif;
+  --r:        18px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-bn);background:var(--navy);color:#1e1b4b;overflow-x:hidden;padding-bottom:80px;}
+
+/* ══ NAVBAR (copied from index.html) ══ */
+.nav{position:sticky;top:0;z-index:200;background:rgba(255,255,255,0.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid #e5e7eb;box-shadow:0 2px 12px rgba(99,102,241,0.07);}
+.nav-wrap{max-width:1200px;margin:0 auto;padding:0 20px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;}
+.logo-icon{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--indigo),var(--amber));display:flex;align-items:center;justify-content:center;box-shadow:0 0 16px rgba(99,102,241,0.4);}
+.logo-icon svg{width:20px;height:20px;}
+.logo-name{font-family:var(--font-en);font-size:1.05rem;font-weight:800;letter-spacing:-0.3px;color:#1e1b4b;}
+.logo-name span{color:var(--indigo2);}
+.nav-search{flex:1;max-width:480px;display:flex;align-items:center;background:#f8f9ff;border:1.5px solid #e5e7eb;border-radius:12px;overflow:hidden;transition:border-color 0.2s;}
+.nav-search:focus-within{border-color:var(--indigo);}
+.nav-search input{flex:1;background:none;border:none;outline:none;padding:9px 14px;font-family:var(--font-bn);font-size:0.88rem;color:#1e1b4b;}
+.nav-search input::placeholder{color:var(--muted);}
+.nav-search button{background:var(--indigo);border:none;padding:9px 14px;cursor:pointer;color:white;font-size:1rem;transition:background 0.2s;}
+.nav-search button:hover{background:var(--indigo2);}
+.nav-actions{display:flex;align-items:center;gap:6px;}
+.nav-btn{width:38px;height:38px;border-radius:10px;background:#ffffff;border:1.5px solid #e5e7eb;color:#6b7280;font-size:1.1rem;display:flex;align-items:center;justify-content:center;cursor:pointer;text-decoration:none;position:relative;transition:border-color 0.2s,color 0.2s,background 0.2s;}
+.nav-btn:hover{border-color:var(--indigo);color:var(--indigo);background:#eef2ff;}
+.nav-badge{position:absolute;top:-5px;right:-5px;background:var(--amber);color:#000;font-size:9px;font-weight:700;min-width:17px;height:17px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:var(--font-en);}
+.ham{display:none;}
+@media(max-width:700px){.nav-search{display:none;}.ham{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:4px;border:none;background:none;}.ham span{display:block;width:22px;height:2px;background:#6b7280;border-radius:2px;}}
+@media(max-width:600px){.nav-wrap{padding:0 12px;height:54px;gap:8px;}.logo-name{font-size:0.88rem;}.logo-icon{width:32px;height:32px;}.nav-search{flex:1;min-width:0;}.nav-search input{font-size:0.82rem;padding:7px 10px;}.nav-search button{padding:7px 10px;}.nav-btn{width:32px;height:32px;font-size:0.9rem;}}
+
+/* ══ BOTTOM NAV (copied from index.html) ══ */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:150;background:rgba(255,255,255,0.95);backdrop-filter:blur(16px);box-shadow:0 -2px 12px rgba(0,0,0,0.06);border-top:1px solid #e5e7eb;display:flex;padding:8px 0 max(8px,env(safe-area-inset-bottom));}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;cursor:pointer;font-family:var(--font-bn);font-size:0.65rem;color:#6b7280;padding:4px 0;transition:color 0.2s;position:relative;background:none;border:none;}
+.bn-item.active{color:var(--indigo2);}
+.bn-item:hover{color:var(--indigo2);}
+.bn-icon{font-size:1.25rem;line-height:1;}
+.bn-badge{position:absolute;top:2px;right:calc(50% - 18px);background:var(--amber);color:#000;font-size:8px;font-weight:700;min-width:15px;height:15px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--font-en);}
+@media(min-width:900px){.bottom-nav{display:none;}body{padding-bottom:0;}}
+@media(max-width:900px){body{padding-bottom:68px;}.bottom-nav{padding:6px 0 max(6px,env(safe-area-inset-bottom));}.bn-item{font-size:0.6rem;}.bn-icon{font-size:1.1rem;}}
+
+/* ══ WA FLOAT / TOAST ══ */
+.wa-float{position:fixed;bottom:84px;right:18px;z-index:140;width:48px;height:48px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 6px 20px rgba(37,211,102,0.4);text-decoration:none;transition:transform 0.2s;}
+.wa-float:hover{transform:scale(1.1);}
+@media(min-width:900px){.wa-float{bottom:28px;right:24px;}}
+.toast-wrap{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);z-index:9999;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none;}
+.toast-item{background:#1e1b4b;border:1px solid rgba(99,102,241,0.3);backdrop-filter:blur(16px);color:#ffffff;font-family:var(--font-bn);font-size:0.88rem;padding:10px 20px;border-radius:25px;box-shadow:0 8px 24px rgba(0,0,0,0.4);animation:toastIn 0.3s ease;}
+@keyframes toastIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+/* ══ PAGE SPECIFIC ══ */
+.page-hero{padding:44px 20px 30px;text-align:center;background:linear-gradient(135deg,#1a1040 0%,#0d1535 50%,#0b1a3d 100%);}
+.page-hero h1{font-family:var(--font-en);font-size:clamp(1.5rem,3.5vw,2.1rem);font-weight:800;color:#fff;margin-bottom:8px;}
+.page-hero p{color:var(--muted);font-size:0.92rem;max-width:520px;margin:0 auto;}
+.wrap{max-width:1000px;margin:0 auto;padding:36px 20px;display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;}
+@media(max-width:800px){.wrap{grid-template-columns:1fr;}}
+.card{background:var(--card-bg);border:1.5px solid var(--border);border-radius:var(--r);padding:24px;margin-bottom:20px;}
+.card h2{font-family:var(--font-en);font-size:1.1rem;font-weight:800;color:var(--indigo2);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.info-row{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);}
+.info-row:last-child{border-bottom:none;}
+.info-ic{width:38px;height:38px;border-radius:10px;background:var(--navy2);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.info-txt h4{font-size:0.85rem;font-weight:700;margin-bottom:3px;}
+.info-txt p,.info-txt a{font-size:0.85rem;color:#374151;text-decoration:none;}
+.info-txt a:hover{color:var(--indigo2);}
+.wa-btn{display:inline-flex;align-items:center;gap:8px;background:#25D366;color:#fff;padding:11px 18px;border-radius:12px;text-decoration:none;font-weight:700;font-size:0.88rem;margin-top:6px;}
+.hours-table{width:100%;border-collapse:collapse;margin-top:6px;}
+.hours-table td{padding:8px 4px;font-size:0.85rem;border-bottom:1px solid var(--border);}
+.hours-table td:last-child{text-align:right;font-weight:600;color:var(--indigo2);}
+.f-group{margin-bottom:14px;}
+.f-group label{display:block;font-size:0.82rem;font-weight:600;margin-bottom:6px;color:#374151;}
+.f-group input,.f-group textarea{width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:var(--font-bn);font-size:0.88rem;outline:none;transition:border-color 0.2s;}
+.f-group input:focus,.f-group textarea:focus{border-color:var(--indigo);}
+.f-group textarea{resize:vertical;min-height:100px;}
+.submit-btn{width:100%;padding:13px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--indigo),var(--indigo2));color:#fff;font-family:var(--font-bn);font-size:0.95rem;font-weight:700;cursor:pointer;box-shadow:0 6px 20px rgba(99,102,241,0.3);transition:transform 0.2s;}
+.submit-btn:hover{transform:translateY(-1px);}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-wrap">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L3 7v10l9 5 9-5V7L12 2z" fill="rgba(255,255,255,0.9)"/>
+          <path d="M12 2L3 7l9 5 9-5-9-5z" fill="rgba(255,255,255,0.3)"/>
+          <circle cx="12" cy="12" r="3" fill="rgba(245,158,11,0.9)"/>
+        </svg>
+      </div>
+      <div class="logo-name">Our<span>Dedication</span></div>
+    </a>
+    <div class="nav-search">
+      <input type="text" id="searchInp" placeholder="পণ্য খুঁজুন... Search products" onkeydown="if(event.key==='Enter') doSearch()">
+      <button onclick="doSearch()">🔍</button>
+    </div>
+    <div class="nav-actions">
+      <a href="#" class="nav-btn" title="wishlist">♡</a>
+      <a href="checkout.html" class="nav-btn" id="cartNavBtn" title="cart">
+        🛒
+        <span class="nav-badge" id="cartCount">0</span>
+      </a>
+      <button class="nav-btn ham" id="hamBtn" onclick="toggleMenu()">☰</button>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <h1>📞 যোগাযোগ করুন</h1>
+  <p>যেকোনো প্রশ্ন, অর্ডার সংক্রান্ত সাহায্য বা মতামতের জন্য আমাদের সাথে যোগাযোগ করুন</p>
+</div>
+
+<div class="wrap">
+  <div>
+    <div class="card">
+      <h2>📇 যোগাযোগের তথ্য</h2>
+      <div class="info-row">
+        <div class="info-ic">📱</div>
+        <div class="info-txt">
+          <h4>ফোন</h4>
+          <a href="tel:01842970565">01842970565</a>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-ic">💬</div>
+        <div class="info-txt">
+          <h4>WhatsApp</h4>
+          <a href="https://wa.me/8801842970565" target="_blank">01842970565</a>
+          <div><a class="wa-btn" href="https://wa.me/8801842970565" target="_blank">💬 WhatsApp-এ মেসেজ দিন</a></div>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-ic">✉️</div>
+        <div class="info-txt">
+          <h4>ইমেইল</h4>
+          <a href="mailto:sajidurr317@gmail.com">sajidurr317@gmail.com</a>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-ic">📍</div>
+        <div class="info-txt">
+          <h4>ঠিকানা</h4>
+          <p>PLACEHOLDER_ADDRESS, বাংলাদেশ</p>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-ic">📘</div>
+        <div class="info-txt">
+          <h4>ফেসবুক পেজ</h4>
+          <a href="https://www.facebook.com/Sajidbookshop" target="_blank">আমাদের ফেসবুক পেজ দেখুন</a>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-ic">🎵</div>
+        <div class="info-txt">
+          <h4>টিকটক</h4>
+          <a href="https://www.tiktok.com/@sajidurrahman9804" target="_blank">আমাদের টিকটক দেখুন</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🕐 ব্যবসার সময়</h2>
+      <!-- সময়সূচি সাময়িক প্লেসহোল্ডার — দোকান মালিক পরে প্রকৃত সময় দিয়ে আপডেট করবেন -->
+      <table class="hours-table">
+        <tr><td>শনি — বৃহস্পতি</td><td>সকাল ৯টা — রাত ১০টা</td></tr>
+        <tr><td>শুক্রবার</td><td>সকাল ৯টা — রাত ১০টা</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>✍️ বার্তা পাঠান</h2>
+    <form id="contactForm" onsubmit="handleContactSubmit(event)">
+      <div class="f-group">
+        <label>আপনার নাম</label>
+        <input type="text" id="cName" required placeholder="আপনার নাম লিখুন">
+      </div>
+      <div class="f-group">
+        <label>ফোন নম্বর</label>
+        <input type="tel" id="cPhone" required placeholder="01842970565">
+      </div>
+      <div class="f-group">
+        <label>বার্তা</label>
+        <textarea id="cMsg" required placeholder="আপনার প্রশ্ন বা বার্তা লিখুন..."></textarea>
+      </div>
+      <button type="submit" class="submit-btn">✉️ বার্তা পাঠান</button>
+    </form>
+  </div>
+</div>
+
+<nav class="bottom-nav">
+  <button class="bn-item" onclick="location.href='index.html'"><span class="bn-icon">🏠</span>হোম</button>
+  <button class="bn-item" onclick="location.href='filter.html'"><span class="bn-icon">🔍</span>খুঁজুন</button>
+  <button class="bn-item" onclick="location.href='#'"><span class="bn-icon">♡</span>পছন্দ</button>
+  <button class="bn-item" onclick="location.href='checkout.html'"><span class="bn-icon">🛒</span>কার্ট<span class="bn-badge" id="bnCart">0</span></button>
+  <button class="bn-item" onclick="location.href='track.html'"><span class="bn-icon">📦</span>অর্ডার</button>
+</nav>
+
+<a href="https://wa.me/8801842970565" class="wa-float" target="_blank" title="WhatsApp">💬</a>
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+function doSearch(){
+  const q = document.getElementById('searchInp').value.trim();
+  if(q) location.href = 'filter.html?q=' + encodeURIComponent(q);
+  else location.href = 'filter.html';
+}
+function toggleMenu(){
+  const s = document.querySelector('.nav-search');
+  if(s){ s.style.display = s.style.display==='flex' ? 'none':'flex'; s.style.position='absolute'; s.style.top='64px'; s.style.left='0'; s.style.right='0'; s.style.margin='0'; s.style.borderRadius='0'; s.style.maxWidth='100%';}
+}
+function updateCartBadge(){
+  let c = 0;
+  try{ c = JSON.parse(localStorage.getItem('od_cart2')||'[]').reduce((s,i)=>s+(i.qty||1),0); }catch(e){}
+  const el = document.getElementById('cartCount');
+  const bn = document.getElementById('bnCart');
+  if(el) el.textContent = c;
+  if(bn) bn.textContent = c;
+}
+updateCartBadge();
+
+function showToast(msg){
+  const wrap = document.getElementById('toastWrap');
+  const t = document.createElement('div');
+  t.className = 'toast-item';
+  t.textContent = msg;
+  wrap.appendChild(t);
+  setTimeout(()=>t.remove(), 3000);
+}
+
+/* এই ফর্মের জন্য এখনো কোনো ব্যাকএন্ড/সার্ভার সেটআপ করা হয়নি, তাই সাবমিট করলে সরাসরি
+   WhatsApp/ফোনে যোগাযোগের পরামর্শ দেওয়া হচ্ছে — বাস্তবে কোথাও ডেটা পাঠানো হচ্ছে না */
+function handleContactSubmit(e){
+  e.preventDefault();
+  showToast('শীঘ্রই এই ফর্ম চালু হবে, এখন সরাসরি WhatsApp/ফোনে যোগাযোগ করুন');
+}
+</script>
+</body>
+</html>

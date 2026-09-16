@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>আমাদের সম্পর্কে — OurDedication</title>
+<meta name="description" content="OurDedication সম্পর্কে জানুন — ইসলামিক ও সাধারণ বইয়ের বিশ্বস্ত অনলাইন দোকান, সারাদেশে হোম ডেলিভারি সুবিধা।">
+<link rel="canonical" href="https://PLACEHOLDER_DOMAIN/about.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:     #f8f9ff;
+  --navy2:    #eef2ff;
+  --indigo:   #6366f1;
+  --indigo2:  #4f46e5;
+  --amber:    #f59e0b;
+  --amber2:   #d97706;
+  --white:    #ffffff;
+  --muted:    #6b7280;
+  --border:   #e5e7eb;
+  --border-i: #c7d2fe;
+  --card-bg:  #ffffff;
+  --glass:    rgba(255,255,255,0.92);
+  --red:      #ef4444;
+  --green:    #10b981;
+  --font-en:  'Sora', sans-serif;
+  --font-bn:  'Hind Siliguri', sans-serif;
+  --r:        18px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-bn);background:var(--navy);color:#1e1b4b;overflow-x:hidden;padding-bottom:80px;}
+
+/* ══ NAVBAR (copied from index.html) ══ */
+.nav{position:sticky;top:0;z-index:200;background:rgba(255,255,255,0.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid #e5e7eb;box-shadow:0 2px 12px rgba(99,102,241,0.07);}
+.nav-wrap{max-width:1200px;margin:0 auto;padding:0 20px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;}
+.logo-icon{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--indigo),var(--amber));display:flex;align-items:center;justify-content:center;box-shadow:0 0 16px rgba(99,102,241,0.4);}
+.logo-icon svg{width:20px;height:20px;}
+.logo-name{font-family:var(--font-en);font-size:1.05rem;font-weight:800;letter-spacing:-0.3px;color:#1e1b4b;}
+.logo-name span{color:var(--indigo2);}
+.nav-search{flex:1;max-width:480px;display:flex;align-items:center;background:#f8f9ff;border:1.5px solid #e5e7eb;border-radius:12px;overflow:hidden;transition:border-color 0.2s;}
+.nav-search:focus-within{border-color:var(--indigo);}
+.nav-search input{flex:1;background:none;border:none;outline:none;padding:9px 14px;font-family:var(--font-bn);font-size:0.88rem;color:#1e1b4b;}
+.nav-search input::placeholder{color:var(--muted);}
+.nav-search button{background:var(--indigo);border:none;padding:9px 14px;cursor:pointer;color:white;font-size:1rem;transition:background 0.2s;}
+.nav-search button:hover{background:var(--indigo2);}
+.nav-actions{display:flex;align-items:center;gap:6px;}
+.nav-btn{width:38px;height:38px;border-radius:10px;background:#ffffff;border:1.5px solid #e5e7eb;color:#6b7280;font-size:1.1rem;display:flex;align-items:center;justify-content:center;cursor:pointer;text-decoration:none;position:relative;transition:border-color 0.2s,color 0.2s,background 0.2s;}
+.nav-btn:hover{border-color:var(--indigo);color:var(--indigo);background:#eef2ff;}
+.nav-badge{position:absolute;top:-5px;right:-5px;background:var(--amber);color:#000;font-size:9px;font-weight:700;min-width:17px;height:17px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:var(--font-en);}
+.ham{display:none;}
+@media(max-width:700px){.nav-search{display:none;}.ham{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:4px;border:none;background:none;}.ham span{display:block;width:22px;height:2px;background:#6b7280;border-radius:2px;}}
+@media(max-width:600px){.nav-wrap{padding:0 12px;height:54px;gap:8px;}.logo-name{font-size:0.88rem;}.logo-icon{width:32px;height:32px;}.nav-search{flex:1;min-width:0;}.nav-search input{font-size:0.82rem;padding:7px 10px;}.nav-search button{padding:7px 10px;}.nav-btn{width:32px;height:32px;font-size:0.9rem;}}
+
+/* ══ BOTTOM NAV (copied from index.html) ══ */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:150;background:rgba(255,255,255,0.95);backdrop-filter:blur(16px);box-shadow:0 -2px 12px rgba(0,0,0,0.06);border-top:1px solid #e5e7eb;display:flex;padding:8px 0 max(8px,env(safe-area-inset-bottom));}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;cursor:pointer;font-family:var(--font-bn);font-size:0.65rem;color:#6b7280;padding:4px 0;transition:color 0.2s;position:relative;background:none;border:none;}
+.bn-item.active{color:var(--indigo2);}
+.bn-item:hover{color:var(--indigo2);}
+.bn-icon{font-size:1.25rem;line-height:1;}
+.bn-badge{position:absolute;top:2px;right:calc(50% - 18px);background:var(--amber);color:#000;font-size:8px;font-weight:700;min-width:15px;height:15px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--font-en);}
+@media(min-width:900px){.bottom-nav{display:none;}body{padding-bottom:0;}}
+@media(max-width:900px){body{padding-bottom:68px;}.bottom-nav{padding:6px 0 max(6px,env(safe-area-inset-bottom));}.bn-item{font-size:0.6rem;}.bn-icon{font-size:1.1rem;}}
+
+/* ══ WA FLOAT / TOAST ══ */
+.wa-float{position:fixed;bottom:84px;right:18px;z-index:140;width:48px;height:48px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 6px 20px rgba(37,211,102,0.4);text-decoration:none;transition:transform 0.2s;}
+.wa-float:hover{transform:scale(1.1);}
+@media(min-width:900px){.wa-float{bottom:28px;right:24px;}}
+.toast-wrap{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);z-index:9999;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none;}
+.toast-item{background:#1e1b4b;border:1px solid rgba(99,102,241,0.3);backdrop-filter:blur(16px);color:#ffffff;font-family:var(--font-bn);font-size:0.88rem;padding:10px 20px;border-radius:25px;box-shadow:0 8px 24px rgba(0,0,0,0.4);animation:toastIn 0.3s ease;}
+@keyframes toastIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+/* ══ PAGE SPECIFIC ══ */
+.page-hero{padding:44px 20px 30px;text-align:center;background:linear-gradient(135deg,#1a1040 0%,#0d1535 50%,#0b1a3d 100%);}
+.page-hero h1{font-family:var(--font-en);font-size:clamp(1.5rem,3.5vw,2.1rem);font-weight:800;color:#fff;margin-bottom:8px;}
+.page-hero p{color:var(--muted);font-size:0.92rem;max-width:520px;margin:0 auto;}
+.wrap{max-width:900px;margin:0 auto;padding:36px 20px;}
+.card{background:var(--card-bg);border:1.5px solid var(--border);border-radius:var(--r);padding:26px 24px;margin-bottom:20px;}
+.card h2{font-family:var(--font-en);font-size:1.15rem;font-weight:800;color:var(--indigo2);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.card p{font-size:0.92rem;line-height:1.85;color:#374151;margin-bottom:10px;}
+.card p:last-child{margin-bottom:0;}
+.values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px;}
+@media(max-width:700px){.values-grid{grid-template-columns:1fr;}}
+.value-box{background:var(--navy2);border:1px solid var(--border-i);border-radius:14px;padding:16px;text-align:center;}
+.value-box .ic{font-size:1.8rem;margin-bottom:8px;}
+.value-box h3{font-family:var(--font-en);font-size:0.88rem;font-weight:700;color:#1e1b4b;margin-bottom:4px;}
+.value-box p{font-size:0.8rem;color:var(--muted);}
+.contact-mini{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px;}
+@media(max-width:600px){.contact-mini{grid-template-columns:1fr;}}
+.contact-mini a,.contact-mini span{display:flex;align-items:center;gap:8px;font-size:0.88rem;color:#374151;text-decoration:none;background:var(--navy2);border:1px solid var(--border);border-radius:10px;padding:10px 14px;}
+.contact-mini a:hover{border-color:var(--border-i);}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-wrap">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L3 7v10l9 5 9-5V7L12 2z" fill="rgba(255,255,255,0.9)"/>
+          <path d="M12 2L3 7l9 5 9-5-9-5z" fill="rgba(255,255,255,0.3)"/>
+          <circle cx="12" cy="12" r="3" fill="rgba(245,158,11,0.9)"/>
+        </svg>
+      </div>
+      <div class="logo-name">Our<span>Dedication</span></div>
+    </a>
+    <div class="nav-search">
+      <input type="text" id="searchInp" placeholder="পণ্য খুঁজুন... Search products" onkeydown="if(event.key==='Enter') doSearch()">
+      <button onclick="doSearch()">🔍</button>
+    </div>
+    <div class="nav-actions">
+      <a href="#" class="nav-btn" title="wishlist">♡</a>
+      <a href="checkout.html" class="nav-btn" id="cartNavBtn" title="cart">
+        🛒
+        <span class="nav-badge" id="cartCount">0</span>
+      </a>
+      <button class="nav-btn ham" id="hamBtn" onclick="toggleMenu()">☰</button>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <h1>📖 আমাদের সম্পর্কে</h1>
+  <p>OurDedication — ইসলামিক ও সাধারণ বইয়ের একটি অনলাইন দোকান, যেখানে বিশ্বস্ততা ও সহজ সেবাকে গুরুত্ব দেওয়া হয়</p>
+</div>
+
+<div class="wrap">
+  <div class="card">
+    <h2>🎯 আমরা কারা</h2>
+    <p>OurDedication একটি অনলাইন বইয়ের দোকান, যেখানে ইসলামিক বই (কুরআন, হাদিস, সীরাত, ইসলামিক সাহিত্য) এবং সাধারণ বই — উপন্যাস, শিক্ষামূলক বই, স্টেশনারি ও আরও অনেক ক্যাটাগরির পণ্য পাওয়া যায়। আমাদের লক্ষ্য হলো পাঠকদের জন্য মানসম্মত বই সহজে ও নির্ভরযোগ্যভাবে পৌঁছে দেওয়া।</p>
+    <p>আমরা সারা বাংলাদেশে হোম ডেলিভারি প্রদান করি এবং ক্যাশ অন ডেলিভারি (COD) সুবিধা রেখেছি, যাতে গ্রাহকরা পণ্য হাতে পেয়ে নিশ্চিত হয়ে মূল্য পরিশোধ করতে পারেন।</p>
+  </div>
+
+  <div class="card">
+    <h2>💡 আমাদের মূল্যবোধ</h2>
+    <div class="values-grid">
+      <div class="value-box">
+        <div class="ic">✅</div>
+        <h3>অথেনটিক বই</h3>
+        <p>যাচাইকৃত প্রকাশনী থেকে সংগ্রহ করা বই</p>
+      </div>
+      <div class="value-box">
+        <div class="ic">🚚</div>
+        <h3>দ্রুত ডেলিভারি</h3>
+        <p>সারাদেশে দ্রুত ও নির্ভরযোগ্য হোম ডেলিভারি</p>
+      </div>
+      <div class="value-box">
+        <div class="ic">↩️</div>
+        <h3>সহজ রিটার্ন</h3>
+        <p>ক্ষতিগ্রস্ত বা ভুল পণ্যের জন্য সহজ রিটার্ন নীতি</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🛍️ কেন OurDedication</h2>
+    <p>আমরা বিশ্বাস করি বই পড়া মানুষের চিন্তা ও জ্ঞানকে সমৃদ্ধ করে। তাই সাশ্রয়ী মূল্যে, সহজ অর্ডার প্রক্রিয়ায় এবং গ্রাহকসেবার প্রতি অগ্রাধিকার দিয়ে আমরা কাজ করে যাচ্ছি। কোনো প্রশ্ন বা সমস্যা থাকলে সরাসরি WhatsApp বা ফোনে যোগাযোগ করতে পারেন।</p>
+  </div>
+
+  <div class="card">
+    <h2>📞 যোগাযোগ</h2>
+    <p>নিচের যেকোনো মাধ্যমে আমাদের সাথে যোগাযোগ করতে পারেন —</p>
+    <div class="contact-mini">
+      <a href="tel:01842970565">📱 ফোন: 01842970565</a>
+      <a href="https://wa.me/8801842970565" target="_blank">💬 WhatsApp: 01842970565</a>
+      <a href="mailto:sajidurr317@gmail.com">✉️ sajidurr317@gmail.com</a>
+      <span>📍 PLACEHOLDER_ADDRESS, বাংলাদেশ</span>
+      <a href="https://www.facebook.com/Sajidbookshop" target="_blank">📘 ফেসবুক পেজ</a>
+      <a href="https://www.tiktok.com/@sajidurrahman9804" target="_blank">🎵 টিকটক</a>
+    </div>
+  </div>
+</div>
+
+<nav class="bottom-nav">
+  <button class="bn-item" onclick="location.href='index.html'"><span class="bn-icon">🏠</span>হোম</button>
+  <button class="bn-item" onclick="location.href='filter.html'"><span class="bn-icon">🔍</span>খুঁজুন</button>
+  <button class="bn-item" onclick="location.href='#'"><span class="bn-icon">♡</span>পছন্দ</button>
+  <button class="bn-item" onclick="location.href='checkout.html'"><span class="bn-icon">🛒</span>কার্ট<span class="bn-badge" id="bnCart">0</span></button>
+  <button class="bn-item" onclick="location.href='track.html'"><span class="bn-icon">📦</span>অর্ডার</button>
+</nav>
+
+<a href="https://wa.me/8801842970565" class="wa-float" target="_blank" title="WhatsApp">💬</a>
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+function doSearch(){
+  const q = document.getElementById('searchInp').value.trim();
+  if(q) location.href = 'filter.html?q=' + encodeURIComponent(q);
+  else location.href = 'filter.html';
+}
+function toggleMenu(){
+  const s = document.querySelector('.nav-search');
+  if(s){ s.style.display = s.style.display==='flex' ? 'none':'flex'; s.style.position='absolute'; s.style.top='64px'; s.style.left='0'; s.style.right='0'; s.style.margin='0'; s.style.borderRadius='0'; s.style.maxWidth='100%';}
+}
+function updateCartBadge(){
+  let c = 0;
+  try{ c = JSON.parse(localStorage.getItem('od_cart2')||'[]').reduce((s,i)=>s+(i.qty||1),0); }catch(e){}
+  const el = document.getElementById('cartCount');
+  const bn = document.getElementById('bnCart');
+  if(el) el.textContent = c;
+  if(bn) bn.textContent = c;
+}
+updateCartBadge();
+</script>
+</body>
+</html>
