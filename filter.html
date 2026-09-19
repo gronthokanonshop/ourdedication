@@ -421,6 +421,7 @@ let visibleCount = 20;
 const PAGE_SIZE = 20;
 let urlCat = null;
 let urlSubcat = null;
+let urlSubject = null;
 
 // ── INIT ──
 function init(){
@@ -445,7 +446,14 @@ function init(){
   // cat/subcat filter (হোমপেজের ক্যাটাগরি চিপ/মেনু থেকে আসা লিংক)
   if(q.get('cat')) urlCat = q.get('cat');
   if(q.get('subcat')) urlSubcat = q.get('subcat');
+  if(q.get('subject')) urlSubject = q.get('subject');
+  // author/pub filter (হোমপেজের লেখক/প্রকাশনী চিপ থেকে আসা লিংক)
+  if(q.get('author')) checkByValue('#authorOptions', q.get('author'));
+  if(q.get('pub')) checkByValue('#pubOptions', q.get('pub'));
   applyFilters();
+}
+function checkByValue(sel, val){
+  document.querySelectorAll(sel+' input[type=checkbox]').forEach(i => { if(i.value===val) i.checked=true; });
 }
 
 // ── BUILD FILTER OPTIONS ──
@@ -453,7 +461,7 @@ function buildFilterOptions(){
   // Authors (top 8 by count)
   const authorCounts = {};
   books.forEach(b => { if(b.author) authorCounts[b.author] = (authorCounts[b.author]||0)+1; });
-  const topAuthors = Object.entries(authorCounts).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  const topAuthors = Object.entries(authorCounts).sort((a,b)=>b[1]-a[1]).slice(0,12);
   document.getElementById('authorOptions').innerHTML = topAuthors.map(([a,c]) =>
     `<label class="f-opt"><input type="checkbox" value="${a}" onchange="applyFilters()"><label>${a}</label><span class="f-count">${c}</span></label>`
   ).join('');
@@ -461,7 +469,7 @@ function buildFilterOptions(){
   // Publishers (top 8)
   const pubCounts = {};
   books.forEach(b => { if(b.pub) pubCounts[b.pub] = (pubCounts[b.pub]||0)+1; });
-  const topPubs = Object.entries(pubCounts).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  const topPubs = Object.entries(pubCounts).sort((a,b)=>b[1]-a[1]).slice(0,12);
   document.getElementById('pubOptions').innerHTML = topPubs.map(([p,c]) =>
     `<label class="f-opt"><input type="checkbox" value="${p}" onchange="applyFilters()"><label>${p}</label><span class="f-count">${c}</span></label>`
   ).join('');
@@ -497,6 +505,7 @@ function applyFilters(){
     if(checkedCovers.length && !checkedCovers.includes(b.cover)) return false;
     if(urlCat && b.cat !== urlCat) return false;
     if(urlSubcat && b.subcat !== urlSubcat) return false;
+    if(urlSubject && b.subject !== urlSubject) return false;
     if(b.price < minP || b.price > maxP) return false;
     return true;
   });
@@ -572,6 +581,7 @@ function renderActiveFilters(authors, pubs, cats){
   const tags = [...authors.map(a=>({label:a,type:'author'})),...pubs.map(p=>({label:p,type:'pub'})),...cats.map(c=>({label:c,type:'cat'}))];
   if(urlCat) tags.push({label:'বিভাগ: '+urlCat, type:'urlcat'});
   if(urlSubcat) tags.push({label:'উপবিভাগ: '+urlSubcat, type:'urlsubcat'});
+  if(urlSubject) tags.push({label:'বিষয়: '+urlSubject, type:'urlsubject'});
   wrap.innerHTML = tags.map(t =>
     `<span class="af-tag">${t.label} <button onclick="removeFilter('${t.type}','${t.value||t.label}')">✕</button></span>`
   ).join('');
@@ -579,6 +589,7 @@ function renderActiveFilters(authors, pubs, cats){
 function removeFilter(type, val){
   if(type==='urlcat'){ urlCat = null; applyFilters(); return; }
   if(type==='urlsubcat'){ urlSubcat = null; applyFilters(); return; }
+  if(type==='urlsubject'){ urlSubject = null; applyFilters(); return; }
   const sel = type==='author'?'#authorOptions':type==='pub'?'#pubOptions':'#catOptions';
   document.querySelectorAll(sel+' input:checked').forEach(i => { if(i.value===val) i.checked=false; });
   applyFilters();
@@ -590,6 +601,7 @@ function clearAll(){
   document.getElementById('searchInput').value='';
   urlCat = null;
   urlSubcat = null;
+  urlSubject = null;
   applyFilters();
 }
 
