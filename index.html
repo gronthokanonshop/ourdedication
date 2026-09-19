@@ -16,7 +16,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" href="logo-white-bg.png">
 <link rel="apple-touch-icon" href="logo-white-bg.png">
-<meta name="theme-color" content="#0a1e36">
+<meta name="theme-color" content="#F8F5FF">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -24,41 +24,60 @@
    OurDedication — Design Tokens
 ══════════════════════════════════════ */
 :root {
-  --navy:     #0a1e36;
-  --navy2:    #123256;
-  --indigo:   #c9982c;
-  --indigo2:  #a5790f;
-  --amber:    #d9a52c;
-  --amber2:   #8a6510;
+  --navy:     #F8F5FF;
+  --navy2:    #EFE7FB;
+  --indigo:   #7c3aed;
+  --indigo2:  #5b21b6;
+  --amber:    #ec4899;
+  --amber2:   #be185d;
   --white:    #ffffff;
   --muted:    #6b7280;
   --border:   #e5e7eb;
   --border-i: #c7d2fe;
   --card-bg:  #ffffff;
-  --glass:    rgba(10,30,54,0.92);
+  --glass:    rgba(255,255,255,0.92);
   --red:      #ef4444;
   --green:    #10b981;
   --font-en:  'Sora', sans-serif;
   --font-bn:  'Hind Siliguri', sans-serif;
   --r:        18px;
+  --chrome-text: #1e1b4b;
+  --chrome-text-soft: #6b7280;
+  --chrome-bg: rgba(255,255,255,0.92);
+  --chrome-border: #e5e7eb;
+  --chrome-btn-bg: #ffffff;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html{scroll-behavior:smooth;}
 body{
   font-family:var(--font-bn);
   background:var(--navy);
-  color:#eef1f7;
+  color:var(--chrome-text);
   overflow-x:hidden;
   min-height:100vh;
 }
 
 /* ── AMBIENT ORBS ── */
 .orb{position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(80px);}
-.orb-1{width:500px;height:500px;background:rgba(201,152,44,0.07);top:-120px;left:-100px;animation:drift 18s ease-in-out infinite alternate;}
-.orb-2{width:400px;height:400px;background:rgba(217,165,44,0.05);bottom:-80px;right:-80px;animation:drift 22s ease-in-out infinite alternate-reverse;}
-.orb-3{width:300px;height:300px;background:rgba(201,152,44,0.05);top:50%;left:60%;animation:drift 15s ease-in-out infinite alternate;}
+.orb-1{width:500px;height:500px;background:var(--indigo);opacity:0.09;top:-120px;left:-100px;animation:drift 18s ease-in-out infinite alternate;}
+.orb-2{width:400px;height:400px;background:var(--amber);opacity:0.07;bottom:-80px;right:-80px;animation:drift 22s ease-in-out infinite alternate-reverse;}
+.orb-3{width:300px;height:300px;background:var(--indigo);opacity:0.06;top:50%;left:60%;animation:drift 15s ease-in-out infinite alternate;}
 @keyframes drift{0%{transform:translate(0,0);}100%{transform:translate(30px,20px);}}
-body>*:not(:where(.orb,.cart-drawer,.cart-overlay,.bottom-nav,.toast-wrap,.wa-float,.menu-drawer,.menu-overlay)){position:relative;z-index:1;}
+
+/* ── FULL-SCREEN স্টার ওয়াটারমার্ক প্যাটার্ন (কালো shadow-এর মতো, পুরো পেজ জুড়ে রিপিট হবে) ── */
+.bg-watermark-full{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-color:#000;
+  opacity:0.035;
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cg transform='translate(60,70) rotate(-12)'%3E%3Cpath d='M0 -4 C-18 -14 -38 -14 -50 -8 L-50 34 C-38 28 -18 28 0 38 Z' fill='white'/%3E%3Cpath d='M0 -4 C18 -14 38 -14 50 -8 L50 34 C38 28 18 28 0 38 Z' fill='white'/%3E%3C/g%3E%3C/svg%3E");
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cg transform='translate(60,70) rotate(-12)'%3E%3Cpath d='M0 -4 C-18 -14 -38 -14 -50 -8 L-50 34 C-38 28 -18 28 0 38 Z' fill='white'/%3E%3Cpath d='M0 -4 C18 -14 38 -14 50 -8 L50 34 C38 28 18 28 0 38 Z' fill='white'/%3E%3C/g%3E%3C/svg%3E");
+  -webkit-mask-repeat:repeat;
+  mask-repeat:repeat;
+  -webkit-mask-size:220px 220px;
+  mask-size:220px 220px;
+}
+@media(max-width:700px){.bg-watermark-full{-webkit-mask-size:160px 160px;mask-size:160px 160px;}}
+body>*:not(:where(.orb,.bg-watermark-full,.cart-drawer,.cart-overlay,.bottom-nav,.toast-wrap,.wa-float,.menu-drawer,.menu-overlay)){position:relative;z-index:1;}
 
 /* ── NOISE GRAIN ── */
 body::before{
@@ -72,15 +91,15 @@ body::before{
 ══════════════════════════════════════ */
 .nav{
   position:sticky;top:0;z-index:200;
-  background:rgba(10,30,54,0.96);
+  background:var(--chrome-bg);
   backdrop-filter:blur(18px);
   -webkit-backdrop-filter:blur(18px);
-  border-bottom:1px solid rgba(255,255,255,0.08);
+  border-bottom:1px solid var(--chrome-border);
   box-shadow:0 2px 12px rgba(0,0,0,0.25);
 }
 .nav-wrap{
   max-width:1200px;margin:0 auto;
-  padding:0 20px;height:64px;
+  padding:0 20px;height:80px;
   display:flex;align-items:center;justify-content:space-between;gap:16px;
 }
 /* Logo */
@@ -90,7 +109,8 @@ body::before{
   display:flex;align-items:center;justify-content:center;
 }
 .logo-icon img{width:100%;height:100%;object-fit:contain;}
-.logo-name{font-family:var(--font-en);font-size:1.05rem;font-weight:800;letter-spacing:-0.3px;color:#fff;}
+.nav-logo-img{height:66px;width:auto;display:block;}
+.logo-name{font-family:var(--font-en);font-size:1.05rem;font-weight:800;letter-spacing:-0.3px;color:var(--chrome-text);}
 .logo-name span{color:var(--indigo);}
 /* Search */
 .nav-search{
@@ -141,9 +161,9 @@ body::before{
 .nav-actions{display:flex;align-items:center;gap:6px;}
 .nav-btn{
   width:38px;height:38px;border-radius:10px;
-  background:rgba(255,255,255,0.06);
-  border:1.5px solid rgba(255,255,255,0.14);
-  color:#fff;font-size:1.1rem;
+  background:var(--chrome-btn-bg);
+  border:1.5px solid var(--chrome-border);
+  color:var(--chrome-text);font-size:1.1rem;
   display:flex;align-items:center;justify-content:center;
   cursor:pointer;text-decoration:none;position:relative;
   transition:border-color 0.2s,color 0.2s,background 0.2s;
@@ -176,6 +196,53 @@ body::before{
   box-shadow:0 16px 40px rgba(0,0,0,0.3);
 }
 @media(max-width:700px){.banner-viewport{border-radius:14px;}}
+
+/* ══════════════════════════════════════
+   CHIP STRIPS (ক্যাটাগরি / লেখক / প্রকাশনী)
+══════════════════════════════════════ */
+.chip-strip-section{padding:14px 0 4px;max-width:1200px;margin:0 auto;}
+.chip-strip-title{
+  font-size:0.82rem;font-weight:700;color:var(--chrome-text-soft);
+  letter-spacing:0.4px;margin:0 0 10px 20px;
+  display:flex;align-items:center;gap:6px;
+}
+@media(max-width:700px){.chip-strip-title{margin-left:12px;}}
+.chip-strip-wrap{position:relative;}
+.chip-strip{
+  display:flex;gap:12px;overflow-x:auto;
+  -webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;
+  padding:2px 20px 10px;scrollbar-width:none;
+}
+@media(max-width:700px){.chip-strip{padding:2px 12px 10px;}}
+.chip-strip::-webkit-scrollbar{display:none;}
+.chip-card{
+  flex:0 0 auto;width:86px;scroll-snap-align:start;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;
+  text-decoration:none;transition:transform 0.18s ease;
+}
+.chip-card:active{transform:scale(0.95);}
+.chip-card-img{
+  width:86px;height:86px;border-radius:16px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-en);font-weight:700;font-size:1.6rem;color:#fff;
+  box-shadow:0 4px 14px rgba(0,0,0,0.25);flex-shrink:0;
+}
+.chip-card.round .chip-card-img{border-radius:50%;}
+.chip-card-label{
+  margin-top:7px;font-size:0.72rem;font-weight:600;
+  color:var(--chrome-text);text-align:center;line-height:1.25;
+  max-width:86px;word-break:break-word;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.chip-strip-next{
+  position:absolute;top:38px;right:6px;transform:translateY(-50%);
+  width:34px;height:34px;border-radius:50%;
+  background:rgba(10,30,54,0.85);color:#fff;
+  border:1px solid rgba(255,255,255,0.18);box-shadow:0 3px 12px rgba(0,0,0,0.3);
+  font-size:1.2rem;line-height:1;cursor:pointer;
+  display:none;align-items:center;justify-content:center;padding:0;z-index:4;
+}
+@media(min-width:768px){.chip-strip-next{display:flex;}}
 .banner-track{
   display:flex;height:100%;
   transition:transform 0.5s cubic-bezier(.4,0,.2,1);
@@ -216,7 +283,7 @@ body::before{
 }
 .section-head h2{
   font-family:var(--font-en);font-size:1.35rem;font-weight:800;
-  color:#fff;letter-spacing:-0.3px;
+  color:var(--chrome-text);letter-spacing:-0.3px;
 }
 .section-head h2 span{color:var(--indigo);}
 .see-all{
@@ -231,8 +298,8 @@ body::before{
    MARQUEE TRUST BAR
 ══════════════════════════════════════ */
 .trust-wrap{
-  overflow:hidden;border-top:1px solid rgba(255,255,255,0.08);
-  border-bottom:1px solid rgba(255,255,255,0.08);
+  overflow:hidden;border-top:1px solid var(--chrome-border);
+  border-bottom:1px solid var(--chrome-border);
   background:var(--navy2);
   padding:14px 0;
 }
@@ -245,7 +312,7 @@ body::before{
 .trust-item{
   display:inline-flex;align-items:center;gap:10px;
   font-family:var(--font-en);font-size:0.82rem;font-weight:600;
-  color:rgba(255,255,255,0.65);flex-shrink:0;
+  color:var(--chrome-text-soft);flex-shrink:0;
 }
 .trust-item span{color:var(--indigo);}
 .trust-dot{width:4px;height:4px;background:var(--indigo);border-radius:50%;}
@@ -619,9 +686,10 @@ body{padding-bottom:70px;}
 
 /* NAV - mobile fix */
 @media(max-width:600px){
-  .nav-wrap{padding:0 12px;height:54px;gap:8px;}
+  .nav-wrap{padding:0 12px;height:66px;gap:8px;}
   .logo-name{font-size:0.88rem;}
   .logo-icon{width:32px;height:32px;}
+  .nav-logo-img{height:50px;}
   .nav-search{flex:1;min-width:0;}
   .nav-search input{font-size:0.82rem;padding:7px 10px;}
   .nav-search button{padding:7px 10px;}
@@ -718,6 +786,7 @@ body{padding-bottom:70px;}
 <div class="orb orb-1"></div>
 <div class="orb orb-2"></div>
 <div class="orb orb-3"></div>
+<div class="bg-watermark-full"></div>
 
 <!-- ══════════════════════════════════════
      NAVBAR
@@ -726,7 +795,7 @@ body{padding-bottom:70px;}
   <div class="nav-wrap">
     <!-- Logo -->
     <a href="index.html" class="logo">
-      <img src="logo-transparent.png" alt="OurDedication" style="height:46px;width:auto;display:block;">
+      <img src="logo-transparent.png" alt="OurDedication" class="nav-logo-img">
     </a>
 
     <!-- Search -->
@@ -766,6 +835,31 @@ body{padding-bottom:70px;}
     <button class="banner-arrow prev" onclick="bannerGo(-1)" aria-label="আগের ব্যানার">‹</button>
     <button class="banner-arrow next" onclick="bannerGo(1)" aria-label="পরের ব্যানার">›</button>
     <div class="banner-dots" id="bannerDots"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     CHIP STRIPS: ক্যাটাগরি / লেখক / প্রকাশনী
+══════════════════════════════════════ -->
+<div class="chip-strip-section">
+  <div class="chip-strip-title">📂 ক্যাটাগরি</div>
+  <div class="chip-strip-wrap">
+    <div class="chip-strip" id="catChipStrip"></div>
+    <button class="chip-strip-next" id="catChipNext" aria-label="আরো ক্যাটাগরি">›</button>
+  </div>
+</div>
+<div class="chip-strip-section">
+  <div class="chip-strip-title">✍️ প্রিয় লেখক</div>
+  <div class="chip-strip-wrap">
+    <div class="chip-strip" id="authorChipStrip"></div>
+    <button class="chip-strip-next" id="authorChipNext" aria-label="আরো লেখক">›</button>
+  </div>
+</div>
+<div class="chip-strip-section">
+  <div class="chip-strip-title">📖 প্রকাশনী</div>
+  <div class="chip-strip-wrap">
+    <div class="chip-strip" id="pubChipStrip"></div>
+    <button class="chip-strip-next" id="pubChipNext" aria-label="আরো প্রকাশনী">›</button>
   </div>
 </div>
 
@@ -1090,6 +1184,46 @@ function renderBest(){
 renderFlash();
 renderNew();
 renderBest();
+
+/* ══ ক্যাটাগরি/লেখক/প্রকাশনী চিপ স্ট্রিপ ══ */
+(function(){
+  if(!books || !books.length) return;
+  const palette = ['#f97316','#10b981','#eab308','#c9982c','#059669','#14b8a6','#3b82f6','#8b5cf6','#a5790f','#ec4899','#0ea5e9','#d9a52c'];
+  const catExclude = new Set(['Best Selling','Trending','নতুন প্রকাশিত','New Arrived','Pre Order']);
+  function topValues(field, limit, exclude){
+    const counts = {};
+    books.forEach(b => {
+      const v = (b[field]||'').toString().trim();
+      if(v && !(exclude && exclude.has(v))) counts[v] = (counts[v]||0)+1;
+    });
+    return Object.keys(counts).sort((a,b)=>counts[b]-counts[a]).slice(0,limit);
+  }
+  function colorFor(name){
+    let sum = 0; for(let i=0;i<name.length;i++) sum += name.charCodeAt(i);
+    return palette[sum % palette.length];
+  }
+  function renderStrip(stripId, nextBtnId, values, param, round){
+    const strip = document.getElementById(stripId);
+    const nextBtn = document.getElementById(nextBtnId);
+    if(!strip || !values.length){ const sec = strip && strip.closest('.chip-strip-section'); if(sec) sec.style.display='none'; return; }
+    strip.innerHTML = values.map(v => `
+      <a class="chip-card${round?' round':''}" href="filter.html?${param}=${encodeURIComponent(v)}">
+        <div class="chip-card-img" style="background:${colorFor(v)};">${v.charAt(0)}</div>
+        <div class="chip-card-label">${v}</div>
+      </a>
+    `).join('');
+    if(nextBtn){
+      nextBtn.onclick = () => {
+        const max = strip.scrollWidth - strip.clientWidth;
+        if(strip.scrollLeft >= max-5) strip.scrollTo({left:0,behavior:'smooth'});
+        else strip.scrollBy({left:Math.min(260,max-strip.scrollLeft),behavior:'smooth'});
+      };
+    }
+  }
+  renderStrip('catChipStrip','catChipNext', topValues('cat',10,catExclude), 'cat', false);
+  renderStrip('authorChipStrip','authorChipNext', topValues('author',12), 'author', true);
+  renderStrip('pubChipStrip','pubChipNext', topValues('pub',12), 'pub', false);
+})();
 
 /* ══ BANNER SLIDER ══ */
 (function(){
