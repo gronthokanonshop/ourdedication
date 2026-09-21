@@ -111,7 +111,8 @@ body{font-family:var(--font-bn);background:#0a1e36;color:#eef1f7;min-height:100v
 .badge-new{background:var(--indigo-l);color:var(--indigo);border:1px solid var(--border-i);}
 .badge-sale{background:#fffbeb;color:#8a6510;border:1px solid #fde68a;}
 .badge-bs{background:#f0fdf4;color:#059669;border:1px solid #bbf7d0;}
-.p-wish{position:absolute;top:8px;right:8px;z-index:2;width:28px;height:28px;border-radius:7px;background:rgba(255,255,255,0.85);backdrop-filter:blur(4px);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.85rem;cursor:pointer;transition:all 0.2s;}
+.p-wish{position:absolute;top:8px;right:8px;z-index:2;width:28px;height:28px;border-radius:9px;background:linear-gradient(135deg,var(--indigo2),var(--indigo));border:none;color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.85rem;cursor:pointer;transition:filter 0.2s;}
+.p-wish:hover{filter:brightness(1.15);}
 .p-wish:hover,.p-wish.active{background:#fef2f2;border-color:#fecaca;color:#ef4444;}
 .p-img{aspect-ratio:3/4;background:linear-gradient(135deg,#f8f9ff,#eef2ff);display:flex;align-items:center;justify-content:center;overflow:hidden;}
 .p-img-inner{width:100%;height:100%;object-fit:contain;padding:10px;transition:transform 0.3s;}
@@ -127,7 +128,8 @@ body{font-family:var(--font-bn);background:#0a1e36;color:#eef1f7;min-height:100v
 .p-price{font-family:var(--font-en);font-size:1rem;font-weight:800;color:var(--text);}
 .p-price .cur{font-size:0.7rem;color:var(--indigo);margin-right:1px;}
 .p-old{font-family:var(--font-en);font-size:0.72rem;color:var(--text2);text-decoration:line-through;}
-.p-cart{width:32px;height:32px;border-radius:9px;background:var(--indigo-l);border:1.5px solid var(--border-i);display:flex;align-items:center;justify-content:center;font-size:0.9rem;cursor:pointer;flex-shrink:0;transition:all 0.2s;}
+.p-cart{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,var(--indigo2),var(--indigo));border:none;color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.9rem;cursor:pointer;flex-shrink:0;transition:filter 0.2s,transform 0.15s;}
+.p-cart:hover{filter:brightness(1.15);transform:scale(1.1);}
 .p-cart:hover{background:var(--indigo);border-color:var(--indigo);}
 
 /* no results */
@@ -533,11 +535,9 @@ function renderProducts(){
   }
   grid.innerHTML = slice.map(b => {
     const disc = b.original_price > b.price ? Math.round((1-b.price/b.original_price)*100) : 0;
-    const isBs = b.tags && b.tags.includes('Best Selling');
     const img = b.img && /^https?:\/\//.test(b.img) ? b.img : 'https://via.placeholder.com/180x240/eef2ff/6366f1?text=📚';
     return `<a class="p-card" href="product.html?id=${b.bid}">
       <div class="p-badges">
-        ${isBs ? '<span class="badge badge-bs">⭐ Bestseller</span>' : ''}
         ${disc>=20 ? `<span class="badge badge-sale">${disc}% ছাড়</span>` : ''}
       </div>
       <button class="p-wish ${wishlist.includes(b.bid)?'active':''}" onclick="wish(event,this,'${b.bid}')" title="পছন্দে যোগ">${wishlist.includes(b.bid)?'❤️':'♡'}</button>

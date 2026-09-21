@@ -177,6 +177,14 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
 .flex-between{display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;}
 .small-btn-group{display:flex; gap:6px; flex-wrap:wrap;}
 .load-more-wrap{text-align:center; margin-top:16px;}
+.curate-row{display:flex; align-items:center; gap:8px; padding:8px 10px; border:1px solid var(--border); border-radius:8px; margin-bottom:8px; flex-wrap:wrap; background:#fff;}
+.curate-thumb{width:40px; height:40px; border-radius:8px; object-fit:cover; background:#f3f4f6; flex-shrink:0;}
+.curate-thumb.round{border-radius:50%;}
+.curate-thumb-ph{width:40px; height:40px; border-radius:8px; background:var(--primary-l); color:var(--primary-d); flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:16px;}
+.curate-thumb-ph.round{border-radius:50%;}
+.curate-name{flex:1; min-width:100px; font-weight:600; font-size:13.5px; word-break:break-word;}
+.curate-add-box{border:1.5px dashed var(--border); border-radius:10px; padding:14px; margin-bottom:12px; background:#f9fafb;}
+.banner-thumb{width:70px; height:40px; border-radius:6px; object-fit:cover; background:#f3f4f6; flex-shrink:0;}
 #invoiceOffscreen{position:fixed; left:-9999px; top:0; width:750px; background:#fff;}
 .inv-box{padding:30px; font-family:'Hind Siliguri',sans-serif; color:#111;}
 .inv-box h2{margin:0 0 2px;}
@@ -382,6 +390,70 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
           <div class="field full"><input type="text" id="setPixelId" placeholder="123456789012345"></div>
         </div>
         <button class="btn btn-primary btn-sm" id="savePixel" style="margin-top:8px;">সংরক্ষণ করুন</button>
+      </div>
+
+      <div class="card">
+        <h3>হোমপেজ ক্যাটাগরি চিপ</h3>
+        <p class="hint">হোমপেজের ক্যাটাগরি গ্রিডে কোন কোন বিভাগ, কোন ক্রমে দেখাবে তা এখান থেকে ঠিক করুন। নাম অবশ্যই বইয়ের বিভাগ (cat)-এর সাথে হুবহু মিলতে হবে। কিছু যোগ না করলে সাইট নিজে থেকেই সবচেয়ে জনপ্রিয় বিভাগগুলো দেখাবে।</p>
+        <div id="homeCatList"></div>
+        <div class="curate-add-box">
+          <div class="form-grid">
+            <div class="field"><label>বিভাগের নাম</label><input type="text" id="hcName" list="hcNameDatalist" placeholder="যেমন: ইসলামি বই"></div>
+            <datalist id="hcNameDatalist"></datalist>
+            <div class="field"><label>ছবি URL (ঐচ্ছিক)</label><input type="text" id="hcImg" placeholder="https://..."></div>
+            <div class="field full"><label>ছবি আপলোড (ঐচ্ছিক)</label><input type="file" id="hcImgUpload" accept="image/*"><div class="hint" id="hcImgUploadStatus"></div></div>
+          </div>
+          <button type="button" class="btn btn-outline btn-sm" id="addHomeCatBtn" style="margin-top:6px;">➕ তালিকায় যোগ করুন</button>
+        </div>
+        <button type="button" class="btn btn-primary btn-sm" id="saveHomeCatsBtn">সংরক্ষণ করুন (হোমপেজে লাইভ)</button>
+      </div>
+
+      <div class="card">
+        <h3>হোমপেজ প্রকাশনী চিপ</h3>
+        <p class="hint">হোমপেজে প্রকাশনীর লোগো/নাম চিপ দেখানোর জন্য এখান থেকে নিয়ন্ত্রণ করুন। নাম লেখার সময় বইয়ের ডেটা থেকে সাজেশন আসবে। কিছু যোগ না করলে সাইট নিজে থেকেই জনপ্রিয় প্রকাশনী দেখাবে।</p>
+        <div id="homePubList"></div>
+        <div class="curate-add-box">
+          <div class="form-grid">
+            <div class="field"><label>প্রকাশনীর নাম</label><input type="text" id="hpName" list="hpNameDatalist" placeholder="প্রকাশনীর নাম লিখুন"></div>
+            <datalist id="hpNameDatalist"></datalist>
+            <div class="field"><label>লোগো URL (ঐচ্ছিক)</label><input type="text" id="hpImg" placeholder="https://..."></div>
+            <div class="field full"><label>লোগো আপলোড (ঐচ্ছিক)</label><input type="file" id="hpImgUpload" accept="image/*"><div class="hint" id="hpImgUploadStatus"></div></div>
+          </div>
+          <button type="button" class="btn btn-outline btn-sm" id="addHomePubBtn" style="margin-top:6px;">➕ তালিকায় যোগ করুন</button>
+        </div>
+        <button type="button" class="btn btn-primary btn-sm" id="saveHomePubsBtn">সংরক্ষণ করুন (হোমপেজে লাইভ)</button>
+      </div>
+
+      <div class="card">
+        <h3>হোমপেজ প্রিয় লেখক চিপ</h3>
+        <p class="hint">হোমপেজে লেখকের ছবি/নাম চিপ দেখানোর জন্য এখান থেকে নিয়ন্ত্রণ করুন। নাম লেখার সময় বইয়ের ডেটা থেকে সাজেশন আসবে। কিছু যোগ না করলে সাইট নিজে থেকেই জনপ্রিয় লেখক দেখাবে।</p>
+        <div id="homeAuthorList"></div>
+        <div class="curate-add-box">
+          <div class="form-grid">
+            <div class="field"><label>লেখকের নাম</label><input type="text" id="haName" list="haNameDatalist" placeholder="লেখকের নাম লিখুন"></div>
+            <datalist id="haNameDatalist"></datalist>
+            <div class="field"><label>ছবি URL (ঐচ্ছিক)</label><input type="text" id="haImg" placeholder="https://..."></div>
+            <div class="field full"><label>ছবি আপলোড (ঐচ্ছিক)</label><input type="file" id="haImgUpload" accept="image/*"><div class="hint" id="haImgUploadStatus"></div></div>
+          </div>
+          <button type="button" class="btn btn-outline btn-sm" id="addHomeAuthorBtn" style="margin-top:6px;">➕ তালিকায় যোগ করুন</button>
+        </div>
+        <button type="button" class="btn btn-primary btn-sm" id="saveHomeAuthorsBtn">সংরক্ষণ করুন (হোমপেজে লাইভ)</button>
+      </div>
+
+      <div class="card">
+        <h3>হোমপেজ ব্যানার / স্লাইডার</h3>
+        <p class="hint">হোমপেজের উপরের স্লাইডার ব্যানার এখান থেকে বদলান। ছবির লিংক দিন বা আপলোড করুন, ক্লিক করলে কোথায় যাবে তা চাইলে লিংকে বসান। কিছু যোগ না করে খালি রাখলে সাইটের ডিফল্ট ব্যানার দুটো দেখাবে।</p>
+        <div id="bannerList"></div>
+        <div class="curate-add-box">
+          <div class="form-grid">
+            <div class="field full"><label>ছবি URL</label><input type="text" id="bnImg" placeholder="https://..."></div>
+            <div class="field full"><label>ছবি আপলোড</label><input type="file" id="bnImgUpload" accept="image/*"><div class="hint" id="bnImgUploadStatus"></div></div>
+            <div class="field"><label>শিরোনাম (ঐচ্ছিক, alt text হিসেবে ব্যবহৃত হবে)</label><input type="text" id="bnTitle" placeholder="যেমন: ঈদ অফার"></div>
+            <div class="field"><label>লিংক (ঐচ্ছিক)</label><input type="text" id="bnLink" placeholder="filter.html?cat=... অথবা পুরো URL"></div>
+          </div>
+          <button type="button" class="btn btn-outline btn-sm" id="addBannerBtn" style="margin-top:6px;">➕ তালিকায় যোগ করুন</button>
+        </div>
+        <button type="button" class="btn btn-primary btn-sm" id="saveBannersBtn">সব ব্যানার সংরক্ষণ করুন (সাইটে লাইভ)</button>
       </div>
 
       <div class="card" id="ownerOnlyNote" hidden>
@@ -715,6 +787,7 @@ function initData(){
   loadOrders();
   loadCoupons();
   loadSettings();
+  loadHomeCurationData();
   if(isOwner){
     loadModerators();
   }
@@ -736,11 +809,13 @@ function loadBooksMerged(){
     renderDashboard();
     renderBookCatFilterOptions();
     renderBooksTab(true);
+    populateCurationDatalists();
   }).catch(()=>{
     workingBooks = baseline;
     renderDashboard();
     renderBookCatFilterOptions();
     renderBooksTab(true);
+    populateCurationDatalists();
   });
 }
 
@@ -1630,6 +1705,300 @@ document.getElementById('savePixel').addEventListener('click', function(){
   }
   db.ref('siteConfig/metaPixelId').set(val).then(()=>{
     toast('সংরক্ষণ হয়েছে', 'ok');
+  }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
+});
+
+/* ================================================================
+   হোমপেজ কিউরেশন: ক্যাটাগরি/প্রকাশনী/লেখক চিপ + ব্যানার স্লাইডার
+   Firebase paths: siteConfig/homeCats, siteConfig/homePubs,
+   siteConfig/homeAuthors (প্রতিটি [{name, img}] অ্যারে), banners
+   ([{img, title, link}] অ্যারে)। খালি রাখলে/ডিলিট করলে সাইট নিজে
+   থেকেই অটো-ডিরাইভড (fallback) তালিকা/ডিফল্ট ব্যানার দেখাবে।
+   ================================================================ */
+let homeCatsData = [];
+let homePubsData = [];
+let homeAuthorsData = [];
+let bannerData = [];
+
+function uniqueFieldValues(field){
+  return Array.from(new Set(workingBooks.map(b=>b[field]).filter(Boolean))).sort((a,b)=>String(a).localeCompare(String(b),'bn'));
+}
+/* যেসব নাম আগেই চিপ হিসেবে যোগ করা হয়ে গেছে সেগুলো বাদ দিয়ে datalist সাজেশন দেখানো হয় */
+function populateCurationDatalists(){
+  const catDl = document.getElementById('hcNameDatalist');
+  if(catDl) catDl.innerHTML = uniqueFieldValues('cat').filter(c=>!homeCatsData.some(hc=>hc.name===c)).map(c=>'<option value="'+escapeAttr(c)+'">').join('');
+  const pubDl = document.getElementById('hpNameDatalist');
+  if(pubDl) pubDl.innerHTML = uniqueFieldValues('pub').filter(p=>!homePubsData.some(hp=>hp.name===p)).map(p=>'<option value="'+escapeAttr(p)+'">').join('');
+  const authorDl = document.getElementById('haNameDatalist');
+  if(authorDl) authorDl.innerHTML = uniqueFieldValues('author').filter(a=>!homeAuthorsData.some(ha=>ha.name===a)).map(a=>'<option value="'+escapeAttr(a)+'">').join('');
+}
+function moveHomeItem(arr, i, dir){
+  const j = i + dir;
+  if(j < 0 || j >= arr.length) return;
+  const t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+}
+/* বই এড/এডিট ফর্মে ব্যবহৃত imgbb আপলোড হেলপারটাই এখানে পুনর্ব্যবহার করা হচ্ছে */
+function curationImgUpload(file, statusEl, onDone){
+  if(!file) return;
+  if(!imgbbKeyCache){
+    if(statusEl) statusEl.textContent = 'ত্রুটি: imgbb key সেট করা নেই (এই পেজের উপরে দেখুন)।';
+    return;
+  }
+  if(statusEl) statusEl.textContent = 'আপলোড হচ্ছে...';
+  compressImageIfNeeded(file, 500).then(blob=>{
+    const fd = new FormData();
+    fd.append('image', blob, file.name);
+    return fetch('https://api.imgbb.com/1/upload?key=' + encodeURIComponent(imgbbKeyCache), {
+      method:'POST', body: fd
+    });
+  }).then(r=>r.json()).then(data=>{
+    if(data && data.data && data.data.url){
+      if(statusEl) statusEl.textContent = 'আপলোড সম্পন্ন ✓';
+      onDone(data.data.url);
+    } else {
+      if(statusEl) statusEl.textContent = 'আপলোড ব্যর্থ';
+    }
+  }).catch(err=>{
+    if(statusEl) statusEl.textContent = 'ব্যর্থ: ' + err.message;
+  });
+}
+
+function loadHomeCurationData(){
+  db.ref('siteConfig/homeCats').get().then(snap=>{
+    const v = snap.exists() ? snap.val() : null;
+    homeCatsData = Array.isArray(v) ? v.filter(c=>c && c.name) : (v && typeof v==='object' ? Object.values(v).filter(c=>c && c.name) : []);
+    renderHomeCatList();
+  }).catch(()=>{ homeCatsData = []; renderHomeCatList(); });
+
+  db.ref('siteConfig/homePubs').get().then(snap=>{
+    const v = snap.exists() ? snap.val() : null;
+    homePubsData = Array.isArray(v) ? v.filter(p=>p && p.name) : (v && typeof v==='object' ? Object.values(v).filter(p=>p && p.name) : []);
+    renderHomePubList();
+  }).catch(()=>{ homePubsData = []; renderHomePubList(); });
+
+  db.ref('siteConfig/homeAuthors').get().then(snap=>{
+    const v = snap.exists() ? snap.val() : null;
+    homeAuthorsData = Array.isArray(v) ? v.filter(a=>a && a.name) : (v && typeof v==='object' ? Object.values(v).filter(a=>a && a.name) : []);
+    renderHomeAuthorList();
+  }).catch(()=>{ homeAuthorsData = []; renderHomeAuthorList(); });
+
+  db.ref('banners').get().then(snap=>{
+    const v = snap.exists() ? snap.val() : null;
+    bannerData = Array.isArray(v) ? v.filter(Boolean) : (v && typeof v==='object' ? Object.values(v).filter(Boolean) : []);
+    renderBannerList();
+  }).catch(()=>{ bannerData = []; renderBannerList(); });
+}
+
+/* ---------- হোমপেজ ক্যাটাগরি চিপ ---------- */
+function renderHomeCatList(){
+  populateCurationDatalists();
+  const box = document.getElementById('homeCatList');
+  if(!box) return;
+  if(!homeCatsData.length){
+    box.innerHTML = '<div class="hint">কোনো কাস্টম ক্যাটাগরি চিপ নেই — নিচে থেকে যোগ করুন। (এখন সাইটে সবচেয়ে জনপ্রিয় বিভাগগুলো স্বয়ংক্রিয়ভাবে দেখানো হচ্ছে।)</div>';
+    return;
+  }
+  box.innerHTML = homeCatsData.map((c,i)=>{
+    const thumb = (c.img||'').trim()
+      ? '<img class="curate-thumb" src="'+escapeAttr(c.img)+'" onerror="this.style.opacity=0.3">'
+      : '<div class="curate-thumb-ph">🖼️</div>';
+    return '<div class="curate-row">'
+      + thumb
+      + '<span class="curate-name">'+escapeHtml(c.name)+'</span>'
+      + '<button type="button" class="btn btn-outline btn-sm" data-cat-up="'+i+'" '+(i===0?'disabled':'')+'>▲</button>'
+      + '<button type="button" class="btn btn-outline btn-sm" data-cat-down="'+i+'" '+(i===homeCatsData.length-1?'disabled':'')+'>▼</button>'
+      + '<button type="button" class="btn btn-danger btn-sm" data-cat-remove="'+i+'">✕</button>'
+      + '</div>';
+  }).join('');
+  box.querySelectorAll('[data-cat-up]').forEach(btn=>{
+    btn.addEventListener('click', function(){ moveHomeItem(homeCatsData, parseInt(this.dataset.catUp,10), -1); renderHomeCatList(); });
+  });
+  box.querySelectorAll('[data-cat-down]').forEach(btn=>{
+    btn.addEventListener('click', function(){ moveHomeItem(homeCatsData, parseInt(this.dataset.catDown,10), 1); renderHomeCatList(); });
+  });
+  box.querySelectorAll('[data-cat-remove]').forEach(btn=>{
+    btn.addEventListener('click', function(){ homeCatsData.splice(parseInt(this.dataset.catRemove,10),1); renderHomeCatList(); });
+  });
+}
+document.getElementById('addHomeCatBtn').addEventListener('click', function(){
+  const name = document.getElementById('hcName').value.trim();
+  const img = document.getElementById('hcImg').value.trim();
+  if(!name){ toast('বিভাগের নাম দিন', 'err'); return; }
+  if(homeCatsData.some(c=>c.name===name)){ toast('এই ক্যাটাগরি আগে থেকেই আছে', 'err'); return; }
+  homeCatsData.push({name, img});
+  document.getElementById('hcName').value = '';
+  document.getElementById('hcImg').value = '';
+  document.getElementById('hcImgUploadStatus').textContent = '';
+  renderHomeCatList();
+});
+document.getElementById('hcImgUpload').addEventListener('change', function(){
+  const file = this.files[0];
+  const statusEl = document.getElementById('hcImgUploadStatus');
+  curationImgUpload(file, statusEl, function(url){ document.getElementById('hcImg').value = url; });
+  this.value = '';
+});
+document.getElementById('saveHomeCatsBtn').addEventListener('click', function(){
+  db.ref('siteConfig/homeCats').set(homeCatsData.length ? homeCatsData : null).then(()=>{
+    toast('হোমপেজ ক্যাটাগরি সংরক্ষণ হয়েছে', 'ok');
+  }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
+});
+
+/* ---------- হোমপেজ প্রকাশনী চিপ ---------- */
+function renderHomePubList(){
+  populateCurationDatalists();
+  const box = document.getElementById('homePubList');
+  if(!box) return;
+  if(!homePubsData.length){
+    box.innerHTML = '<div class="hint">কোনো প্রকাশনী চিপ নেই — নিচে থেকে যোগ করুন। (কিছু না থাকলে হোমপেজে এই সেকশন দেখাবে না।)</div>';
+    return;
+  }
+  box.innerHTML = homePubsData.map((p,i)=>{
+    const thumb = (p.img||'').trim()
+      ? '<img class="curate-thumb" src="'+escapeAttr(p.img)+'" onerror="this.style.opacity=0.3">'
+      : '<div class="curate-thumb-ph">🏢</div>';
+    return '<div class="curate-row">'
+      + thumb
+      + '<span class="curate-name">'+escapeHtml(p.name)+'</span>'
+      + '<button type="button" class="btn btn-outline btn-sm" data-pub-up="'+i+'" '+(i===0?'disabled':'')+'>▲</button>'
+      + '<button type="button" class="btn btn-outline btn-sm" data-pub-down="'+i+'" '+(i===homePubsData.length-1?'disabled':'')+'>▼</button>'
+      + '<button type="button" class="btn btn-danger btn-sm" data-pub-remove="'+i+'">✕</button>'
+      + '</div>';
+  }).join('');
+  box.querySelectorAll('[data-pub-up]').forEach(btn=>{
+    btn.addEventListener('click', function(){ moveHomeItem(homePubsData, parseInt(this.dataset.pubUp,10), -1); renderHomePubList(); });
+  });
+  box.querySelectorAll('[data-pub-down]').forEach(btn=>{
+    btn.addEventListener('click', function(){ moveHomeItem(homePubsData, parseInt(this.dataset.pubDown,10), 1); renderHomePubList(); });
+  });
+  box.querySelectorAll('[data-pub-remove]').forEach(btn=>{
+    btn.addEventListener('click', function(){ homePubsData.splice(parseInt(this.dataset.pubRemove,10),1); renderHomePubList(); });
+  });
+}
+document.getElementById('addHomePubBtn').addEventListener('click', function(){
+  const name = document.getElementById('hpName').value.trim();
+  const img = document.getElementById('hpImg').value.trim();
+  if(!name){ toast('প্রকাশনীর নাম দিন', 'err'); return; }
+  if(homePubsData.some(p=>p.name===name)){ toast('এই প্রকাশনী আগে থেকেই আছে', 'err'); return; }
+  homePubsData.push({name, img});
+  document.getElementById('hpName').value = '';
+  document.getElementById('hpImg').value = '';
+  document.getElementById('hpImgUploadStatus').textContent = '';
+  renderHomePubList();
+});
+document.getElementById('hpImgUpload').addEventListener('change', function(){
+  const file = this.files[0];
+  const statusEl = document.getElementById('hpImgUploadStatus');
+  curationImgUpload(file, statusEl, function(url){ document.getElementById('hpImg').value = url; });
+  this.value = '';
+});
+document.getElementById('saveHomePubsBtn').addEventListener('click', function(){
+  db.ref('siteConfig/homePubs').set(homePubsData.length ? homePubsData : null).then(()=>{
+    toast('হোমপেজ প্রকাশনী চিপ সংরক্ষণ হয়েছে', 'ok');
+  }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
+});
+
+/* ---------- হোমপেজ প্রিয় লেখক চিপ ---------- */
+function renderHomeAuthorList(){
+  populateCurationDatalists();
+  const box = document.getElementById('homeAuthorList');
+  if(!box) return;
+  if(!homeAuthorsData.length){
+    box.innerHTML = '<div class="hint">কোনো লেখক চিপ নেই — নিচে থেকে যোগ করুন। (কিছু না থাকলে হোমপেজে এই সেকশন দেখাবে না।)</div>';
+    return;
+  }
+  box.innerHTML = homeAuthorsData.map((a,i)=>{
+    const thumb = (a.img||'').trim()
+      ? '<img class="curate-thumb round" src="'+escapeAttr(a.img)+'" onerror="this.style.opacity=0.3">'
+      : '<div class="curate-thumb-ph round">✍️</div>';
+    return '<div class="curate-row">'
+      + thumb
+      + '<span class="curate-name">'+escapeHtml(a.name)+'</span>'
+      + '<button type="button" class="btn btn-outline btn-sm" data-author-up="'+i+'" '+(i===0?'disabled':'')+'>▲</button>'
+      + '<button type="button" class="btn btn-outline btn-sm" data-author-down="'+i+'" '+(i===homeAuthorsData.length-1?'disabled':'')+'>▼</button>'
+      + '<button type="button" class="btn btn-danger btn-sm" data-author-remove="'+i+'">✕</button>'
+      + '</div>';
+  }).join('');
+  box.querySelectorAll('[data-author-up]').forEach(btn=>{
+    btn.addEventListener('click', function(){ moveHomeItem(homeAuthorsData, parseInt(this.dataset.authorUp,10), -1); renderHomeAuthorList(); });
+  });
+  box.querySelectorAll('[data-author-down]').forEach(btn=>{
+    btn.addEventListener('click', function(){ moveHomeItem(homeAuthorsData, parseInt(this.dataset.authorDown,10), 1); renderHomeAuthorList(); });
+  });
+  box.querySelectorAll('[data-author-remove]').forEach(btn=>{
+    btn.addEventListener('click', function(){ homeAuthorsData.splice(parseInt(this.dataset.authorRemove,10),1); renderHomeAuthorList(); });
+  });
+}
+document.getElementById('addHomeAuthorBtn').addEventListener('click', function(){
+  const name = document.getElementById('haName').value.trim();
+  const img = document.getElementById('haImg').value.trim();
+  if(!name){ toast('লেখকের নাম দিন', 'err'); return; }
+  if(homeAuthorsData.some(a=>a.name===name)){ toast('এই লেখক আগে থেকেই আছে', 'err'); return; }
+  homeAuthorsData.push({name, img});
+  document.getElementById('haName').value = '';
+  document.getElementById('haImg').value = '';
+  document.getElementById('haImgUploadStatus').textContent = '';
+  renderHomeAuthorList();
+});
+document.getElementById('haImgUpload').addEventListener('change', function(){
+  const file = this.files[0];
+  const statusEl = document.getElementById('haImgUploadStatus');
+  curationImgUpload(file, statusEl, function(url){ document.getElementById('haImg').value = url; });
+  this.value = '';
+});
+document.getElementById('saveHomeAuthorsBtn').addEventListener('click', function(){
+  db.ref('siteConfig/homeAuthors').set(homeAuthorsData.length ? homeAuthorsData : null).then(()=>{
+    toast('হোমপেজ লেখক চিপ সংরক্ষণ হয়েছে', 'ok');
+  }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
+});
+
+/* ---------- হোমপেজ ব্যানার / স্লাইডার ---------- */
+function renderBannerList(){
+  const box = document.getElementById('bannerList');
+  if(!box) return;
+  if(!bannerData.length){
+    box.innerHTML = '<div class="hint">কোনো কাস্টম ব্যানার নেই — সেভ করলে সাইটের ডিফল্ট দুইটি ব্যানার দেখাবে। নিচে থেকে নতুন যোগ করতে পারেন।</div>';
+    return;
+  }
+  box.innerHTML = bannerData.map((b,i)=>{
+    return '<div class="curate-row">'
+      + '<img class="banner-thumb" src="'+escapeAttr(b.img||'')+'" onerror="this.style.opacity=0.3">'
+      + '<span class="curate-name">'+escapeHtml(b.title || b.link || '(শুধু ছবি)')+'</span>'
+      + '<button type="button" class="btn btn-outline btn-sm" data-bn-up="'+i+'" '+(i===0?'disabled':'')+'>▲</button>'
+      + '<button type="button" class="btn btn-outline btn-sm" data-bn-down="'+i+'" '+(i===bannerData.length-1?'disabled':'')+'>▼</button>'
+      + '<button type="button" class="btn btn-danger btn-sm" data-bn-remove="'+i+'">✕</button>'
+      + '</div>';
+  }).join('');
+  box.querySelectorAll('[data-bn-up]').forEach(btn=>{
+    btn.addEventListener('click', function(){ moveHomeItem(bannerData, parseInt(this.dataset.bnUp,10), -1); renderBannerList(); });
+  });
+  box.querySelectorAll('[data-bn-down]').forEach(btn=>{
+    btn.addEventListener('click', function(){ moveHomeItem(bannerData, parseInt(this.dataset.bnDown,10), 1); renderBannerList(); });
+  });
+  box.querySelectorAll('[data-bn-remove]').forEach(btn=>{
+    btn.addEventListener('click', function(){ bannerData.splice(parseInt(this.dataset.bnRemove,10),1); renderBannerList(); });
+  });
+}
+document.getElementById('addBannerBtn').addEventListener('click', function(){
+  const img = document.getElementById('bnImg').value.trim();
+  const title = document.getElementById('bnTitle').value.trim();
+  const link = document.getElementById('bnLink').value.trim();
+  if(!img){ toast('ছবির লিংক দিন বা আপলোড করুন', 'err'); return; }
+  bannerData.push({img, title, link});
+  document.getElementById('bnImg').value = '';
+  document.getElementById('bnTitle').value = '';
+  document.getElementById('bnLink').value = '';
+  document.getElementById('bnImgUploadStatus').textContent = '';
+  renderBannerList();
+});
+document.getElementById('bnImgUpload').addEventListener('change', function(){
+  const file = this.files[0];
+  const statusEl = document.getElementById('bnImgUploadStatus');
+  curationImgUpload(file, statusEl, function(url){ document.getElementById('bnImg').value = url; });
+  this.value = '';
+});
+document.getElementById('saveBannersBtn').addEventListener('click', function(){
+  db.ref('banners').set(bannerData.length ? bannerData : null).then(()=>{
+    toast(bannerData.length ? 'ব্যানার সংরক্ষণ হয়েছে — হোমপেজে লাইভ!' : 'সংরক্ষণ হয়েছে — সাইটে ডিফল্ট ব্যানার দেখাবে', 'ok');
   }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
 });
 

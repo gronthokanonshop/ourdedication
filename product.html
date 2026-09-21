@@ -122,7 +122,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
 /* ── RIGHT: INFO PANEL ── */
 .info-panel{padding:24px;background:#fff;border-radius:20px;border:1px solid #e5e7eb;box-shadow:0 20px 60px rgba(0,0,0,0.35);}
-@media(max-width:780px){.info-panel{padding:18px 18px 20px;background:#fff;border-radius:20px 20px 0 0;margin-top:-16px;position:relative;z-index:1;box-shadow:0 -8px 30px rgba(0,0,0,0.15);}}
+@media(max-width:780px){.info-panel{padding:18px 18px 20px;background:#fff;border-radius:20px 20px 0 0;margin-top:16px;box-shadow:0 -8px 30px rgba(0,0,0,0.1);}}
 
 /* badges top */
 .info-top-badges{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-bottom:12px;}
@@ -215,6 +215,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .info-row:last-child{border-bottom:none;}
 .info-key{width:110px;flex-shrink:0;font-size:0.82rem;color:var(--muted);font-weight:500;}
 .info-val{font-size:0.88rem;color:#1e1b4b;font-weight:500;line-height:1.5;}
+.info-val-link{color:var(--indigo2);text-decoration:underline;}
+.info-val-link:hover{color:var(--indigo);}
 
 /* ── TABS (Description, Reviews) ── */
 .tabs-section{max-width:1100px;margin:24px auto 0;padding:0 18px 24px;}
@@ -564,14 +566,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       <div class="price-save" id="priceSave" style="display:none;"></div>
     </div>
 
-    <!-- delivery -->
-    <div class="delivery-strip">
-      <span class="icon">🚚</span>
-      <div>
-        <div style="font-weight:600;color:#065f46;">সারাদেশে হোম ডেলিভারি</div>
-        <div style="font-size:0.78rem;margin-top:2px;">ঢাকায় ৩০-৮০ টাকা | ঢাকার বাইরে ৮০-১৫০ টাকা</div>
-      </div>
-    </div>
+    <!-- Info table (বিস্তারিত তথ্য — কভারের পরেই, অ্যাকশন বাটনের আগে) -->
+    <div class="info-table" id="infoTable"></div>
 
     <!-- স্টক না থাকলে দেখানো হবে -->
     <div class="notify-box" id="notifyBox">
@@ -582,7 +578,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       </div>
     </div>
 
-    <!-- qty + cart -->
+    <!-- qty + cart (একদম শেষে) -->
     <div class="action-row" id="actionRow">
       <div class="qty-control">
         <button class="qty-btn" onclick="changeQty(-1)">−</button>
@@ -597,9 +593,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     <a class="btn-wa" id="waBtn" href="#" target="_blank">
       💬 WhatsApp-এ অর্ডার করুন
     </a>
-
-    <!-- Info table -->
-    <div class="info-table" id="infoTable"></div>
   </div>
 </div>
 
@@ -825,18 +818,18 @@ function renderBook(b){
   const waMsg = encodeURIComponent(`আস-সালামু আলাইকুম! আমি এই বইটি অর্ডার করতে চাই:\n📚 ${b.name}\n✍️ ${b.author}\n💰 মূল্য: ৳${b.price}\n\nদয়া করে অর্ডার প্রক্রিয়া সম্পর্কে জানান।`);
   document.getElementById('waBtn').href = `https://wa.me/8801842970565?text=${waMsg}`;
 
-  // info table
+  // info table (লেখক/প্রকাশনী/বিষয়ে ক্লিক করলে filter.html-এ সেই অনুযায়ী বই দেখাবে)
   const rows = [
-    ['লেখক', b.author || '—'],
-    ['প্রকাশনী', b.pub || '—'],
-    ['পৃষ্ঠা সংখ্যা', b.pages || '—'],
-    ['বাঁধাই', b.cover || '—'],
-    ['বিভাগ', b.cat || '—'],
-    ['বিষয়', b.subject || '—'],
+    ['লেখক', b.author || '—', b.author ? `filter.html?author=${encodeURIComponent(b.author)}` : null],
+    ['প্রকাশনী', b.pub || '—', b.pub ? `filter.html?pub=${encodeURIComponent(b.pub)}` : null],
+    ['পৃষ্ঠা সংখ্যা', b.pages || '—', null],
+    ['বাঁধাই', b.cover || '—', null],
+    ['বিভাগ', b.cat || '—', null],
+    ['বিষয়', b.subject || '—', b.subject ? `filter.html?subject=${encodeURIComponent(b.subject)}` : null],
   ].filter(r => r[1] && r[1] !== '—');
 
-  document.getElementById('infoTable').innerHTML = rows.map(([k,v]) =>
-    `<div class="info-row"><span class="info-key">${k}</span><span class="info-val">${v}</span></div>`
+  document.getElementById('infoTable').innerHTML = rows.map(([k,v,href]) =>
+    `<div class="info-row"><span class="info-key">${k}</span><span class="info-val">${href ? `<a class="info-val-link" href="${href}">${v}</a>` : v}</span></div>`
   ).join('');
 
   // desc
