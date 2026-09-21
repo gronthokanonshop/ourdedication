@@ -88,7 +88,35 @@ input,select,textarea{font-family:inherit; font-size:14px;}
 .sidebar-foot{margin-top:auto; padding:14px; border-top:1px solid rgba(255,255,255,.1); font-size:12px; color:#9ca3af;}
 .sidebar-foot .who{color:#e5e7eb; font-weight:600; margin-bottom:8px; word-break:break-all;}
 
+.mobile-topbar{display:none;}
+.sidebar-backdrop{display:none;}
+
 .main{flex:1; min-width:0; padding:22px 26px 60px;}
+
+/* ---------- Mobile: sidebar becomes an off-canvas drawer ---------- */
+@media (max-width:880px){
+  #app.show{display:block;}
+  .mobile-topbar{
+    display:flex; align-items:center; gap:12px; position:sticky; top:0; z-index:300;
+    background:#1e1b3a; color:#fff; padding:12px 16px; font-weight:700; font-size:16px;
+  }
+  .mobile-topbar button{
+    background:rgba(255,255,255,.12); border:none; color:#fff; width:36px; height:36px;
+    border-radius:8px; font-size:18px; display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .sidebar{
+    position:fixed; top:0; left:0; height:100vh; width:250px; z-index:500;
+    transform:translateX(-105%); transition:transform .25s ease; box-shadow:0 0 40px rgba(0,0,0,.35);
+  }
+  .sidebar.mobile-open{transform:translateX(0);}
+  .sidebar-backdrop{
+    display:block; position:fixed; inset:0; background:rgba(15,15,30,.55); z-index:400;
+    opacity:0; pointer-events:none; transition:opacity .2s;
+  }
+  .sidebar-backdrop.show{opacity:1; pointer-events:all;}
+  .main{padding:16px 14px 60px; width:100%;}
+  .topbar h2{font-size:18px;}
+}
 .topbar{display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:10px;}
 .topbar h2{margin:0; font-size:21px;}
 .tab-section{display:none;}
@@ -321,7 +349,12 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
 
 <!-- ===================== APP SHELL ===================== -->
 <div id="app">
-  <div class="sidebar">
+  <div class="mobile-topbar">
+    <button type="button" id="mobileSidebarToggle" aria-label="মেনু">☰</button>
+    <span>OurDedication প্যানেল</span>
+  </div>
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+  <div class="sidebar" id="sidebarEl">
     <div class="brand">OurDedication<small>নিয়ন্ত্রণ প্যানেল</small></div>
     <ul class="navlist" id="navList">
       <li><button data-tab="dashboard" class="active">📊 ড্যাশবোর্ড</button></li>
@@ -1068,15 +1101,33 @@ function enterApp(){
   initData();
 }
 
+/* ================= MOBILE SIDEBAR (off-canvas drawer) ================= */
+(function(){
+  const sidebar = document.getElementById('sidebarEl');
+  const backdrop = document.getElementById('sidebarBackdrop');
+  const toggleBtn = document.getElementById('mobileSidebarToggle');
+  function openSidebar(){ sidebar.classList.add('mobile-open'); backdrop.classList.add('show'); }
+  function closeSidebar(){ sidebar.classList.remove('mobile-open'); backdrop.classList.remove('show'); }
+  if(toggleBtn) toggleBtn.addEventListener('click', () => {
+    sidebar.classList.contains('mobile-open') ? closeSidebar() : openSidebar();
+  });
+  if(backdrop) backdrop.addEventListener('click', closeSidebar);
+  window.closeMobileSidebar = closeSidebar;
+})();
+
 /* ================= TAB NAVIGATION ================= */
 document.querySelectorAll('#navList button[data-tab]').forEach(btn=>{
   btn.addEventListener('click', function(){
     if(this.style.display === 'none') return;
     switchTab(this.dataset.tab);
+    if(window.innerWidth <= 880 && window.closeMobileSidebar) window.closeMobileSidebar();
   });
 });
 document.querySelectorAll('.tool-cat-item').forEach(btn=>{
-  btn.addEventListener('click', function(){ switchTool(this.dataset.cat, this); });
+  btn.addEventListener('click', function(){
+    switchTool(this.dataset.cat, this);
+    if(window.innerWidth <= 880 && window.closeMobileSidebar) window.closeMobileSidebar();
+  });
 });
 function switchTab(tab){
   document.querySelectorAll('#navList button[data-tab]').forEach(b=>b.classList.toggle('active', b.dataset.tab===tab));
