@@ -1170,7 +1170,7 @@ function initData(){
 
 /* ================= BOOKS: load/merge ================= */
 function loadBooksMerged(){
-  const baseline = Array.isArray(window.books) ? window.books.slice() : [];
+  const baseline = (typeof books !== 'undefined' && Array.isArray(books)) ? books.slice() : [];
   db.ref('bookList').get().then(snap=>{
     if(snap.exists() && snap.val()){
       const val = snap.val();
