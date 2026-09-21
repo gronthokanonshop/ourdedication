@@ -87,7 +87,7 @@ body{
   .geo-lm{left:-30px;}
   .geo-rm{right:-30px;}
 }
-body>*:not(:where(.orb,.geo-shape,.cart-drawer,.cart-overlay,.bottom-nav,.toast-wrap,.fab-wrap,.menu-drawer,.menu-overlay)){position:relative;z-index:1;}
+body>*:not(:where(.orb,.geo-shape,.cart-drawer,.cart-overlay,.bottom-nav,.toast-wrap,.fab-wrap,.menu-drawer,.menu-overlay,.offer-popup-overlay)){position:relative;z-index:1;}
 
 /* ── NOISE GRAIN ── */
 body::before{
@@ -740,6 +740,18 @@ body{padding-bottom:70px;}
   box-shadow:0 6px 20px rgba(240,23,119,0.45);transition:transform 0.2s;
 }
 .fab-main:hover{transform:scale(1.08);}
+.fab-label{
+  position:absolute;right:calc(100% + 12px);top:50%;transform:translateY(-50%);
+  white-space:nowrap;background:#fff;color:#f01777;
+  padding:7px 16px;border-radius:20px;font-size:13px;font-weight:700;
+  box-shadow:0 4px 16px rgba(0,0,0,0.2);pointer-events:none;
+  animation:fabLabelPulse 2.4s ease-in-out infinite;
+}
+.fab-label::after{
+  content:'';position:absolute;top:50%;right:-5px;
+  transform:translateY(-50%) rotate(45deg);width:10px;height:10px;background:#fff;
+}
+@keyframes fabLabelPulse{0%,100%{transform:translateY(-50%) scale(1);}50%{transform:translateY(-50%) scale(1.06);}}
 .fab-dots,.fab-x{position:absolute;transition:opacity 0.2s,transform 0.2s;}
 .fab-x{opacity:0;transform:rotate(-90deg) scale(0.6);}
 .fab-dots{opacity:1;transform:rotate(0) scale(1);}
@@ -761,6 +773,39 @@ body{padding-bottom:70px;}
 .fab-wa{background:#25D366;}
 .fab-opt:hover{transform:scale(1.1);}
 .fab-wrap.open .fab-opt:hover{transform:translateY(0) scale(1.1);}
+
+/* ══════════════════════════════════════
+   OFFER POSTER পপআপ (অ্যাডমিন প্যানেল: siteConfig/offerPopups)
+══════════════════════════════════════ */
+.offer-popup-overlay{
+  position:fixed;inset:0;z-index:3000;background:rgba(15,10,10,0.65);
+  display:flex;align-items:center;justify-content:center;padding:20px;
+  opacity:0;pointer-events:none;transition:opacity 0.25s;
+}
+.offer-popup-overlay.show{opacity:1;pointer-events:all;}
+.offer-popup-box{
+  position:relative;background:#fff;border-radius:18px;overflow:hidden;
+  width:100%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,0.4);
+  transform:scale(0.9);transition:transform 0.25s;
+}
+.offer-popup-overlay.show .offer-popup-box{transform:scale(1);}
+.offer-popup-close{
+  position:absolute;top:10px;right:10px;z-index:2;width:32px;height:32px;
+  border-radius:10px;border:none;cursor:pointer;
+  background:linear-gradient(135deg,var(--indigo2),var(--indigo));color:#fff;
+  font-size:18px;line-height:1;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 12px rgba(0,0,0,0.3);
+}
+.offer-popup-slide{display:none;}
+.offer-popup-slide.active{display:block;}
+.offer-popup-slide a,.offer-popup-slide img{display:block;width:100%;}
+.offer-popup-slide img{max-height:70vh;object-fit:cover;}
+.offer-popup-cap{padding:14px 18px;}
+.offer-popup-cap .t{font-weight:700;font-size:16px;color:var(--indigo2);}
+.offer-popup-cap .s{font-size:13px;color:#6b7280;margin-top:2px;}
+.offer-popup-dots{display:flex;justify-content:center;gap:6px;padding:0 0 14px;}
+.offer-popup-dots span{width:7px;height:7px;border-radius:50%;background:#e5e7eb;cursor:pointer;}
+.offer-popup-dots span.active{background:var(--indigo);}
 
 /* ══════════════════════════════════════
    MISC UTILS
@@ -1202,6 +1247,7 @@ body{padding-bottom:70px;}
     <svg viewBox="0 0 32 32" width="22" height="22" fill="#fff"><path d="M16.001 2.667c-7.363 0-13.333 5.97-13.333 13.333 0 2.353.615 4.56 1.69 6.475L2.667 29.333l7.03-1.844a13.26 13.26 0 0 0 6.304 1.605h.006c7.362 0 13.332-5.97 13.332-13.333S23.363 2.667 16.001 2.667zm7.82 18.836c-.334.94-1.652 1.72-2.702 1.945-.719.152-1.658.273-4.818-1.035-3.926-1.626-6.453-5.615-6.65-5.876-.19-.262-1.594-2.121-1.594-4.046 0-1.925.997-2.868 1.353-3.262.334-.367.728-.459.97-.459.243 0 .486.002.699.013.224.011.525-.085.822.626.303.724 1.03 2.5 1.12 2.682.09.182.15.397.03.639-.12.242-.18.393-.36.605-.18.212-.379.474-.542.636-.18.181-.368.378-.158.741.211.363.94 1.55 2.017 2.51 1.386 1.238 2.555 1.622 2.917 1.803.363.182.575.152.788-.09.212-.243.91-1.06 1.152-1.424.242-.363.485-.302.818-.181.333.121 2.122.999 2.485 1.182.363.181.605.272.696.424.09.151.09.878-.243 1.816z"/></svg>
   </a>
   <button class="fab-main" id="fabMain" onclick="toggleFab()" title="যোগাযোগ">
+    <span class="fab-label">Contact Us</span>
     <svg class="fab-dots" viewBox="0 0 24 24" width="22" height="22" fill="#fff"><circle cx="6" cy="12" r="2.1"/><circle cx="12" cy="12" r="2.1"/><circle cx="18" cy="12" r="2.1"/></svg>
     <svg class="fab-x" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
   </button>
@@ -1209,6 +1255,15 @@ body{padding-bottom:70px;}
 
 <!-- Toast container -->
 <div class="toast-wrap" id="toastWrap"></div>
+
+<!-- Offer poster পপআপ (অ্যাডমিন প্যানেল: টুলস → অফার পোস্টার) -->
+<div class="offer-popup-overlay" id="offerPopupOverlay">
+  <div class="offer-popup-box">
+    <button class="offer-popup-close" id="offerPopupClose" type="button" title="বন্ধ করুন">✕</button>
+    <div id="offerPopupSlides"></div>
+    <div class="offer-popup-dots" id="offerPopupDots"></div>
+  </div>
+</div>
 
 <!-- Firebase SDK + config (ধাপ ০ শেষ না হওয়া পর্যন্ত এগুলো নিষ্ক্রিয় থাকবে) -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -1240,6 +1295,8 @@ body{padding-bottom:70px;}
     window.OD_HOME_PUBS_PROMISE = Promise.resolve(null);
     window.OD_HOME_AUTHORS_PROMISE = Promise.resolve(null);
     window.OD_BANNERS_PROMISE = Promise.resolve(null);
+    window.OD_CATCARDS_PROMISE = Promise.resolve(null);
+    window.OD_OFFERPOPUP_PROMISE = Promise.resolve(null);
     return;
   }
   var base = window.OD_DB_URL.replace(/\/$/,'');
@@ -1252,6 +1309,8 @@ body{padding-bottom:70px;}
   window.OD_HOME_PUBS_PROMISE = fetchJson('/siteConfig/homePubs');
   window.OD_HOME_AUTHORS_PROMISE = fetchJson('/siteConfig/homeAuthors');
   window.OD_BANNERS_PROMISE = fetchJson('/banners');
+  window.OD_CATCARDS_PROMISE = fetchJson('/siteConfig/catCards');
+  window.OD_OFFERPOPUP_PROMISE = fetchJson('/siteConfig/offerPopups');
 })();
 </script>
 <!-- বইয়ের ডেটা: book.js (মূল তালিকা) + books-live.js (অ্যাডমিন থেকে সেভ করা পরিবর্তন লাইভ দেখায়) -->
@@ -1421,15 +1480,32 @@ renderBest();
     return Object.keys(catCounts).sort((a,b)=>catCounts[b]-catCounts[a]).slice(0,8);
   }
 
-  function renderCats(topCats, imgOverride){
+  function renderCats(topCats, imgOverride, catCardsOverride){
     const cardsHtml = topCats.map(cat => {
       const inCat = books.filter(b => b.cat === cat);
       const subjCounts = {};
       inCat.forEach(b => { const s=(b.subject||b.subcat||'').trim(); if(s) subjCounts[s]=(subjCounts[s]||0)+1; });
       const topSubjects = Object.keys(subjCounts).sort((a,b)=>subjCounts[b]-subjCounts[a]).slice(0,4);
 
-      let tiles;
-      if(topSubjects.length >= 2){
+      /* অ্যাডমিন প্যানেলের "ক্যাটাগরি কার্ড টাইল পিকার" থেকে ম্যানুয়ালি বেছে দেওয়া
+         টাইল থাকলে সেটাই আগে ব্যবহার হবে (siteConfig/catCards) */
+      let tiles = null;
+      const manualEntry = catCardsOverride && catCardsOverride.find(c => c.name === cat);
+      if(manualEntry && manualEntry.subs && manualEntry.subs.length){
+        const manualTiles = manualEntry.subs
+          .filter(s => s && s.label && s.bid)
+          .map(s => {
+            const rep = books.find(b => b.bid === s.bid);
+            if(!rep) return null;
+            return { label: s.label, img: getImg(rep), href: `filter.html?subject=${encodeURIComponent(s.label)}` };
+          })
+          .filter(Boolean);
+        if(manualTiles.length) tiles = manualTiles;
+      }
+
+      if(tiles){
+        /* manual tiles set, skip auto-derivation below */
+      } else if(topSubjects.length >= 2){
         tiles = topSubjects.map(s => {
           const rep = inCat.find(b => (b.subject||b.subcat||'').trim() === s);
           return { label:s, img:getImg(rep), href:`filter.html?subject=${encodeURIComponent(s)}` };
@@ -1473,7 +1549,13 @@ renderBest();
   if(prevBtn) prevBtn.onclick = () => scrollByCard(-1);
 
   const catsPromise = window.OD_HOME_CATS_PROMISE || Promise.resolve(null);
-  catsPromise.then(v => {
+  const catCardsPromise = window.OD_CATCARDS_PROMISE || Promise.resolve(null);
+  Promise.all([catsPromise, catCardsPromise]).then(([v, cc]) => {
+    let catCardsOverride = null;
+    if(Array.isArray(cc)) catCardsOverride = cc;
+    else if(cc && typeof cc === 'object') catCardsOverride = Object.values(cc);
+    catCardsOverride = catCardsOverride ? catCardsOverride.filter(c => c && c.name) : null;
+
     let curated = null;
     if(Array.isArray(v)) curated = v;
     else if(v && typeof v === 'object') curated = Object.values(v);
@@ -1481,12 +1563,12 @@ renderBest();
     if(curated && curated.length){
       const imgOverride = {};
       curated.forEach(c => { if(c.img) imgOverride[c.name] = c.img; });
-      renderCats(curated.map(c => c.name), imgOverride);
+      renderCats(curated.map(c => c.name), imgOverride, catCardsOverride);
     } else {
-      renderCats(defaultTopCats(), null);
+      renderCats(defaultTopCats(), null, catCardsOverride);
     }
   }).catch(() => {
-    renderCats(defaultTopCats(), null);
+    renderCats(defaultTopCats(), null, null);
   });
 })();
 
@@ -1502,6 +1584,65 @@ renderBest();
   if(!seen.length) return;
   grid.innerHTML = seen.map(makeCard).join('');
   wrap.style.display = 'block';
+})();
+
+/* ══ OFFER POSTER পপআপ (অ্যাডমিন প্যানেল: টুলস → অফার পোস্টার, siteConfig/offerPopups) ══
+   ব্রাউজার সেশনে একবার দেখানো হয় (ট্যাব বন্ধ করলে আবার দেখাবে)। */
+(function(){
+  const overlay = document.getElementById('offerPopupOverlay');
+  const slidesWrap = document.getElementById('offerPopupSlides');
+  const dotsWrap = document.getElementById('offerPopupDots');
+  const closeBtn = document.getElementById('offerPopupClose');
+  if(!overlay || !slidesWrap || !dotsWrap) return;
+
+  function ofpEsc(s){
+    return String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  const promise = window.OD_OFFERPOPUP_PROMISE || Promise.resolve(null);
+  promise.then(v => {
+    if(!v || !v.enabled) return;
+    let posters = Array.isArray(v.posters) ? v.posters : (v.posters && typeof v.posters==='object' ? Object.values(v.posters) : []);
+    posters = posters.filter(p => p && p.img).slice(0,3);
+    if(!posters.length) return;
+
+    try{ if(sessionStorage.getItem('od_offer_popup_seen_v1')) return; }catch(e){}
+
+    slidesWrap.innerHTML = posters.map((p,i) => {
+      const img = `<img src="${ofpEsc(p.img)}" alt="${ofpEsc(p.title||'অফার')}" loading="lazy">`;
+      const cap = (p.title || p.sub) ? `<div class="offer-popup-cap">${p.title?`<div class="t">${ofpEsc(p.title)}</div>`:''}${p.sub?`<div class="s">${ofpEsc(p.sub)}</div>`:''}</div>` : '';
+      const inner = p.link ? `<a href="${ofpEsc(p.link)}">${img}</a>${cap}` : `${img}${cap}`;
+      return `<div class="offer-popup-slide${i===0?' active':''}" data-i="${i}">${inner}</div>`;
+    }).join('');
+
+    if(posters.length > 1){
+      dotsWrap.innerHTML = posters.map((p,i) => `<span data-i="${i}" class="${i===0?'active':''}"></span>`).join('');
+      let idx = 0;
+      const slideEls = slidesWrap.querySelectorAll('.offer-popup-slide');
+      const dotEls = dotsWrap.querySelectorAll('span');
+      const timer = setInterval(() => {
+        idx = (idx+1) % posters.length;
+        slideEls.forEach((el,i) => el.classList.toggle('active', i===idx));
+        dotEls.forEach((el,i) => el.classList.toggle('active', i===idx));
+      }, 3500);
+      dotEls.forEach(el => el.addEventListener('click', function(){
+        idx = parseInt(this.dataset.i,10);
+        slideEls.forEach((s,i) => s.classList.toggle('active', i===idx));
+        dotEls.forEach((d,i) => d.classList.toggle('active', i===idx));
+      }));
+      overlay._ofpTimer = timer;
+    }
+
+    setTimeout(() => { overlay.classList.add('show'); }, 700);
+    try{ sessionStorage.setItem('od_offer_popup_seen_v1','1'); }catch(e){}
+  }).catch(() => {});
+
+  function closeOfp(){
+    overlay.classList.remove('show');
+    if(overlay._ofpTimer) clearInterval(overlay._ofpTimer);
+  }
+  if(closeBtn) closeBtn.addEventListener('click', closeOfp);
+  overlay.addEventListener('click', e => { if(e.target === overlay) closeOfp(); });
 })();
 
 /* ══ BANNER SLIDER ══

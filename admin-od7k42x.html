@@ -196,6 +196,83 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
   #printArea, #printArea *{visibility:visible;}
   #printArea{position:absolute; left:0; top:0; width:100%;}
 }
+
+/* ---------- নতুন ফিচার: নেভিগেশন গ্রুপ/সাব-গ্রুপ, টুলস গ্রিড ---------- */
+.nav-section-label{padding:14px 14px 6px; font-size:11px; font-weight:700; color:#7c86a8; letter-spacing:.5px;}
+.nav-subgroup{list-style:none; margin:2px 0 4px; padding:0 0 0 10px;}
+.nav-subgroup li{margin-bottom:1px;}
+.tool-cat-item{width:100%; text-align:right; background:transparent; border:none; color:#9aa4c4; padding:8px 12px;
+  border-radius:7px; font-size:12.5px; display:block;}
+.tool-cat-item:hover{background:rgba(255,255,255,.08); color:#fff;}
+.tool-cat-item.active{background:rgba(99,102,241,.35); color:#fff;}
+.tools-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:16px; align-items:start;}
+.tool-card.wide{grid-column:1/-1;}
+.tool-card-highlight{outline:2px solid var(--primary); outline-offset:2px;}
+
+/* ---------- দৈনিক সারাংশ ---------- */
+.day-group{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:14px; overflow:hidden;}
+.day-header{display:flex; justify-content:space-between; align-items:center; gap:10px; padding:14px 18px; cursor:pointer; flex-wrap:wrap;}
+.day-header h4{margin:0; font-size:15px;}
+.day-header .dmeta{font-size:12.5px; color:var(--text-2); margin-top:2px;}
+.day-stats{display:flex; gap:8px; align-items:center; flex-wrap:wrap;}
+.day-body{display:none; border-top:1px solid var(--border); padding:10px 14px;}
+.day-body.open{display:block;}
+.day-row{display:flex; justify-content:space-between; align-items:center; gap:10px; padding:9px 6px; border-bottom:1px solid var(--border); cursor:pointer; flex-wrap:wrap;}
+.day-row:last-child{border-bottom:none;}
+.day-row:hover{background:var(--bg);}
+
+/* ---------- অ্যানালিটিক্স ---------- */
+.bar-row{display:flex; align-items:center; gap:10px; margin-bottom:10px;}
+.bar-row .bar-name{width:110px; flex-shrink:0; font-size:12.5px; color:var(--text-2); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.bar-row .bar-track{flex:1; height:10px; background:var(--bg); border-radius:6px; overflow:hidden;}
+.bar-row .bar-fill{height:100%; background:var(--primary); border-radius:6px;}
+.bar-row .bar-cnt{width:34px; text-align:left; font-size:12px; font-weight:700; color:var(--text);}
+.bs-row{display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid var(--border);}
+.bs-row:last-child{border-bottom:none;}
+.bs-rank{width:24px; height:24px; border-radius:50%; background:var(--primary-l); color:var(--primary-d); font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.bs-name{flex:1; font-size:13px;}
+.bs-count{font-size:12.5px; font-weight:700; color:var(--primary-d);}
+
+/* ---------- রিপোর্ট চার্ট ---------- */
+.rp-chart{display:flex; align-items:flex-end; gap:6px; height:150px; padding:10px 4px; overflow-x:auto;}
+.rp-chart-col{display:flex; flex-direction:column; align-items:center; justify-content:flex-end; min-width:34px; flex-shrink:0;}
+.rp-chart-bar{width:20px; background:var(--primary); border-radius:4px 4px 0 0; min-height:3px;}
+.rp-chart-val{font-size:10px; color:var(--text-2); margin-bottom:2px; white-space:nowrap;}
+.rp-chart-lbl{font-size:10px; color:var(--text-2); margin-top:4px; white-space:nowrap;}
+
+/* ---------- ফ্রড চেক ---------- */
+.fraud-stat-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(90px,1fr)); gap:10px; margin-bottom:12px;}
+.fraud-stat{background:var(--bg); border-radius:8px; padding:10px; text-align:center;}
+.fraud-stat .fv{font-size:19px; font-weight:700; color:var(--primary-d);}
+.fraud-stat .fl{font-size:11px; color:var(--text-2);}
+.fraud-flag{background:var(--red-l); color:var(--red); border-radius:8px; padding:8px 12px; font-size:12.5px; margin-bottom:6px;}
+.fraud-ok{background:var(--green-l); color:var(--green); border-radius:8px; padding:8px 12px; font-size:12.5px; margin-bottom:6px;}
+
+/* ---------- রিভিউ ---------- */
+.review-card{border:1px solid var(--border); border-radius:10px; padding:12px 14px; margin-bottom:10px; background:#fff;}
+.review-stars{color:#f59e0b; letter-spacing:1px; font-size:13px;}
+
+/* ---------- ক্যাটাগরি/ট্যাগ তালিকা ---------- */
+.cattree-card{border:1px solid var(--border); border-radius:10px; padding:12px; margin-bottom:10px;}
+.cattree-head{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:8px;}
+.cattree-chips{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px;}
+.cattree-chip{background:var(--primary-l); color:var(--primary-d); border-radius:6px; padding:4px 8px; font-size:12px; display:inline-flex; align-items:center; gap:6px;}
+.cattree-chip span{cursor:pointer;}
+.cattree-addsub{display:flex; gap:8px;}
+.cattree-addsub input{flex:1;}
+
+/* ---------- catCards টাইল পিকার ---------- */
+.cc-tile{border:1px solid var(--border); border-radius:8px; padding:8px; display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:8px;}
+.cc-tile-thumb{width:44px; height:44px; border-radius:8px; overflow:hidden; background:var(--bg); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.cc-tile-thumb img{width:100%; height:100%; object-fit:cover;}
+.cc-search-res{max-height:200px; overflow-y:auto; border:1px solid var(--border); border-radius:8px; background:#fff; margin-top:4px;}
+.cc-search-row{display:flex; align-items:center; gap:8px; padding:6px 8px; cursor:pointer; font-size:12.5px; border-bottom:1px solid var(--border);}
+.cc-search-row:hover{background:var(--bg);}
+
+/* ---------- বাল্ক ট্যাগ চেকলিস্ট ---------- */
+.subtag-list{max-height:320px; overflow-y:auto; border:1px solid var(--border); border-radius:8px;}
+.subtag-row{display:flex; align-items:center; gap:8px; padding:8px 10px; border-bottom:1px solid var(--border); font-size:12.5px;}
+.subtag-row:last-child{border-bottom:none;}
 </style>
 </head>
 <body>
@@ -249,10 +326,32 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
     <ul class="navlist" id="navList">
       <li><button data-tab="dashboard" class="active">📊 ড্যাশবোর্ড</button></li>
       <li><button data-tab="orders">🧾 অর্ডারসমূহ</button></li>
+      <li><button data-tab="daily">📅 দৈনিক সারাংশ</button></li>
+      <li class="nav-section-label">ক্যাটালগ</li>
       <li><button data-tab="books">📚 বই/প্রোডাক্ট</button></li>
       <li><button data-tab="coupons">🏷️ কুপন</button></li>
+      <li class="nav-section-label">বিশ্লেষণ</li>
+      <li><button data-tab="analytics">📈 অ্যানালিটিক্স</button></li>
+      <li><button data-tab="report">🧮 বিক্রয় রিপোর্ট</button></li>
+      <li><button data-tab="reviews">⭐ রিভিউ</button></li>
+      <li class="nav-section-label">সিস্টেম</li>
       <li><button data-tab="moderators" id="navModerators">👥 মডারেটর</button></li>
-      <li><button data-tab="settings" id="navSettings">⚙️ সেটিংস</button></li>
+      <li class="nav-group">
+        <button data-tab="tools" id="navTools">🧰 টুলস</button>
+        <ul class="nav-subgroup" id="toolCatNav">
+          <li><button type="button" class="tool-cat-item active" data-cat="all">সব টুলস</button></li>
+          <li><button type="button" class="tool-cat-item" data-cat="banner">🖼️ ব্যানার</button></li>
+          <li><button type="button" class="tool-cat-item" data-cat="offerPopup">🎯 অফার পোস্টার</button></li>
+          <li><button type="button" class="tool-cat-item" data-cat="homeChips">🏠 হোমপেজ চিপ</button></li>
+          <li><button type="button" class="tool-cat-item" data-cat="catCards">🗂️ ক্যাটাগরি কার্ড টাইল</button></li>
+          <li><button type="button" class="tool-cat-item" data-cat="tags">🔖 ক্যাটাগরি-ট্যাগ তালিকা</button></li>
+          <li><button type="button" class="tool-cat-item" data-cat="cleanup">🧹 লেখক/প্রকাশনী ঠিক</button></li>
+          <li><button type="button" class="tool-cat-item" data-cat="pubOffer">💸 প্রকাশনী অফার</button></li>
+          <li><button type="button" class="tool-cat-item" data-cat="imgPixel">📸 ছবি ও Pixel</button></li>
+          <li><button type="button" class="tool-cat-item" data-cat="courier">🚚 কুরিয়ার</button></li>
+          <li><button type="button" class="tool-cat-item" data-cat="misc">📦 ডাউনলোড ও অন্যান্য</button></li>
+        </ul>
+      </li>
     </ul>
     <div class="sidebar-foot">
       <div class="who" id="whoAmI"></div>
@@ -345,11 +444,81 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
       </div>
     </section>
 
-    <!-- ---------- SETTINGS ---------- -->
-    <section class="tab-section" id="tab-settings">
-      <div class="topbar"><h2>সেটিংস</h2></div>
+    <!-- ---------- DAILY SUMMARY ---------- -->
+    <section class="tab-section" id="tab-daily">
+      <div class="topbar"><h2>দৈনিক সারাংশ</h2></div>
+      <p class="hint" style="margin-bottom:14px;">প্রতিদিনের অর্ডার আলাদাভাবে গ্রুপ করে দেখায় — কোন দিনে কয়টা অর্ডার, কত টাকার বিক্রি হলো তা এক নজরে বোঝার জন্য। দিনের নামে ক্লিক করলে সেদিনের অর্ডারগুলো খুলবে/বন্ধ হবে, কোনো অর্ডারে ক্লিক করলে অর্ডার ট্যাবে নিয়ে যাবে।</p>
+      <div id="dailyList"><div class="empty-state"><div class="emoji">📅</div>এখনো কিছু নেই</div></div>
+    </section>
 
+    <!-- ---------- ANALYTICS ---------- -->
+    <section class="tab-section" id="tab-analytics">
+      <div class="topbar"><h2>অ্যানালিটিক্স</h2></div>
+      <div class="cards-row">
+        <div class="card" style="margin-bottom:0;">
+          <h3>🏆 সবচেয়ে বেশি বিক্রিত বই/প্রোডাক্ট</h3>
+          <div id="anBestseller"><div class="empty-state"><div class="emoji">📊</div>ডেটা নেই</div></div>
+        </div>
+        <div class="card" style="margin-bottom:0;">
+          <h3>📍 এলাকাভিত্তিক অর্ডার</h3>
+          <div id="anArea"><div class="empty-state"><div class="emoji">📍</div>ডেটা নেই</div></div>
+        </div>
+        <div class="card" style="margin-bottom:0;">
+          <h3>💳 পেমেন্ট পদ্ধতি</h3>
+          <div id="anPayment"><div class="empty-state"><div class="emoji">💳</div>ডেটা নেই</div></div>
+        </div>
+        <div class="card" style="margin-bottom:0;">
+          <h3>📦 স্ট্যাটাস বিভাজন</h3>
+          <div id="anStatus"><div class="empty-state"><div class="emoji">📦</div>ডেটা নেই</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- SALES REPORT ---------- -->
+    <section class="tab-section" id="tab-report">
+      <div class="topbar">
+        <h2>বিক্রয় রিপোর্ট</h2>
+        <button class="btn btn-outline btn-sm" id="btnExportReportCsv">⬇️ CSV ডাউনলোড</button>
+      </div>
+      <div class="toolbar">
+        <label class="hint">শুরু: <input type="date" id="rpFrom"></label>
+        <label class="hint">শেষ: <input type="date" id="rpTo"></label>
+        <button class="btn btn-outline btn-sm" id="rpApply">প্রয়োগ করুন</button>
+        <button class="btn btn-outline btn-sm" data-rprange="7">৭ দিন</button>
+        <button class="btn btn-outline btn-sm" data-rprange="30">৩০ দিন</button>
+        <button class="btn btn-outline btn-sm" data-rprange="all">সব সময়</button>
+      </div>
+      <div class="cards-row">
+        <div class="stat-card"><div class="lbl">মোট অর্ডার</div><div class="val" id="rpTotalOrders">০</div></div>
+        <div class="stat-card"><div class="lbl">মোট বিক্রি (৳)</div><div class="val" id="rpTotalRevenue">০</div></div>
+        <div class="stat-card"><div class="lbl">পৌঁছে গেছে</div><div class="val" id="rpDelivered">০</div></div>
+        <div class="stat-card"><div class="lbl">অপেক্ষমাণ</div><div class="val" id="rpPending">০</div></div>
+      </div>
       <div class="card">
+        <h3>দৈনিক বিক্রি (গ্রাফ)</h3>
+        <div class="rp-chart" id="rpChart"></div>
+      </div>
+      <div class="card">
+        <h3>বিস্তারিত তালিকা</h3>
+        <div class="table-wrap"><table class="simple">
+          <thead><tr><th>তারিখ</th><th>অর্ডার</th><th>নাম</th><th>মোট</th><th>স্ট্যাটাস</th></tr></thead>
+          <tbody id="rpTableBody"></tbody>
+        </table></div>
+      </div>
+    </section>
+
+    <!-- ---------- REVIEWS ---------- -->
+    <section class="tab-section" id="tab-reviews">
+      <div class="topbar"><h2>পাঠকদের রিভিউ</h2></div>
+      <div id="reviewsList"><div class="empty-state"><div class="emoji">⭐</div>লোড হচ্ছে...</div></div>
+    </section>
+
+    <!-- ---------- TOOLS ---------- -->
+    <section class="tab-section" id="tab-tools">
+      <div class="topbar"><h2>টুলস</h2></div>
+      <div class="tools-grid" id="toolsGrid">
+
+      <div class="card tool-card" data-cat="imgPixel">
         <h3>imgbb API Key (ছবি আপলোডের জন্য)</h3>
         <div class="form-grid">
           <div class="field full"><input type="text" id="setImgbbKey" placeholder="imgbb API key"></div>
@@ -358,7 +527,7 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
         <button class="btn btn-primary btn-sm" id="saveImgbbKey" style="margin-top:8px;">সংরক্ষণ করুন</button>
       </div>
 
-      <div class="card">
+      <div class="card tool-card" data-cat="courier">
         <h3>Steadfast কুরিয়ার API</h3>
         <div class="form-grid">
           <div class="field"><label>Api Key</label><input type="text" id="setSfKey"></div>
@@ -367,7 +536,7 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
         <button class="btn btn-primary btn-sm" id="saveSf" style="margin-top:8px;">সংরক্ষণ করুন</button>
       </div>
 
-      <div class="card">
+      <div class="card tool-card" data-cat="courier">
         <h3>RedX কুরিয়ার API</h3>
         <div class="form-grid">
           <div class="field full"><label>Token</label><input type="text" id="setRdxTok"></div>
@@ -375,7 +544,7 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
         <button class="btn btn-primary btn-sm" id="saveRdx" style="margin-top:8px;">সংরক্ষণ করুন</button>
       </div>
 
-      <div class="card">
+      <div class="card tool-card" data-cat="courier">
         <h3>Cloudflare Worker Proxy URL (কুরিয়ার API কল করার জন্য)</h3>
         <div class="form-grid">
           <div class="field full"><input type="text" id="setProxyUrl" placeholder="https://your-worker.workers.dev/?u="></div>
@@ -384,7 +553,7 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
         <button class="btn btn-primary btn-sm" id="saveProxy" style="margin-top:8px;">সংরক্ষণ করুন</button>
       </div>
 
-      <div class="card">
+      <div class="card tool-card" data-cat="imgPixel">
         <h3>Meta Pixel ID</h3>
         <div class="form-grid">
           <div class="field full"><input type="text" id="setPixelId" placeholder="123456789012345"></div>
@@ -392,7 +561,134 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
         <button class="btn btn-primary btn-sm" id="savePixel" style="margin-top:8px;">সংরক্ষণ করুন</button>
       </div>
 
-      <div class="card">
+      <div class="card tool-card" data-cat="misc">
+        <h3>Google Drive API Key</h3>
+        <p class="hint">প্রকাশনীর Drive ফোল্ডার থেকে ছবি/PDF/বিবরণ স্বয়ংক্রিয়ভাবে আনার (auto-import) সুবিধাটি এখনো তৈরি হয়নি — শুধু key সংরক্ষণের জায়গাটা প্রস্তুত রাখা হলো, যাতে ভবিষ্যতে যোগ করা সহজ হয়।</p>
+        <div class="form-grid">
+          <div class="field full"><input type="text" id="setDriveKey" placeholder="AIza..."></div>
+        </div>
+        <div class="hint" id="driveKeyMaskedHint"></div>
+        <button class="btn btn-primary btn-sm" id="saveDriveKey" style="margin-top:8px;">সংরক্ষণ করুন</button>
+      </div>
+
+      <div class="card tool-card wide" data-cat="misc">
+        <h3>📇 Phone Index ঠিক করা</h3>
+        <p class="hint">পুরনো অর্ডারগুলোর phoneIndex ঠিক করতে (ফ্রড চেক ও ফোন অনুযায়ী খোঁজার জন্য দরকার)।</p>
+        <button class="btn btn-outline btn-sm" id="btnMigratePhoneIndex">Phone Index ঠিক করুন</button>
+      </div>
+
+      <div class="card tool-card wide" data-cat="misc">
+        <h3>🔍 ম্যানুয়াল ফ্রড চেক</h3>
+        <p class="hint">ফোন নম্বর দিয়ে সেই কাস্টমারের সম্পূর্ণ অর্ডার হিস্ট্রি ও সন্দেহজনক প্যাটার্ন চেক করুন।</p>
+        <div class="toolbar">
+          <input type="tel" id="fraudPhoneInput" placeholder="যেমন: 01712345678">
+          <button class="btn btn-primary btn-sm" id="btnFraudCheck">চেক করুন</button>
+        </div>
+        <div id="fraudCheckResult"></div>
+      </div>
+
+      <div class="card tool-card" data-cat="misc">
+        <h3>📥 book.js ডাউনলোড</h3>
+        <p class="hint">বর্তমান বই/প্রোডাক্ট তালিকা book.js হিসেবে ডাউনলোড করুন (ব্যাকআপ/GitHub আপডেটের জন্য)।</p>
+        <button class="btn btn-primary btn-sm btn-block" id="btnDownloadBookJs">book.js ডাউনলোড করুন</button>
+      </div>
+
+      <div class="card tool-card" data-cat="misc">
+        <h3>🗺️ sitemap.xml ডাউনলোড</h3>
+        <p class="hint">Google-এর জন্য সব বইয়ের লিংকসহ sitemap বানিয়ে ডাউনলোড করুন।</p>
+        <button class="btn btn-primary btn-sm btn-block" id="btnDownloadSitemap">sitemap.xml ডাউনলোড করুন</button>
+      </div>
+
+      <div class="card tool-card wide" data-cat="tags">
+        <h3>ক্যাটাগরি, উপ-বিভাগ ও ট্যাগ তালিকা</h3>
+        <p class="hint">ভুল নাম মুছুন বা নতুন যোগ করুন — মুছলে পুরনো বইয়ের ডেটা বদলায় না, শুধু তালিকা থেকে বাদ পড়ে।</p>
+        <div style="font-weight:700; font-size:13.5px; margin:10px 0;">বিভাগ ও উপ-বিভাগ</div>
+        <div id="catTreeBox"></div>
+        <div class="curate-add-box">
+          <div class="form-grid">
+            <div class="field"><label>নতুন বিভাগের নাম</label><input type="text" id="newCatTreeName" placeholder="যেমন: শিশুতোষ বই"></div>
+          </div>
+          <button type="button" class="btn btn-outline btn-sm" id="addCatTreeBtn" style="margin-top:6px;">➕ বিভাগ যোগ করুন</button>
+        </div>
+        <button type="button" class="btn btn-primary btn-sm" id="saveCatTreeBtn">বিভাগ তালিকা সংরক্ষণ করুন</button>
+        <hr class="sep">
+        <div style="font-weight:700; font-size:13.5px; margin-bottom:10px;">ট্যাগ তালিকা</div>
+        <div id="tagListBox"></div>
+        <div class="curate-add-box">
+          <div class="form-grid">
+            <div class="field"><label>নতুন ট্যাগ</label><input type="text" id="newTagName" placeholder="যেমন: ঈদ স্পেশাল"></div>
+          </div>
+          <button type="button" class="btn btn-outline btn-sm" id="addTagBtn" style="margin-top:6px;">➕ ট্যাগ যোগ করুন</button>
+        </div>
+        <button type="button" class="btn btn-primary btn-sm" id="saveTagsBtn">ট্যাগ তালিকা সংরক্ষণ করুন</button>
+      </div>
+
+      <div class="card tool-card wide" data-cat="cleanup">
+        <h3>লেখক / প্রকাশনী / বিষয় ঠিক করুন</h3>
+        <p class="hint">ভুল বানান বাছুন, সঠিক নাম লিখে "নাম বদলে দিন" চাপুন — সব বইয়ে একসাথে ঠিক হয়ে যাবে। "মুছে দিন" চাপলে নামটা সব বই থেকে ফাঁকা হয়ে যাবে।</p>
+        <div class="toolbar">
+          <select id="apFixType">
+            <option value="author">লেখক</option>
+            <option value="pub">প্রকাশনী</option>
+            <option value="subject">বিষয়</option>
+          </select>
+          <select id="apFixValueSelect"><option value="">— বাছুন —</option></select>
+        </div>
+        <div class="form-grid">
+          <div class="field full"><input type="text" id="apFixNewName" placeholder="সঠিক / নতুন নাম লিখুন"></div>
+        </div>
+        <div class="small-btn-group" style="margin-top:10px;">
+          <button class="btn btn-primary btn-sm" id="apFixRenameBtn">✅ নাম বদলে দিন (সব বইয়ে)</button>
+          <button class="btn btn-danger btn-sm" id="apFixDeleteBtn">🗑️ মুছে দিন (ফাঁকা হবে)</button>
+        </div>
+      </div>
+
+      <div class="card tool-card wide" data-cat="catCards">
+        <h3>হোমপেজ ক্যাটাগরি কার্ড — বিষয়ের ছবি</h3>
+        <p class="hint">হোমপেজের ক্যাটাগরি কার্ডে প্রতিটা বিভাগের নিচে সর্বোচ্চ ৪টা ছোট বিষয়-টাইল থাকে — কোন বিষয়ে কোন বইয়ের কভার দেখাবে তা এখান থেকে বাছাই করুন (নতুন ছবি আপলোড লাগবে না, বিদ্যমান বইয়ের কভার ব্যবহার হবে)। <b>মনে রাখবেন:</b> এই টুলের তথ্য এখনো হোমপেজে সরাসরি দেখানো শুরু হয়নি — সেটার জন্য index.html-এ আলাদা কোড যোগ করা লাগবে (ডেভেলপারকে জানানো হয়েছে)।</p>
+        <div id="catCardsBox"></div>
+        <button type="button" class="btn btn-primary btn-sm" id="saveCatCardsBtn" style="margin-top:8px;">কার্ড সংরক্ষণ করুন</button>
+      </div>
+
+      <div class="card tool-card wide" data-cat="catCards">
+        <h3>বিষয় অনুযায়ী বই ট্যাগ করুন</h3>
+        <p class="hint">ক্যাটাগরি কার্ডের কোনো টাইলে ক্লিক করলে সেই বিষয়ের সব বই একসাথে দেখাতে হলে, বইগুলোর "বিষয়" ফিল্ডে একই নাম বসানো থাকতে হয়। একটা বিভাগ ও বিষয় বেছে নিচের তালিকা থেকে বইগুলোতে টিক দিন — একসাথে অনেক বইয়ে বসিয়ে দেওয়া যাবে।</p>
+        <select id="subTagCatSelect" style="margin-bottom:10px; padding:9px 12px; border:1.5px solid var(--border); border-radius:8px;"></select>
+        <div id="subTagBox"></div>
+      </div>
+
+      <div class="card tool-card wide" data-cat="pubOffer">
+        <h3>প্রকাশনী-ভিত্তিক অফার (এক ক্লিকে সব বইয়ে ছাড়)</h3>
+        <p class="hint">একটা প্রকাশনী (বা সব বই) বেছে ছাড়ের % দিন — MRP (আসল মূল্য)-এর উপর সেই % ছাড়ে বিক্রয়মূল্য বসে যাবে, MRP কখনো বদলাবে না।</p>
+        <select id="pubOfferSelect" style="margin-bottom:10px; padding:9px 12px; border:1.5px solid var(--border); border-radius:8px; width:100%;"><option value="">— প্রকাশনী বাছুন —</option></select>
+        <div class="toolbar">
+          <input type="number" id="pubOfferPct" min="0" max="90" step="1" placeholder="ছাড় % (যেমন 20)">
+          <button class="btn btn-primary btn-sm" id="pubOfferApplyBtn">🏷️ অফার দিন</button>
+          <button class="btn btn-outline btn-sm" id="pubOfferRestoreBtn">🧾 MRP-তে ফেরান (ছাড় নেই)</button>
+        </div>
+        <div class="hint" id="pubOfferPreview"></div>
+        <div class="hint" id="pubOfferStatus"></div>
+      </div>
+
+      <div class="card tool-card wide" data-cat="offerPopup">
+        <h3>অফার পোস্টার পপআপ</h3>
+        <p class="hint">সাইটে ঢুকলেই ছবিওয়ালা অফার পোস্টার দেখানোর জন্য (সর্বোচ্চ ৩টা)। <b>মনে রাখবেন:</b> এই টুল দিয়ে পোস্টার সেভ করলেও সাইটে এখনো পপআপ দেখানোর কোড নেই — index.html-এ আলাদা কোড যোগ করা লাগবে (ডেভেলপারকে জানানো হয়েছে)।</p>
+        <label class="hint" style="display:flex; align-items:center; gap:8px;"><input type="checkbox" id="ofPopEnabled" style="width:auto;"> পোস্টার পপআপ চালু রাখুন</label>
+        <div id="ofPopList" style="margin:10px 0;"></div>
+        <div class="curate-add-box">
+          <div class="form-grid">
+            <div class="field full"><label>পোস্টার ছবির URL</label><input type="text" id="ofPopImg" placeholder="https://..."></div>
+            <div class="field full"><label>ছবি আপলোড</label><input type="file" id="ofPopImgUpload" accept="image/*"><div class="hint" id="ofPopImgUploadStatus"></div></div>
+            <div class="field"><label>শিরোনাম (ঐচ্ছিক)</label><input type="text" id="ofPopTitle"></div>
+            <div class="field"><label>সাবটাইটেল (ঐচ্ছিক)</label><input type="text" id="ofPopSub"></div>
+            <div class="field full"><label>লিংক (ঐচ্ছিক)</label><input type="text" id="ofPopLink"></div>
+          </div>
+          <button type="button" class="btn btn-outline btn-sm" id="addOfPopBtn" style="margin-top:6px;">➕ তালিকায় যোগ করুন</button>
+        </div>
+        <button type="button" class="btn btn-primary btn-sm" id="saveOfPopBtn">সব পোস্টার সংরক্ষণ করুন</button>
+      </div>
+
+      <div class="card tool-card wide" data-cat="homeChips">
         <h3>হোমপেজ ক্যাটাগরি চিপ</h3>
         <p class="hint">হোমপেজের ক্যাটাগরি গ্রিডে কোন কোন বিভাগ, কোন ক্রমে দেখাবে তা এখান থেকে ঠিক করুন। নাম অবশ্যই বইয়ের বিভাগ (cat)-এর সাথে হুবহু মিলতে হবে। কিছু যোগ না করলে সাইট নিজে থেকেই সবচেয়ে জনপ্রিয় বিভাগগুলো দেখাবে।</p>
         <div id="homeCatList"></div>
@@ -408,7 +704,7 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
         <button type="button" class="btn btn-primary btn-sm" id="saveHomeCatsBtn">সংরক্ষণ করুন (হোমপেজে লাইভ)</button>
       </div>
 
-      <div class="card">
+      <div class="card tool-card wide" data-cat="homeChips">
         <h3>হোমপেজ প্রকাশনী চিপ</h3>
         <p class="hint">হোমপেজে প্রকাশনীর লোগো/নাম চিপ দেখানোর জন্য এখান থেকে নিয়ন্ত্রণ করুন। নাম লেখার সময় বইয়ের ডেটা থেকে সাজেশন আসবে। কিছু যোগ না করলে সাইট নিজে থেকেই জনপ্রিয় প্রকাশনী দেখাবে।</p>
         <div id="homePubList"></div>
@@ -424,7 +720,7 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
         <button type="button" class="btn btn-primary btn-sm" id="saveHomePubsBtn">সংরক্ষণ করুন (হোমপেজে লাইভ)</button>
       </div>
 
-      <div class="card">
+      <div class="card tool-card wide" data-cat="homeChips">
         <h3>হোমপেজ প্রিয় লেখক চিপ</h3>
         <p class="hint">হোমপেজে লেখকের ছবি/নাম চিপ দেখানোর জন্য এখান থেকে নিয়ন্ত্রণ করুন। নাম লেখার সময় বইয়ের ডেটা থেকে সাজেশন আসবে। কিছু যোগ না করলে সাইট নিজে থেকেই জনপ্রিয় লেখক দেখাবে।</p>
         <div id="homeAuthorList"></div>
@@ -440,7 +736,7 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
         <button type="button" class="btn btn-primary btn-sm" id="saveHomeAuthorsBtn">সংরক্ষণ করুন (হোমপেজে লাইভ)</button>
       </div>
 
-      <div class="card">
+      <div class="card tool-card wide" data-cat="banner">
         <h3>হোমপেজ ব্যানার / স্লাইডার</h3>
         <p class="hint">হোমপেজের উপরের স্লাইডার ব্যানার এখান থেকে বদলান। ছবির লিংক দিন বা আপলোড করুন, ক্লিক করলে কোথায় যাবে তা চাইলে লিংকে বসান। কিছু যোগ না করে খালি রাখলে সাইটের ডিফল্ট ব্যানার দুটো দেখাবে।</p>
         <div id="bannerList"></div>
@@ -456,8 +752,9 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
         <button type="button" class="btn btn-primary btn-sm" id="saveBannersBtn">সব ব্যানার সংরক্ষণ করুন (সাইটে লাইভ)</button>
       </div>
 
+      </div><!-- /.tools-grid -->
       <div class="card" id="ownerOnlyNote" hidden>
-        <p class="hint">মডারেটর হিসেবে আপনি এই সেটিংস দেখতে পারবেন কিন্তু পরিবর্তন করতে পারবেন না।</p>
+        <p class="hint">মডারেটর হিসেবে আপনি কিছু সংবেদনশীল সেটিংস (API key) দেখতে পারবেন কিন্তু পরিবর্তন করতে পারবেন না।</p>
       </div>
     </section>
   </div>
@@ -758,13 +1055,15 @@ function enterApp(){
   if(isModerator && !isOwner){
     document.getElementById('navModerators').style.display = 'none';
     document.getElementById('ownerOnlyNote').hidden = false;
-    ['setSfKey','setSfSecret','setRdxTok','setImgbbKey'].forEach(id=>{
+    ['setSfKey','setSfSecret','setRdxTok','setImgbbKey','setDriveKey'].forEach(id=>{
       const el = document.getElementById(id);
       if(el) el.disabled = true;
     });
     document.getElementById('saveImgbbKey').disabled = true;
     document.getElementById('saveSf').disabled = true;
     document.getElementById('saveRdx').disabled = true;
+    const saveDrive = document.getElementById('saveDriveKey');
+    if(saveDrive) saveDrive.disabled = true;
   }
   initData();
 }
@@ -776,9 +1075,27 @@ document.querySelectorAll('#navList button[data-tab]').forEach(btn=>{
     switchTab(this.dataset.tab);
   });
 });
+document.querySelectorAll('.tool-cat-item').forEach(btn=>{
+  btn.addEventListener('click', function(){ switchTool(this.dataset.cat, this); });
+});
 function switchTab(tab){
   document.querySelectorAll('#navList button[data-tab]').forEach(b=>b.classList.toggle('active', b.dataset.tab===tab));
   document.querySelectorAll('.tab-section').forEach(s=>s.classList.toggle('active', s.id === 'tab-'+tab));
+  if(tab==='daily') renderDailyTab();
+  if(tab==='analytics') renderAnalyticsTab();
+  if(tab==='report') renderReportTab();
+  if(tab==='reviews') loadReviewsTab();
+}
+function switchTool(cat, btnEl){
+  switchTab('tools');
+  document.querySelectorAll('#navList button[data-tab]').forEach(b=>b.classList.toggle('active', b.dataset.tab==='tools'));
+  document.querySelectorAll('.tool-cat-item').forEach(b=>b.classList.remove('active'));
+  if(btnEl) btnEl.classList.add('active');
+  const showAll = (cat==='all');
+  document.querySelectorAll('#toolsGrid .tool-card').forEach(card=>{
+    card.style.display = (showAll || card.dataset.cat===cat) ? '' : 'none';
+  });
+  document.getElementById('tab-tools').scrollIntoView({behavior:'smooth', block:'start'});
 }
 
 /* ================= INITIAL DATA LOAD ================= */
@@ -788,6 +1105,10 @@ function initData(){
   loadCoupons();
   loadSettings();
   loadHomeCurationData();
+  loadCatTreeAndTags();
+  loadCatCardsAdmin();
+  loadOfferPopupAdmin();
+  loadDriveKey();
   if(isOwner){
     loadModerators();
   }
@@ -810,13 +1131,22 @@ function loadBooksMerged(){
     renderBookCatFilterOptions();
     renderBooksTab(true);
     populateCurationDatalists();
+    onWorkingBooksReady();
   }).catch(()=>{
     workingBooks = baseline;
     renderDashboard();
     renderBookCatFilterOptions();
     renderBooksTab(true);
     populateCurationDatalists();
+    onWorkingBooksReady();
   });
+}
+/* workingBooks লোড/পরিবর্তন হওয়ার পর যেসব টুল-প্যানেলের ড্রপডাউন/লিস্ট
+   workingBooks এর উপর নির্ভরশীল, সেগুলো রিফ্রেশ করা হয় */
+function onWorkingBooksReady(){
+  apFixTypeChanged();
+  populateSubTagCatSelect();
+  renderCatCardsBox();
 }
 
 function saveBookListToFirebase(){
@@ -2001,6 +2331,837 @@ document.getElementById('saveBannersBtn').addEventListener('click', function(){
     toast(bannerData.length ? 'ব্যানার সংরক্ষণ হয়েছে — হোমপেজে লাইভ!' : 'সংরক্ষণ হয়েছে — সাইটে ডিফল্ট ব্যানার দেখাবে', 'ok');
   }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
 });
+
+/* ================================================================
+   নতুন ফিচার: দৈনিক সারাংশ, অ্যানালিটিক্স, বিক্রয় রিপোর্ট, রিভিউ,
+   ক্যাটাগরি/ট্যাগ তালিকা, লেখক-প্রকাশনী ঠিক করা, ক্যাটাগরি কার্ড টাইল,
+   বিষয়-ভিত্তিক বাল্ক ট্যাগ, অফার পোস্টার, প্রকাশনী/ব্র্যান্ড অফার,
+   Drive API key, sitemap/book.js ডাউনলোড, phoneIndex migration, ফ্রড চেক
+   ================================================================ */
+
+function fieldValueCounts(field, filterFn){
+  const counts = {};
+  workingBooks.forEach(b=>{
+    if(filterFn && !filterFn(b)) return;
+    const v = (b[field]||'').toString().trim();
+    if(v) counts[v] = (counts[v]||0) + 1;
+  });
+  return counts;
+}
+function jumpToOrder(orderId){
+  switchTab('orders');
+  document.querySelectorAll('#navList button[data-tab]').forEach(b=>b.classList.toggle('active', b.dataset.tab==='orders'));
+  currentOrderFilter = 'all';
+  renderOrderFilters();
+  renderOrders();
+  setTimeout(()=>{
+    const target = document.querySelector('[data-orderid="'+cssEsc(orderId)+'"]');
+    if(target) target.scrollIntoView({behavior:'smooth', block:'center'});
+  }, 60);
+}
+
+/* ---------------- দৈনিক সারাংশ ---------------- */
+function renderDailyTab(){
+  const wrap = document.getElementById('dailyList');
+  if(!allOrders.length){
+    wrap.innerHTML = '<div class="empty-state"><div class="emoji">📅</div>এখনো কিছু নেই</div>';
+    return;
+  }
+  const groups = {};
+  allOrders.forEach(o=>{
+    const d = new Date(o.createdAt);
+    const key = d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+    if(!groups[key]) groups[key] = {label: d.toLocaleDateString('bn-BD',{year:'numeric',month:'long',day:'numeric',weekday:'long'}), orders:[], revenue:0};
+    groups[key].orders.push(o);
+    if(o.status !== 'cancelled') groups[key].revenue += (parseFloat(o.total)||0);
+  });
+  const keys = Object.keys(groups).sort((a,b)=>b.localeCompare(a));
+  wrap.innerHTML = keys.map((key,idx)=>{
+    const g = groups[key];
+    const pending = g.orders.filter(o=>o.status==='pending').length;
+    const delivered = g.orders.filter(o=>o.status==='delivered').length;
+    const rows = g.orders.slice().sort((a,b)=>b.createdAt-a.createdAt).map(o=>`
+      <div class="day-row" data-jumporder="${escapeHtml(o.orderId)}">
+        <div>
+          <b>#${escapeHtml(o.orderId)}</b> — ${escapeHtml(o.name||'')}
+          <div class="hint">${escapeHtml(o.phone||'')} · ${new Date(o.createdAt).toLocaleTimeString('bn-BD')}</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span class="badge b-${o.status}">${STATUS_LABELS[o.status]||o.status}</span>
+          <b>৳${escapeHtml(String(o.total))}</b>
+        </div>
+      </div>`).join('');
+    return `<div class="day-group">
+      <div class="day-header" data-daytoggle="day_${idx}">
+        <div>
+          <h4>${g.label}</h4>
+          <div class="dmeta">${pending} অপেক্ষমাণ · ${delivered} পৌঁছে গেছে</div>
+        </div>
+        <div class="day-stats">
+          <span class="badge b-delivered">৳${g.revenue.toLocaleString('bn-BD')}</span>
+          <span class="badge b-confirmed">${g.orders.length} অর্ডার</span>
+        </div>
+      </div>
+      <div class="day-body ${idx===0?'open':''}" id="day_${idx}">${rows}</div>
+    </div>`;
+  }).join('');
+  wrap.querySelectorAll('[data-daytoggle]').forEach(h=>{
+    h.addEventListener('click', function(){
+      const el = document.getElementById(this.dataset.daytoggle);
+      if(el) el.classList.toggle('open');
+    });
+  });
+  wrap.querySelectorAll('[data-jumporder]').forEach(r=>{
+    r.addEventListener('click', function(e){ e.stopPropagation(); jumpToOrder(this.dataset.jumporder); });
+  });
+}
+
+/* ---------------- অ্যানালিটিক্স ---------------- */
+function renderAnalyticsTab(){
+  const activeOrders = allOrders.filter(o=>o.status!=='cancelled');
+  const bsEl = document.getElementById('anBestseller');
+  const bookCount = {};
+  activeOrders.forEach(o=>{
+    (o.items||[]).forEach(it=>{
+      if(!it || !it.name) return;
+      bookCount[it.name] = (bookCount[it.name]||0) + (parseInt(it.qty,10)||1);
+    });
+  });
+  const topBooks = Object.entries(bookCount).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  bsEl.innerHTML = topBooks.length ? topBooks.map(([name,cnt],i)=>`
+    <div class="bs-row"><div class="bs-rank">${i+1}</div><div class="bs-name">${escapeHtml(name)}</div><div class="bs-count">${cnt}x</div></div>
+  `).join('') : '<div class="empty-state"><div class="emoji">📊</div>ডেটা নেই</div>';
+
+  const areaEl = document.getElementById('anArea');
+  const areaCount = {};
+  activeOrders.forEach(o=>{
+    const a = (o.district||'').trim();
+    if(a) areaCount[a] = (areaCount[a]||0) + 1;
+  });
+  const topAreas = Object.entries(areaCount).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  const maxArea = topAreas.length ? topAreas[0][1] : 1;
+  areaEl.innerHTML = topAreas.length ? topAreas.map(([name,cnt])=>`
+    <div class="bar-row"><div class="bar-name">${escapeHtml(name)}</div><div class="bar-track"><div class="bar-fill" style="width:${Math.round(cnt/maxArea*100)}%"></div></div><div class="bar-cnt">${cnt}</div></div>
+  `).join('') : '<div class="empty-state"><div class="emoji">📍</div>ডেটা নেই</div>';
+
+  const payEl = document.getElementById('anPayment');
+  const payCount = {};
+  activeOrders.forEach(o=>{ const p=(o.payment||'অজানা').trim()||'অজানা'; payCount[p]=(payCount[p]||0)+1; });
+  const totalPay = activeOrders.length || 1;
+  const payEntries = Object.entries(payCount).sort((a,b)=>b[1]-a[1]);
+  payEl.innerHTML = payEntries.length ? payEntries.map(([p,c])=>`
+    <div class="bar-row"><div class="bar-name">${escapeHtml(p)}</div><div class="bar-track"><div class="bar-fill" style="width:${Math.round(c/totalPay*100)}%"></div></div><div class="bar-cnt">${Math.round(c/totalPay*100)}%</div></div>
+  `).join('') : '<div class="empty-state"><div class="emoji">💳</div>ডেটা নেই</div>';
+
+  const stEl = document.getElementById('anStatus');
+  const statusCount = {};
+  allOrders.forEach(o=>{ statusCount[o.status] = (statusCount[o.status]||0)+1; });
+  const maxStatus = Math.max(1, ...STATUS_KEYS.map(k=>statusCount[k]||0));
+  stEl.innerHTML = STATUS_KEYS.map(k=>{
+    const c = statusCount[k]||0;
+    return `<div class="bar-row"><div class="bar-name">${STATUS_LABELS[k]}</div><div class="bar-track"><div class="bar-fill" style="width:${Math.round(c/maxStatus*100)}%"></div></div><div class="bar-cnt">${c}</div></div>`;
+  }).join('');
+}
+
+/* ---------------- বিক্রয় রিপোর্ট ---------------- */
+function getReportRange(){
+  const fromInp = document.getElementById('rpFrom'), toInp = document.getElementById('rpTo');
+  if(!fromInp.value || !toInp.value) return null;
+  const from = new Date(fromInp.value+'T00:00:00');
+  const to = new Date(toInp.value+'T23:59:59');
+  return {from, to};
+}
+function renderReportTab(){
+  if(!document.getElementById('rpFrom').value){
+    const to = new Date(); const from = new Date(); from.setDate(from.getDate()-29);
+    document.getElementById('rpFrom').value = from.toISOString().slice(0,10);
+    document.getElementById('rpTo').value = to.toISOString().slice(0,10);
+  }
+  const range = getReportRange();
+  if(!range) return;
+  const filtered = allOrders.filter(o=>{ const d = new Date(o.createdAt); return d>=range.from && d<=range.to; });
+  const revenue = filtered.filter(o=>o.status!=='cancelled').reduce((s,o)=>s+(parseFloat(o.total)||0),0);
+  document.getElementById('rpTotalOrders').textContent = filtered.length.toLocaleString('bn-BD');
+  document.getElementById('rpTotalRevenue').textContent = revenue.toLocaleString('bn-BD');
+  document.getElementById('rpDelivered').textContent = filtered.filter(o=>o.status==='delivered').length.toLocaleString('bn-BD');
+  document.getElementById('rpPending').textContent = filtered.filter(o=>o.status==='pending').length.toLocaleString('bn-BD');
+
+  const dayMap = {};
+  filtered.filter(o=>o.status!=='cancelled').forEach(o=>{
+    const d = new Date(o.createdAt);
+    const key = d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+    dayMap[key] = (dayMap[key]||0) + (parseFloat(o.total)||0);
+  });
+  const dayKeys = Object.keys(dayMap).sort().slice(-31);
+  const maxVal = Math.max(1, ...dayKeys.map(k=>dayMap[k]));
+  const chartEl = document.getElementById('rpChart');
+  chartEl.innerHTML = dayKeys.length ? dayKeys.map(k=>{
+    const h = Math.max(Math.round(dayMap[k]/maxVal*120), 3);
+    const lbl = k.slice(5).split('-').reverse().join('/');
+    return `<div class="rp-chart-col"><div class="rp-chart-val">৳${Math.round(dayMap[k]).toLocaleString('bn-BD')}</div><div class="rp-chart-bar" style="height:${h}px;" title="৳${dayMap[k]}"></div><div class="rp-chart-lbl">${lbl}</div></div>`;
+  }).join('') : '<div class="hint">এই সময়ে কোনো বিক্রি নেই</div>';
+
+  const tbody = document.getElementById('rpTableBody');
+  const sorted = filtered.slice().sort((a,b)=>b.createdAt-a.createdAt);
+  tbody.innerHTML = sorted.length ? sorted.map(o=>`
+    <tr style="cursor:pointer;" data-jumporder="${escapeHtml(o.orderId)}">
+      <td>${new Date(o.createdAt).toLocaleDateString('bn-BD')}</td>
+      <td>#${escapeHtml(o.orderId)}</td>
+      <td>${escapeHtml(o.name||'')}</td>
+      <td>৳${escapeHtml(String(o.total))}</td>
+      <td><span class="badge b-${o.status}">${STATUS_LABELS[o.status]||o.status}</span></td>
+    </tr>`).join('') : '<tr><td colspan="5" style="text-align:center;color:var(--text-2);padding:16px;">এই সময়ে কোনো অর্ডার নেই</td></tr>';
+  tbody.querySelectorAll('[data-jumporder]').forEach(r=>{
+    r.addEventListener('click', function(){ jumpToOrder(this.dataset.jumporder); });
+  });
+}
+document.getElementById('rpApply').addEventListener('click', renderReportTab);
+document.querySelectorAll('[data-rprange]').forEach(btn=>{
+  btn.addEventListener('click', function(){
+    const v = this.dataset.rprange;
+    const to = new Date();
+    let from = new Date();
+    if(v==='7') from.setDate(from.getDate()-6);
+    else if(v==='30') from.setDate(from.getDate()-29);
+    else from = allOrders.length ? new Date(Math.min(...allOrders.map(o=>o.createdAt))) : to;
+    document.getElementById('rpFrom').value = from.toISOString().slice(0,10);
+    document.getElementById('rpTo').value = to.toISOString().slice(0,10);
+    renderReportTab();
+  });
+});
+document.getElementById('btnExportReportCsv').addEventListener('click', function(){
+  const range = getReportRange();
+  if(!range){ toast('তারিখ দিন', 'err'); return; }
+  const filtered = allOrders.filter(o=>{ const d=new Date(o.createdAt); return d>=range.from && d<=range.to; });
+  if(!filtered.length){ toast('এই সময়ে কোনো অর্ডার নেই', 'err'); return; }
+  const rows = [['তারিখ','অর্ডার আইডি','নাম','ফোন','ঠিকানা','মোট','পেমেন্ট','স্ট্যাটাস']];
+  filtered.forEach(o=> rows.push([
+    new Date(o.createdAt).toLocaleDateString('en-GB'), o.orderId, o.name||'', o.phone||'',
+    (o.address||'')+', '+(o.district||''), String(o.total||''), o.payment||'', o.status||''
+  ]));
+  const csv = rows.map(r=>r.map(v=>'"'+String(v||'').replace(/"/g,'""')+'"').join(',')).join('\n');
+  const blob = new Blob(['﻿'+csv], {type:'text/csv;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download='OD-sales-report.csv'; a.click();
+  setTimeout(()=>URL.revokeObjectURL(url), 1000);
+});
+
+/* ---------------- রিভিউ ---------------- */
+function bookNameByBid(bid){
+  const b = workingBooks.find(x=>x.bid===bid);
+  return b ? b.name : ('বই #'+bid);
+}
+function loadReviewsTab(){
+  const el = document.getElementById('reviewsList');
+  el.innerHTML = '<div class="empty-state"><div class="emoji">⭐</div>লোড হচ্ছে...</div>';
+  db.ref('reviews').get().then(snap=>{
+    const rows = [];
+    if(snap.exists()){
+      snap.forEach(bk=>{
+        bk.forEach(rv=>{
+          const v = rv.val()||{};
+          rows.push({bid: bk.key, rid: rv.key, name: v.name||'', comment: v.comment||'', rating: Number(v.rating)||0, createdAt: v.createdAt||0});
+        });
+      });
+    }
+    rows.sort((a,b)=>b.createdAt-a.createdAt);
+    if(!rows.length){
+      el.innerHTML = '<div class="empty-state"><div class="emoji">⭐</div>এখনো কোনো রিভিউ আসেনি</div>';
+      return;
+    }
+    el.innerHTML = `<p class="hint">মোট রিভিউ: ${rows.length}টি</p>` + rows.map(r=>{
+      const rt = Math.max(0, Math.min(5, Math.round(r.rating)));
+      const stars = '★'.repeat(rt) + '☆'.repeat(5-rt);
+      const d = r.createdAt ? new Date(r.createdAt).toLocaleDateString('bn-BD',{day:'numeric',month:'long',year:'numeric'}) : '';
+      return `<div class="review-card">
+        <div class="flex-between">
+          <div>
+            <b>${escapeHtml(r.name)}</b> <span class="review-stars">${stars}</span>
+            <div class="hint">📖 ${escapeHtml(bookNameByBid(r.bid))}${d?(' · '+d):''}</div>
+          </div>
+          <button class="btn btn-danger btn-sm" data-delreview="${escapeHtml(r.bid)}|${escapeHtml(r.rid)}">মুছুন</button>
+        </div>
+        <div style="margin-top:8px; font-size:13.5px; white-space:pre-wrap;">${escapeHtml(r.comment)}</div>
+      </div>`;
+    }).join('');
+    el.querySelectorAll('[data-delreview]').forEach(btn=>{
+      btn.addEventListener('click', function(){
+        const [bid, rid] = this.dataset.delreview.split('|');
+        if(!confirm('রিভিউটি মুছে ফেলবেন?')) return;
+        db.ref('reviews/'+bid+'/'+rid).remove().then(()=>{ toast('রিভিউ মুছে ফেলা হয়েছে', 'ok'); loadReviewsTab(); })
+          .catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
+      });
+    });
+  }).catch(err=>{
+    el.innerHTML = '<div class="empty-state">রিভিউ লোড করা যায়নি: '+escapeHtml(err.message)+'</div>';
+  });
+}
+
+/* ---------------- ক্যাটাগরি/উপ-বিভাগ ও ট্যাগ তালিকা (siteConfig/categoryTree, siteConfig/tags) ---------------- */
+let siteCatTreeData = [];
+let siteTagsData = [];
+function deriveDefaultCatTree(){
+  const cats = uniqueFieldValues('cat');
+  return cats.map(name=>{
+    const subs = Array.from(new Set(workingBooks.filter(b=>b.cat===name).map(b=>b.subcat).filter(Boolean)));
+    return {name, subs};
+  });
+}
+function deriveDefaultTags(){
+  const set = new Set();
+  workingBooks.forEach(b=> (b.tags||[]).forEach(t=> t && set.add(t)));
+  return Array.from(set);
+}
+function loadCatTreeAndTags(){
+  db.ref('siteConfig/categoryTree').get().then(snap=>{
+    const v = snap.exists() ? snap.val() : null;
+    const list = Array.isArray(v) ? v.filter(Boolean) : (v && typeof v==='object' ? Object.values(v).filter(Boolean) : null);
+    siteCatTreeData = (list && list.length) ? list.map(c=>({name:c.name, subs: Array.isArray(c.subs)?c.subs.slice():[]})) : deriveDefaultCatTree();
+    renderCatTreeBox();
+    renderCatCardsBox();
+  }).catch(()=>{ siteCatTreeData = deriveDefaultCatTree(); renderCatTreeBox(); });
+
+  db.ref('siteConfig/tags').get().then(snap=>{
+    const v = snap.exists() ? snap.val() : null;
+    const list = Array.isArray(v) ? v.filter(Boolean) : (v && typeof v==='object' ? Object.values(v).filter(Boolean) : null);
+    siteTagsData = (list && list.length) ? list.map(String) : deriveDefaultTags();
+    renderTagListBox();
+  }).catch(()=>{ siteTagsData = deriveDefaultTags(); renderTagListBox(); });
+}
+function renderCatTreeBox(){
+  const box = document.getElementById('catTreeBox');
+  if(!box) return;
+  if(!siteCatTreeData.length){ box.innerHTML = '<div class="hint">কোনো বিভাগ নেই — নিচে থেকে যোগ করুন।</div>'; return; }
+  box.innerHTML = siteCatTreeData.map((c,i)=>{
+    const chips = (c.subs||[]).map((s,j)=>`<span class="cattree-chip">${escapeHtml(s)} <span data-rmsub="${i}|${j}" title="মুছুন">✕</span></span>`).join('');
+    return `<div class="cattree-card">
+      <div class="cattree-head"><b>${escapeHtml(c.name)}</b><button type="button" class="btn btn-danger btn-sm" data-rmcat="${i}">✕ বিভাগ মুছুন</button></div>
+      <div class="cattree-chips">${chips || '<span class="hint">কোনো উপ-বিভাগ নেই</span>'}</div>
+      <div class="cattree-addsub"><input type="text" placeholder="নতুন উপ-বিভাগ" data-newsub="${i}"><button type="button" class="btn btn-outline btn-sm" data-addsub="${i}">➕</button></div>
+    </div>`;
+  }).join('');
+  box.querySelectorAll('[data-rmcat]').forEach(btn=>{
+    btn.addEventListener('click', function(){
+      const i = parseInt(this.dataset.rmcat,10);
+      if(!confirm('"'+siteCatTreeData[i].name+'" বিভাগটা তালিকা থেকে মুছে ফেলতে চান? বইয়ের ডেটা বদলাবে না।')) return;
+      siteCatTreeData.splice(i,1); renderCatTreeBox();
+    });
+  });
+  box.querySelectorAll('[data-rmsub]').forEach(el=>{
+    el.addEventListener('click', function(){
+      const [i,j] = this.dataset.rmsub.split('|').map(Number);
+      siteCatTreeData[i].subs.splice(j,1); renderCatTreeBox();
+    });
+  });
+  box.querySelectorAll('[data-addsub]').forEach(btn=>{
+    btn.addEventListener('click', function(){
+      const i = parseInt(this.dataset.addsub,10);
+      const inp = box.querySelector('[data-newsub="'+i+'"]');
+      const v = inp.value.trim();
+      if(!v) return;
+      if(siteCatTreeData[i].subs.includes(v)){ toast('এই উপ-বিভাগ আগেই আছে', 'err'); return; }
+      siteCatTreeData[i].subs.push(v); renderCatTreeBox();
+    });
+  });
+}
+document.getElementById('addCatTreeBtn').addEventListener('click', function(){
+  const inp = document.getElementById('newCatTreeName');
+  const v = inp.value.trim();
+  if(!v){ toast('বিভাগের নাম দিন', 'err'); return; }
+  if(siteCatTreeData.some(c=>c.name===v)){ toast('এই বিভাগ আগেই আছে', 'err'); return; }
+  siteCatTreeData.push({name:v, subs:[]});
+  inp.value = '';
+  renderCatTreeBox();
+});
+document.getElementById('saveCatTreeBtn').addEventListener('click', function(){
+  db.ref('siteConfig/categoryTree').set(siteCatTreeData).then(()=>{
+    toast('বিভাগ তালিকা সংরক্ষণ হয়েছে', 'ok');
+  }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
+});
+function renderTagListBox(){
+  const box = document.getElementById('tagListBox');
+  if(!box) return;
+  if(!siteTagsData.length){ box.innerHTML = '<div class="hint">কোনো ট্যাগ নেই — নিচে থেকে যোগ করুন।</div>'; return; }
+  box.innerHTML = siteTagsData.map((name,i)=>`
+    <div class="curate-row">
+      <span class="curate-name">${escapeHtml(name)}</span>
+      <button type="button" class="btn btn-outline btn-sm" data-tag-up="${i}" ${i===0?'disabled':''}>▲</button>
+      <button type="button" class="btn btn-outline btn-sm" data-tag-down="${i}" ${i===siteTagsData.length-1?'disabled':''}>▼</button>
+      <button type="button" class="btn btn-danger btn-sm" data-tag-rm="${i}">✕</button>
+    </div>`).join('');
+  box.querySelectorAll('[data-tag-up]').forEach(b=> b.addEventListener('click', function(){ moveHomeItem(siteTagsData, parseInt(this.dataset.tagUp,10), -1); renderTagListBox(); }));
+  box.querySelectorAll('[data-tag-down]').forEach(b=> b.addEventListener('click', function(){ moveHomeItem(siteTagsData, parseInt(this.dataset.tagDown,10), 1); renderTagListBox(); }));
+  box.querySelectorAll('[data-tag-rm]').forEach(b=> b.addEventListener('click', function(){ siteTagsData.splice(parseInt(this.dataset.tagRm,10),1); renderTagListBox(); }));
+}
+document.getElementById('addTagBtn').addEventListener('click', function(){
+  const inp = document.getElementById('newTagName');
+  const v = inp.value.trim();
+  if(!v){ toast('ট্যাগের নাম দিন', 'err'); return; }
+  if(siteTagsData.includes(v)){ toast('এই ট্যাগ আগেই আছে', 'err'); return; }
+  siteTagsData.push(v); inp.value=''; renderTagListBox();
+});
+document.getElementById('saveTagsBtn').addEventListener('click', function(){
+  db.ref('siteConfig/tags').set(siteTagsData).then(()=>{
+    toast('ট্যাগ তালিকা সংরক্ষণ হয়েছে', 'ok');
+  }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
+});
+
+/* ---------------- লেখক / প্রকাশনী / বিষয় ঠিক করা (cleanup) ---------------- */
+function apFixTypeChanged(){
+  const type = document.getElementById('apFixType').value;
+  const counts = fieldValueCounts(type);
+  const values = Object.keys(counts).sort((a,b)=>String(a).localeCompare(String(b),'bn'));
+  const sel = document.getElementById('apFixValueSelect');
+  sel.innerHTML = '<option value="">— বাছুন —</option>' + values.map(v=>`<option value="${escapeAttr(v)}">${escapeHtml(v)} (${counts[v]}টা)</option>`).join('');
+}
+document.getElementById('apFixType').addEventListener('change', apFixTypeChanged);
+function apFixApply(newValue){
+  const type = document.getElementById('apFixType').value;
+  const oldValue = document.getElementById('apFixValueSelect').value;
+  if(!oldValue){ toast('আগে একটা নাম বাছুন', 'err'); return; }
+  let n = 0;
+  workingBooks.forEach(b=>{ if(b && b[type]===oldValue){ b[type] = newValue; n++; } });
+  if(!n){ toast('কোনো বই পাওয়া যায়নি', 'err'); return; }
+  saveBookListToFirebase().then(()=>{
+    toast(n+'টা বই আপডেট হয়েছে', 'ok');
+    document.getElementById('apFixNewName').value = '';
+    renderBookCatFilterOptions(); renderBooksTab(true); renderDashboard();
+    apFixTypeChanged();
+  }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
+}
+document.getElementById('apFixRenameBtn').addEventListener('click', function(){
+  const v = document.getElementById('apFixNewName').value.trim();
+  if(!v){ toast('সঠিক/নতুন নাম লিখুন', 'err'); return; }
+  apFixApply(v);
+});
+document.getElementById('apFixDeleteBtn').addEventListener('click', function(){
+  const oldValue = document.getElementById('apFixValueSelect').value;
+  if(!oldValue){ toast('আগে একটা নাম বাছুন', 'err'); return; }
+  if(!confirm('"'+oldValue+'" সব বই থেকে মুছে ফেলতে (ফাঁকা করতে) চান? এই কাজ পূর্বাবস্থায় ফেরানো যাবে না।')) return;
+  apFixApply('');
+});
+
+/* ---------------- হোমপেজ ক্যাটাগরি কার্ড — বিষয়ের ছবি (siteConfig/catCards) ---------------- */
+let catCardsData = [];
+function loadCatCardsAdmin(){
+  db.ref('siteConfig/catCards').get().then(snap=>{
+    const v = snap.exists() ? snap.val() : null;
+    const list = Array.isArray(v) ? v.filter(Boolean) : (v && typeof v==='object' ? Object.values(v).filter(Boolean) : null);
+    catCardsData = (list && list.length) ? list.map(c=>({name:c.name, subs:(c.subs||[]).map(s=>({label:s.label||'', bid:s.bid||''}))})) : [];
+    renderCatCardsBox();
+  }).catch(()=>{ catCardsData = []; renderCatCardsBox(); });
+}
+function ccEnsureAll(){
+  (siteCatTreeData.length ? siteCatTreeData : deriveDefaultCatTree()).forEach(cat=>{
+    if(!catCardsData.some(c=>c.name===cat.name)){
+      const subs = (cat.subs && cat.subs.length ? cat.subs.slice(0,4) : [cat.name]).map(s=>({label:s, bid:''}));
+      catCardsData.push({name: cat.name, subs});
+    }
+  });
+}
+function ccBookThumb(bid){
+  if(!bid) return null;
+  return workingBooks.find(b=>b.bid===bid) || null;
+}
+function renderCatCardsBox(){
+  const box = document.getElementById('catCardsBox');
+  if(!box || !workingBooks.length) return;
+  ccEnsureAll();
+  box.innerHTML = catCardsData.map((cat,ci)=>{
+    const tiles = (cat.subs||[]).map((s,si)=>{
+      const bk = ccBookThumb(s.bid);
+      const thumb = bk && bk.img ? `<img src="${escapeAttr(bk.img)}" style="width:100%;height:100%;object-fit:cover;">` : '📖';
+      return `<div class="cc-tile">
+        <div class="cc-tile-thumb">${thumb}</div>
+        <input type="text" style="flex:1; min-width:100px;" placeholder="বিষয়ের নাম" value="${escapeAttr(s.label)}" data-cclabel="${ci}|${si}">
+        <div style="position:relative; flex:2; min-width:140px;">
+          <input type="text" placeholder="${bk?escapeAttr(bk.name):'কভারের জন্য বই খুঁজুন...'}" data-ccsearch="${ci}|${si}">
+          <div class="cc-search-res" style="display:none;" id="ccRes_${ci}_${si}"></div>
+        </div>
+        <button type="button" class="btn btn-outline btn-sm" data-ccclear="${ci}|${si}">খালি করুন</button>
+        <button type="button" class="btn btn-danger btn-sm" data-cctile-rm="${ci}|${si}">🗑️</button>
+      </div>`;
+    }).join('');
+    return `<div class="curate-add-box">
+      <div style="font-weight:700; margin-bottom:8px;">${escapeHtml(cat.name)}</div>
+      ${tiles}
+      ${(cat.subs||[]).length<4 ? `<button type="button" class="btn btn-outline btn-sm" data-cctile-add="${ci}">➕ টাইল যোগ করুন</button>` : ''}
+    </div>`;
+  }).join('');
+  box.querySelectorAll('[data-cclabel]').forEach(inp=>{
+    inp.addEventListener('input', function(){
+      const [ci,si] = this.dataset.cclabel.split('|').map(Number);
+      catCardsData[ci].subs[si].label = this.value;
+    });
+  });
+  box.querySelectorAll('[data-ccclear]').forEach(btn=>{
+    btn.addEventListener('click', function(){
+      const [ci,si] = this.dataset.ccclear.split('|').map(Number);
+      catCardsData[ci].subs[si].bid = ''; renderCatCardsBox();
+    });
+  });
+  box.querySelectorAll('[data-cctile-rm]').forEach(btn=>{
+    btn.addEventListener('click', function(){
+      const [ci,si] = this.dataset.cctileRm.split('|').map(Number);
+      catCardsData[ci].subs.splice(si,1); renderCatCardsBox();
+    });
+  });
+  box.querySelectorAll('[data-cctile-add]').forEach(btn=>{
+    btn.addEventListener('click', function(){
+      const ci = parseInt(this.dataset.cctileAdd,10);
+      if(catCardsData[ci].subs.length<4){ catCardsData[ci].subs.push({label:'',bid:''}); renderCatCardsBox(); }
+    });
+  });
+  box.querySelectorAll('[data-ccsearch]').forEach(inp=>{
+    inp.addEventListener('input', function(){
+      const [ci,si] = this.dataset.ccsearch.split('|').map(Number);
+      const q = this.value.trim().toLowerCase();
+      const res = document.getElementById('ccRes_'+ci+'_'+si);
+      if(!q){ res.style.display='none'; res.innerHTML=''; return; }
+      const matches = workingBooks.filter(b=>b.name && b.name.toLowerCase().includes(q)).slice(0,8);
+      if(!matches.length){ res.innerHTML = '<div class="cc-search-row">কিছু পাওয়া যায়নি</div>'; res.style.display='block'; return; }
+      res.innerHTML = matches.map(b=>`<div class="cc-search-row" data-ccpick="${ci}|${si}|${escapeAttr(b.bid)}">${b.img?('<img src="'+escapeAttr(b.img)+'" style="width:24px;height:24px;object-fit:cover;border-radius:4px;">'):'📖'} <span>${escapeHtml(b.name)}</span></div>`).join('');
+      res.style.display = 'block';
+      res.querySelectorAll('[data-ccpick]').forEach(row=>{
+        row.addEventListener('mousedown', function(e){
+          e.preventDefault();
+          const [pci,psi,bid] = this.dataset.ccpick.split('|');
+          catCardsData[pci].subs[psi].bid = bid;
+          renderCatCardsBox();
+        });
+      });
+    });
+  });
+}
+document.getElementById('saveCatCardsBtn').addEventListener('click', function(){
+  db.ref('siteConfig/catCards').set(catCardsData).then(()=>{
+    toast('ক্যাটাগরি কার্ড সংরক্ষণ হয়েছে', 'ok');
+  }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
+});
+
+/* ---------------- বিষয় অনুযায়ী বাল্ক ট্যাগ (subTag) ---------------- */
+let subTagCat = '', subTagSub = '';
+function populateSubTagCatSelect(){
+  const sel = document.getElementById('subTagCatSelect');
+  if(!sel) return;
+  const cats = uniqueFieldValues('cat');
+  const cur = sel.value || subTagCat;
+  sel.innerHTML = '<option value="">— বিভাগ বাছুন —</option>' + cats.map(c=>`<option value="${escapeAttr(c)}" ${c===cur?'selected':''}>${escapeHtml(c)}</option>`).join('');
+  if(!sel.dataset.wired){
+    sel.dataset.wired = '1';
+    sel.addEventListener('change', function(){ subTagCat = this.value; subTagSub=''; renderSubTagBox(); });
+  }
+  renderSubTagBox();
+}
+function renderSubTagBox(){
+  const box = document.getElementById('subTagBox');
+  if(!box) return;
+  if(!subTagCat){ box.innerHTML = '<div class="hint">আগে একটা বিভাগ বাছুন</div>'; return; }
+  const subjects = Array.from(new Set(workingBooks.filter(b=>b.cat===subTagCat).map(b=>b.subject).filter(Boolean)));
+  box.innerHTML = `
+    <div class="toolbar">
+      <select id="subTagSubSelect"><option value="">— বিষয় বাছুন —</option>${subjects.map(s=>`<option value="${escapeAttr(s)}" ${s===subTagSub?'selected':''}>${escapeHtml(s)}</option>`).join('')}</select>
+      <input type="text" id="subTagNewSub" placeholder="অথবা নতুন বিষয় লিখুন">
+    </div>
+    <div class="subtag-list" id="subTagListInner"></div>
+    <button type="button" class="btn btn-primary btn-sm" id="subTagApplyBtn" style="margin-top:10px;">✅ বাছাই করা বইগুলোতে এই বিষয় বসান</button>`;
+  document.getElementById('subTagSubSelect').addEventListener('change', function(){ subTagSub = this.value; document.getElementById('subTagNewSub').value=''; renderSubTagList(); });
+  document.getElementById('subTagNewSub').addEventListener('input', function(){ subTagSub = this.value.trim(); renderSubTagList(); });
+  document.getElementById('subTagApplyBtn').addEventListener('click', subTagApply);
+  renderSubTagList();
+}
+function renderSubTagList(){
+  const list = document.getElementById('subTagListInner');
+  if(!list) return;
+  if(!subTagSub){ list.innerHTML = '<div class="hint" style="padding:10px;">বিষয় বাছুন বা লিখুন</div>'; return; }
+  const items = workingBooks.map((b,i)=>({b,i})).filter(x=>x.b.cat===subTagCat);
+  if(!items.length){ list.innerHTML = '<div class="hint" style="padding:10px;">কোনো বই নেই</div>'; return; }
+  list.innerHTML = items.map(x=>{
+    const checked = x.b.subject === subTagSub;
+    return `<label class="subtag-row"><input type="checkbox" class="subtag-chk" data-bid="${escapeAttr(x.b.bid)}" ${checked?'checked':''}><span style="flex:1;">${escapeHtml(x.b.name)}${x.b.subject && x.b.subject!==subTagSub ? ' <span class="hint">(বর্তমান: '+escapeHtml(x.b.subject)+')</span>' : ''}</span></label>`;
+  }).join('');
+}
+function subTagApply(){
+  if(!subTagCat || !subTagSub){ toast('বিভাগ ও বিষয় বাছুন', 'err'); return; }
+  const boxes = document.querySelectorAll('.subtag-chk');
+  let n = 0;
+  boxes.forEach(cb=>{
+    const b = workingBooks.find(x=>x.bid===cb.dataset.bid);
+    if(!b) return;
+    if(cb.checked){ if(b.subject!==subTagSub){ b.subject = subTagSub; n++; } }
+    else { if(b.subject===subTagSub){ b.subject=''; n++; } }
+  });
+  if(!n){ toast('কোনো পরিবর্তন হয়নি', 'err'); return; }
+  saveBookListToFirebase().then(()=>{
+    toast(n+'টি বইয়ে বিষয় বসানো হয়েছে', 'ok');
+    renderBookCatFilterOptions(); renderBooksTab(true);
+  }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
+}
+
+/* ---------------- প্রকাশনী/ব্র্যান্ড-ভিত্তিক বাল্ক অফার ---------------- */
+const PUB_OFFER_ALL = '__ALL__';
+function pubOfferGroupKey(b){ return b.type==='বই' ? (b.pub||'').trim() : (b.brand||'').trim(); }
+function buildPubOfferSelectOptions(){
+  const sel = document.getElementById('pubOfferSelect');
+  if(!sel) return;
+  const counts = {};
+  workingBooks.forEach(b=>{ const k = pubOfferGroupKey(b) || '(নাম নেই)'; counts[k]=(counts[k]||0)+1; });
+  const names = Object.keys(counts).sort((a,b)=>a.localeCompare(b,'bn'));
+  const cur = sel.value;
+  sel.innerHTML = '<option value="">— প্রকাশনী/ব্র্যান্ড বাছুন —</option>' +
+    `<option value="${PUB_OFFER_ALL}">🌐 সব বই/প্রোডাক্ট (${workingBooks.length}টি)</option>` +
+    names.map(n=>`<option value="${escapeAttr(n)}">${escapeHtml(n)} (${counts[n]}টি)</option>`).join('');
+  sel.value = cur;
+}
+document.getElementById('pubOfferSelect').addEventListener('focus', buildPubOfferSelectOptions);
+document.getElementById('pubOfferSelect').addEventListener('change', renderPubOfferPreview);
+document.getElementById('pubOfferPct').addEventListener('input', renderPubOfferPreview);
+function pubOfferTargets(){
+  const v = document.getElementById('pubOfferSelect').value;
+  if(!v) return [];
+  return workingBooks.filter(b=>{
+    if(!(Number(b.original_price)>0)) return false;
+    if(v===PUB_OFFER_ALL) return true;
+    return (pubOfferGroupKey(b)||'(নাম নেই)') === v;
+  });
+}
+function renderPubOfferPreview(){
+  const el = document.getElementById('pubOfferPreview');
+  const targets = pubOfferTargets();
+  const pct = Number(document.getElementById('pubOfferPct').value||0);
+  if(!targets.length){ el.textContent=''; return; }
+  let s = `📚 ${targets.length}টি বই/প্রোডাক্ট`;
+  if(pct>0 && pct<=90){
+    const ex = targets[0];
+    s += ` · ${pct}% দিলে উদাহরণ: ${ex.name} ৳${ex.original_price} → ৳${Math.round(ex.original_price*(1-pct/100))}`;
+  }
+  el.textContent = s;
+}
+document.getElementById('pubOfferApplyBtn').addEventListener('click', function(){
+  const sel = document.getElementById('pubOfferSelect');
+  const pct = Number(document.getElementById('pubOfferPct').value);
+  const st = document.getElementById('pubOfferStatus');
+  if(!sel.value){ toast('আগে প্রকাশনী/ব্র্যান্ড বাছুন', 'err'); return; }
+  if(!(pct>=0 && pct<=90)){ toast('ছাড় ০-৯০%-এর মধ্যে দিন', 'err'); return; }
+  const targets = pubOfferTargets();
+  if(!targets.length){ toast('এই বাছাইয়ে কোনো বই নেই', 'err'); return; }
+  const label = sel.value===PUB_OFFER_ALL ? 'সব বই/প্রোডাক্ট' : sel.value;
+  if(!confirm(label+' — '+targets.length+'টি আইটেমে '+pct+'% ছাড় বসবে (MRP-এর উপর)। এগিয়ে যাবেন?')) return;
+  targets.forEach(b=>{ b.price = Math.round(Number(b.original_price)*(1-pct/100)); });
+  st.textContent = 'সংরক্ষণ হচ্ছে...';
+  saveBookListToFirebase().then(()=>{
+    st.textContent = '✅ '+targets.length+'টি আইটেমে '+pct+'% ছাড় বসেছে।';
+    toast('অফার প্রয়োগ হয়েছে', 'ok');
+    renderBooksTab(true); renderDashboard(); renderPubOfferPreview();
+  }).catch(err=>{ st.textContent = 'ব্যর্থ: '+err.message; toast('ব্যর্থ: '+err.message, 'err'); });
+});
+document.getElementById('pubOfferRestoreBtn').addEventListener('click', function(){
+  const sel = document.getElementById('pubOfferSelect');
+  const st = document.getElementById('pubOfferStatus');
+  if(!sel.value){ toast('আগে প্রকাশনী/ব্র্যান্ড বাছুন', 'err'); return; }
+  const targets = pubOfferTargets();
+  if(!targets.length){ toast('এই বাছাইয়ে কোনো বই নেই', 'err'); return; }
+  const label = sel.value===PUB_OFFER_ALL ? 'সব বই/প্রোডাক্ট' : sel.value;
+  if(!confirm(label+' — '+targets.length+'টি আইটেম MRP-তে (ছাড় ছাড়া) ফেরানো হবে। এগিয়ে যাবেন?')) return;
+  targets.forEach(b=>{ b.price = Number(b.original_price); });
+  st.textContent = 'সংরক্ষণ হচ্ছে...';
+  saveBookListToFirebase().then(()=>{
+    st.textContent = '✅ '+targets.length+'টি আইটেম MRP-তে ফিরেছে।';
+    toast('দাম MRP-তে ফেরানো হয়েছে', 'ok');
+    renderBooksTab(true); renderDashboard(); renderPubOfferPreview();
+  }).catch(err=>{ st.textContent = 'ব্যর্থ: '+err.message; toast('ব্যর্থ: '+err.message, 'err'); });
+});
+
+/* ---------------- অফার পোস্টার পপআপ (siteConfig/offerPopups) ---------------- */
+const OFFER_POPUP_MAX = 3;
+let offerPopupData = {enabled:false, posters:[]};
+function loadOfferPopupAdmin(){
+  db.ref('siteConfig/offerPopups').get().then(snap=>{
+    const v = snap.exists() ? snap.val() : null;
+    if(v && typeof v==='object'){
+      offerPopupData.enabled = !!v.enabled;
+      offerPopupData.posters = Array.isArray(v.posters) ? v.posters.filter(Boolean) : (v.posters && typeof v.posters==='object' ? Object.values(v.posters).filter(Boolean) : []);
+    } else {
+      offerPopupData = {enabled:false, posters:[]};
+    }
+    const cb = document.getElementById('ofPopEnabled');
+    if(cb) cb.checked = offerPopupData.enabled;
+    renderOfPopList();
+  }).catch(()=>{ offerPopupData = {enabled:false, posters:[]}; renderOfPopList(); });
+}
+function renderOfPopList(){
+  const box = document.getElementById('ofPopList');
+  if(!box) return;
+  const list = offerPopupData.posters;
+  box.innerHTML = list.length ? list.map((p,i)=>`
+    <div class="curate-row" style="align-items:flex-start;">
+      <img class="banner-thumb" src="${escapeAttr(p.img||'')}" onerror="this.style.opacity=0.3">
+      <div style="flex:1; min-width:150px;">
+        <div class="curate-name">${escapeHtml(p.title || '(শিরোনাম নেই)')}</div>
+        <div class="hint">${escapeHtml(p.sub||'')}</div>
+      </div>
+      <button type="button" class="btn btn-outline btn-sm" data-ofp-up="${i}" ${i===0?'disabled':''}>▲</button>
+      <button type="button" class="btn btn-outline btn-sm" data-ofp-down="${i}" ${i===list.length-1?'disabled':''}>▼</button>
+      <button type="button" class="btn btn-danger btn-sm" data-ofp-rm="${i}">✕</button>
+    </div>`).join('') : '<div class="hint">এখনো কোনো পোস্টার যোগ করা হয়নি।</div>';
+  box.querySelectorAll('[data-ofp-up]').forEach(b=>b.addEventListener('click', function(){ moveHomeItem(offerPopupData.posters, parseInt(this.dataset.ofpUp,10), -1); renderOfPopList(); }));
+  box.querySelectorAll('[data-ofp-down]').forEach(b=>b.addEventListener('click', function(){ moveHomeItem(offerPopupData.posters, parseInt(this.dataset.ofpDown,10), 1); renderOfPopList(); }));
+  box.querySelectorAll('[data-ofp-rm]').forEach(b=>b.addEventListener('click', function(){ offerPopupData.posters.splice(parseInt(this.dataset.ofpRm,10),1); renderOfPopList(); }));
+}
+document.getElementById('addOfPopBtn').addEventListener('click', function(){
+  if(offerPopupData.posters.length >= OFFER_POPUP_MAX){ toast('সর্বোচ্চ '+OFFER_POPUP_MAX+'টা পোস্টার যোগ করা যাবে', 'err'); return; }
+  const img = document.getElementById('ofPopImg').value.trim();
+  const title = document.getElementById('ofPopTitle').value.trim();
+  const sub = document.getElementById('ofPopSub').value.trim();
+  const link = document.getElementById('ofPopLink').value.trim();
+  if(!img){ toast('পোস্টার ছবির URL দিন', 'err'); return; }
+  offerPopupData.posters.push({img,title,sub,link});
+  document.getElementById('ofPopImg').value = '';
+  document.getElementById('ofPopTitle').value = '';
+  document.getElementById('ofPopSub').value = '';
+  document.getElementById('ofPopLink').value = '';
+  document.getElementById('ofPopImgUploadStatus').textContent = '';
+  renderOfPopList();
+});
+document.getElementById('ofPopImgUpload').addEventListener('change', function(){
+  const file = this.files[0];
+  const statusEl = document.getElementById('ofPopImgUploadStatus');
+  curationImgUpload(file, statusEl, function(url){ document.getElementById('ofPopImg').value = url; });
+  this.value = '';
+});
+document.getElementById('saveOfPopBtn').addEventListener('click', function(){
+  const enabled = document.getElementById('ofPopEnabled').checked;
+  if(enabled && !offerPopupData.posters.length){ toast('অন্তত একটা পোস্টার যোগ করুন অথবা পপআপ বন্ধ রাখুন', 'err'); return; }
+  db.ref('siteConfig/offerPopups').set({enabled, posters: offerPopupData.posters}).then(()=>{
+    toast('অফার পোস্টার সংরক্ষণ হয়েছে', 'ok');
+  }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
+});
+
+/* ---------------- Google Drive API Key ---------------- */
+function loadDriveKey(){
+  db.ref('driveApiKey').get().then(snap=>{
+    const v = snap.exists() ? snap.val() : '';
+    document.getElementById('driveKeyMaskedHint').textContent = v ? ('বর্তমান: '+maskKey(v)) : '';
+  }).catch(()=>{});
+}
+document.getElementById('saveDriveKey').addEventListener('click', function(){
+  if(!isOwner){ toast('শুধুমাত্র মালিক এটি পরিবর্তন করতে পারবেন', 'err'); return; }
+  const val = document.getElementById('setDriveKey').value.trim();
+  if(!val){ toast('key দিন', 'err'); return; }
+  db.ref('driveApiKey').set(val).then(()=>{
+    document.getElementById('driveKeyMaskedHint').textContent = 'বর্তমান: '+maskKey(val);
+    document.getElementById('setDriveKey').value = '';
+    toast('সংরক্ষণ হয়েছে', 'ok');
+  }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
+});
+
+/* ---------------- ডাউনলোড: sitemap.xml, book.js ---------------- */
+const SITE_BASE_URL = 'https://ourdedication.com';
+document.getElementById('btnDownloadSitemap').addEventListener('click', function(){
+  const staticPages = ['','about.html','filter.html','track.html','faq.html','contact.html','delivery.html','return.html'];
+  let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+  staticPages.forEach(p=>{ xml += '  <url><loc>'+SITE_BASE_URL+'/'+p+'</loc><changefreq>weekly</changefreq></url>\n'; });
+  workingBooks.forEach(b=>{ xml += '  <url><loc>'+SITE_BASE_URL+'/product.html?id='+encodeURIComponent(b.bid)+'</loc><changefreq>weekly</changefreq></url>\n'; });
+  xml += '</urlset>\n';
+  const blob = new Blob([xml], {type:'application/xml;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download='sitemap.xml'; a.click();
+  URL.revokeObjectURL(url);
+  toast('sitemap.xml ডাউনলোড হচ্ছে ('+workingBooks.length+'টি আইটেম)', 'ok');
+});
+document.getElementById('btnDownloadBookJs').addEventListener('click', function(){
+  const FIELDS = ['bid','type','name','author','price','original_price','cat','subcat','subject','cover','pub','pages','brand','img'];
+  const esc = s=>String(s==null?'':s).replace(/\\/g,'\\\\').replace(/"/g,'\\"').replace(/\r\n/g,'\\n').replace(/\r/g,'\\n').replace(/\n/g,'\\n');
+  const lines = workingBooks.map(b=>{
+    const fields = FIELDS.map(f=>{
+      if(f==='price' || f==='original_price') return f+': '+(Number(b[f])||0);
+      return f+': "'+esc(b[f])+'"';
+    });
+    fields.push('desc: "'+esc(b.desc)+'"');
+    fields.push('tags: ['+(Array.isArray(b.tags)?b.tags:[]).map(t=>'"'+esc(t)+'"').join(', ')+']');
+    const attrs = Array.isArray(b.attributes) ? b.attributes.filter(a=>a && a.label) : [];
+    fields.push('attributes: ['+attrs.map(a=>'{label: "'+esc(a.label)+'", value: "'+esc(a.value||'')+'"}').join(', ')+']');
+    fields.push('pdfLink: "'+esc(b.pdfLink)+'"');
+    return '  { '+fields.join(', ')+' }';
+  });
+  const code = 'const books = [\n'+lines.join(',\n')+'\n];\n';
+  const blob = new Blob([code], {type:'text/javascript;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download='book.js'; a.click();
+  setTimeout(()=>URL.revokeObjectURL(url), 1000);
+  toast('book.js ডাউনলোড হচ্ছে', 'ok');
+});
+
+/* ---------------- phoneIndex migration ---------------- */
+document.getElementById('btnMigratePhoneIndex').addEventListener('click', function(){
+  const btn = this;
+  btn.disabled = true; btn.textContent = 'চলছে...';
+  db.ref('orders').get().then(snap=>{
+    if(!snap.exists()){ toast('কোনো অর্ডার নেই', 'err'); btn.disabled=false; btn.textContent='Phone Index ঠিক করুন'; return; }
+    const updates = {};
+    snap.forEach(c=>{
+      const o = c.val();
+      if(o && o.phone && o.orderId){
+        const safePhone = String(o.phone).replace(/[.#$/\[\]]/g,'_');
+        updates[safePhone+'/'+o.orderId] = true;
+      }
+    });
+    db.ref('phoneIndex').update(updates).then(()=>{
+      toast('সব অর্ডার migrate সম্পন্ন হয়েছে', 'ok');
+      btn.disabled = false; btn.textContent = '✓ সম্পন্ন';
+    }).catch(err=>{ toast('ব্যর্থ: '+err.message, 'err'); btn.disabled=false; btn.textContent='Phone Index ঠিক করুন'; });
+  }).catch(err=>{ toast('ব্যর্থ: '+err.message, 'err'); btn.disabled=false; btn.textContent='Phone Index ঠিক করুন'; });
+});
+
+/* ---------------- ম্যানুয়াল ফ্রড চেক ---------------- */
+function normalizePhoneDigits(p){
+  let d = String(p||'').replace(/[^\d]/g,'');
+  if(d.length>11) d = d.slice(-11);
+  return d;
+}
+document.getElementById('btnFraudCheck').addEventListener('click', checkFraudPhone);
+document.getElementById('fraudPhoneInput').addEventListener('keydown', function(e){ if(e.key==='Enter') checkFraudPhone(); });
+function checkFraudPhone(){
+  const raw = document.getElementById('fraudPhoneInput').value.trim();
+  const resultEl = document.getElementById('fraudCheckResult');
+  if(!raw){ toast('একটা ফোন নম্বর লিখুন', 'err'); return; }
+  const target = normalizePhoneDigits(raw);
+  if(target.length<7){ resultEl.innerHTML = '<div class="fraud-flag">⚠️ সঠিক ফোন নম্বর দিন</div>'; return; }
+  const matches = allOrders.filter(o=>normalizePhoneDigits(o.phone)===target).sort((a,b)=>b.createdAt-a.createdAt);
+  if(!matches.length){
+    resultEl.innerHTML = '<div class="fraud-ok">এই নম্বরে কোনো অর্ডার হিস্ট্রি পাওয়া যায়নি — নতুন কাস্টমার।</div>';
+    return;
+  }
+  const total = matches.length;
+  const statusCnt = {};
+  matches.forEach(o=>{ statusCnt[o.status] = (statusCnt[o.status]||0)+1; });
+  const delivered = statusCnt.delivered||0;
+  const pending = statusCnt.pending||0;
+  const completionRate = total ? Math.round(delivered/total*100) : 0;
+  const dayMap = {};
+  matches.forEach(o=>{ const day = new Date(o.createdAt).toDateString(); dayMap[day]=(dayMap[day]||0)+1; });
+  const maxSameDay = Math.max(0, ...Object.values(dayMap));
+  const flags = [];
+  if(total>=5 && delivered===0) flags.push('এই নম্বরে '+total+'টি অর্ডার হয়েছে কিন্তু একটিও ডেলিভারি সম্পন্ন হয়নি।');
+  if(total>=3 && completionRate<30 && total<5) flags.push('ডেলিভারি সম্পন্নের হার মাত্র '+completionRate+'%, গড়ের চেয়ে অনেক কম।');
+  if(pending>=4) flags.push('এখনো '+pending+'টি অর্ডার পেন্ডিং অবস্থায় আছে — যাচাই না করে কনফার্ম করবেন না।');
+  if(maxSameDay>=3) flags.push('একই দিনে '+maxSameDay+'টি অর্ডার করা হয়েছে — সম্ভবত ভুয়া/টেস্ট অর্ডার।');
+  resultEl.innerHTML = `
+    <div class="fraud-stat-grid">
+      <div class="fraud-stat"><div class="fv">${total}</div><div class="fl">মোট অর্ডার</div></div>
+      <div class="fraud-stat"><div class="fv" style="color:var(--green);">${delivered}</div><div class="fl">পৌঁছে গেছে</div></div>
+      <div class="fraud-stat"><div class="fv" style="color:var(--amber);">${pending}</div><div class="fl">অপেক্ষমাণ</div></div>
+      <div class="fraud-stat"><div class="fv">${completionRate}%</div><div class="fl">সম্পন্নের হার</div></div>
+    </div>
+    ${flags.length ? flags.map(f=>`<div class="fraud-flag">🚩 ${escapeHtml(f)}</div>`).join('') : '<div class="fraud-ok">কোনো সন্দেহজনক প্যাটার্ন পাওয়া যায়নি।</div>'}
+    <div class="table-wrap" style="margin-top:10px;"><table class="simple">
+      <thead><tr><th>অর্ডার</th><th>সময়</th><th>মোট</th><th>স্ট্যাটাস</th></tr></thead>
+      <tbody>${matches.map(o=>`<tr style="cursor:pointer;" data-jumporder="${escapeHtml(o.orderId)}"><td>#${escapeHtml(o.orderId)}</td><td>${new Date(o.createdAt).toLocaleDateString('bn-BD')}</td><td>৳${escapeHtml(String(o.total))}</td><td><span class="badge b-${o.status}">${STATUS_LABELS[o.status]||o.status}</span></td></tr>`).join('')}</tbody>
+    </table></div>`;
+  resultEl.querySelectorAll('[data-jumporder]').forEach(r=>{
+    r.addEventListener('click', function(){ jumpToOrder(this.dataset.jumporder); });
+  });
+}
 
 /* ================= Modal close handlers ================= */
 document.querySelectorAll('[data-close]').forEach(btn=>{
