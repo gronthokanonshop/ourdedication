@@ -2,16 +2,7 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewportMeta">
-<script>
-(function(){
-  try{
-    if(localStorage.getItem('od_view_mode') === 'desktop'){
-      document.getElementById('viewportMeta').setAttribute('content','width=1280');
-    }
-  }catch(e){}
-})();
-</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>পণ্যের বিবরণ — OurDedication</title>
 <meta name="description" id="metaDesc" content="OurDedication-এ ইসলামিক ও সাধারণ বই — সারাদেশে হোম ডেলিভারি, ক্যাশ অন ডেলিভারি সুবিধা।">
 <link rel="canonical" id="metaCanonical" href="https://ourdedication.com/product.html">
@@ -22,8 +13,6 @@
 <meta property="og:image" id="metaOgImage" content="https://ourdedication.com/ourdedication10.jpeg">
 <meta property="og:url" id="metaOgUrl" content="https://ourdedication.com/product.html">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json" id="productJsonLd">{}</script>
-<script type="application/ld+json" id="breadcrumbJsonLd">{}</script>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" href="favicon-32.png">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -125,7 +114,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .img-wish{position:absolute;top:14px;right:14px;z-index:5;width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,0.9);backdrop-filter:blur(4px);border:1.5px solid #e5e7eb;display:flex;align-items:center;justify-content:center;font-size:1rem;cursor:pointer;transition:all 0.2s;}
 .img-wish:hover,.img-wish.active{background:rgba(239,68,68,0.2);border-color:rgba(239,68,68,0.35);}
 .img-wish.active{color:#ef4444;}
-.img-wish.active svg{fill:currentColor;}
 
 .img-thumbs{display:flex;gap:8px;margin-top:12px;padding:0 2px;overflow-x:auto;scrollbar-width:none;}
 .img-thumbs::-webkit-scrollbar{display:none;}
@@ -179,7 +167,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .itb-sub{background:#f3f4f6;color:#6b7280;border:1px solid #e5e7eb;}
 .itb-bs{background:rgba(203,37,39,0.15);color:var(--amber2);border:1px solid rgba(203,37,39,0.2);}
 
-.book-title{font-family:var(--font-bn);font-size:1.45rem;font-weight:700;line-height:1.35;color:#1e1b4b;margin:0 0 8px;}
+.book-title{font-family:var(--font-bn);font-size:1.45rem;font-weight:700;line-height:1.35;color:#1e1b4b;margin-bottom:8px;}
 .book-author{font-size:0.92rem;color:var(--indigo2);font-weight:500;margin-bottom:14px;}
 .book-author span{color:var(--muted);}
 
@@ -540,7 +528,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       <div class="cd-total-row"><span>ডেলিভারি</span><span>পরে নির্ধারিত হবে</span></div>
       <div class="cd-total-row grand"><span>সর্বমোট</span><span id="cdTotal">৳০</span></div>
     </div>
-    <a class="cd-checkout-btn" href="checkout.html"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> চেকআউট করুন →</a>
+    <a class="cd-checkout-btn" href="checkout.html">✅ চেকআউট করুন →</a>
     <button class="cd-continue" onclick="closeCart()">← কেনাকাটা চালিয়ে যান</button>
   </div>
 </div>
@@ -590,7 +578,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   <div class="img-panel">
     <div class="img-main">
       <div class="img-badge-wrap" id="imgBadges"></div>
-      <button class="img-wish" id="wishBtn" onclick="toggleWish()"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></button>
+      <button class="img-wish" id="wishBtn" onclick="toggleWish()">♡</button>
       <img id="mainImg" src="" alt="বইয়ের কভার" onerror="this.src='https://via.placeholder.com/300x400/0d1530/6366f1?text=📚'">
     </div>
     <div class="img-thumbs" id="thumbsRow"></div>
@@ -603,7 +591,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   <!-- RIGHT -->
   <div class="info-panel">
     <div class="info-top-badges" id="topBadges"></div>
-    <h1 class="book-title" id="bookTitle">লোড হচ্ছে...</h1>
+    <div class="book-title" id="bookTitle">লোড হচ্ছে...</div>
     <div class="book-author"><span>লেখক:</span> <span id="bookAuthor">—</span></div>
 
     <div class="rating-row">
@@ -651,13 +639,13 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <div class="qty-val" id="qtyVal">১</div>
         <button class="qty-btn" onclick="changeQty(1)">+</button>
       </div>
-      <button class="btn-cart" id="cartBtn" onclick="addToCart()"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> কার্টে যোগ করুন</button>
+      <button class="btn-cart" id="cartBtn" onclick="addToCart()">🛒 কার্টে যোগ করুন</button>
     </div>
 
-    <button class="btn-buy" id="buyBtn" onclick="buyNow()"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> এখনই কিনুন</button>
+    <button class="btn-buy" id="buyBtn" onclick="buyNow()">⚡ এখনই কিনুন</button>
 
     <a class="btn-wa" id="waBtn" href="#" target="_blank">
-      <svg class="eico" viewBox="0 0 32 32" fill="currentColor"><path d="M16.001 2.667c-7.363 0-13.333 5.97-13.333 13.333 0 2.353.615 4.56 1.69 6.475L2.667 29.333l7.03-1.844a13.26 13.26 0 0 0 6.304 1.605h.006c7.362 0 13.332-5.97 13.332-13.333S23.363 2.667 16.001 2.667zm7.82 18.836c-.334.94-1.652 1.72-2.702 1.945-.719.152-1.658.273-4.818-1.035-3.926-1.626-6.453-5.615-6.65-5.876-.19-.262-1.594-2.121-1.594-4.046 0-1.925.997-2.868 1.353-3.262.334-.367.728-.459.97-.459.243 0 .486.002.699.013.224.011.525-.085.822.626.303.724 1.03 2.5 1.12 2.682.09.182.15.397.03.639-.12.242-.18.393-.36.605-.18.212-.379.474-.542.636-.18.181-.368.378-.158.741.211.363.94 1.55 2.017 2.51 1.386 1.238 2.555 1.622 2.917 1.803.363.182.575.152.788-.09.212-.243.91-1.06 1.152-1.424.242-.363.485-.302.818-.181.333.121 2.122.999 2.485 1.182.363.181.605.272.696.424.09.151.09.878-.243 1.816z"/></svg> WhatsApp-এ অর্ডার করুন
+      💬 WhatsApp-এ অর্ডার করুন
     </a>
   </div>
 </div>
@@ -709,7 +697,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 <footer class="site-footer">
   <div class="footer-wrap">
     <div class="footer-brand">
-      <img src="ourdedication10.jpeg" alt="OurDedication" loading="lazy" style="height:64px;width:147px;display:block;object-fit:cover;object-position:50% 50%;">
+      <img src="ourdedication10.jpeg" alt="OurDedication" style="height:64px;width:147px;display:block;object-fit:cover;object-position:50% 50%;">
       <p>ইসলামিক ও সাধারণ বইয়ের অনলাইন দোকান — সারাদেশে হোম ডেলিভারি, ক্যাশ অন ডেলিভারি সুবিধা সহ।</p>
     </div>
     <div class="footer-col">
@@ -729,7 +717,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       <a href="https://www.tiktok.com/@sajidurrahman9804" target="_blank"><svg class="fico" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 2h-3.2v13.5a2.7 2.7 0 1 1-2.7-2.7c.24 0 .47.02.7.07V9.6a6 6 0 1 0 5.2 5.95V8.83a7.7 7.7 0 0 0 4.5 1.44V6.98A4.28 4.28 0 0 1 16.5 2z"/></svg> টিকটক</a>
     </div>
   </div>
-  <div class="footer-bottom">© <span id="fyear"></span> OurDedication — সর্বস্বত্ব সংরক্ষিত &nbsp;·&nbsp; <a href="javascript:void(0)" id="viewModeToggle" onclick="toggleViewMode()" style="color:#9ca8d8;text-decoration:underline;">ডেস্কটপ ভার্সন দেখুন</a></div>
+  <div class="footer-bottom">© <span id="fyear"></span> OurDedication — সর্বস্বত্ব সংরক্ষিত</div>
 </footer>
 
 <!-- ══ BOTTOM NAV ══ -->
@@ -737,7 +725,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   <button class="bn-item" onclick="location.href='index.html'"><span class="bn-icon"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg></span>হোম</button>
   <button class="bn-item" onclick="toggleWish()"><span class="bn-icon" id="bnWish"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></span>পছন্দ</button>
   <button class="bn-item" onclick="openCart()"><span class="bn-icon"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></span>কার্ট</button>
-  <button class="bn-item" onclick="buyNow()"><span class="bn-icon"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>কিনুন</button>
+  <button class="bn-item" onclick="buyNow()"><span class="bn-icon">⚡</span>কিনুন</button>
   <button class="bn-item" onclick="location.href='account.html'"><span class="bn-icon"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg></span>অ্যাকাউন্ট</button>
 </nav>
 
@@ -746,7 +734,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 <!-- PDF প্রিভিউ মোডাল -->
 <div class="pdf-modal-overlay" id="pdfModalOverlay">
   <div class="pdf-modal-box">
-    <button class="pdf-modal-close" id="pdfModalClose" type="button" title="বন্ধ করুন"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <button class="pdf-modal-close" id="pdfModalClose" type="button" title="বন্ধ করুন">✕</button>
     <iframe id="pdfModalFrame" src="" title="PDF প্রিভিউ"></iframe>
   </div>
 </div>
@@ -856,8 +844,6 @@ function renderBook(b){
   document.getElementById('metaOgDesc').setAttribute('content', seoDesc);
   document.getElementById('metaOgUrl').setAttribute('content', pageUrl);
   if(b.img && /^https?:\/\//.test(b.img)) document.getElementById('metaOgImage').setAttribute('content', b.img);
-  updateProductJsonLd(b, pageUrl, true);
-  updateBreadcrumbJsonLd(b, pageUrl);
 
   // image
   const img = document.getElementById('mainImg');
@@ -938,7 +924,7 @@ function renderRelated(b){
   document.getElementById('relatedGrid').innerHTML = related.map(r => `
     <a class="rel-card" href="product.html?id=${r.bid}">
       <div class="rel-img">
-        <img src="${r.img}" alt="${r.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/120x160/0d1530/6366f1?text=📚'">
+        <img src="${r.img}" alt="${r.name}" onerror="this.src='https://via.placeholder.com/120x160/0d1530/6366f1?text=📚'">
       </div>
       <div class="rel-body">
         <div class="rel-name">${r.name}</div>
@@ -965,7 +951,7 @@ function renderRecentlyViewed(currentBid){
   document.getElementById('recentGrid').innerHTML = recent.map(r => `
     <a class="rel-card" href="product.html?id=${r.bid}">
       <div class="rel-img">
-        <img src="${r.img}" alt="${r.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/120x160/0d1530/6366f1?text=📚'">
+        <img src="${r.img}" alt="${r.name}" onerror="this.src='https://via.placeholder.com/120x160/0d1530/6366f1?text=📚'">
       </div>
       <div class="rel-body">
         <div class="rel-name">${r.name}</div>
@@ -990,8 +976,8 @@ function addToCart(){
   updateCartBadge();
   const btn = document.getElementById('cartBtn');
   btn.classList.add('added');
-  btn.innerHTML = '<svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> কার্টে যোগ হয়েছে';
-  setTimeout(() => { btn.classList.remove('added'); btn.innerHTML = '<svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> কার্টে যোগ করুন'; }, 2200);
+  btn.textContent = '✓ কার্টে যোগ হয়েছে';
+  setTimeout(() => { btn.classList.remove('added'); btn.innerHTML = '🛒 কার্টে যোগ করুন'; }, 2200);
   showToast('কার্টে যোগ হয়েছে! 🛒');
 }
 function buyNow(){
@@ -1014,52 +1000,7 @@ function loadStock(bid){
     document.getElementById('buyBtn').style.display = out ? 'none' : '';
     if(out){ tag.textContent = '✕ স্টকে নেই'; tag.className = 'stock-tag stock-out'; }
     else { tag.textContent = '✓ স্টকে আছে'; tag.className = 'stock-tag stock-in'; }
-    if(currentBook){
-      const pageUrl = `https://ourdedication.com/product.html?id=${encodeURIComponent(currentBook.bid)}`;
-      updateProductJsonLd(currentBook, pageUrl, !out);
-    }
   }).catch(() => {});
-}
-
-/* ══ SEO — JSON-LD Product স্ট্রাকচার্ড ডেটা (গুগল সার্চে দাম/স্টক দেখানোর জন্য) ══ */
-function updateProductJsonLd(b, pageUrl, inStock){
-  const el = document.getElementById('productJsonLd');
-  if(!el) return;
-  const data = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": b.name,
-    "image": (b.img && /^https?:\/\//.test(b.img)) ? [b.img] : undefined,
-    "description": `${b.name}${b.author ? ' — ' + b.author : ''}`,
-    "sku": b.bid,
-    "url": pageUrl,
-    "offers": {
-      "@type": "Offer",
-      "url": pageUrl,
-      "priceCurrency": "BDT",
-      "price": b.price,
-      "availability": inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-      "itemCondition": "https://schema.org/NewCondition"
-    }
-  };
-  if(b.author) data.author = { "@type": "Person", "name": b.author };
-  if(b.pub) data.brand = { "@type": "Brand", "name": b.pub };
-  else if(b.brand) data.brand = { "@type": "Brand", "name": b.brand };
-  el.textContent = JSON.stringify(data);
-}
-
-/* ══ SEO — JSON-LD Breadcrumb (গুগল সার্চে হোম > বিভাগ > পণ্য দেখানোর জন্য) ══ */
-function updateBreadcrumbJsonLd(b, pageUrl){
-  const el = document.getElementById('breadcrumbJsonLd');
-  if(!el) return;
-  const items = [
-    { "@type": "ListItem", "position": 1, "name": "হোম", "item": "https://ourdedication.com/index.html" }
-  ];
-  if(b.cat){
-    items.push({ "@type": "ListItem", "position": items.length+1, "name": b.cat, "item": `https://ourdedication.com/filter.html?cat=${encodeURIComponent(b.cat)}` });
-  }
-  items.push({ "@type": "ListItem", "position": items.length+1, "name": b.name, "item": pageUrl });
-  el.textContent = JSON.stringify({ "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": items });
 }
 
 async function notifyStock(){
@@ -1189,7 +1130,7 @@ function syncWishState(){
   wished = wishlist.includes(currentBook.bid);
   const wb = document.getElementById('wishBtn');
   const bw = document.getElementById('bnWish');
-  if(wb){ wb.classList.toggle('active', wished); }
+  if(wb){ wb.textContent = wished ? '❤️' : '♡'; wb.classList.toggle('active', wished); }
   if(bw) bw.classList.toggle('has-wish', wished);
 }
 function toggleWish(){
@@ -1240,7 +1181,7 @@ function renderCartDrawer(){
     sub += b.price*q;
     const img = b.img || '';
     return `<div class="cd-item">
-      <div class="cd-item-img"><img src="${img}" alt="${b.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/56x74/eef2ff/6366f1?text=📚'"></div>
+      <div class="cd-item-img"><img src="${img}" alt="${b.name}" onerror="this.src='https://via.placeholder.com/56x74/eef2ff/6366f1?text=📚'"></div>
       <div class="cd-item-info">
         <div class="cd-item-name">${b.name}</div>
         <div class="cd-item-bottom">
@@ -1300,7 +1241,7 @@ function renderWishDrawer(){
     if(!b) return '';
     const img = b.img || '';
     return `<div class="wl-item">
-      <a href="product.html?id=${b.bid}" class="wl-img"><img src="${img}" alt="${b.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/50x66/eef2ff/6366f1?text=📚'"></a>
+      <a href="product.html?id=${b.bid}" class="wl-img"><img src="${img}" alt="${b.name}" onerror="this.src='https://via.placeholder.com/50x66/eef2ff/6366f1?text=📚'"></a>
       <div class="wl-info">
         <a href="product.html?id=${b.bid}" class="wl-name">${b.name}</a>
         <div class="wl-price">৳${b.price.toLocaleString('bn-BD')}</div>
@@ -1389,20 +1330,6 @@ function showToast(msg){
 /* ══ INIT ══ */
 init();
 const fy = document.getElementById('fyear'); if(fy) fy.textContent = new Date().getFullYear().toLocaleString('bn-BD');
-
-/* ডেস্কটপ/মোবাইল ভার্সন টগল */
-function toggleViewMode(){
-  let cur; try{ cur = localStorage.getItem('od_view_mode'); }catch(e){ cur = null; }
-  const next = cur === 'desktop' ? 'mobile' : 'desktop';
-  try{ localStorage.setItem('od_view_mode', next); }catch(e){}
-  location.reload();
-}
-(function(){
-  const link = document.getElementById('viewModeToggle');
-  if(!link) return;
-  let cur; try{ cur = localStorage.getItem('od_view_mode'); }catch(e){ cur = null; }
-  link.textContent = cur === 'desktop' ? '📱 মোবাইল ভার্সন দেখুন' : '🖥️ ডেস্কটপ ভার্সন দেখুন';
-})();
 </script>
 </body>
 </html>

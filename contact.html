@@ -2,7 +2,16 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewportMeta">
+<script>
+(function(){
+  try{
+    if(localStorage.getItem('od_view_mode') === 'desktop'){
+      document.getElementById('viewportMeta').setAttribute('content','width=1280');
+    }
+  }catch(e){}
+})();
+</script>
 <title>যোগাযোগ — OurDedication</title>
 <meta name="description" content="OurDedication-এর সাথে যোগাযোগ করুন — ফোন, WhatsApp, ইমেইল ও ফেসবুকের মাধ্যমে সরাসরি কথা বলুন।">
 <link rel="canonical" href="https://ourdedication.com/contact.html">
@@ -250,7 +259,7 @@ body{font-family:var(--font-bn);background:var(--navy);color:#1e1b4b;overflow-x:
       <a href="https://www.tiktok.com/@sajidurrahman9804" target="_blank"><svg class="fico" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 2h-3.2v13.5a2.7 2.7 0 1 1-2.7-2.7c.24 0 .47.02.7.07V9.6a6 6 0 1 0 5.2 5.95V8.83a7.7 7.7 0 0 0 4.5 1.44V6.98A4.28 4.28 0 0 1 16.5 2z"/></svg> টিকটক</a>
     </div>
   </div>
-  <div class="footer-bottom">© <span id="fyear"></span> OurDedication — সর্বস্বত্ব সংরক্ষিত</div>
+  <div class="footer-bottom">© <span id="fyear"></span> OurDedication — সর্বস্বত্ব সংরক্ষিত &nbsp;·&nbsp; <a href="javascript:void(0)" id="viewModeToggle" onclick="toggleViewMode()" style="color:#9ca8d8;text-decoration:underline;">ডেস্কটপ ভার্সন দেখুন</a></div>
 </footer>
 
 <nav class="bottom-nav">
@@ -288,6 +297,20 @@ function updateCartBadge(){
 }
 updateCartBadge();
 const fy = document.getElementById('fyear'); if(fy) fy.textContent = new Date().getFullYear().toLocaleString('bn-BD');
+
+/* ডেস্কটপ/মোবাইল ভার্সন টগল */
+function toggleViewMode(){
+  let cur; try{ cur = localStorage.getItem('od_view_mode'); }catch(e){ cur = null; }
+  const next = cur === 'desktop' ? 'mobile' : 'desktop';
+  try{ localStorage.setItem('od_view_mode', next); }catch(e){}
+  location.reload();
+}
+(function(){
+  const link = document.getElementById('viewModeToggle');
+  if(!link) return;
+  let cur; try{ cur = localStorage.getItem('od_view_mode'); }catch(e){ cur = null; }
+  link.textContent = cur === 'desktop' ? '📱 মোবাইল ভার্সন দেখুন' : '🖥️ ডেস্কটপ ভার্সন দেখুন';
+})();
 
 function showToast(msg){
   const wrap = document.getElementById('toastWrap');

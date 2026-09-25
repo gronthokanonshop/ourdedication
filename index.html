@@ -2,7 +2,17 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewportMeta">
+<script>
+/* ডেস্কটপ/মোবাইল ভার্সন টগল — ইউজার ফুটার থেকে বেছে নিলে সব পেজে মনে থাকবে */
+(function(){
+  try{
+    if(localStorage.getItem('od_view_mode') === 'desktop'){
+      document.getElementById('viewportMeta').setAttribute('content','width=1280');
+    }
+  }catch(e){}
+})();
+</script>
 <title>OurDedication — সেরা পণ্য, সেরা দাম</title>
 <meta name="description" content="OurDedication — ইসলামিক ও সাধারণ বইয়ের অনলাইন দোকান। সারাদেশে হোম ডেলিভারি, ক্যাশ অন ডেলিভারি সুবিধা সহ সেরা দামে বই কিনুন।">
 <link rel="canonical" href="https://ourdedication.com/index.html">
@@ -13,6 +23,28 @@
 <meta property="og:image" content="https://ourdedication.com/ourdedication10.jpeg">
 <meta property="og:url" content="https://ourdedication.com/index.html">
 <meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "OnlineStore",
+  "name": "OurDedication",
+  "url": "https://ourdedication.com/",
+  "logo": "https://ourdedication.com/ourdedication10.jpeg",
+  "image": "https://ourdedication.com/ourdedication10.jpeg",
+  "description": "ইসলামিক ও সাধারণ বইয়ের অনলাইন দোকান — সারাদেশে হোম ডেলিভারি, ক্যাশ অন ডেলিভারি সুবিধা।",
+  "telephone": "+8801842970565",
+  "email": "sajidurr317@gmail.com",
+  "sameAs": [
+    "https://www.facebook.com/Sajidbookshop",
+    "https://www.tiktok.com/@sajidurrahman9804"
+  ],
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://ourdedication.com/filter.html?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" href="favicon-32.png">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -948,6 +980,7 @@ body{padding-bottom:70px;}
 </style>
 </head>
 <body>
+<h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">OurDedication — ইসলামিক ও সাধারণ বইয়ের অনলাইন দোকান, সারাদেশে হোম ডেলিভারি</h1>
 
 <!-- Ambient orbs -->
 <div class="orb orb-1"></div>
@@ -1254,7 +1287,7 @@ body{padding-bottom:70px;}
       <a href="https://www.tiktok.com/@sajidurrahman9804" target="_blank"><svg class="fico" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 2h-3.2v13.5a2.7 2.7 0 1 1-2.7-2.7c.24 0 .47.02.7.07V9.6a6 6 0 1 0 5.2 5.95V8.83a7.7 7.7 0 0 0 4.5 1.44V6.98A4.28 4.28 0 0 1 16.5 2z"/></svg> টিকটক</a>
     </div>
   </div>
-  <div class="footer-bottom">© <span id="fyear"></span> OurDedication — সর্বস্বত্ব সংরক্ষিত</div>
+  <div class="footer-bottom">© <span id="fyear"></span> OurDedication — সর্বস্বত্ব সংরক্ষিত &nbsp;·&nbsp; <a href="javascript:void(0)" id="viewModeToggle" onclick="toggleViewMode()" style="color:#9ca8d8;text-decoration:underline;">ডেস্কটপ ভার্সন দেখুন</a></div>
 </footer>
 
 <!-- ══ BOTTOM NAV ══ -->
@@ -2151,6 +2184,20 @@ function closeMenu(){
   document.body.style.overflow = '';
 }
 const fy = document.getElementById('fyear'); if(fy) fy.textContent = new Date().getFullYear().toLocaleString('bn-BD');
+
+/* ══ ডেস্কটপ/মোবাইল ভার্সন টগল ══ */
+function toggleViewMode(){
+  let cur; try{ cur = localStorage.getItem('od_view_mode'); }catch(e){ cur = null; }
+  const next = cur === 'desktop' ? 'mobile' : 'desktop';
+  try{ localStorage.setItem('od_view_mode', next); }catch(e){}
+  location.reload();
+}
+(function(){
+  const link = document.getElementById('viewModeToggle');
+  if(!link) return;
+  let cur; try{ cur = localStorage.getItem('od_view_mode'); }catch(e){ cur = null; }
+  link.textContent = cur === 'desktop' ? '📱 মোবাইল ভার্সন দেখুন' : '🖥️ ডেস্কটপ ভার্সন দেখুন';
+})();
 
 /* PWA: অফলাইন সাপোর্টের জন্য service worker রেজিস্টার করা */
 if('serviceWorker' in navigator){

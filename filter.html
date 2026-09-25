@@ -2,7 +2,16 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewportMeta">
+<script>
+(function(){
+  try{
+    if(localStorage.getItem('od_view_mode') === 'desktop'){
+      document.getElementById('viewportMeta').setAttribute('content','width=1280');
+    }
+  }catch(e){}
+})();
+</script>
 <title>পণ্য খুঁজুন — OurDedication</title>
 <meta name="description" content="OurDedication-এ হাজারো ইসলামিক ও সাধারণ বই খুঁজুন — লেখক, প্রকাশনী, মূল্য অনুযায়ী ফিল্টার করুন। সারাদেশে হোম ডেলিভারি।">
 <link rel="canonical" href="https://ourdedication.com/filter.html">
@@ -89,6 +98,21 @@ body{font-family:var(--font-bn);background:#ffffff;color:#1e1b4b;min-height:100v
 .filter-label{font-size:0.78rem;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;}
 .filter-label span{font-size:0.85rem;color:var(--text);}
 .f-options{display:flex;flex-direction:column;gap:8px;}
+.f-search{width:100%;padding:8px 11px;margin-bottom:10px;border:1.5px solid var(--border);border-radius:8px;font-family:var(--font-bn);font-size:0.82rem;color:var(--text);outline:none;}
+.f-search:focus{border-color:var(--indigo);}
+.f-options-scroll{max-height:220px;overflow-y:auto;padding-right:4px;}
+.f-options-scroll::-webkit-scrollbar{width:5px;}
+.f-options-scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+.sidebar-view-results{display:none;}
+@media(max-width:900px){
+  .sidebar-view-results{
+    display:block;position:sticky;bottom:0;left:0;right:0;width:100%;
+    padding:14px;margin-top:6px;border:none;border-radius:0;
+    background:linear-gradient(135deg,var(--indigo2),var(--indigo));color:#fff;
+    font-family:var(--font-bn);font-size:0.95rem;font-weight:700;cursor:pointer;
+    box-shadow:0 -4px 16px rgba(0,0,0,0.15);z-index:5;
+  }
+}
 .f-opt{display:flex;align-items:center;gap:9px;cursor:pointer;font-size:0.88rem;color:var(--text);}
 .f-opt input[type="checkbox"]{width:16px;height:16px;accent-color:var(--indigo);cursor:pointer;border-radius:4px;}
 .f-opt label{cursor:pointer;flex:1;}
@@ -284,6 +308,7 @@ body{font-family:var(--font-bn);background:#ffffff;color:#1e1b4b;min-height:100v
 </style>
 </head>
 <body>
+<h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">পণ্য খুঁজুন — ইসলামিক ও সাধারণ বই | OurDedication</h1>
 
 <!-- NAV -->
 <nav class="nav">
@@ -344,13 +369,15 @@ body{font-family:var(--font-bn);background:#ffffff;color:#1e1b4b;min-height:100v
     <!-- Author -->
     <div class="filter-section">
       <div class="filter-label">লেখক <span>▾</span></div>
-      <div class="f-options" id="authorOptions"></div>
+      <input type="text" class="f-search" id="authorSearch" placeholder="লেখকের নাম লিখে খুঁজুন..." oninput="filterOptionList('authorOptions', this.value)">
+      <div class="f-options f-options-scroll" id="authorOptions"></div>
     </div>
 
     <!-- Publisher -->
     <div class="filter-section">
       <div class="filter-label">প্রকাশনী <span>▾</span></div>
-      <div class="f-options" id="pubOptions"></div>
+      <input type="text" class="f-search" id="pubSearch" placeholder="প্রকাশনীর নাম লিখে খুঁজুন..." oninput="filterOptionList('pubOptions', this.value)">
+      <div class="f-options f-options-scroll" id="pubOptions"></div>
     </div>
 
     <!-- Price -->
@@ -371,6 +398,7 @@ body{font-family:var(--font-bn);background:#ffffff;color:#1e1b4b;min-height:100v
         <label class="f-opt"><input type="checkbox" value="Hardcover" onchange="applyFilters()"><label>Hardcover</label><span class="f-count" id="hc-count">—</span></label>
       </div>
     </div>
+    <button class="sidebar-view-results" id="sidebarViewResults" onclick="closeSidebar()">ফলাফল দেখুন (<span id="sidebarResultCount">0</span> টি)</button>
   </aside>
 
   <!-- MAIN -->
@@ -410,7 +438,7 @@ body{font-family:var(--font-bn);background:#ffffff;color:#1e1b4b;min-height:100v
       <a href="https://www.tiktok.com/@sajidurrahman9804" target="_blank"><svg class="fico" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 2h-3.2v13.5a2.7 2.7 0 1 1-2.7-2.7c.24 0 .47.02.7.07V9.6a6 6 0 1 0 5.2 5.95V8.83a7.7 7.7 0 0 0 4.5 1.44V6.98A4.28 4.28 0 0 1 16.5 2z"/></svg> টিকটক</a>
     </div>
   </div>
-  <div class="footer-bottom">© <span id="fyear"></span> OurDedication — সর্বস্বত্ব সংরক্ষিত</div>
+  <div class="footer-bottom">© <span id="fyear"></span> OurDedication — সর্বস্বত্ব সংরক্ষিত &nbsp;·&nbsp; <a href="javascript:void(0)" id="viewModeToggle" onclick="toggleViewMode()" style="color:#9ca8d8;text-decoration:underline;">ডেস্কটপ ভার্সন দেখুন</a></div>
 </footer>
 
 <!-- BOTTOM NAV -->
@@ -514,25 +542,25 @@ function checkByValue(sel, val){
 
 // ── BUILD FILTER OPTIONS ──
 function buildFilterOptions(){
-  // Authors (top 8 by count)
+  // Authors — সবগুলো (সার্চ+স্ক্রল দিয়ে খুঁজে নেওয়া যাবে)
   const authorCounts = {};
   books.forEach(b => { if(b.author) authorCounts[b.author] = (authorCounts[b.author]||0)+1; });
-  const topAuthors = Object.entries(authorCounts).sort((a,b)=>b[1]-a[1]).slice(0,12);
-  document.getElementById('authorOptions').innerHTML = topAuthors.map(([a,c]) =>
+  const allAuthors = Object.entries(authorCounts).sort((a,b)=>b[1]-a[1]);
+  document.getElementById('authorOptions').innerHTML = allAuthors.map(([a,c]) =>
     `<label class="f-opt"><input type="checkbox" value="${a}" onchange="applyFilters()"><label>${a}</label><span class="f-count">${c}</span></label>`
   ).join('');
 
-  // Publishers (top 8)
+  // Publishers — সবগুলো
   const pubCounts = {};
   books.forEach(b => { if(b.pub) pubCounts[b.pub] = (pubCounts[b.pub]||0)+1; });
-  const topPubs = Object.entries(pubCounts).sort((a,b)=>b[1]-a[1]).slice(0,12);
-  document.getElementById('pubOptions').innerHTML = topPubs.map(([p,c]) =>
+  const allPubs = Object.entries(pubCounts).sort((a,b)=>b[1]-a[1]);
+  document.getElementById('pubOptions').innerHTML = allPubs.map(([p,c]) =>
     `<label class="f-opt"><input type="checkbox" value="${p}" onchange="applyFilters()"><label>${p}</label><span class="f-count">${c}</span></label>`
   ).join('');
 
-  // Categories
+  // Categories — সবগুলো
   const catSet = [...new Set(books.map(b=>b.cat).filter(Boolean))];
-  document.getElementById('catOptions').innerHTML = catSet.slice(0,6).map(c =>
+  document.getElementById('catOptions').innerHTML = catSet.map(c =>
     `<label class="f-opt"><input type="checkbox" value="${c}" onchange="applyFilters()"><label>${c}</label></label>`
   ).join('');
 
@@ -541,6 +569,16 @@ function buildFilterOptions(){
   const hc = books.filter(b=>b.cover==='Hardcover').length;
   document.getElementById('pb-count').textContent = pb;
   document.getElementById('hc-count').textContent = hc;
+}
+
+// ── লেখক/প্রকাশনী তালিকায় লাইভ সার্চ (চেকবক্স লিস্ট থেকে টাইপ করে খুঁজে বের করা) ──
+function filterOptionList(containerId, query){
+  const q = query.trim().toLowerCase();
+  const container = document.getElementById(containerId);
+  container.querySelectorAll('.f-opt').forEach(opt => {
+    const name = opt.querySelector('label').textContent.toLowerCase();
+    opt.style.display = !q || name.includes(q) ? 'flex' : 'none';
+  });
 }
 
 // ── APPLY FILTERS ──
@@ -576,6 +614,8 @@ function applyFilters(){
   renderProducts();
   renderActiveFilters(checkedAuthors, checkedPubs, checkedCats);
   document.getElementById('resultCount').textContent = filteredBooks.length.toLocaleString('bn-BD');
+  const sidebarCountEl = document.getElementById('sidebarResultCount');
+  if(sidebarCountEl) sidebarCountEl.textContent = filteredBooks.length.toLocaleString('bn-BD');
 }
 
 // ── RENDER PRODUCTS ──
@@ -835,6 +875,20 @@ function showToast(msg){
 
 init();
 const fy = document.getElementById('fyear'); if(fy) fy.textContent = new Date().getFullYear().toLocaleString('bn-BD');
+
+/* ডেস্কটপ/মোবাইল ভার্সন টগল */
+function toggleViewMode(){
+  let cur; try{ cur = localStorage.getItem('od_view_mode'); }catch(e){ cur = null; }
+  const next = cur === 'desktop' ? 'mobile' : 'desktop';
+  try{ localStorage.setItem('od_view_mode', next); }catch(e){}
+  location.reload();
+}
+(function(){
+  const link = document.getElementById('viewModeToggle');
+  if(!link) return;
+  let cur; try{ cur = localStorage.getItem('od_view_mode'); }catch(e){ cur = null; }
+  link.textContent = cur === 'desktop' ? '📱 মোবাইল ভার্সন দেখুন' : '🖥️ ডেস্কটপ ভার্সন দেখুন';
+})();
 </script>
 </body>
 </html>
