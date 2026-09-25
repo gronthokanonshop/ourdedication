@@ -2,8 +2,27 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewportMeta">
+<script>
+(function(){
+  try{
+    var mode = localStorage.getItem('od_view_mode');
+    if(mode === 'desktop'){
+      document.getElementById('viewportMeta').setAttribute('content','width=1280');
+    } else if(mode === 'mobile' && window.innerWidth > 900){
+      location.replace('mobile-view.html?page=' + encodeURIComponent((location.pathname.split('/').pop() || 'index.html') + location.search));
+    }
+  }catch(e){}
+})();
+</script>
+<style>
+.view-toggle-fab{position:fixed;bottom:84px;left:18px;z-index:140;width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#CB2527,#1a1a1a);color:#fff;border:none;box-shadow:0 4px 16px rgba(0,0,0,0.28);display:flex;align-items:center;justify-content:center;font-size:1.35rem;cursor:pointer;padding:0;line-height:1;}
+@media(min-width:900px){.view-toggle-fab{bottom:24px;left:24px;}}
+</style>
+
 <title>অর্ডার ট্র্যাক করুন — OurDedication</title>
+<meta name="description" content="OurDedication-এর অর্ডার আইডি দিয়ে আপনার বইয়ের অর্ডার এখন কোন অবস্থায় আছে তা সরাসরি ট্র্যাক করুন।">
+<link rel="canonical" href="https://ourdedication.com/track.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="OurDedication">
 <meta property="og:image" content="https://ourdedication.com/ourdedication10.jpeg">
@@ -238,7 +257,7 @@ body{font-family:var(--font-bn);background:#ffffff;color:#1e1b4b;min-height:100v
   <div class="nav-wrap">
     <a href="index.html" class="back-btn">←</a>
     <div class="nav-title">অর্ডার ট্র্যাক করুন</div>
-    <a href="index.html" style="display:flex;align-items:center;flex-shrink:0;"><img src="ourdedication10.jpeg" alt="OurDedication" style="height:28px;width:64px;display:block;object-fit:cover;object-position:50% 50%;"></a>
+    <a href="index.html" style="display:flex;align-items:center;flex-shrink:0;"><img src="ourdedication10-logo.png" alt="OurDedication" style="height:28px;width:64px;display:block;object-fit:contain;"></a>
   </div>
 </nav>
 
@@ -321,7 +340,7 @@ body{font-family:var(--font-bn);background:#ffffff;color:#1e1b4b;min-height:100v
 <footer class="site-footer">
   <div class="footer-wrap">
     <div class="footer-brand">
-      <img src="ourdedication10.jpeg" alt="OurDedication" style="height:64px;width:147px;display:block;object-fit:cover;object-position:50% 50%;">
+      <img src="ourdedication10-logo.png" alt="OurDedication" style="height:64px;width:147px;display:block;object-fit:contain;">
       <p>ইসলামিক ও সাধারণ বইয়ের অনলাইন দোকান — সারাদেশে হোম ডেলিভারি, ক্যাশ অন ডেলিভারি সুবিধা সহ।</p>
     </div>
     <div class="footer-col">
@@ -341,7 +360,7 @@ body{font-family:var(--font-bn);background:#ffffff;color:#1e1b4b;min-height:100v
       <a href="https://www.tiktok.com/@sajidurrahman9804" target="_blank"><svg class="fico" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 2h-3.2v13.5a2.7 2.7 0 1 1-2.7-2.7c.24 0 .47.02.7.07V9.6a6 6 0 1 0 5.2 5.95V8.83a7.7 7.7 0 0 0 4.5 1.44V6.98A4.28 4.28 0 0 1 16.5 2z"/></svg> টিকটক</a>
     </div>
   </div>
-  <div class="footer-bottom">© <span id="fyear"></span> OurDedication — সর্বস্বত্ব সংরক্ষিত</div>
+  <div class="footer-bottom">© <span id="fyear"></span> OurDedication — সর্বস্বত্ব সংরক্ষিত &nbsp;·&nbsp; <a href="javascript:void(0)" id="viewModeToggle" onclick="toggleViewMode()" style="color:#9ca8d8;text-decoration:underline;">ডেস্কটপ ভার্সন দেখুন</a></div>
 </footer>
 
 <!-- BOTTOM NAV -->
@@ -602,6 +621,31 @@ if(urlId){ document.getElementById('trackInput').value=urlId; trackOrder(); }
 showMyOrders();
 updateWishBadge();
 const fy = document.getElementById('fyear'); if(fy) fy.textContent = new Date().getFullYear().toLocaleString('bn-BD');
+
+/* ডেস্কটপ/মোবাইল ভার্সন টগল */
+function toggleViewMode(){
+  if(window.top !== window.self){
+    try{ localStorage.removeItem('od_view_mode'); }catch(e){}
+    window.top.location.href = (location.pathname.split('/').pop() || 'index.html') + location.search;
+    return;
+  }
+  let cur; try{ cur = localStorage.getItem('od_view_mode'); }catch(e){ cur = null; }
+  const next = cur === 'desktop' ? 'mobile' : 'desktop';
+  try{ localStorage.setItem('od_view_mode', next); }catch(e){}
+  location.reload();
+}
+(function(){
+  const inFrame = window.top !== window.self;
+  const link = document.getElementById('viewModeToggle');
+  let cur; try{ cur = localStorage.getItem('od_view_mode'); }catch(e){ cur = null; }
+  if(link) link.textContent = inFrame ? '🖥️ ডেস্কটপ ভার্সন দেখুন' : (cur === 'desktop' ? '📱 মোবাইল ভার্সন দেখুন' : '🖥️ ডেস্কটপ ভার্সন দেখুন');
+  document.addEventListener('DOMContentLoaded', function(){
+    const fab = document.getElementById('viewModeFab');
+    if(fab) fab.textContent = inFrame ? '🖥️' : (cur === 'desktop' ? '📱' : '🖥️');
+    if(fab) fab.title = link ? link.textContent : '';
+  });
+})();
 </script>
+<button class="view-toggle-fab" id="viewModeFab" onclick="toggleViewMode()"></button>
 </body>
 </html>

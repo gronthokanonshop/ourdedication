@@ -3,4 +3,5 @@ Allow: /
 Disallow: /checkout.html
 Disallow: /account.html
 Disallow: /admin-od7k42x.html
+Disallow: /mobile-view.html
 Sitemap: https://ourdedication.com/sitemap.xml
