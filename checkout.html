@@ -4,28 +4,37 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>চেকআউট — OurDedication</title>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="OurDedication">
+<meta property="og:image" content="https://ourdedication.com/ourdedication10.jpeg">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="favicon-32.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="theme-color" content="#CB2527">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 :root{
-  --bg:#f8f9ff;--white:#ffffff;--indigo:#c9982c;--indigo2:#a5790f;
-  --indigo-l:#eef2ff;--amber:#d9a52c;--amber-l:#fffbeb;
+  --bg:#f8f9ff;--white:#ffffff;--indigo:#CB2527;--indigo2:#1a1a1a;
+  --indigo-l:#eef2ff;--amber:#CB2527;--amber-l:#fffbeb;
   --text:#1e1b4b;--text2:#6b7280;--border:#e5e7eb;--border-i:#c7d2fe;
   --green:#059669;--green-l:#ecfdf5;--red:#ef4444;--red-l:#fef2f2;
-  --shadow:0 2px 12px rgba(201,152,44,0.08);
-  --shadow-md:0 8px 32px rgba(201,152,44,0.13);
+  --shadow:0 2px 12px rgba(203,37,39,0.08);
+  --shadow-md:0 8px 32px rgba(203,37,39,0.13);
   --r:14px;--font-en:'Sora',sans-serif;--font-bn:'Hind Siliguri',sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html{scroll-behavior:smooth;}
-body{font-family:var(--font-bn);background:#0a1e36;color:#eef1f7;min-height:100vh;padding-bottom:100px;}
+body{font-family:var(--font-bn);background:#ffffff;color:#1e1b4b;min-height:100vh;padding-bottom:100px;}
 
 /* NAV */
-.nav{position:sticky;top:0;z-index:100;background:rgba(10,30,54,0.96);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,0.08);box-shadow:0 2px 12px rgba(0,0,0,0.25);}
+.nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.96);backdrop-filter:blur(18px);border-bottom:1px solid #e5e7eb;box-shadow:0 2px 12px rgba(0,0,0,0.06);}
 .nav-wrap{max-width:1000px;margin:0 auto;padding:0 16px;height:56px;display:flex;align-items:center;gap:10px;}
-.back-btn{width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);color:var(--indigo);font-size:1rem;display:flex;align-items:center;justify-content:center;cursor:pointer;text-decoration:none;flex-shrink:0;transition:background 0.2s;}
-.back-btn:hover{background:var(--indigo);color:#0a1e36;}
-.nav-title{font-family:var(--font-en);font-size:0.95rem;font-weight:700;color:#fff;flex:1;}
+.back-btn{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--indigo2),var(--indigo));border:none;color:#fff;font-size:1rem;display:flex;align-items:center;justify-content:center;cursor:pointer;text-decoration:none;flex-shrink:0;transition:filter 0.2s;}
+.back-btn:hover{filter:brightness(1.15);}
+.nav-title{font-family:var(--font-en);font-size:0.95rem;font-weight:700;color:#1a1a1a;flex:1;}
 .logo-s{font-family:var(--font-en);font-size:0.85rem;font-weight:800;color:var(--indigo);text-decoration:none;}
 .logo-s span{color:var(--amber);}
 
@@ -35,7 +44,7 @@ body{font-family:var(--font-bn);background:#0a1e36;color:#eef1f7;min-height:100v
 .step-item{display:flex;align-items:center;gap:6px;}
 .step-circle{width:28px;height:28px;border-radius:50%;border:2px solid var(--border);background:var(--white);color:var(--text2);font-family:var(--font-en);font-size:0.78rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.3s;}
 .step-circle.done{background:var(--green);border-color:var(--green);color:white;}
-.step-circle.active{background:var(--indigo);border-color:var(--indigo);color:#1e1b4b;}
+.step-circle.active{background:var(--indigo);border-color:var(--indigo);color:#fff;}
 .step-label{font-size:0.78rem;font-weight:600;color:var(--text2);}
 .step-label.active{color:var(--indigo);}
 .step-line{width:40px;height:2px;background:var(--border);margin:0 4px;flex-shrink:0;}
@@ -59,7 +68,7 @@ body{font-family:var(--font-bn);background:#0a1e36;color:#eef1f7;min-height:100v
 .f-group.span2{grid-column:1/-1;}
 .f-label{font-size:0.78rem;font-weight:700;color:var(--text2);letter-spacing:0.3px;}
 .f-input{border:1.5px solid var(--border);border-radius:10px;padding:10px 13px;font-family:var(--font-bn);font-size:0.92rem;color:var(--text);background:var(--bg);outline:none;transition:border-color 0.2s,box-shadow 0.2s;width:100%;}
-.f-input:focus{border-color:var(--indigo);box-shadow:0 0 0 3px rgba(201,152,44,0.1);}
+.f-input:focus{border-color:var(--indigo);box-shadow:0 0 0 3px rgba(203,37,39,0.1);}
 .f-input::placeholder{color:#9ca3af;}
 .f-input.error{border-color:var(--red);}
 .f-err{font-size:0.75rem;color:var(--red);display:none;}
@@ -73,6 +82,12 @@ select.f-input{cursor:pointer;}
 .pay-opt.selected{border-color:var(--indigo);background:var(--indigo-l);}
 .pay-opt input[type=radio]{accent-color:var(--indigo);width:16px;height:16px;flex-shrink:0;}
 .pay-icon{font-size:1.4rem;flex-shrink:0;}
+.pay-icon-brand{
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  width:60px;height:38px;border-radius:7px;background:#fff;border:1px solid var(--border);
+  padding:5px 7px;
+}
+.pay-icon-brand img{width:100%;height:100%;object-fit:contain;}
 .pay-info h4{font-size:0.9rem;font-weight:700;color:var(--text);}
 .pay-info p{font-size:0.78rem;color:var(--text2);margin-top:2px;}
 .pay-extra{display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);}
@@ -113,10 +128,10 @@ select.f-input{cursor:pointer;}
 .coupon-inp{flex:1;border:1.5px solid var(--border);border-radius:9px;padding:9px 12px;font-family:var(--font-en);font-size:0.85rem;color:var(--text);background:var(--bg);outline:none;transition:border-color 0.2s;}
 .coupon-inp:focus{border-color:var(--indigo);}
 .coupon-btn{padding:9px 16px;border-radius:9px;background:var(--indigo-l);border:1px solid var(--border-i);color:var(--indigo);font-family:var(--font-bn);font-size:0.85rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:all 0.2s;}
-.coupon-btn:hover{background:var(--indigo);color:#1e1b4b;border-color:var(--indigo);}
+.coupon-btn:hover{background:var(--indigo);color:#fff;border-color:var(--indigo);}
 /* place order */
-.place-order-btn{display:block;width:calc(100% - 40px);margin:0 20px 16px;padding:14px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--indigo),var(--indigo2));color:#1a0a00;font-family:var(--font-bn);font-size:1.02rem;font-weight:700;cursor:pointer;box-shadow:0 6px 20px rgba(201,152,44,0.3);transition:transform 0.2s,box-shadow 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;}
-.place-order-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(201,152,44,0.4);}
+.place-order-btn{display:block;width:calc(100% - 40px);margin:0 20px 16px;padding:14px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--indigo),var(--indigo2));color:#fff;font-family:var(--font-bn);font-size:1.02rem;font-weight:700;cursor:pointer;box-shadow:0 6px 20px rgba(203,37,39,0.3);transition:transform 0.2s,box-shadow 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.place-order-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(203,37,39,0.4);}
 .trust-strip{display:flex;gap:14px;padding:10px 20px 16px;border-top:1px solid var(--border);justify-content:center;}
 .ts-item{display:flex;align-items:center;gap:4px;font-size:0.72rem;color:var(--text2);}
 
@@ -132,8 +147,10 @@ select.f-input{cursor:pointer;}
 .order-id-box{background:var(--indigo-l);border:1px solid var(--border-i);border-radius:10px;padding:10px 16px;font-family:var(--font-en);font-size:1rem;font-weight:800;color:var(--indigo);margin-bottom:20px;}
 .modal-btns{display:flex;gap:10px;}
 .modal-btn{flex:1;padding:11px;border-radius:10px;font-family:var(--font-bn);font-size:0.9rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;}
-.mb-track{background:var(--indigo);color:#1e1b4b;}
+.mb-track{background:var(--indigo);color:#fff;}
 .mb-home{background:var(--bg);color:var(--text);border:1.5px solid var(--border);}
+.mb-invoice{width:100%;padding:12px;border-radius:10px;border:none;margin-bottom:10px;background:linear-gradient(135deg,var(--indigo2),var(--indigo));color:#fff;font-family:var(--font-bn);font-size:0.9rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s;}
+.mb-invoice:hover{filter:brightness(1.1);}
 
 /* BOTTOM NAV */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:150;background:rgba(255,255,255,0.95);backdrop-filter:blur(16px);border-top:1px solid var(--border);box-shadow:0 -2px 12px rgba(0,0,0,0.05);display:flex;padding:6px 0 max(6px,env(safe-area-inset-bottom));}
@@ -143,7 +160,7 @@ select.f-input{cursor:pointer;}
 .bn-icon .eico{width:20px;height:20px;}
 .bn-icon.has-wish .eico{fill:currentColor;color:#ef4444;}
 .eico{width:18px;height:18px;flex-shrink:0;display:block;}
-.nav-badge{position:absolute;top:-4px;right:-6px;background:var(--amber);color:#000;font-size:9px;font-weight:700;min-width:15px;height:15px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--font-en);}
+.nav-badge{position:absolute;top:-4px;right:-6px;background:linear-gradient(135deg,var(--amber),var(--indigo2));color:#fff;font-size:9px;font-weight:700;min-width:15px;height:15px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--font-en);}
 
 /* ══ WISHLIST ড্রয়ার ══ */
 .cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.35);z-index:9000;opacity:0;pointer-events:none;transition:opacity 0.3s;}
@@ -152,7 +169,7 @@ select.f-input{cursor:pointer;}
 .cart-drawer.open{transform:translateX(0);}
 .cd-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid #e5e7eb;flex-shrink:0;}
 .cd-head h3{font-family:'Sora',sans-serif;font-size:1rem;font-weight:800;color:#1e1b4b;display:flex;align-items:center;gap:8px;}
-.cd-head-badge{background:#eef2ff;color:#c9982c;font-size:0.72rem;font-weight:700;padding:2px 8px;border-radius:12px;font-family:'Sora',sans-serif;}
+.cd-head-badge{background:#eef2ff;color:#CB2527;font-size:0.72rem;font-weight:700;padding:2px 8px;border-radius:12px;font-family:'Sora',sans-serif;}
 .cd-close{width:34px;height:34px;border-radius:9px;background:#f3f4f6;border:none;cursor:pointer;color:#6b7280;display:flex;align-items:center;justify-content:center;transition:background 0.2s;}
 .cd-close:hover{background:#e5e7eb;color:#1e1b4b;}
 .cd-items{flex:1;overflow-y:auto;padding:12px 0;scrollbar-width:thin;scrollbar-color:#e5e7eb transparent;}
@@ -162,9 +179,9 @@ select.f-input{cursor:pointer;}
 .wl-img img{width:100%;height:100%;object-fit:contain;padding:4px;}
 .wl-info{flex:1;min-width:0;}
 .wl-name{font-size:0.85rem;font-weight:600;color:#1e1b4b;text-decoration:none;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-.wl-price{font-family:'Sora',sans-serif;font-size:0.85rem;font-weight:800;color:#a5790f;margin-top:3px;}
+.wl-price{font-family:'Sora',sans-serif;font-size:0.85rem;font-weight:800;color:#1a1a1a;margin-top:3px;}
 .wl-cart-btn,.wl-del-btn{width:30px;height:30px;border-radius:8px;border:1.5px solid #e5e7eb;background:#fff;cursor:pointer;flex-shrink:0;transition:all 0.15s;display:flex;align-items:center;justify-content:center;color:#6b7280;}
-.wl-cart-btn:hover{background:#c9982c;border-color:#c9982c;color:#1e1b4b;}
+.wl-cart-btn:hover{background:#CB2527;border-color:#CB2527;color:#fff;}
 .wl-del-btn:hover{background:#fef2f2;border-color:#fecaca;color:#ef4444;}
 @media(min-width:900px){.bottom-nav{display:none;}body{padding-bottom:0;}}
 
@@ -227,6 +244,17 @@ select.f-input{cursor:pointer;}
   .f-input{font-size:0.82rem;}
   .place-order-btn{font-size:0.88rem;}
 }
+/* ══ FOOTER ══ */
+.site-footer{background:#0d1535;color:#c7d2fe;padding:32px 20px 20px;margin-top:12px;}
+.footer-wrap{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:24px;}
+@media(max-width:700px){.footer-wrap{grid-template-columns:1fr;gap:20px;text-align:center;}}
+.footer-brand p{font-size:0.82rem;color:#9ca8d8;margin-top:8px;line-height:1.6;}
+.footer-col h4{font-family:var(--font-en);font-size:0.85rem;font-weight:700;color:#fff;margin-bottom:10px;}
+.footer-col a{display:flex;align-items:center;gap:8px;font-size:0.82rem;color:#9ca8d8;text-decoration:none;margin-bottom:9px;transition:color 0.2s;}
+@media(max-width:700px){.footer-col a{justify-content:center;}}
+.fico{width:16px;height:16px;flex-shrink:0;}
+.footer-col a:hover{color:var(--indigo);}
+.footer-bottom{max-width:1200px;margin:20px auto 0;padding-top:16px;border-top:1px solid rgba(255,255,255,0.1);font-size:0.75rem;color:#7d89bd;text-align:center;}
 </style>
 </head>
 <body>
@@ -236,7 +264,7 @@ select.f-input{cursor:pointer;}
   <div class="nav-wrap">
     <a href="index.html" class="back-btn">←</a>
     <div class="nav-title">চেকআউট</div>
-    <a href="index.html" class="logo-s">Our<span>Dedication</span></a>
+    <a href="index.html" style="display:flex;align-items:center;flex-shrink:0;"><img src="ourdedication10.jpeg" alt="OurDedication" style="height:28px;width:64px;display:block;object-fit:cover;object-position:50% 50%;"></a>
   </div>
 </nav>
 
@@ -290,19 +318,93 @@ select.f-input{cursor:pointer;}
             <label class="f-label">জেলা *</label>
             <select class="f-input" id="fdistrict" onchange="updateDelivery()">
               <option value="">জেলা বেছে নিন</option>
-              <option value="dhaka">ঢাকা</option>
-              <option value="chittagong">চট্টগ্রাম</option>
-              <option value="sylhet">সিলেট</option>
-              <option value="rajshahi">রাজশাহী</option>
-              <option value="khulna">খুলনা</option>
-              <option value="barisal">বরিশাল</option>
-              <option value="rangpur">রংপুর</option>
-              <option value="mymensingh">ময়মনসিংহ</option>
+              <optgroup label="ঢাকা বিভাগ">
+                <option value="dhaka">ঢাকা</option>
+                <option value="গাজীপুর">গাজীপুর</option>
+                <option value="নারায়ণগঞ্জ">নারায়ণগঞ্জ</option>
+                <option value="টাঙ্গাইল">টাঙ্গাইল</option>
+                <option value="মানিকগঞ্জ">মানিকগঞ্জ</option>
+                <option value="মুন্সিগঞ্জ">মুন্সিগঞ্জ</option>
+                <option value="নরসিংদী">নরসিংদী</option>
+                <option value="রাজবাড়ী">রাজবাড়ী</option>
+                <option value="ফরিদপুর">ফরিদপুর</option>
+                <option value="গোপালগঞ্জ">গোপালগঞ্জ</option>
+                <option value="মাদারীপুর">মাদারীপুর</option>
+                <option value="শরীয়তপুর">শরীয়তপুর</option>
+                <option value="কিশোরগঞ্জ">কিশোরগঞ্জ</option>
+              </optgroup>
+              <optgroup label="চট্টগ্রাম বিভাগ">
+                <option value="চট্টগ্রাম">চট্টগ্রাম</option>
+                <option value="কক্সবাজার">কক্সবাজার</option>
+                <option value="কুমিল্লা">কুমিল্লা</option>
+                <option value="ফেনী">ফেনী</option>
+                <option value="নোয়াখালী">নোয়াখালী</option>
+                <option value="লক্ষ্মীপুর">লক্ষ্মীপুর</option>
+                <option value="চাঁদপুর">চাঁদপুর</option>
+                <option value="ব্রাহ্মণবাড়িয়া">ব্রাহ্মণবাড়িয়া</option>
+                <option value="রাঙামাটি">রাঙামাটি</option>
+                <option value="বান্দরবান">বান্দরবান</option>
+                <option value="খাগড়াছড়ি">খাগড়াছড়ি</option>
+              </optgroup>
+              <optgroup label="রাজশাহী বিভাগ">
+                <option value="রাজশাহী">রাজশাহী</option>
+                <option value="চাঁপাইনবাবগঞ্জ">চাঁপাইনবাবগঞ্জ</option>
+                <option value="নাটোর">নাটোর</option>
+                <option value="নওগাঁ">নওগাঁ</option>
+                <option value="পাবনা">পাবনা</option>
+                <option value="সিরাজগঞ্জ">সিরাজগঞ্জ</option>
+                <option value="বগুড়া">বগুড়া</option>
+                <option value="জয়পুরহাট">জয়পুরহাট</option>
+              </optgroup>
+              <optgroup label="খুলনা বিভাগ">
+                <option value="খুলনা">খুলনা</option>
+                <option value="বাগেরহাট">বাগেরহাট</option>
+                <option value="সাতক্ষীরা">সাতক্ষীরা</option>
+                <option value="যশোর">যশোর</option>
+                <option value="ঝিনাইদহ">ঝিনাইদহ</option>
+                <option value="মাগুরা">মাগুরা</option>
+                <option value="নড়াইল">নড়াইল</option>
+                <option value="কুষ্টিয়া">কুষ্টিয়া</option>
+                <option value="চুয়াডাঙ্গা">চুয়াডাঙ্গা</option>
+                <option value="মেহেরপুর">মেহেরপুর</option>
+              </optgroup>
+              <optgroup label="বরিশাল বিভাগ">
+                <option value="বরিশাল">বরিশাল</option>
+                <option value="পটুয়াখালী">পটুয়াখালী</option>
+                <option value="ভোলা">ভোলা</option>
+                <option value="পিরোজপুর">পিরোজপুর</option>
+                <option value="ঝালকাঠি">ঝালকাঠি</option>
+                <option value="বরগুনা">বরগুনা</option>
+              </optgroup>
+              <optgroup label="সিলেট বিভাগ">
+                <option value="সিলেট">সিলেট</option>
+                <option value="মৌলভীবাজার">মৌলভীবাজার</option>
+                <option value="হবিগঞ্জ">হবিগঞ্জ</option>
+                <option value="সুনামগঞ্জ">সুনামগঞ্জ</option>
+              </optgroup>
+              <optgroup label="রংপুর বিভাগ">
+                <option value="রংপুর">রংপুর</option>
+                <option value="দিনাজপুর">দিনাজপুর</option>
+                <option value="কুড়িগ্রাম">কুড়িগ্রাম</option>
+                <option value="গাইবান্ধা">গাইবান্ধা</option>
+                <option value="নীলফামারী">নীলফামারী</option>
+                <option value="লালমনিরহাট">লালমনিরহাট</option>
+                <option value="ঠাকুরগাঁও">ঠাকুরগাঁও</option>
+                <option value="পঞ্চগড়">পঞ্চগড়</option>
+              </optgroup>
+              <optgroup label="ময়মনসিংহ বিভাগ">
+                <option value="ময়মনসিংহ">ময়মনসিংহ</option>
+                <option value="জামালপুর">জামালপুর</option>
+                <option value="শেরপুর">শেরপুর</option>
+                <option value="নেত্রকোণা">নেত্রকোণা</option>
+              </optgroup>
             </select>
           </div>
           <div class="f-group">
             <label class="f-label">উপজেলা / থানা</label>
-            <input class="f-input" id="fupazila" type="text" placeholder="উপজেলার নাম">
+            <select class="f-input" id="fupazila">
+              <option value="">আগে জেলা বেছে নিন</option>
+            </select>
           </div>
           <div class="f-group span2">
             <label class="f-label">অর্ডার নোট (ঐচ্ছিক)</label>
@@ -322,15 +424,23 @@ select.f-input{cursor:pointer;}
         <div class="pay-opts">
           <label class="pay-opt selected" onclick="selectPay(this,'cod')">
             <input type="radio" name="pay" value="cod" checked>
-            <span class="pay-icon">💵</span>
+            <span class="pay-icon"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/></svg></span>
             <div class="pay-info">
               <h4>ক্যাশ অন ডেলিভারি</h4>
               <p>পণ্য পেয়ে টাকা দিন — সবচেয়ে জনপ্রিয়</p>
             </div>
           </label>
+          <label class="pay-opt" onclick="selectPay(this,'office')">
+            <input type="radio" name="pay" value="office">
+            <span class="pay-icon"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><rect x="4" y="2" width="16" height="20" rx="1"/><line x1="9" y1="7" x2="9" y2="7.01"/><line x1="15" y1="7" x2="15" y2="7.01"/><line x1="9" y1="11" x2="9" y2="11.01"/><line x1="15" y1="11" x2="15" y2="11.01"/><path d="M9 22v-4h6v4"/></svg></span>
+            <div class="pay-info">
+              <h4>অফিস ডেলিভারি (সুন্দরবন কুরিয়ার)</h4>
+              <p>সুন্দরবন কুরিয়ার অফিস থেকে সংগ্রহ করুন — অগ্রিম পেমেন্ট প্রযোজ্য</p>
+            </div>
+          </label>
           <label class="pay-opt" onclick="selectPay(this,'bkash')">
             <input type="radio" name="pay" value="bkash">
-            <span class="pay-icon">📱</span>
+            <span class="pay-icon-brand pib-bkash"><img src="bkash.png" alt="bKash" loading="lazy"></span>
             <div class="pay-info">
               <h4>বিকাশ</h4>
               <p>অ্যাডভান্স পেমেন্টে ৫% ছাড়</p>
@@ -338,21 +448,29 @@ select.f-input{cursor:pointer;}
           </label>
           <label class="pay-opt" onclick="selectPay(this,'nagad')">
             <input type="radio" name="pay" value="nagad">
-            <span class="pay-icon">💫</span>
+            <span class="pay-icon-brand pib-nagad"><img src="nogod.png" alt="Nagad" loading="lazy"></span>
             <div class="pay-info">
               <h4>নগদ / রকেট</h4>
               <p>অ্যাডভান্স পেমেন্টে ৫% ছাড়</p>
             </div>
           </label>
+          <label class="pay-opt" onclick="selectPay(this,'card')">
+            <input type="radio" name="pay" value="card">
+            <span class="pay-icon-brand pib-visa"><img src="visa.png" alt="Visa" loading="lazy"></span>
+            <div class="pay-info">
+              <h4>ভিসা / মাস্টারকার্ড</h4>
+              <p>ডেবিট/ক্রেডিট কার্ডে অ্যাডভান্স পেমেন্ট</p>
+            </div>
+          </label>
         </div>
 
         <div class="pay-extra" id="bkash-info">
-          <div style="background:var(--indigo-l);border-radius:10px;padding:12px 14px;font-size:0.85rem;color:var(--text);">
+          <div id="payExtraMsg" style="background:var(--indigo-l);border-radius:10px;padding:12px 14px;font-size:0.85rem;color:var(--text);">
             📱 বিকাশ/নগদ নম্বরে পাঠান: <strong style="color:var(--indigo);font-family:var(--font-en);">01842970565</strong><br>
             <span style="font-size:0.78rem;color:var(--text2);">সেন্ড মানি করার পর Transaction ID দিন</span>
           </div>
           <div class="f-group" style="margin-top:10px;">
-            <label class="f-label">Transaction ID</label>
+            <label class="f-label" id="txnIdLabel">Transaction ID</label>
             <input class="f-input" id="txnId" type="text" placeholder="যেমন: 8N3A7BXYZ">
           </div>
         </div>
@@ -376,10 +494,11 @@ select.f-input{cursor:pointer;}
     <div class="os-totals" id="osTotals">
       <div class="ot-row sub"><span>পণ্যের মোট মূল্য</span><span class="ot-val" id="subTotal">৳০</span></div>
       <div class="ot-row delivery"><span>ডেলিভারি চার্জ</span><span class="ot-val" id="deliveryCharge">৳০</span></div>
+      <div style="font-size:0.72rem;color:var(--text2);margin:-6px 0 8px;">ঢাকার ভেতরে ৳৬০, ঢাকার বাইরে প্রথম কেজি ৳৯৫, পরবর্তী প্রতি কেজিতে ৳২০</div>
       <div class="ot-row discount" id="discountRow" style="display:none;"><span>ছাড় (কুপন)</span><span class="ot-val" id="discountVal">-৳০</span></div>
       <div class="ot-row total"><span>সর্বমোট</span><span class="ot-val" id="grandTotal">৳০</span></div>
     </div>
-    <button class="place-order-btn" onclick="placeOrder()">✅ অর্ডার নিশ্চিত করুন</button>
+    <button class="place-order-btn" onclick="placeOrder()"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> অর্ডার নিশ্চিত করুন</button>
     <div class="trust-strip">
       <div class="ts-item">🔒 নিরাপদ</div>
       <div class="ts-item">🚚 দ্রুত ডেলিভারি</div>
@@ -388,13 +507,40 @@ select.f-input{cursor:pointer;}
   </div>
 </div>
 
+<!-- ══ FOOTER ══ -->
+<footer class="site-footer">
+  <div class="footer-wrap">
+    <div class="footer-brand">
+      <img src="ourdedication10.jpeg" alt="OurDedication" loading="lazy" style="height:64px;width:147px;display:block;object-fit:cover;object-position:50% 50%;">
+      <p>ইসলামিক ও সাধারণ বইয়ের অনলাইন দোকান — সারাদেশে হোম ডেলিভারি, ক্যাশ অন ডেলিভারি সুবিধা সহ।</p>
+    </div>
+    <div class="footer-col">
+      <h4>সহায়তা</h4>
+      <a href="about.html">আমাদের সম্পর্কে</a>
+      <a href="contact.html">যোগাযোগ</a>
+      <a href="faq.html">সচরাচর জিজ্ঞাসা</a>
+      <a href="delivery.html">ডেলিভারি তথ্য</a>
+      <a href="return.html">রিটার্ন নীতি</a>
+    </div>
+    <div class="footer-col">
+      <h4>যোগাযোগ</h4>
+      <a href="tel:01842970565"><svg class="fico" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24 11.36 11.36 0 0 0 3.57.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.36 11.36 0 0 0 .57 3.57 1 1 0 0 1-.25 1.01l-2.2 2.21z"/></svg> 01842970565</a>
+      <a href="mailto:sajidurr317@gmail.com"><svg class="fico" viewBox="0 0 24 24" fill="currentColor"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5zm2.2.5 7.8 6.2L19.8 6z"/></svg> sajidurr317@gmail.com</a>
+      <a href="https://wa.me/8801842970565" target="_blank"><svg class="fico" viewBox="0 0 32 32" fill="currentColor"><path d="M16.001 2.667c-7.363 0-13.333 5.97-13.333 13.333 0 2.353.615 4.56 1.69 6.475L2.667 29.333l7.03-1.844a13.26 13.26 0 0 0 6.304 1.605h.006c7.362 0 13.332-5.97 13.332-13.333S23.363 2.667 16.001 2.667zm7.82 18.836c-.334.94-1.652 1.72-2.702 1.945-.719.152-1.658.273-4.818-1.035-3.926-1.626-6.453-5.615-6.65-5.876-.19-.262-1.594-2.121-1.594-4.046 0-1.925.997-2.868 1.353-3.262.334-.367.728-.459.97-.459.243 0 .486.002.699.013.224.011.525-.085.822.626.303.724 1.03 2.5 1.12 2.682.09.182.15.397.03.639-.12.242-.18.393-.36.605-.18.212-.379.474-.542.636-.18.181-.368.378-.158.741.211.363.94 1.55 2.017 2.51 1.386 1.238 2.555 1.622 2.917 1.803.363.182.575.152.788-.09.212-.243.91-1.06 1.152-1.424.242-.363.485-.302.818-.181.333.121 2.122.999 2.485 1.182.363.181.605.272.696.424.09.151.09.878-.243 1.816z"/></svg> WhatsApp-এ মেসেজ দিন</a>
+      <a href="https://www.facebook.com/Sajidbookshop" target="_blank"><svg class="fico" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.9h-2.34V22c4.78-.76 8.44-4.92 8.44-9.94z"/></svg> ফেসবুক পেজ</a>
+      <a href="https://www.tiktok.com/@sajidurrahman9804" target="_blank"><svg class="fico" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 2h-3.2v13.5a2.7 2.7 0 1 1-2.7-2.7c.24 0 .47.02.7.07V9.6a6 6 0 1 0 5.2 5.95V8.83a7.7 7.7 0 0 0 4.5 1.44V6.98A4.28 4.28 0 0 1 16.5 2z"/></svg> টিকটক</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© <span id="fyear"></span> OurDedication — সর্বস্বত্ব সংরক্ষিত</div>
+</footer>
+
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav">
   <a class="bn-item" href="index.html"><span class="bn-icon"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg></span>হোম</a>
-  <a class="bn-item" href="filter.html"><span class="bn-icon"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>খুঁজুন</a>
   <button class="bn-item" onclick="openWishlist()"><span class="bn-icon" id="bnWishIcon"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></span>পছন্দ</button>
   <a class="bn-item active" href="checkout.html"><span class="bn-icon"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></span>কার্ট</a>
   <a class="bn-item" href="track.html"><span class="bn-icon"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5v8l9 5 9-5V8z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/></svg></span>অর্ডার</a>
+  <a class="bn-item" href="account.html"><span class="bn-icon"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg></span>অ্যাকাউন্ট</a>
 </nav>
 
 <!-- ══ WISHLIST ড্রয়ার ══ -->
@@ -414,6 +560,10 @@ select.f-input{cursor:pointer;}
     <h2>অর্ডার সম্পন্ন!</h2>
     <p>আপনার অর্ডার সফলভাবে নেওয়া হয়েছে। শীঘ্রই আমরা আপনার সাথে যোগাযোগ করব।</p>
     <div class="order-id-box" id="orderIdBox">OD-000000</div>
+    <button class="mb-invoice" onclick="downloadInvoice()">
+      <svg class="eico" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Invoice PDF ডাউনলোড করুন
+    </button>
     <div class="modal-btns">
       <button class="modal-btn mb-track" onclick="goTrack()">📦 অর্ডার ট্র্যাক করুন</button>
       <button class="modal-btn mb-home" onclick="location.href='index.html'">🏠 হোমে যান</button>
@@ -449,6 +599,105 @@ let discount = 0;
 let discountPct = 0;
 let orderId = '';
 let appliedCoupon = null; // {code, type, value}
+let lastOrderData = null;
+
+/* ══ জেলা → উপজেলা তালিকা (বিভাগ অনুযায়ী গ্রুপ করা, ৬৪ জেলার সবগুলো উপজেলা) ══ */
+const locationData = {
+  "ঢাকা":{
+    "ঢাকা":["আদাবর","আশুলিয়া","বাড্ডা","বংশাল","ক্যান্টনমেন্ট","চকবাজার","দারুস সালাম","ডেমরা","ধানমন্ডি","ধামরাই","দোহার","গেন্ডারিয়া","গুলশান","হাজারীবাগ","হেমায়েতপুর","কদমতলী","কামরাঙ্গীরচর","কেরানীগঞ্জ","খিলগাঁও","খিলক্ষেত","কোতোয়ালি","লালবাগ","মিরপুর","মোহাম্মদপুর","মতিঝিল","নবাবগঞ্জ","নিউ মার্কেট","পল্লবী","পল্টন","রমনা","সাভার","শাহজাহানপুর","শ্যামপুর","সূত্রাপুর","তেজগাঁও","উত্তরা","উত্তর খান","দক্ষিণ খান","ওয়ারী"],
+    "গাজীপুর":["গাজীপুর সদর","কালীগঞ্জ","কাপাসিয়া","শ্রীপুর","টঙ্গী"],
+    "নারায়ণগঞ্জ":["নারায়ণগঞ্জ সদর","আড়াইহাজার","বন্দর","রূপগঞ্জ","সোনারগাঁও","সিদ্ধিরগঞ্জ"],
+    "মানিকগঞ্জ":["মানিকগঞ্জ সদর","দৌলতপুর","ঘিওর","হরিরামপুর","সাটুরিয়া","শিবালয়","সিংগাইর"],
+    "মুন্সীগঞ্জ":["মুন্সীগঞ্জ সদর","গজারিয়া","লৌহজং","শ্রীনগর","সিরাজদিখান","টঙ্গীবাড়ী"],
+    "নরসিংদী":["নরসিংদী সদর","বেলাব","মনোহরদী","পলাশ","রায়পুরা","শিবপুর"],
+    "কিশোরগঞ্জ":["কিশোরগঞ্জ সদর","অষ্টগ্রাম","বাজিতপুর","ভৈরব","হোসেনপুর","ইটনা","করিমগঞ্জ","কটিয়াদী","কুলিয়ারচর","মিঠামইন","নিকলী","পাকুন্দিয়া","তাড়াইল"],
+    "ফরিদপুর":["ফরিদপুর সদর","আলফাডাঙ্গা","ভাঙ্গা","বোয়ালমারী","চরভদ্রাসন","মধুখালী","নগরকান্দা","সদরপুর","সালথা"],
+    "গোপালগঞ্জ":["গোপালগঞ্জ সদর","কাশিয়ানী","কোটালীপাড়া","মুকসুদপুর","টুঙ্গিপাড়া"],
+    "টাঙ্গাইল":["টাঙ্গাইল সদর","বাসাইল","ভূঞাপুর","দেলদুয়ার","ধনবাড়ী","ঘাটাইল","গোপালপুর","কালিহাতী","মধুপুর","মির্জাপুর","নাগরপুর","সখিপুর"],
+    "রাজবাড়ী":["রাজবাড়ী সদর","বালিয়াকান্দি","গোয়ালন্দ","কালুখালী","পাংশা"],
+    "শরীয়তপুর":["শরীয়তপুর সদর","ভেদরগঞ্জ","ডামুড্যা","গোসাইরহাট","নড়িয়া","জাজিরা"],
+    "মাদারীপুর":["মাদারীপুর সদর","কালকিনি","রাজৈর","শিবচর"]
+  },
+  "চট্টগ্রাম":{
+    "চট্টগ্রাম":["আকবরশাহ","বাকলিয়া","বায়েজিদ","বন্দর","চান্দগাঁও","ডবলমুরিং","ইপিজেড","হালিশহর","হাটহাজারী","কোতোয়ালি","খুলশী","লোহাগাড়া","পাহাড়তলী","পতেঙ্গা","পাঁচলাইশ","রাউজান","রাঙ্গুনিয়া","সন্দ্বীপ","সাতকানিয়া","সীতাকুণ্ড"],
+    "কক্সবাজার":["কক্সবাজার সদর","চকরিয়া","কুতুবদিয়া","মহেশখালী","পেকুয়া","রামু","টেকনাফ","উখিয়া"],
+    "কুমিল্লা":["কুমিল্লা সদর","বরুড়া","ব্রাহ্মণপাড়া","বুড়িচং","চান্দিনা","চৌদ্দগ্রাম","দাউদকান্দি","দেবিদ্বার","হোমনা","লাকসাম","মেঘনা","মনোহরগঞ্জ","মুরাদনগর","নাঙ্গলকোট","তিতাস"],
+    "ফেনী":["ফেনী সদর","ছাগলনাইয়া","দাগনভূঞা","ফুলগাজী","পরশুরাম","সোনাগাজী"],
+    "ব্রাহ্মণবাড়িয়া":["ব্রাহ্মণবাড়িয়া সদর","আখাউড়া","বাঞ্ছারামপুর","কসবা","নাসিরনগর","নবীনগর","সরাইল"],
+    "চাঁদপুর":["চাঁদপুর সদর","ফরিদগঞ্জ","হাজীগঞ্জ","কচুয়া","মতলব উত্তর","মতলব দক্ষিণ","শাহরাস্তি"],
+    "লক্ষ্মীপুর":["লক্ষ্মীপুর সদর","কমলনগর","রামগঞ্জ","রামগতি","রায়পুর"],
+    "নোয়াখালী":["নোয়াখালী সদর","বেগমগঞ্জ","চাটখিল","কোম্পানীগঞ্জ","হাতিয়া","কবিরহাট","সেনবাগ","সুবর্ণচর"],
+    "রাঙামাটি":["রাঙামাটি সদর","বাঘাইছড়ি","বরকল","বিলাইছড়ি","জুরাছড়ি","কাউখালী","কাপ্তাই","লংগদু","নানিয়ারচর","রাজস্থলী"],
+    "বান্দরবান":["বান্দরবান সদর","আলীকদম","লামা","নাইক্ষ্যংছড়ি","রুমা","রোয়াংছড়ি","থানচি"],
+    "খাগড়াছড়ি":["খাগড়াছড়ি সদর","দীঘিনালা","লক্ষ্মীছড়ি","মহালছড়ি","মানিকছড়ি","মাটিরাঙ্গা","পানছড়ি","রামগড়"]
+  },
+  "রাজশাহী":{
+    "রাজশাহী":["রাজশাহী সদর","বাঘা","চারঘাট","দুর্গাপুর","গোদাগাড়ী","মোহনপুর","পবা","পুঠিয়া","তানোর"],
+    "নাটোর":["নাটোর সদর","বড়াইগ্রাম","বাগাতিপাড়া","গুরুদাসপুর","লালপুর","সিংড়া"],
+    "নওগাঁ":["নওগাঁ সদর","আত্রাই","বদলগাছী","ধামইরহাট","মান্দা","মহাদেবপুর","নিয়ামতপুর","পত্নীতলা","পোরশা","রাণীনগর","সাপাহার"],
+    "চাঁপাইনবাবগঞ্জ":["চাঁপাইনবাবগঞ্জ সদর","ভোলাহাট","গোমস্তাপুর","নাচোল","শিবগঞ্জ"],
+    "পাবনা":["পাবনা সদর","আটঘরিয়া","বেড়া","ভাঙ্গুড়া","চাটমোহর","ফরিদপুর","ঈশ্বরদী","সাঁথিয়া","সুজানগর"],
+    "সিরাজগঞ্জ":["সিরাজগঞ্জ সদর","বেলকুচি","চৌহালি","কামারখন্দ","কাজিপুর","রায়গঞ্জ","শাহজাদপুর","তাড়াশ","উল্লাপাড়া"],
+    "বগুড়া":["বগুড়া সদর","আদমদিঘি","ধুনট","দুপচাঁচিয়া","গাবতলী","কাহালু","নন্দীগ্রাম","সারিয়াকান্দি","শাজাহানপুর","শেরপুর","শিবগঞ্জ","সোনাতলা"],
+    "জয়পুরহাট":["জয়পুরহাট সদর","আক্কেলপুর","কালাই","ক্ষেতলাল","পাঁচবিবি"]
+  },
+  "খুলনা":{
+    "খুলনা":["খুলনা সদর","বটিয়াঘাটা","দাকোপ","ডুমুরিয়া","ফুলতলা","কয়রা","পাইকগাছা","রূপসা","তেরখাদা"],
+    "যশোর":["যশোর সদর","অভয়নগর","বাঘারপাড়া","চৌগাছা","ঝিকরগাছা","কেশবপুর","মণিরামপুর","শার্শা"],
+    "সাতক্ষীরা":["সাতক্ষীরা সদর","আশাশুনি","দেবহাটা","কলারোয়া","কালিগঞ্জ","শ্যামনগর","তালা"],
+    "বাগেরহাট":["বাগেরহাট সদর","চিতলমারী","ফকিরহাট","কচুয়া","মোংলা","মোরেলগঞ্জ","রামপাল","শরণখোলা"],
+    "নড়াইল":["নড়াইল সদর","কালিয়া","লোহাগড়া"],
+    "মাগুরা":["মাগুরা সদর","মহম্মদপুর","শালিখা","শ্রীপুর"],
+    "ঝিনাইদহ":["ঝিনাইদহ সদর","হরিণাকুণ্ডু","কালীগঞ্জ","কোটচাঁদপুর","মহেশপুর","শৈলকুপা"],
+    "কুষ্টিয়া":["কুষ্টিয়া সদর","ভেড়ামারা","দৌলতপুর","খোকসা","কুমারখালী","মিরপুর"],
+    "চুয়াডাঙ্গা":["চুয়াডাঙ্গা সদর","আলমডাঙ্গা","দামুড়হুদা","জীবননগর"],
+    "মেহেরপুর":["মেহেরপুর সদর","গাংনী","মুজিবনগর"]
+  },
+  "বরিশাল":{
+    "বরিশাল":["বরিশাল সদর","আগৈলঝাড়া","বাকেরগঞ্জ","বানারীপাড়া","গৌরনদী","হিজলা","মেহেন্দিগঞ্জ","মুলাদী","উজিরপুর"],
+    "পটুয়াখালী":["পটুয়াখালী সদর","বাউফল","দশমিনা","গলাচিপা","কলাপাড়া","মির্জাগঞ্জ","রাঙ্গাবালী"],
+    "ভোলা":["ভোলা সদর","বোরহানউদ্দিন","চরফ্যাশন","দৌলতখান","লালমোহন","মনপুরা","তজুমদ্দিন"],
+    "ঝালকাঠি":["ঝালকাঠি সদর","কাঁঠালিয়া","নলছিটি","রাজাপুর"],
+    "পিরোজপুর":["পিরোজপুর সদর","ভান্ডারিয়া","কাউখালী","মঠবাড়িয়া","নাজিরপুর","নেছারাবাদ","জিয়ানগর"],
+    "বরগুনা":["বরগুনা সদর","আমতলী","বামনা","বেতাগী","পাথরঘাটা","তালতলী"]
+  },
+  "সিলেট":{
+    "সিলেট":["সিলেট সদর","বালাগঞ্জ","বিয়ানীবাজার","বিশ্বনাথ","কোম্পানীগঞ্জ","ফেঞ্চুগঞ্জ","গোলাপগঞ্জ","গোয়াইনঘাট","জকিগঞ্জ","কানাইঘাট","ওসমানীনগর","দক্ষিণ সুরমা"],
+    "মৌলভীবাজার":["মৌলভীবাজার সদর","বড়লেখা","জুড়ী","কমলগঞ্জ","কুলাউড়া","রাজনগর","শ্রীমঙ্গল"],
+    "হবিগঞ্জ":["হবিগঞ্জ সদর","আজমিরীগঞ্জ","বাহুবল","বানিয়াচং","চুনারুঘাট","লাখাই","মাধবপুর","নবীগঞ্জ"],
+    "সুনামগঞ্জ":["সুনামগঞ্জ সদর","বিশ্বম্ভরপুর","দক্ষিণ সুনামগঞ্জ","দিরাই","ধর্মপাশা","জামালগঞ্জ","জগন্নাথপুর","শাল্লা","তাহিরপুর"]
+  },
+  "রংপুর":{
+    "রংপুর":["রংপুর সদর","বদরগঞ্জ","গঙ্গাচড়া","কাউনিয়া","মিঠাপুকুর","পীরগঞ্জ","পীরগাছা","তারাগঞ্জ"],
+    "দিনাজপুর":["দিনাজপুর সদর","বিরামপুর","বিরল","বোচাগঞ্জ","চিরিরবন্দর","ফুলবাড়ী","ঘোড়াঘাট","হাকিমপুর","খানসামা","নবাবগঞ্জ","পার্বতীপুর"],
+    "কুড়িগ্রাম":["কুড়িগ্রাম সদর","ভুরুঙ্গামারী","চর রাজিবপুর","চিলমারী","ফুলবাড়ী","নাগেশ্বরী","রাজারহাট","রৌমারী","উলিপুর"],
+    "গাইবান্ধা":["গাইবান্ধা সদর","ফুলছড়ি","গোবিন্দগঞ্জ","পলাশবাড়ী","সাদুল্লাপুর","সাঘাটা","সুন্দরগঞ্জ"],
+    "নীলফামারী":["নীলফামারী সদর","ডিমলা","ডোমার","জলঢাকা","কিশোরগঞ্জ","সৈয়দপুর"],
+    "লালমনিরহাট":["লালমনিরহাট সদর","আদিতমারী","কালীগঞ্জ","হাতীবান্ধা","পাটগ্রাম"],
+    "ঠাকুরগাঁও":["ঠাকুরগাঁও সদর","বালিয়াডাঙ্গী","হরিপুর","পীরগঞ্জ","রাণীশংকৈল"],
+    "পঞ্চগড়":["পঞ্চগড় সদর","আটোয়ারী","বোদা","দেবীগঞ্জ","তেতুলিয়া"]
+  },
+  "ময়মনসিংহ":{
+    "ময়মনসিংহ":["ময়মনসিংহ সদর","ভালুকা","ধোবাউড়া","ফুলবাড়িয়া","গফরগাঁও","গৌরীপুর","হালুয়াঘাট","ঈশ্বরগঞ্জ","মুক্তাগাছা","নান্দাইল","ফুলপুর","তারাকান্দা","ত্রিশাল"],
+    "নেত্রকোণা":["নেত্রকোণা সদর","আটপাড়া","বারহাট্টা","দুর্গাপুর","কলমাকান্দা","কেন্দুয়া","খালিয়াজুড়ি","মদন","মোহনগঞ্জ","পূর্বধলা"],
+    "জামালপুর":["জামালপুর সদর","বকশীগঞ্জ","দেওয়ানগঞ্জ","ইসলামপুর","মাদারগঞ্জ","মেলান্দহ","সরিষাবাড়ী"],
+    "শেরপুর":["শেরপুর সদর","ঝিনাইগাতী","নকলা","নালিতাবাড়ী","শ্রীবরদী"]
+  }
+};
+/* flat district-name → upazila-list lookup, যেহেতু চেকআউটে শুধু জেলা ড্রপডাউন আছে (আলাদা বিভাগ নেই) */
+const districtToUpazilas = {};
+Object.values(locationData).forEach(districts => {
+  Object.keys(districts).forEach(d => { districtToUpazilas[d] = districts[d]; });
+});
+function populateUpazila(){
+  const distEl = document.getElementById('fdistrict');
+  const upEl = document.getElementById('fupazila');
+  const distVal = distEl.value === 'dhaka' ? 'ঢাকা' : distEl.value;
+  const list = districtToUpazilas[distVal];
+  if(!list){ upEl.innerHTML = '<option value="">আগে জেলা বেছে নিন</option>'; return; }
+  upEl.innerHTML = '<option value="">উপজেলা/থানা বেছে নিন</option>' + list.map(u => `<option value="${u}">${u}</option>`).join('');
+}
+document.getElementById('fdistrict').addEventListener('change', populateUpazila);
 const PHONE_RE = /^01[3-9][0-9]{8}$/;
 /* কিছু ব্রাউজার/মোডে localStorage বন্ধ থাকতে পারে — তখনও যেন সাইট ক্র্যাশ না করে */
 function odGet(k, fb){ try{ const v = localStorage.getItem(k); return v!==null ? JSON.parse(v) : fb; }catch(e){ return fb; } }
@@ -480,7 +729,7 @@ function renderWishDrawer(){
     if(!b) return '';
     const img = b.img && /^https?:\/\//.test(b.img) ? b.img : 'https://via.placeholder.com/50x66/eef2ff/6366f1?text=📚';
     return `<div class="wl-item">
-      <a href="product.html?id=${b.bid}" class="wl-img"><img src="${img}" alt="${b.name}" onerror="this.src='https://via.placeholder.com/50x66/eef2ff/6366f1?text=📚'"></a>
+      <a href="product.html?id=${b.bid}" class="wl-img"><img src="${img}" alt="${b.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/50x66/eef2ff/6366f1?text=📚'"></a>
       <div class="wl-info">
         <a href="product.html?id=${b.bid}" class="wl-name">${b.name}</a>
         <div class="wl-price">৳${b.price.toLocaleString('bn-BD')}</div>
@@ -520,7 +769,7 @@ function loadCart(){
     if(!book) return '';
     const img = book.img && /^https?:\/\//.test(book.img) ? book.img : 'https://via.placeholder.com/50x66/eef2ff/6366f1?text=📚';
     return `<div class="os-item" id="osi-${i}">
-      <div class="os-img"><img src="${img}" alt="${book.name}" onerror="this.src='https://via.placeholder.com/50x66/eef2ff/6366f1?text=📚'"></div>
+      <div class="os-img"><img src="${img}" alt="${book.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/50x66/eef2ff/6366f1?text=📚'"></div>
       <div class="os-info">
         <div class="os-name">${book.name}</div>
         <div class="os-meta">${book.author||''}</div>
@@ -555,7 +804,8 @@ function updateTotals(){
   const cart = odGet('od_cart2', []);
   const sub = cartSubtotal();
   const dist = document.getElementById('fdistrict').value;
-  let baseDelivery = !cart.length ? 0 : dist === 'dhaka' ? 60 : dist ? 120 : 80;
+  const payType = document.querySelector('input[name="pay"]:checked') ? document.querySelector('input[name="pay"]:checked').value : '';
+  let baseDelivery = !cart.length ? 0 : payType === 'office' ? 50 : dist === 'dhaka' ? 60 : dist ? 95 : 80;
 
   discount = 0;
   deliveryCharge = baseDelivery;
@@ -574,6 +824,8 @@ function updateTotals(){
   if(discount > 0){ discRow.style.display='flex'; document.getElementById('discountVal').textContent = '-৳' + discount.toLocaleString('bn-BD'); }
   else if(discRow){ discRow.style.display='none'; }
   document.getElementById('grandTotal').textContent = '৳' + Math.max(0,grand).toLocaleString('bn-BD');
+  const advEls = document.querySelectorAll('.advPayAmt');
+  advEls.forEach(function(el){ el.textContent = Math.max(0,grand).toLocaleString('bn-BD'); });
 }
 
 function updateDelivery(){ updateTotals(); }
@@ -597,7 +849,191 @@ function selectPay(el, type){
   document.querySelectorAll('.pay-opt').forEach(p => p.classList.remove('selected'));
   el.classList.add('selected');
   el.querySelector('input').checked = true;
-  document.getElementById('bkash-info').classList.toggle('show', type==='bkash'||type==='nagad');
+  document.getElementById('bkash-info').classList.toggle('show', type==='bkash'||type==='nagad'||type==='card'||type==='office');
+  const msgEl = document.getElementById('payExtraMsg');
+  const txnLbl = document.getElementById('txnIdLabel');
+  const txnInp = document.getElementById('txnId');
+  const stepsWrap = '<ol style="margin:0 0 0 18px;padding:0;font-size:0.82rem;color:var(--text);line-height:1.9;">STEPS</ol>';
+  if(type === 'card'){
+    msgEl.innerHTML = '💳 <strong>কার্ড পেমেন্ট</strong>' + stepsWrap.replace('STEPS',
+      '<li>WhatsApp-এ যোগাযোগ করুন: <strong style="color:var(--indigo);font-family:var(--font-en);">01842970565</strong></li>' +
+      '<li>আমরা আপনাকে একটা সিকিউর পেমেন্ট লিংক পাঠাব</li>' +
+      '<li>লিংকে গিয়ে মোট <strong>৳<span class="advPayAmt">0</span></strong> পেমেন্ট সম্পন্ন করুন</li>' +
+      '<li>পেমেন্টের Reference/Transaction ID নিচে লিখুন</li>');
+    txnLbl.textContent = 'Reference / Transaction ID';
+    txnInp.placeholder = 'যেমন: TXN123456';
+  } else if(type === 'bkash' || type === 'nagad'){
+    const method = type === 'bkash' ? 'বিকাশ' : 'নগদ';
+    msgEl.innerHTML = '📱 <strong>' + method + ' দিয়ে অগ্রিম পেমেন্ট</strong>' + stepsWrap.replace('STEPS',
+      `<li>${method} নম্বরে Send Money করুন: <strong style="color:var(--indigo);font-family:var(--font-en);">01842970565</strong></li>` +
+      '<li>মোট <strong>৳<span class="advPayAmt">0</span></strong> পাঠান</li>' +
+      '<li>Send Money করার পর যে Transaction ID পাবেন, নিচে লিখুন</li>' +
+      '<li>"অর্ডার নিশ্চিত করুন" বাটনে চাপুন</li>');
+    txnLbl.textContent = 'Transaction ID';
+    txnInp.placeholder = 'যেমন: 8N3A7BXYZ';
+  } else if(type === 'office'){
+    msgEl.innerHTML = '🅱️ <strong>অগ্রিম পেমেন্ট (ডিফল্ট: বিকাশ)</strong>' + stepsWrap.replace('STEPS',
+      '<li>বিকাশ নম্বরে Send Money করুন: <strong style="color:var(--indigo);font-family:var(--font-en);">01842970565</strong> <span style="color:var(--text2);">(নগদেও পাঠানো যাবে, একই নম্বর)</span></li>' +
+      '<li>মোট <strong>৳<span class="advPayAmt">0</span></strong> পাঠান</li>' +
+      '<li>Send Money করার পর যে Transaction ID পাবেন, নিচে লিখুন</li>' +
+      '<li>"অর্ডার নিশ্চিত করুন" বাটনে চাপুন</li>') +
+      '<div style="margin-top:8px;padding-top:8px;border-top:1px solid rgba(0,0,0,0.08);font-size:0.78rem;color:var(--text2);">📦 পণ্য সুন্দরবন কুরিয়ারের মাধ্যমে পাঠানো হবে — আপনার নিকটস্থ অফিস থেকে সংগ্রহ করবেন।<br>ডেলিভারি চার্জ ৳৫০ (প্রতি কেজি অতিরিক্ত ওজনে ৳১০ বৃদ্ধি পাবে)</div>';
+    txnLbl.textContent = 'Transaction ID';
+    txnInp.placeholder = 'যেমন: 8N3A7BXYZ';
+  }
+  updateTotals();
+}
+
+/* ══ কনফেটি (অর্ডার সফল হলে) ══ */
+function odConfetti(){
+  const c = document.createElement('canvas');
+  c.style.cssText = 'position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:100000;';
+  document.body.appendChild(c);
+  const ctx = c.getContext('2d');
+  c.width = innerWidth; c.height = innerHeight;
+  const colors = ['#CB2527','#1a1a1a','#f59e0b','#10b981','#3b82f6','#a855f7'];
+  const P = [];
+  for(let i=0;i<150;i++){
+    P.push({
+      x: Math.random()*c.width, y: -20 - Math.random()*c.height*0.6,
+      w: 6+Math.random()*6, h: 8+Math.random()*8,
+      vy: 2.2+Math.random()*3.5, vx: -1.5+Math.random()*3,
+      rot: Math.random()*Math.PI, vr: -0.12+Math.random()*0.24,
+      col: colors[i%colors.length]
+    });
+  }
+  let frame = 0;
+  (function draw(){
+    frame++;
+    ctx.clearRect(0,0,c.width,c.height);
+    P.forEach(p=>{
+      p.x += p.vx; p.y += p.vy; p.rot += p.vr;
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot);
+      ctx.fillStyle = p.col;
+      ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
+      ctx.restore();
+    });
+    if(frame < 280) requestAnimationFrame(draw);
+    else c.remove();
+  })();
+}
+
+/* ══ PDF ইনভয়েস ══ */
+function escapeHTML(s){return String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+function buildInvoiceHTML(o){
+  let subtotal = 0;
+  const rows = o.items.map((item, idx) => {
+    const book = books.find(b => b.name === item.name);
+    const lt = item.price * (item.qty||1); subtotal += lt;
+    const imgCell = (book && book.img && /^https?:\/\//.test(book.img))
+      ? `<img src="${book.img}" style="width:38px;height:52px;object-fit:cover;border-radius:5px;border:1px solid #fecaca;display:block;" crossorigin="anonymous">`
+      : `<div style="width:38px;height:52px;background:#fef2f2;border-radius:5px;border:1px solid #fecaca;display:flex;align-items:center;justify-content:center;font-size:18px;">📚</div>`;
+    return `<tr style="background:${idx%2===0?'#fef2f2':'#fff'}">
+      <td style="padding:8px 10px;vertical-align:middle;">${imgCell}</td>
+      <td style="padding:8px 10px;font-size:13px;vertical-align:middle;">${escapeHTML(item.name)}</td>
+      <td style="padding:8px;text-align:center;font-size:13px;vertical-align:middle;">${item.qty||1}</td>
+      <td style="padding:8px 10px;text-align:right;font-size:13px;vertical-align:middle;">৳${lt}</td>
+    </tr>`;
+  }).join('');
+  const delivery = parseInt((o.delivery||'').toString().replace(/[^\d]/g,''))||0;
+  const discount = o.discount||0;
+  const totalNum = subtotal + delivery - discount;
+  const discountRow = discount > 0 ? `
+    <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px;color:#CB2527;border-bottom:1px solid #e5e7eb;">
+      <span>ছাড় (${escapeHTML(o.coupon||'')})</span><span>-৳${discount}</span>
+    </div>` : '';
+  return `
+  <div id="invoiceBox" style="width:700px;font-family:'Hind Siliguri',Arial,sans-serif;background:#fff;color:#1a202c;">
+    <div style="background:#1a1a1a;padding:24px 28px;display:flex;justify-content:space-between;align-items:center;">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div style="background:#fff;border-radius:10px;width:64px;height:56px;display:flex;align-items:center;justify-content:center;padding:4px;overflow:hidden;">
+          <img src="${location.origin}/ourdedication10.jpeg" style="width:100%;height:100%;object-fit:cover;" crossorigin="anonymous">
+        </div>
+        <div>
+          <div style="color:#fff;font-size:20px;font-weight:800;">OurDedication</div>
+          <div style="color:#f3d1d1;font-size:11px;">www.ourdedication.com</div>
+          <div style="color:#f3d1d1;font-size:11px;">sajidurr317@gmail.com</div>
+          <div style="color:#f3d1d1;font-size:11px;">01842970565 | Bangladesh</div>
+        </div>
+      </div>
+      <div style="text-align:right;">
+        <div style="color:#fff;font-size:16px;font-weight:800;letter-spacing:2px;">INVOICE</div>
+        <div style="color:#f3d1d1;font-size:12px;margin-top:4px;">${escapeHTML(o.orderId)}</div>
+        <div style="color:#f3d1d1;font-size:12px;">${new Date(o.createdAt).toLocaleDateString('en-GB')}</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:0;margin:20px 28px;background:#fef2f2;border:1.5px solid #fecaca;border-radius:10px;overflow:hidden;">
+      <div style="flex:1;padding:16px 20px;border-right:1.5px solid #fecaca;">
+        <div style="font-size:10px;font-weight:800;color:#6b7280;margin-bottom:6px;letter-spacing:1px;">BILL TO</div>
+        <div style="font-size:14px;font-weight:700;">${escapeHTML(o.name)}</div>
+        <div style="font-size:13px;color:#4b5563;">${escapeHTML(o.phone)}</div>
+      </div>
+      <div style="flex:1;padding:16px 20px;">
+        <div style="font-size:10px;font-weight:800;color:#6b7280;margin-bottom:6px;letter-spacing:1px;">ডেলিভারি ঠিকানা</div>
+        <div style="font-size:13px;color:#4b5563;line-height:1.5;">${escapeHTML(o.address)}, ${escapeHTML(o.upazila||'')}, ${escapeHTML(o.district==='dhaka'?'ঢাকা':(o.district||''))}</div>
+      </div>
+    </div>
+    <table style="width:calc(100% - 56px);margin:0 28px;border-collapse:collapse;">
+      <thead>
+        <tr style="background:#CB2527;">
+          <th style="padding:10px;text-align:left;color:#fff;font-size:12px;font-weight:700;width:54px;">ছবি</th>
+          <th style="padding:10px;text-align:left;color:#fff;font-size:12px;font-weight:700;">নাম</th>
+          <th style="padding:10px;text-align:center;color:#fff;font-size:12px;font-weight:700;">পরিমাণ</th>
+          <th style="padding:10px;text-align:right;color:#fff;font-size:12px;font-weight:700;">মূল্য</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <div style="margin:16px 28px 0;display:flex;justify-content:flex-end;">
+      <div style="width:220px;">
+        <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px;color:#6b7280;border-bottom:1px solid #e5e7eb;">
+          <span>Subtotal</span><span>৳${subtotal}</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px;color:#6b7280;border-bottom:1px solid #e5e7eb;">
+          <span>Delivery</span><span>৳${delivery}</span>
+        </div>
+        ${discountRow}
+        <div style="display:flex;justify-content:space-between;padding:8px 0;font-size:16px;font-weight:800;color:#CB2527;">
+          <span>TOTAL</span><span>৳${totalNum}</span>
+        </div>
+      </div>
+    </div>
+    <div style="margin:16px 28px;display:flex;gap:0;background:#fef2f2;border:1.5px solid #fecaca;overflow:hidden;">
+      <div style="flex:1;padding:14px 18px;${o.coupon?'border-right:1.5px solid #fecaca;':''}">
+        <div style="font-size:11px;color:#6b7280;margin-bottom:4px;">Payment Method</div>
+        <div style="font-size:14px;font-weight:700;">${escapeHTML(o.payment)}</div>
+      </div>
+      ${o.coupon?`<div style="flex:1;padding:14px 18px;">
+        <div style="font-size:11px;color:#6b7280;margin-bottom:4px;">Coupon Applied</div>
+        <div style="font-size:14px;font-weight:800;color:#CB2527;letter-spacing:1px;">🏷️ ${escapeHTML(o.coupon)}</div>
+      </div>`:''}
+    </div>
+    <div style="background:#1a1a1a;padding:14px 28px;text-align:center;margin-top:8px;border-top:3px solid #CB2527;">
+      <div style="color:#fff;font-size:12px;font-weight:600;">ধন্যবাদ OurDedication-এ কেনাকাটা করার জন্য! 📚</div>
+      <div style="color:#f3d1d1;font-size:11px;margin-top:4px;">Track: ourdedication.com/track.html?id=${escapeHTML(o.orderId)}</div>
+    </div>
+  </div>`;
+}
+
+async function downloadInvoice(){
+  const o = lastOrderData;
+  if(!o){ showToast('অর্ডার তথ্য পাওয়া যায়নি'); return; }
+  showToast('📄 PDF তৈরি হচ্ছে...');
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'position:fixed;left:-9999px;top:0;z-index:-1;';
+  wrap.innerHTML = buildInvoiceHTML(o);
+  document.body.appendChild(wrap);
+  try{
+    const canvas = await html2canvas(wrap.querySelector('#invoiceBox'), {scale:2, useCORS:true, backgroundColor:'#ffffff'});
+    const imgData = canvas.toDataURL('image/png');
+    const {jsPDF} = window.jspdf;
+    const pdf = new jsPDF({orientation:'portrait', unit:'mm', format:'a4'});
+    const W = 210, H = Math.min(297,(canvas.height/canvas.width)*210);
+    pdf.addImage(imgData,'PNG',0,0,W,H);
+    pdf.save('OurDedication-Invoice-'+o.orderId+'.pdf');
+  }catch(e){ showToast('❌ PDF তৈরি হয়নি'); console.error(e); }
+  document.body.removeChild(wrap);
 }
 
 // ── COUPON (Firebase coupons/{CODE} — অ্যাডমিন প্যানেল থেকে তৈরি করা হয়) ──
@@ -658,7 +1094,7 @@ async function placeOrder(){
       verifiedItems.push({ name: book.name, price: book.price, qty });
       itemsSummary.push(book.name + ' x' + qty);
     });
-    if(!verifiedItems.length){ showToast('কার্টের পণ্যগুলো আর পাওয়া যাচ্ছে না'); btn.textContent='✅ অর্ডার নিশ্চিত করুন'; btn.disabled=false; return; }
+    if(!verifiedItems.length){ showToast('কার্টের পণ্যগুলো আর পাওয়া যাচ্ছে না'); btn.innerHTML='<svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> অর্ডার নিশ্চিত করুন'; btn.disabled=false; return; }
 
     const phone = document.getElementById('fphone').value.trim();
     const sub = cartSubtotal();
@@ -670,7 +1106,7 @@ async function placeOrder(){
       const txn = await usedRef.transaction(cur => cur === null ? true : undefined);
       if(!txn.committed){
         showToast('এই কুপনটি আপনি আগেই ব্যবহার করেছেন');
-        btn.textContent = '✅ অর্ডার নিশ্চিত করুন'; btn.disabled = false;
+        btn.innerHTML = '<svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> অর্ডার নিশ্চিত করুন'; btn.disabled = false;
         return;
       }
     }
@@ -701,20 +1137,31 @@ async function placeOrder(){
 
     await db.ref('orders/' + orderId).set(orderData);
     await db.ref('phoneIndex/' + phone + '/' + orderId).set(true);
+    if(typeof auth !== 'undefined' && auth.currentUser){
+      try{ await db.ref('userOrders/' + auth.currentUser.uid + '/' + orderId).set(true); }catch(e){ console.error(e); }
+    }
 
     // এই ডিভাইসে "আমার অর্ডার" তালিকায় দেখানোর জন্য (শুধু সুবিধার্থে, আসল ডেটা Firebase-এ)
     const recent = odGet('od_recent_orders', []);
     recent.unshift({ id: orderId, date: orderData.createdAt });
     odSet('od_recent_orders', recent.slice(0,20));
 
+    // পরের বার অর্ডার করার সময় ফর্ম অটো-ফিল করার জন্য (এই ডিভাইসে সংরক্ষিত, লগইন লাগবে না)
+    odSet('od_last_checkout_info', {
+      name: orderData.name, phone: orderData.phone, address: orderData.address,
+      district: orderData.district, upazila: orderData.upazila
+    });
+
     document.getElementById('orderIdBox').textContent = orderId;
+    lastOrderData = orderData;
     odRemove('od_cart2');
     document.getElementById('successModal').classList.add('show');
+    odConfetti();
   }catch(e){
     console.error(e);
     showToast('অর্ডার সম্পন্ন করা যায়নি, আবার চেষ্টা করুন');
   }finally{
-    btn.textContent = '✅ অর্ডার নিশ্চিত করুন';
+    btn.innerHTML = '<svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> অর্ডার নিশ্চিত করুন';
     btn.disabled = false;
   }
 }
@@ -727,6 +1174,40 @@ function goTrack(){
 function showToast(msg){ const t=document.createElement('div');t.className='toast';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2200); }
 
 loadCart();
+
+// ── আগে এই ডিভাইস থেকে অর্ডার করে থাকলে ফর্ম অটো-ফিল (গেস্ট চেকআউটেও কাজ করে) ──
+(function(){
+  const saved = odGet('od_last_checkout_info', null);
+  if(!saved) return;
+  const map = {fname:'name', fphone:'phone', faddr:'address', fdistrict:'district'};
+  Object.keys(map).forEach(function(id){
+    const el = document.getElementById(id);
+    const val = saved[map[id]];
+    if(el && !el.value && val) el.value = val;
+  });
+  if(document.getElementById('fdistrict').value){
+    populateUpazila();
+    const upEl = document.getElementById('fupazila');
+    if(saved.upazila && !upEl.value) upEl.value = saved.upazila;
+    updateDelivery();
+  }
+})();
+
+// ── লগইন করা থাকলে প্রোফাইল থেকে নাম/মোবাইল স্বয়ংক্রিয়ভাবে বসানো (ঐচ্ছিক সুবিধা, গেস্ট চেকআউটে কোনো প্রভাব নেই) ──
+if(typeof auth !== 'undefined'){
+  auth.onAuthStateChanged(function(user){
+    if(!user) return;
+    db.ref('users/' + user.uid).get().then(function(snap){
+      const p = snap.val();
+      if(!p) return;
+      const nameEl = document.getElementById('fname');
+      const phoneEl = document.getElementById('fphone');
+      if(nameEl && !nameEl.value && p.name) nameEl.value = p.name;
+      if(phoneEl && !phoneEl.value && p.phone) phoneEl.value = p.phone;
+    }).catch(function(e){ console.error(e); });
+  });
+}
+const fy = document.getElementById('fyear'); if(fy) fy.textContent = new Date().getFullYear().toLocaleString('bn-BD');
 </script>
 </body>
 </html>

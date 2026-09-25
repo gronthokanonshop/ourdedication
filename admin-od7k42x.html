@@ -596,12 +596,27 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
 
       <div class="card tool-card" data-cat="misc">
         <h3>Google Drive API Key</h3>
-        <p class="hint">প্রকাশনীর Drive ফোল্ডার থেকে ছবি/PDF/বিবরণ স্বয়ংক্রিয়ভাবে আনার (auto-import) সুবিধাটি এখনো তৈরি হয়নি — শুধু key সংরক্ষণের জায়গাটা প্রস্তুত রাখা হলো, যাতে ভবিষ্যতে যোগ করা সহজ হয়।</p>
+        <p class="hint">প্রকাশনীর Drive ফোল্ডার থেকে ছবি/PDF/বিবরণ স্বয়ংক্রিয়ভাবে আনার জন্য (নিচের বক্স দেখুন)। Google Cloud Console থেকে Drive API key নিয়ে এখানে সেভ করুন।</p>
         <div class="form-grid">
           <div class="field full"><input type="text" id="setDriveKey" placeholder="AIza..."></div>
         </div>
         <div class="hint" id="driveKeyMaskedHint"></div>
         <button class="btn btn-primary btn-sm" id="saveDriveKey" style="margin-top:8px;">সংরক্ষণ করুন</button>
+      </div>
+
+      <div class="card tool-card wide" data-cat="misc" id="driveFolderCard">
+        <h3>📂 Drive ফোল্ডার থেকে অটো-ইমপোর্ট (ছবি + PDF + বিবরণ)</h3>
+        <p class="hint">প্রকাশনীর Google Drive ফোল্ডারের লিংক দিন — <b>ভেতরে প্রতিটা বইয়ের জন্য আলাদা আলাদা সাব-ফোল্ডার থাকতে হবে</b>, আর সাব-ফোল্ডারের নাম দোকানে থাকা বইয়ের নামের কাছাকাছি হতে হবে (হুবহু না হলেও চলবে)। প্রতিটা সাব-ফোল্ডারে সেই বইয়ের প্রচ্ছদ ছবি, একটা sample/short PDF এবং ইচ্ছা হলে একটা বিবরণ ডকুমেন্ট (Google Doc/.docx/.txt) রাখুন। ফোল্ডারের নাম মিলিয়ে দোকানের বই খুঁজে বের করে — যেই বইয়ে যা নেই শুধু সেটাই বসানো হবে; দাম/ক্যাটাগরি/লেখক ছোঁয়া হয় না, আর নতুন বইও এখান থেকে তৈরি হয় না (না মেলা ফোল্ডার শেষে তালিকায় দেখাবে)। ফোল্ডারটা অবশ্যই <b>"Anyone with the link"</b> হিসেবে শেয়ার করা থাকতে হবে।</p>
+        <div class="form-grid">
+          <div class="field full">
+            <label>Drive ফোল্ডার লিংক</label>
+            <input type="text" id="driveFolderInput" placeholder="https://drive.google.com/drive/folders/...">
+          </div>
+        </div>
+        <label class="hint" style="display:flex; align-items:center; gap:8px; margin-bottom:6px;"><input type="checkbox" id="driveCropSpread" checked style="width:auto;"> আলাদা front কভার না পেলে, চওড়া ফুল-কভার ছবি থেকে front অংশ কেটে নাও</label>
+        <label class="hint" style="display:flex; align-items:center; gap:8px; margin-bottom:10px; color:#dc2626;"><input type="checkbox" id="driveForceReplace" style="width:auto;"> আগে থেকে ছবি/PDF/বিবরণ থাকলেও Drive থেকে নতুনটা দিয়ে বদলে দাও (Replace)</label>
+        <button class="btn btn-primary btn-sm" id="driveFolderBtn">📥 ছবি + PDF + বিবরণ আনো</button>
+        <div id="driveFolderStatus" class="hint" style="margin-top:10px;"></div>
       </div>
 
       <div class="card tool-card wide" data-cat="misc">
@@ -3089,9 +3104,11 @@ document.getElementById('saveOfPopBtn').addEventListener('click', function(){
 });
 
 /* ---------------- Google Drive API Key ---------------- */
+let driveApiKeyCache = ''; // masked hint দেখানোর পাশাপাশি আসল key-টাও রাখা হয়, যাতে নিচের Drive ইমপোর্ট ফিচার সেটা ব্যবহার করতে পারে
 function loadDriveKey(){
   db.ref('driveApiKey').get().then(snap=>{
     const v = snap.exists() ? snap.val() : '';
+    driveApiKeyCache = v || '';
     document.getElementById('driveKeyMaskedHint').textContent = v ? ('বর্তমান: '+maskKey(v)) : '';
   }).catch(()=>{});
 }
@@ -3100,11 +3117,364 @@ document.getElementById('saveDriveKey').addEventListener('click', function(){
   const val = document.getElementById('setDriveKey').value.trim();
   if(!val){ toast('key দিন', 'err'); return; }
   db.ref('driveApiKey').set(val).then(()=>{
+    driveApiKeyCache = val;
     document.getElementById('driveKeyMaskedHint').textContent = 'বর্তমান: '+maskKey(val);
     document.getElementById('setDriveKey').value = '';
     toast('সংরক্ষণ হয়েছে', 'ok');
   }).catch(err=> toast('ব্যর্থ: '+err.message, 'err'));
 });
+
+/* ================= DRIVE ফোল্ডার থেকে অটো-ইমপোর্ট (ছবি + PDF + বিবরণ) =================
+   গ্রন্থকানন সাইটের admin panel-এ থাকা কাজ-করা ফিচারটা এখান থেকে পোর্ট করা হয়েছে,
+   OurDedication-এর নিজস্ব ভেরিয়েবল/কনভেনশন (workingBooks, saveBookListToFirebase,
+   imgbbKeyCache + compressImageIfNeeded, toast) অনুযায়ী মানিয়ে নিয়ে। */
+
+/* বইয়ের নাম normalize — য়/ড়/ঢ়-এর ইউনিকোড ভ্যারিয়েশন, যতিচিহ্ন, বাড়তি স্পেস বাদ দিয়ে
+   ফোল্ডারের নামের সাথে বই তালিকার নাম মেলানো সহজ করার জন্য */
+function odDriveNormalize(str){
+  return (str||'')
+    .replace(/য়/g,'য়').replace(/ড়/g,'ড়').replace(/ঢ়/g,'ঢ়')
+    .replace(/[​-‏‪-‮]/g,'')
+    .replace(/[।,.!?'"()\[\]{}\-_ঃ]/g,' ')
+    .replace(/\s+/g,' ').trim().toLowerCase();
+}
+/* নাম মেলানোর শেষ চেষ্টা — ৪-অক্ষরের টুকরো মিলিয়ে সাদৃশ্য (বানান সামান্য আলাদা হলেও ধরে) */
+function odDriveGramSim(a,b){
+  if(a.length<4||b.length<4) return 0;
+  const g=s=>{const m=new Set(); for(let i=0;i<=s.length-4;i++) m.add(s.substr(i,4)); return m;};
+  const ga=g(a),gb=g(b); let c=0; ga.forEach(x=>{ if(gb.has(x)) c++; });
+  return (2*c)/(ga.size+gb.size);
+}
+/* একটা Drive ফোল্ডারের ভেতরের ফাইল/সাব-ফোল্ডার লিস্ট (Drive API v3, শুধু key দিয়ে —
+   OAuth লাগে না, কিন্তু ফোল্ডারটা "Anyone with the link" শেয়ার করা থাকতে হবে) */
+async function odDriveList(folderId){
+  const url=`https://www.googleapis.com/drive/v3/files?q=%27${folderId}%27+in+parents&fields=files(id,name,mimeType,createdTime,shortcutDetails)&orderBy=createdTime&key=${driveApiKeyCache}&pageSize=200`;
+  const r=await fetch(url);
+  if(!r.ok) throw new Error('Drive API ত্রুটি: '+r.status+' (ফোল্ডারটা "Anyone with the link" হিসেবে শেয়ার করা আছে তো? key সঠিক তো?)');
+  const d=await r.json();
+  const files=d.files||[];
+  /* "Add shortcut to Drive" দিয়ে যোগ করা ফাইল হলে আসল ফাইলের id/mimeType বের করা */
+  return files.map(f=>{
+    if(f.mimeType==='application/vnd.google-apps.shortcut' && f.shortcutDetails){
+      return {...f, id:f.shortcutDetails.targetId||f.id, mimeType:f.shortcutDetails.targetMimeType||f.mimeType, isShortcut:true};
+    }
+    return f;
+  });
+}
+/* সাব-ফোল্ডারের ভেতরে আবার সাব-ফোল্ডার (যেমন "১.প্রচ্ছদ", "২.পিডিএফ") থাকলেও
+   এক লেভেল পর্যন্ত ঢুকে ফাইল খুঁজে আনে; কোন সাব-ফোল্ডার থেকে এলো তা _parentFolder-এ রাখে */
+async function odDriveListDeep(folderId, depth){
+  if(depth===undefined) depth=1;
+  const files=await odDriveList(folderId);
+  const direct=files.filter(f=>f.mimeType!=='application/vnd.google-apps.folder').map(f=>({...f,_parentFolder:null}));
+  let out=direct;
+  if(depth>0){
+    const subFolders=files.filter(f=>f.mimeType==='application/vnd.google-apps.folder');
+    for(const sub of subFolders){
+      try{
+        const innerFiles=await odDriveList(sub.id);
+        const innerDirect=innerFiles.filter(f=>f.mimeType!=='application/vnd.google-apps.folder').map(f=>({...f,_parentFolder:sub.name}));
+        out=out.concat(innerDirect);
+        if(depth>1){
+          const deeper=await odDriveListDeep(sub.id,depth-1);
+          out=out.concat(deeper.filter(f=>f._parentFolder!==null));
+        }
+      }catch(e){}
+    }
+  }
+  return out;
+}
+
+/* ছবি বাছাই — মাপ অনুযায়ী: লম্বা (height/width ≥ 1.2) = সম্ভাব্য front cover,
+   চওড়া (≤ 0.8) = সম্ভবত পুরো cover spread (flap+back+spine+front+flap), বর্গাকার = promo/mockup */
+function odDriveImgKind(w,h){
+  const r=h/w;
+  return r>=1.2?'portrait':(r<=0.8?'landscape':'square');
+}
+function odIsPhonePhotoName(n){
+  n=(n||'').toLowerCase();
+  return /^\d{8}_\d{6}|^img[-_]\d{8}|^img_\d+|^dsc[-_]?\d+|^pxl_|^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/.test(n);
+}
+function odDriveImgScore(name,ratio){
+  const n=(name||'').toLowerCase();
+  let s=0;
+  if(/front|cover|final|কাভার|কভার|প্রচ্ছদ/.test(n)) s+=5;
+  if(odIsPhonePhotoName(n)) s-=8;
+  if(/^whatsapp image/.test(n)) s-=3;
+  if(/mock|mokup|মোকাপ|marketing|মার্কেটিং|gift|promo|post|banner/.test(n)) s-=4;
+  if(/back|spine|পিছন|ব্যাক/.test(n)) s-=6;
+  if(/\(1\)|copy/.test(n)) s-=2;
+  s-=Math.abs(ratio-1.45)*2;
+  return s;
+}
+function odDriveImgDims(fileId){
+  return new Promise(res=>{
+    const im=new Image();
+    const t=setTimeout(()=>res(null),15000);
+    im.onload=()=>{clearTimeout(t);res({w:im.naturalWidth,h:im.naturalHeight});};
+    im.onerror=()=>{clearTimeout(t);res(null);};
+    im.src='https://drive.google.com/thumbnail?id='+encodeURIComponent(fileId)+'&sz=w600';
+  });
+}
+/* ফেরত: {pick, crop:false} = সরাসরি front পাওয়া গেছে · {pick, crop:true} = full-cover, কেটে নিতে হবে · {pick:null, reason} */
+async function odDrivePickFront(imgFiles, allowCrop){
+  const measured=[];
+  for(const f of imgFiles){
+    const d=await odDriveImgDims(f.id);
+    if(!d||!d.w||!d.h) continue;
+    measured.push({...f,w:d.w,h:d.h,ratio:d.h/d.w,kind:odDriveImgKind(d.w,d.h)});
+  }
+  const portrait=measured.filter(m=>m.kind==='portrait');
+  if(portrait.length){
+    portrait.sort((a,b)=>odDriveImgScore(b.name,b.ratio)-odDriveImgScore(a.name,a.ratio));
+    return {pick:portrait[0],crop:false,reason:portrait.length>1?portrait.length+'টা front-এর মধ্যে বাছাই: '+portrait[0].name:'front-only: '+portrait[0].name};
+  }
+  const spreads=measured.filter(m=>m.kind==='landscape'&&(m.w/m.h)>=1.3&&!odIsPhonePhotoName(m.name));
+  if(spreads.length){
+    if(!allowCrop) return {pick:null,reason:'শুধু full-cover (চওড়া) ছবি আছে, আলাদা front নেই (কাটা বন্ধ আছে)'};
+    spreads.sort((a,b)=>odDriveImgScore(b.name,b.ratio)-odDriveImgScore(a.name,a.ratio));
+    return {pick:spreads[0],crop:true,reason:'full-cover থেকে front কেটে নেওয়া: '+spreads[0].name+' — যাচাই করুন'};
+  }
+  if(measured.some(m=>m.kind==='landscape')) return {pick:null,reason:'শুধু চওড়া ফোনে-তোলা ছবি আছে, আসল কভার নেই'};
+  if(measured.length) return {pick:null,reason:'শুধু বর্গাকার ছবি (promo?)'};
+  return {pick:null,reason:imgFiles.length?'ছবির মাপ পড়া যায়নি':'ছবি নেই'};
+}
+/* full-cover spread থেকে front কাটা — মাঝ বরাবর (spine ধরে), ডান দিক থেকে (উচ্চতা÷1.45) প্রস্থ পর্যন্ত */
+async function odCropFrontFromSpread(blob){
+  const url=URL.createObjectURL(blob);
+  try{
+    const img=await new Promise((res,rej)=>{const i=new Image(); i.onload=()=>res(i); i.onerror=()=>rej(new Error('ছবি খোলা যায়নি')); i.src=url;});
+    const w=img.naturalWidth,h=img.naturalHeight;
+    const x0=Math.round(w/2+w*0.02);
+    const cw=Math.max(40,Math.min(Math.round(h/1.45),w-x0));
+    const c=document.createElement('canvas'); c.width=cw; c.height=h;
+    c.getContext('2d').drawImage(img,x0,0,cw,h,0,0,cw,h);
+    const out=await new Promise(res=>c.toBlob(res,'image/jpeg',0.9));
+    if(!out) throw new Error('কাটা যায়নি');
+    return out;
+  }finally{ URL.revokeObjectURL(url); }
+}
+/* Drive API দিয়ে আসল ফাইলের বাইট নামানো (public ফাইল + API key) */
+async function odDriveFetchBlob(fileId){
+  const r=await fetch('https://www.googleapis.com/drive/v3/files/'+encodeURIComponent(fileId)+'?alt=media&key='+driveApiKeyCache);
+  if(!r.ok) throw new Error('Drive download '+r.status);
+  return await r.blob();
+}
+/* Drive থেকে আনা Blob (বা সরাসরি URL string) imgbb-তে আপলোড — বই ফর্মের ছবি-আপলোডে
+   ব্যবহৃত compressImageIfNeeded() + imgbbKeyCache-ই এখানে পুনর্ব্যবহার করা হচ্ছে */
+async function odUploadToImgbbAsync(src,maxW){
+  if(!imgbbKeyCache) throw new Error('imgbb key নেই');
+  const fd=new FormData();
+  if(typeof src==='string'){
+    fd.append('image',src);
+  }else{
+    const small=await compressImageIfNeeded(src, maxW||800);
+    fd.append('image',small,'photo.jpg');
+  }
+  const res=await fetch('https://api.imgbb.com/1/upload?key='+encodeURIComponent(imgbbKeyCache),{method:'POST',body:fd});
+  const j=await res.json();
+  if(j&&j.success&&j.data&&j.data.url) return j.data.url;
+  throw new Error('imgbb আপলোড ব্যর্থ');
+}
+/* .docx পড়া — দরকার হলে তবেই JSZip লোড হয় */
+function odLoadJSZip(){
+  if(window.JSZip) return Promise.resolve();
+  return new Promise((res,rej)=>{
+    const s=document.createElement('script');
+    s.src='https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+    s.onload=res; s.onerror=()=>rej(new Error('JSZip লোড হয়নি'));
+    document.head.appendChild(s);
+  });
+}
+async function odDocxText(blob){
+  await odLoadJSZip();
+  const z=await JSZip.loadAsync(blob);
+  const f=z.file('word/document.xml');
+  if(!f) return '';
+  const xml=await f.async('string');
+  let t=xml.replace(/<w:tab\/>/g,'\t').replace(/<w:br\/>/g,'\n').replace(/<\/w:p>/g,'\n').replace(/<[^>]+>/g,'');
+  return t.replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&apos;/g,"'").replace(/&#(\d+);/g,(m,n)=>String.fromCharCode(n));
+}
+/* বই-পরিচিতি ফাইলের উপরের "নাম: / লেখক: / মূল্য:" জাতীয় মেটা-লাইন বাদ দিয়ে শুধু বিবরণ রাখা */
+function odCleanDesc(t){
+  const meta=/^\s*(বই(য়ের)?\s*নাম|নাম|শিরোনাম|লেখক|মূল লেখক|অনুবাদ(ক)?|সম্পাদ(ক|না)|প্রকাশ(ক|নী|নায়|কাল)|মূল্য|মুদ্রিত মূল্য|দাম|পৃষ্ঠা|কভার|বাঁধাই|ISBN|সংস্করণ|প্রচ্ছদ|ধরন|ক্যাটাগরি|বিষয়|ভাষা|ওজন|সাইজ|book name|author|price|pages|publisher)\s*[:：\-–]/i;
+  const lines=(t||'').replace(/\r/g,'').replace(/﻿/g,'').split('\n').map(l=>l.trim());
+  const kept=lines.filter(l=>!meta.test(l));
+  return kept.join('\n').replace(/\n{3,}/g,'\n\n').trim();
+}
+/* ফোল্ডারে Google Doc / .docx / .txt থাকলে সেটা থেকে বিবরণ — "পরিচিতি/বিবরণ/desc" নামেরটা আগে */
+async function odDriveFetchDesc(files){
+  const isDocx=f=>/wordprocessingml/.test(f.mimeType||'')||/\.docx$/i.test(f.name||'');
+  const docs=files.filter(f=>f.mimeType==='application/vnd.google-apps.document');
+  const docx=files.filter(isDocx);
+  const txts=files.filter(f=>f.mimeType==='text/plain'||/\.txt$/i.test(f.name||''));
+  const pref=x=>/পরিচিতি|বিবরণ|desc|intro|about|ভূমিকা|summary|সারসংক্ষেপ/i.test(x.name||'')||/পরিচিতি|বিবরণ|desc/i.test(x._parentFolder||'');
+  const cands=[...docs.filter(pref),...docx.filter(pref),...txts.filter(pref),...docs,...docx,...txts];
+  const seen=new Set();
+  for(const f of cands){
+    if(seen.has(f.id)) continue; seen.add(f.id);
+    try{
+      let t='';
+      if(f.mimeType==='application/vnd.google-apps.document'){
+        const r=await fetch('https://www.googleapis.com/drive/v3/files/'+encodeURIComponent(f.id)+'/export?mimeType=text/plain&key='+driveApiKeyCache);
+        if(!r.ok) continue; t=await r.text();
+      }else if(isDocx(f)){
+        t=await odDocxText(await odDriveFetchBlob(f.id));
+      }else{
+        const r=await fetch('https://www.googleapis.com/drive/v3/files/'+encodeURIComponent(f.id)+'?alt=media&key='+driveApiKeyCache);
+        if(!r.ok) continue; t=await r.text();
+      }
+      t=odCleanDesc(t);
+      if(t.length>=40) return {text:t.slice(0,4000),src:f.name};
+    }catch(e){}
+  }
+  return null;
+}
+
+async function importFromDriveFolder(){
+  if(!driveApiKeyCache){ toast('আগে Google Drive API Key সেভ করুন (উপরের বক্সে)', 'err'); return; }
+  const folderUrl=(document.getElementById('driveFolderInput')?.value||'').trim();
+  if(!folderUrl){ toast('Drive ফোল্ডারের লিংক দিন', 'err'); return; }
+  const m=folderUrl.match(/folders\/([a-zA-Z0-9_-]+)/);
+  if(!m){ toast('সঠিক Drive ফোল্ডার লিংক দিন (drive.google.com/drive/folders/... আকারে)', 'err'); return; }
+  const mainFolderId=m[1];
+
+  const BTN_LABEL='📥 ছবি + PDF + বিবরণ আনো';
+  const btn=document.getElementById('driveFolderBtn');
+  const status=document.getElementById('driveFolderStatus');
+  const forceReplace=document.getElementById('driveForceReplace')?.checked||false;
+  const allowCrop=document.getElementById('driveCropSpread')?.checked!==false;
+  btn.disabled=true; btn.textContent='চলছে...';
+  status.innerHTML='<span style="color:#059669">ফোল্ডার থেকে বইয়ের তালিকা আনা হচ্ছে...</span>';
+  if(!imgbbKeyCache) toast('imgbb key সেভ করা নেই — ছবি বাদ দিয়ে শুধু PDF/বিবরণ আনা হবে', 'err');
+
+  try{
+    const allFiles=await odDriveList(mainFolderId);
+    const subFolders=allFiles.filter(f=>f.mimeType==='application/vnd.google-apps.folder');
+
+    if(!subFolders.length){
+      status.innerHTML='<span style="color:#dc2626">কোনো সাব-ফোল্ডার পাওয়া যায়নি — এই ফোল্ডারের ভেতরে প্রতিটা বইয়ের জন্য আলাদা সাব-ফোল্ডার থাকতে হবে।</span>';
+      btn.disabled=false; btn.textContent=BTN_LABEL;
+      return;
+    }
+
+    let nPdf=0,nImg=0,nCrop=0,nDesc=0,done=0;
+    const notFound=[],imgIssues=[],docxFail=[],log=[],cropLog=[];
+
+    function wordScore(a,b){
+      const wa=a.split(' ').filter(w=>w.length>1);
+      const wb=b.split(' ').filter(w=>w.length>1);
+      if(!wa.length||!wb.length) return 0;
+      const common=wa.filter(w=>wb.includes(w)).length;
+      return common/Math.min(wa.length,wb.length);
+    }
+    const normBooks=workingBooks.map(b=>(b&&b.name)?odDriveNormalize(b.name):'');
+    const compact=s=>s.replace(/\s+/g,'');
+    let anyChanged=false;
+
+    for(const folder of subFolders){
+      done++;
+      const folderName=folder.name;
+      const folderNorm=odDriveNormalize(folderName);
+      status.innerHTML=`<span style="color:#059669">${done}/${subFolders.length} — ${escapeHtml(folderName)}</span><br><span style="color:#6b7280">ছবি ${nImg} (কাটা ${nCrop}) · PDF ${nPdf} · বিবরণ ${nDesc}</span>`;
+
+      /* ১. হুবহু/containment মিল  ২. শব্দ মিল ৬০%+  ৩. ৪-অক্ষর সাদৃশ্য ০.৭২+ */
+      let bookIdx=-1, bestScore=0;
+      normBooks.forEach((bn,i)=>{
+        if(!bn) return;
+        if(bn===folderNorm||bn.includes(folderNorm)||folderNorm.includes(bn)){
+          if(bestScore<1){ bookIdx=i; bestScore=1; }
+          return;
+        }
+        const score=wordScore(folderNorm,bn);
+        if(score>=0.6&&score>bestScore){ bookIdx=i; bestScore=score; }
+      });
+      if(bookIdx===-1){
+        const fc=compact(folderNorm); let bs=0;
+        normBooks.forEach((bn,i)=>{ if(!bn) return; const s=odDriveGramSim(fc,compact(bn)); if(s>bs){bs=s;bookIdx=i;} });
+        if(bs<0.72) bookIdx=-1;
+      }
+      if(bookIdx===-1){ notFound.push(folderName); continue; }
+
+      const b=workingBooks[bookIdx];
+      const files=await odDriveListDeep(folder.id,1);
+      let changed=false;
+
+      /* ── PDF ── */
+      const pdfs=files.filter(f=>f.mimeType==='application/pdf');
+      if(pdfs.length&&(forceReplace||!(b.pdfLink||'').trim())){
+        const preferred=pdfs.find(f=>/পিডিএফ|pdf|short|sample|শর্ট/i.test(f._parentFolder||'')||/পিডিএফ|pdf|short|sample|শর্ট/i.test(f.name));
+        b.pdfLink='https://drive.google.com/file/d/'+(preferred||pdfs[0]).id+'/view';
+        nPdf++; changed=true;
+      }
+
+      /* ── ছবি ── (নেই বা Replace টিক থাকলে) */
+      const needImg=forceReplace||!/^https?:\/\//.test(b.img||'');
+      if(needImg&&imgbbKeyCache){
+        const imgs=files.filter(f=>/^image\//.test(f.mimeType||''));
+        if(imgs.length){
+          const {pick,crop,reason}=await odDrivePickFront(imgs,allowCrop);
+          if(pick){
+            try{
+              let url;
+              if(crop){
+                const blob=await odDriveFetchBlob(pick.id);
+                const front=await odCropFrontFromSpread(blob);
+                url=await odUploadToImgbbAsync(front,800);
+                nCrop++; cropLog.push(folderName);
+              }else{
+                try{
+                  const blob=await odDriveFetchBlob(pick.id);
+                  url=await odUploadToImgbbAsync(blob,800);
+                }catch(e1){
+                  url=await odUploadToImgbbAsync('https://drive.google.com/thumbnail?id='+pick.id+'&sz=w1000');
+                }
+              }
+              b.img=url; nImg++; changed=true;
+              log.push(folderName+' ← '+pick.name+' ('+reason+')');
+            }catch(e2){ imgIssues.push(folderName+': আপলোড ব্যর্থ — '+e2.message); }
+          }else{
+            imgIssues.push(folderName+': '+reason);
+          }
+        }
+      }
+
+      /* ── বিবরণ ── (b.desc খালি হলে বা Replace টিক থাকলে) */
+      if(forceReplace||!(b.desc||'').trim()){
+        const d=await odDriveFetchDesc(files);
+        if(d){ b.desc=d.text; nDesc++; changed=true; }
+        else if(files.some(f=>/wordprocessingml|msword/.test(f.mimeType||'')||/\.docx?$/i.test(f.name||''))) docxFail.push(folderName);
+      }
+
+      if(changed) anyChanged=true;
+    }
+
+    /* OD-এর কনভেনশন অনুযায়ী — প্রতি বইয়ে আলাদা করে না লিখে, পুরো লুপ শেষে একবারই
+       Firebase-এ পুরো workingBooks লেখা হচ্ছে (অনেকগুলো ছোট ছোট write এড়াতে) */
+    if(anyChanged){
+      status.innerHTML='<span style="color:#059669">Firebase-এ সেভ হচ্ছে...</span>';
+      await saveBookListToFirebase();
+      renderBookCatFilterOptions();
+      renderBooksTab(true);
+      renderDashboard();
+    }
+
+    let resultHtml=`<span style="color:#059669;font-weight:700">সম্পন্ন — ছবি ${nImg}টি (তার মধ্যে ফুল-কভার থেকে কাটা ${nCrop}টি) · PDF ${nPdf}টি · বিবরণ ${nDesc}টি বসেছে</span>`;
+    if(cropLog.length) resultHtml+=`<br><span style="color:#d97706">কাটা ছবিগুলো একবার বই-এডিট করে দেখে নিন (flap/spine ঢুকে গেলে ম্যানুয়ালি ছবি বদলে দিন): ${escapeHtml(cropLog.join(', '))}</span>`;
+    if(imgIssues.length) resultHtml+=`<br><span style="color:#d97706">ছবি বসেনি ${imgIssues.length}টিতে:</span><br><span style="color:#6b7280">${imgIssues.map(escapeHtml).join('<br>')}</span>`;
+    if(docxFail.length) resultHtml+=`<br><span style="color:#d97706">${docxFail.length}টিতে ডকুমেন্ট ছিল কিন্তু বিবরণ পড়া যায়নি (পুরনো .doc বা খালি ফাইল?): ${escapeHtml(docxFail.slice(0,8).join(', '))}${docxFail.length>8?'...':''}</span>`;
+    if(notFound.length) resultHtml+=`<br><span style="color:#dc2626">${notFound.length}টি ফোল্ডার দোকানের কোনো বইয়ের সাথে মেলেনি (নতুন বই হলে আগে "বই/প্রোডাক্ট" ট্যাব থেকে যোগ করে আবার ইমপোর্ট চালান): ${escapeHtml(notFound.join(', '))}</span>`;
+    if(log.length) resultHtml+=`<details style="margin-top:8px"><summary style="cursor:pointer;color:#6b7280">কোন বইয়ে কোন ছবি বসল (${log.length})</summary><div style="color:#6b7280;font-size:11px">${log.map(escapeHtml).join('<br>')}</div></details>`;
+    status.innerHTML=resultHtml;
+    toast(`ছবি ${nImg} · PDF ${nPdf} · বিবরণ ${nDesc} বসেছে`, 'ok');
+
+  }catch(e){
+    status.innerHTML=`<span style="color:#dc2626">ত্রুটি: ${escapeHtml(e.message)}</span>`;
+    toast('Drive import ব্যর্থ: '+e.message, 'err');
+  }
+  btn.disabled=false; btn.textContent=BTN_LABEL;
+}
+document.getElementById('driveFolderBtn').addEventListener('click', importFromDriveFolder);
 
 /* ---------------- ডাউনলোড: sitemap.xml, book.js ---------------- */
 const SITE_BASE_URL = 'https://ourdedication.com';
