@@ -44,7 +44,7 @@ body{display:flex;flex-direction:column;}
 function getTargetPage(){
   var params = new URLSearchParams(location.search);
   var p = params.get('page') || '';
-  if(/^[a-zA-Z0-9_-]+\.html(\?[a-zA-Z0-9_&=%.\-]*)?$/.test(p)) return p;
+  if(/^[a-zA-Z0-9_-]+\.html(\?[a-zA-Z0-9_&=%.+,\-]*)?$/.test(p)) return p;
   return 'index.html';
 }
 function backToDesktop(){

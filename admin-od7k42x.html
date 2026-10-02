@@ -1190,6 +1190,7 @@ function loadBooksMerged(){
     if(snap.exists() && snap.val()){
       const val = snap.val();
       workingBooks = Array.isArray(val) ? val.filter(Boolean) : Object.values(val).filter(Boolean);
+      fixDuplicateBids();
     } else {
       workingBooks = baseline;
     }
@@ -1213,6 +1214,26 @@ function onWorkingBooksReady(){
   apFixTypeChanged();
   populateSubTagCatSelect();
   renderCatCardsBox();
+}
+
+/* একই ID দুইটা বইয়ে থাকলে ওয়েবসাইটে দ্বিতীয়টা কখনো খোলা যায় না, আর এডিট/ডিলিট করলে
+   ভুল বই বদলে/মুছে যায় — তাই লোডের সময় পরেরটাকে নতুন ইউনিক ID দিয়ে একবার সেভ করা হয় */
+function fixDuplicateBids(){
+  const seen = new Set(); const fixed = [];
+  workingBooks.forEach(b=>{
+    if(!b.bid) return;
+    if(seen.has(b.bid)){
+      const old = b.bid;
+      b.bid = uniqueBid(b.name || old, null);
+      fixed.push(old + ' → ' + b.bid);
+    }
+    seen.add(b.bid);
+  });
+  if(!fixed.length) return;
+  console.warn('ডুপ্লিকেট ID ঠিক করা হলো:', fixed);
+  saveBookListToFirebase()
+    .then(()=> toast(fixed.length + 'টি ডুপ্লিকেট বই-ID ঠিক করা হয়েছে', 'ok'))
+    .catch(err=> toast('ডুপ্লিকেট ID সেভ ব্যর্থ: '+err.message, 'err'));
 }
 
 function saveBookListToFirebase(){
@@ -1320,7 +1341,7 @@ function renderOrders(){
         <span class="badge b-${o.status}">${STATUS_LABELS[o.status]||o.status}</span>
       </div>
       <div class="meta">${escapeHtml(o.address||'')}, ${escapeHtml(o.district||'')} ${o.upazila?('/ '+escapeHtml(o.upazila)):''}</div>
-      <div class="meta">${new Date(o.createdAt).toLocaleString('bn-BD')} · পেমেন্ট: ${escapeHtml(o.payment||'')} · ডেলিভারি চার্জ: ৳${escapeHtml(String(o.delivery||'0'))} ${couponHtml}</div>
+      <div class="meta">${new Date(o.createdAt).toLocaleString('bn-BD')} · পেমেন্ট: ${escapeHtml(o.payment||'')}${o.txnId ? ` (TxnID: <b>${escapeHtml(o.txnId)}</b>)` : ''} · ডেলিভারি চার্জ: ৳${escapeHtml(String(o.delivery||'0'))} ${couponHtml}</div>
       <div class="items">${itemsHtml || '<i>আইটেম নেই</i>'}</div>
       <div class="meta"><b>মোট: ৳${escapeHtml(String(o.total))}</b>${o.discount?(' · ছাড়: ৳'+o.discount):''}</div>
       ${o.customerNote ? `<div class="meta">নোট (ক্রেতা): ${escapeHtml(o.customerNote)}</div>` : ''}
@@ -1352,9 +1373,10 @@ function renderOrders(){
     sel.addEventListener('change', function(){
       const id = this.dataset.statusFor;
       const newStatus = this.value;
-      db.ref('orders/'+id+'/status').set(newStatus).then(()=>{
+      const now = Date.now();
+      db.ref('orders/'+id).update({ status: newStatus, ['statusTimes/'+newStatus]: now }).then(()=>{
         const ord = allOrders.find(o=>o.orderId===id);
-        if(ord) ord.status = newStatus;
+        if(ord){ ord.status = newStatus; ord.statusTimes = Object.assign({}, ord.statusTimes, {[newStatus]: now}); }
         toast('অর্ডার স্ট্যাটাস আপডেট হয়েছে', 'ok');
         renderOrderFilters();
         renderOrders();
@@ -1475,7 +1497,7 @@ function buildInvoiceHtml(o){
         <tr class="inv-total-row"><td colspan="3">সর্বমোট</td><td>৳${escapeHtml(String(o.total))}</td></tr>
       </tfoot>
     </table>
-    <div><b>পেমেন্ট:</b> ${escapeHtml(o.payment||'')} &nbsp; <b>স্ট্যাটাস:</b> ${STATUS_LABELS[o.status]||o.status}</div>
+    <div><b>পেমেন্ট:</b> ${escapeHtml(o.payment||'')}${o.txnId ? ` (TxnID: ${escapeHtml(o.txnId)})` : ''} &nbsp; <b>স্ট্যাটাস:</b> ${STATUS_LABELS[o.status]||o.status}</div>
   </div>`;
 }
 let currentInvoiceOrder = null;
@@ -1665,6 +1687,12 @@ document.getElementById('bookForm').addEventListener('submit', function(e){
   let bidInput = document.getElementById('bkBid').value.trim();
   const type = document.getElementById('bkType').value;
   const bid = bidInput || uniqueBid(name, origBid || null);
+  if(workingBooks.some(b=>b.bid===bid && b.bid!==origBid)){
+    toast('এই ID ("'+bid+'") আরেকটি বইয়ে আগেই আছে — অন্য ID দিন বা ঘরটা খালি রাখুন', 'err');
+    return;
+  }
+  const priceVal = parseFloat(document.getElementById('bkPrice').value) || 0;
+  if(priceVal <= 0 && !confirm('দাম ০ দেওয়া হয়েছে — ক্রেতারা এই পণ্য অর্ডার করতে পারবে না ("দাম শীঘ্রই" দেখাবে)। তবুও সেভ করবেন?')) return;
   const tags = document.getElementById('bkTags').value.split(',').map(s=>s.trim()).filter(Boolean);
   const attrs = Array.from(document.querySelectorAll('#attrRows .attr-row')).map(row=>({
     label: row.querySelector('.attr-label').value.trim(),
