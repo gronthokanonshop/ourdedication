@@ -7,7 +7,7 @@
 
   var css = document.createElement('style');
   css.textContent =
-    '.od-totop{position:fixed;left:18px;bottom:142px;z-index:139;width:44px;height:44px;border-radius:50%;border:1px solid rgba(203,37,39,.25);background:#fff;color:#CB2527;box-shadow:0 4px 14px rgba(0,0,0,.18);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .25s,transform .25s;}' +
+    '.od-totop{position:fixed;left:18px;bottom:84px;z-index:139;width:44px;height:44px;border-radius:50%;border:1px solid rgba(203,37,39,.25);background:#fff;color:#CB2527;box-shadow:0 4px 14px rgba(0,0,0,.18);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .25s,transform .25s;}' +
     '.od-totop.show{opacity:1;transform:none;pointer-events:auto;}' +
     '.od-totop svg{width:22px;height:22px;}' +
     '@media(min-width:900px){.od-totop{left:24px;bottom:82px;}}' +

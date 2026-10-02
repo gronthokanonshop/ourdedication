@@ -18,6 +18,8 @@
 <style>
 .view-toggle-fab{position:fixed;bottom:84px;left:18px;z-index:140;width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#CB2527,#1a1a1a);color:#fff;border:none;box-shadow:0 4px 16px rgba(0,0,0,0.28);display:flex;align-items:center;justify-content:center;font-size:1.35rem;cursor:pointer;padding:0;line-height:1;}
 @media(min-width:900px){.view-toggle-fab{bottom:24px;left:24px;}}
+/* ফোনে ভাসমান বাটনটা লুকানো — দাম/লেখা ঢেকে দিত; একই অপশন ফুটারের "ডেস্কটপ ভার্সন দেখুন" লিংকে আছে */
+@media(max-width:899px){.view-toggle-fab{display:none !important;}}
 </style>
 
 <title>পণ্যের বিবরণ — OurDedication</title>
@@ -149,22 +151,60 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
 /* PDF প্রিভিউ কলআউট (হাতে-লেখা স্টাইলে, কভারের উপরে) + মোডাল */
 .pdf-callout{
-  display:none;flex-direction:column;align-items:flex-end;
-  position:absolute;top:-30px;right:14px;z-index:6;
-  cursor:pointer;transform:rotate(-7deg);transition:transform 0.2s;
+  display:none;align-items:flex-start;justify-content:flex-end;gap:4px;
+  margin:0 0 -4px;padding:0 10px 0 0;cursor:pointer;position:relative;z-index:6;
 }
-.pdf-callout:hover{transform:rotate(-7deg) scale(1.05);}
 .pdf-callout-text{
-  font-family:var(--font-bn);font-weight:800;font-size:1.05rem;color:#CB2527;
-  white-space:nowrap;
+  font-family:var(--font-bn);font-weight:800;font-size:1.15rem;color:#e11d2a;line-height:1.3;
+  letter-spacing:0.1px;
 }
-.pdf-callout-arrow{margin-top:-6px;margin-right:2px;}
-.img-main.has-pdf{cursor:pointer;}
+.pdf-callout:hover .pdf-callout-text{text-decoration:underline;text-underline-offset:4px;}
+.pdf-callout-arrow{flex-shrink:0;margin-top:6px;animation:pdfArrowNudge 1.6s ease-in-out infinite;}
+@keyframes pdfArrowNudge{0%,100%{transform:translateY(0);}50%{transform:translateY(4px);}}
+.img-main.has-pdf{cursor:pointer;perspective:1600px;-webkit-tap-highlight-color:transparent;}
+/* "উঁকি" — কভারে মাউস রাখলে / ফোনে চেপে ধরলে মলাটটা একটু খুলে ভেতরের পাতা দেখা যায় */
+.peek-pages{position:absolute;z-index:0;pointer-events:none;border-radius:2px 5px 5px 2px;
+  background:repeating-linear-gradient(to bottom,transparent 0 9px,rgba(60,40,20,.10) 9px 10px) content-box,#fffdf6;
+  padding:14% 12% 12% 14%;
+  box-shadow:inset 10px 0 18px -6px rgba(0,0,0,.28),2px 0 0 #efe7d6,4px 0 0 #e4dac6,0 6px 18px rgba(0,0,0,.12);
+  opacity:0;transition:opacity .2s;}
+.img-main.has-pdf img{position:relative;z-index:1;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;
+  transition:transform .55s cubic-bezier(.3,.7,.25,1),filter .55s;}
+.img-main.has-pdf:hover img{transform:none;}
+.img-main.has-pdf.peek .peek-pages{opacity:1;}
+.img-main.has-pdf.peek img{transform:rotateY(42deg);filter:drop-shadow(10px 8px 14px rgba(0,0,0,.28));}
+@media (hover:hover){
+  .img-main.has-pdf:hover .peek-pages{opacity:1;}
+  .img-main.has-pdf:hover img{transform:rotateY(42deg);filter:drop-shadow(10px 8px 14px rgba(0,0,0,.28));}
+}
+@media (prefers-reduced-motion:reduce){.img-main.has-pdf img{transition:none;}}
 @media(max-width:780px){
-  .pdf-callout{top:-22px;right:6px;}
-  .pdf-callout-text{font-size:0.8rem;}
-  .pdf-callout-arrow{width:36px;height:30px;}
+  .pdf-callout{max-width:236px;margin:12px auto -10px;padding:0;}
+  .pdf-callout-text{font-size:0.98rem;}
+  .pdf-callout-arrow{width:22px;height:30px;}
 }
+
+/* বই খোলার অ্যানিমেশন — কভার ক্লিক করলে বইটা মাঝখানে এসে মলাট উল্টে খোলে, তারপর প্রিভিউ */
+.book-open-fx{position:fixed;inset:0;z-index:3001;pointer-events:none;perspective:2000px;background:rgba(15,10,10,0);transition:background .45s,opacity .3s;}
+.book-open-fx.dim{background:rgba(15,10,10,.7);}
+.book-open-fx.fade{opacity:0;}
+.bo-book{position:fixed;transform-style:preserve-3d;
+  transition:left .5s cubic-bezier(.2,.8,.2,1),top .5s cubic-bezier(.2,.8,.2,1),width .5s cubic-bezier(.2,.8,.2,1),height .5s cubic-bezier(.2,.8,.2,1),transform .85s cubic-bezier(.45,.05,.25,1);}
+.book-open-fx.open .bo-book{transform:translateX(50%);}
+.bo-pages,.bo-leaf-face{background:repeating-linear-gradient(to bottom,transparent 0 13px,rgba(60,40,20,.09) 13px 14px) content-box,#fffdf6;padding:12% 10%;}
+.bo-pages{position:absolute;inset:1.5% 0 1.5% 0;border-radius:2px 6px 6px 2px;
+  box-shadow:inset 6px 0 12px rgba(0,0,0,.12),2px 0 0 #eee6d6,4px 0 0 #e3d9c6,0 18px 40px rgba(0,0,0,.35);}
+.bo-cover,.bo-leaf{position:absolute;inset:0;transform-origin:left center;transform-style:preserve-3d;transition:transform .85s cubic-bezier(.45,.05,.25,1);}
+.bo-leaf{inset:1.5% 0 1.5% 0;}
+.bo-face,.bo-leaf-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:2px 6px 6px 2px;overflow:hidden;}
+.bo-face img{width:100%;height:100%;object-fit:cover;display:block;}
+.bo-front{box-shadow:0 18px 40px rgba(0,0,0,.35);}
+.bo-back{transform:rotateY(180deg);background:#f3ecdc;box-shadow:inset -8px 0 14px rgba(0,0,0,.12);}
+.bo-leaf-face.back{transform:rotateY(180deg);box-shadow:inset -6px 0 12px rgba(0,0,0,.10);}
+.bo-leaf.l1 .bo-leaf-face.back{background:#fffdf6;} /* নিচের পাতাটা সাদা — দুই পাতার লাইন একসাথে দেখা না যায় */
+.book-open-fx.open .bo-cover{transform:rotateY(-172deg);}
+.book-open-fx.open .bo-leaf.l1{transform:rotateY(-168deg);transition-delay:.18s;}
+.book-open-fx.open .bo-leaf.l2{transform:rotateY(-164deg);transition-delay:.32s;}
 .pdf-modal-overlay{
   position:fixed;inset:0;z-index:3000;background:rgba(15,10,10,0.7);
   display:flex;align-items:center;justify-content:center;padding:16px;
@@ -177,9 +217,15 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   transform:scale(0.9);transition:transform 0.3s;
 }
 .pdf-modal-overlay.show .pdf-modal-box{transform:scale(1);}
-.pdf-modal-box iframe{width:100%;height:100%;border:none;display:block;}
+.pdf-modal-box iframe{width:100%;height:calc(100% - 56px);border:none;display:block;}
+.pdf-modal-head{height:56px;display:flex;align-items:center;gap:10px;padding:0 54px 0 16px;border-bottom:1px solid #eceef1;background:#fff;}
+.pdf-modal-title{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.25;}
+.pdf-modal-title span{font-size:0.74rem;color:#6b7280;font-family:var(--font-bn);}
+.pdf-modal-title b{font-size:0.95rem;color:#1a1a1a;font-family:var(--font-bn);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pdf-modal-cart{flex-shrink:0;display:inline-flex;align-items:center;gap:5px;border:none;border-radius:10px;padding:8px 12px;cursor:pointer;font-family:var(--font-bn);font-weight:700;font-size:0.8rem;color:#fff;background:linear-gradient(135deg,#CB2527,#a91d1f);}
+@media(max-width:480px){.pdf-modal-cart{padding:7px 9px;font-size:0.74rem;}}
 .pdf-modal-close{
-  position:absolute;top:10px;right:10px;z-index:2;width:34px;height:34px;
+  position:absolute;top:11px;right:10px;z-index:2;width:34px;height:34px;
   border-radius:10px;border:none;cursor:pointer;
   background:linear-gradient(135deg,var(--indigo2),var(--indigo));color:#fff;
   font-size:18px;display:flex;align-items:center;justify-content:center;
@@ -607,12 +653,12 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 <div class="main" id="mainContent">
   <!-- LEFT -->
   <div class="img-panel">
-    <!-- PDF প্রিভিউ কলআউট (শুধু pdfLink থাকলে দেখাবে) — কভারের উপরে হাতে-লেখা স্টাইলে, তীরটা কভারের দিকে -->
+    <!-- PDF প্রিভিউ কলআউট (শুধু pdfLink থাকলে দেখাবে) — কভারের ডান-উপরে লাল লেখা, সবুজ বাঁকা তীরটা কভারের দিকে -->
     <div class="pdf-callout" id="pdfPreviewBtn" onclick="openPdfPreview()" style="display:none;">
-      <span class="pdf-callout-text">একটু পড়ে দেখুন</span>
-      <svg class="pdf-callout-arrow" viewBox="0 0 70 60" width="52" height="46" fill="none" stroke="#CB2527" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M52 6 C 40 30, 20 40, 6 40"/>
-        <path d="M18 32 L5 41 L14 52"/>
+      <span class="pdf-callout-text">কিছু অংশ পড়ে দেখুন</span>
+      <svg class="pdf-callout-arrow" viewBox="0 0 26 34" width="24" height="32" fill="none" stroke="#16a34a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M5 4 C 17 6, 21 14, 15 29"/>
+        <path d="M9.5 24.5 L15 30.5 L20.5 25.5"/>
       </svg>
     </div>
     <div class="img-main" id="imgMain" onclick="openPdfPreview()">
@@ -767,6 +813,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 <!-- PDF প্রিভিউ মোডাল -->
 <div class="pdf-modal-overlay" id="pdfModalOverlay">
   <div class="pdf-modal-box">
+    <div class="pdf-modal-head">
+      <div class="pdf-modal-title"><span>📖 কিছু অংশ পড়ে দেখুন</span><b id="pdfModalBook"></b></div>
+      <button class="pdf-modal-cart" type="button" onclick="addToCart()"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> কার্টে যোগ করুন</button>
+    </div>
     <button class="pdf-modal-close" id="pdfModalClose" type="button" title="বন্ধ করুন"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     <iframe id="pdfModalFrame" src="" title="PDF প্রিভিউ"></iframe>
   </div>
@@ -911,6 +961,16 @@ function renderBook(b){
   if(pdfBtn) pdfBtn.style.display = hasPdf ? 'flex' : 'none';
   const imgMainEl = document.getElementById('imgMain');
   if(imgMainEl) imgMainEl.classList.toggle('has-pdf', hasPdf);
+  // মলাটের নিচের পাতা (উঁকি দেওয়ার জন্য) — কভারের ছবি লোড হলে ঠিক কভারের মাপে বসানো হয়
+  let peekPages = document.getElementById('peekPages');
+  if(hasPdf && !peekPages && imgMainEl){
+    peekPages = document.createElement('div');
+    peekPages.className = 'peek-pages'; peekPages.id = 'peekPages';
+    imgMainEl.insertBefore(peekPages, img);
+  }
+  if(peekPages) peekPages.style.display = hasPdf ? '' : 'none';
+  img.addEventListener('load', layoutPeek);
+  if(img.complete) layoutPeek();
 
   // top badges
   let topB = '';
@@ -1402,13 +1462,106 @@ function copyLink(){
 }
 
 /* ══ PDF প্রিভিউ ══ */
+/* কভারের ছবিটা img-এর ভেতরে আসলে কোথায় আঁকা (object-fit:contain + padding বাদে) — লেআউট মাপ থেকে,
+   তাই মলাট ঘোরানো (transform) অবস্থাতেও মাপ ঠিক থাকে */
+function coverDrawnBox(img){
+  const cs = getComputedStyle(img);
+  const pl = parseFloat(cs.paddingLeft)||0, pt = parseFloat(cs.paddingTop)||0;
+  const bw = img.clientWidth - pl - (parseFloat(cs.paddingRight)||0);
+  const bh = img.clientHeight - pt - (parseFloat(cs.paddingBottom)||0);
+  const ar = img.naturalWidth / img.naturalHeight;
+  let w = bw, h = bw / ar; if(h > bh){ h = bh; w = bh * ar; }
+  return { x: pl + (bw - w) / 2, y: pt + (bh - h) / 2, w, h, ar };
+}
+function layoutPeek(){
+  const img = document.getElementById('mainImg'), pages = document.getElementById('peekPages');
+  if(!img || !pages || !img.naturalWidth || !img.naturalHeight) return;
+  const d = coverDrawnBox(img);
+  Object.assign(pages.style, {
+    left: (img.offsetLeft + d.x) + 'px', top: (img.offsetTop + d.y + d.h * 0.015) + 'px',
+    width: (d.w * 0.985) + 'px', height: (d.h * 0.97) + 'px'
+  });
+  img.style.transformOrigin = d.x + 'px 50%'; // কব্জা = কভারের বাম কিনারা
+}
+window.addEventListener('resize', layoutPeek);
+
+/* ফোনে: চেপে ধরলে মলাট একটু খোলে (উঁকি), ছেড়ে দিলে বন্ধ হয়। ছোট্ট ট্যাপ করলে পুরো বই খোলে। */
+(function(){
+  const box = document.getElementById('imgMain');
+  if(!box) return;
+  let holdTimer = null, longHold = false;
+  const stop = () => { clearTimeout(holdTimer); box.classList.remove('peek'); };
+  box.addEventListener('touchstart', () => {
+    if(!box.classList.contains('has-pdf')) return;
+    longHold = false;
+    box.classList.add('peek');
+    holdTimer = setTimeout(() => { longHold = true; }, 450);
+  }, {passive:true});
+  box.addEventListener('touchmove', stop, {passive:true});
+  box.addEventListener('touchcancel', stop, {passive:true});
+  box.addEventListener('touchend', e => {
+    stop();
+    if(longHold && e.cancelable) e.preventDefault(); // লম্বা চাপ শুধু উঁকির জন্য — প্রিভিউ খুলবে না
+  });
+  // লম্বা চাপে ফোনের "ছবি সেভ করুন" মেনু যেন না আসে
+  box.addEventListener('contextmenu', e => { if(box.classList.contains('has-pdf')) e.preventDefault(); });
+})();
+
+let bookFxBusy = false;
 function openPdfPreview(){
-  if(!currentBook || !currentBook.pdfLink) return;
+  if(!currentBook || !currentBook.pdfLink || bookFxBusy) return;
   const link = currentBook.pdfLink.trim();
   const m = link.match(/\/d\/([a-zA-Z0-9_-]+)/);
   const src = m ? `https://drive.google.com/file/d/${m[1]}/preview` : link;
+  // অ্যানিমেশন চলার সময়েই প্রিভিউ লোড শুরু — বই খোলা শেষ হলে যেন দ্রুত দেখা যায়
   document.getElementById('pdfModalFrame').src = src;
-  document.getElementById('pdfModalOverlay').classList.add('show');
+  document.getElementById('pdfModalBook').textContent = currentBook.name || '';
+  playBookOpen(() => document.getElementById('pdfModalOverlay').classList.add('show'));
+}
+
+/* বই খোলার অ্যানিমেশন: কভারটা যেখানে আছে সেখান থেকে মাঝখানে এসে মলাট উল্টে খোলে,
+   দুটো পাতা উল্টায়, তারপর প্রিভিউ দেখায়। "কম অ্যানিমেশন" সেটিং থাকলে সরাসরি প্রিভিউ। */
+function playBookOpen(done){
+  const img = document.getElementById('mainImg');
+  const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce || !img || !img.naturalWidth || !img.naturalHeight){ done(); return; }
+  bookFxBusy = true;
+
+  // কভারের ছবিটা স্ক্রিনে আসলে কোথায় আঁকা আছে (মলাট উঁকি-অবস্থায় ঘোরানো থাকলেও লেআউট মাপ থেকে)
+  const box = img.parentElement, br = box.getBoundingClientRect(), d = coverDrawnBox(img);
+  const ar = d.ar, sw = d.w, sh = d.h;
+  const sx = br.left + box.clientLeft + img.offsetLeft + d.x, sy = br.top + box.clientTop + img.offsetTop + d.y;
+  box.classList.remove('peek');
+
+  // খোলা অবস্থায় দুই পাতা মিলে স্ক্রিনে যেন ধরে
+  let th = Math.min(innerHeight * 0.62, 480), tw = th * ar;
+  if(tw * 2 > innerWidth * 0.92){ tw = innerWidth * 0.92 / 2; th = tw / ar; }
+  const tx = (innerWidth - tw) / 2, ty = (innerHeight - th) / 2;
+
+  const fx = document.createElement('div');
+  fx.className = 'book-open-fx';
+  const cover = img.currentSrc || img.src;
+  fx.innerHTML =
+    '<div class="bo-book">' +
+      '<div class="bo-pages"></div>' +
+      '<div class="bo-leaf l2"><div class="bo-leaf-face"></div><div class="bo-leaf-face back"></div></div>' +
+      '<div class="bo-leaf l1"><div class="bo-leaf-face"></div><div class="bo-leaf-face back"></div></div>' +
+      '<div class="bo-cover"><div class="bo-face bo-front"><img alt=""></div><div class="bo-face bo-back"></div></div>' +
+    '</div>';
+  fx.querySelector('.bo-front img').src = cover;
+  const book = fx.querySelector('.bo-book');
+  Object.assign(book.style, {left: sx+'px', top: sy+'px', width: sw+'px', height: sh+'px'});
+  document.body.appendChild(fx);
+  book.getBoundingClientRect(); // শুরুর অবস্থানটা ব্রাউজারকে আগে আঁকতে দেওয়া
+
+  fx.classList.add('dim');
+  Object.assign(book.style, {left: tx+'px', top: ty+'px', width: tw+'px', height: th+'px'});
+  setTimeout(() => fx.classList.add('open'), 520);
+  setTimeout(() => {
+    done();
+    fx.classList.add('fade');
+    setTimeout(() => { fx.remove(); bookFxBusy = false; }, 320);
+  }, 1500);
 }
 function closePdfPreview(){
   document.getElementById('pdfModalOverlay').classList.remove('show');
@@ -1460,6 +1613,6 @@ function toggleViewMode(){
 })();
 </script>
 <button class="view-toggle-fab" id="viewModeFab" onclick="toggleViewMode()"></button>
-<script src="od-extras.js?v=4" defer></script>
+<script src="od-extras.js?v=5" defer></script>
 </body>
 </html>
