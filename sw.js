@@ -1,5 +1,5 @@
-const CACHE = 'ourdedication-v2';
-const SHELL = ['./index.html','./book.js','./books-live.js','./firebase-config.js','./book-placeholder.svg'];
+const CACHE = 'ourdedication-v3';
+const SHELL = ['./index.html','./book.js','./books-live.js','./firebase-config.js','./book-placeholder.svg','./od-theme.css'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)));

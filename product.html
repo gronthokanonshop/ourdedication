@@ -35,9 +35,10 @@
 <script type="application/ld+json" id="productJsonLd">{}</script>
 <script type="application/ld+json" id="breadcrumbJsonLd">{}</script>
 <link rel="manifest" href="manifest.webmanifest?v=4">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=4">
-<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4">
-<link rel="apple-touch-icon" sizes="180x180" href="icon-180.png?v=4">
+<link rel="icon" href="favicon.ico?v=5" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=5">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=5">
+<link rel="apple-touch-icon" sizes="180x180" href="icon-180.png?v=5">
 <meta name="theme-color" content="#ffffff">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -559,6 +560,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .footer-col a:hover{color:var(--indigo);}
 .footer-bottom{max-width:1200px;margin:20px auto 0;padding-top:16px;border-top:1px solid rgba(255,255,255,0.1);font-size:0.75rem;color:#7d89bd;text-align:center;}
 </style>
+<link rel="stylesheet" href="od-theme.css?v=1">
 </head>
 <body>
 
@@ -796,7 +798,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       <a href="https://www.tiktok.com/@sajidurrahman9804" target="_blank"><svg class="fico" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 2h-3.2v13.5a2.7 2.7 0 1 1-2.7-2.7c.24 0 .47.02.7.07V9.6a6 6 0 1 0 5.2 5.95V8.83a7.7 7.7 0 0 0 4.5 1.44V6.98A4.28 4.28 0 0 1 16.5 2z"/></svg> টিকটক</a>
     </div>
   </div>
-  <div class="footer-bottom">© <span id="fyear"></span> OurDedication — সর্বস্বত্ব সংরক্ষিত &nbsp;·&nbsp; <a href="javascript:void(0)" id="viewModeToggle" onclick="toggleViewMode()" style="color:#9ca8d8;text-decoration:underline;">ডেস্কটপ ভার্সন দেখুন</a></div>
+  <div class="footer-bottom">© <span id="fyear"></span> OurDedication (আওয়ার ডেডিকেশন) — সর্বস্বত্ব সংরক্ষিত &nbsp;·&nbsp; <a href="javascript:void(0)" id="viewModeToggle" onclick="toggleViewMode()" style="color:#9ca8d8;text-decoration:underline;">ডেস্কটপ ভার্সন দেখুন</a></div>
 </footer>
 
 <!-- ══ BOTTOM NAV ══ -->
@@ -868,6 +870,12 @@ function init(){
   const bid = getParam('id') || (books.length ? books[0].bid : null);
   if(!bid){ document.getElementById('mainContent').innerHTML = '<p style="padding:40px;color:var(--muted);">পণ্য পাওয়া যায়নি।</p>'; return; }
   const book = books.find(b => b.bid === bid);
+  if(!book && window.OD_BOOKS_REFRESH && !init.retried){
+    // অ্যাডমিন থেকে সদ্য যোগ করা বই হতে পারে — Firebase থেকে নতুন লিস্ট এনে আরেকবার খোঁজা
+    init.retried = true;
+    window.OD_BOOKS_REFRESH().then(() => init());
+    return;
+  }
   if(!book){
     // মুছে ফেলা/ভুল লিংক Google-এ যেন ইনডেক্স না হয় (soft-404 এড়াতে)
     const nr = document.createElement('meta'); nr.name = 'robots'; nr.content = 'noindex'; document.head.appendChild(nr);
@@ -1080,13 +1088,13 @@ function noPrice(bid){
   if(b && !(Number(b.price) > 0)){ showToast('এই বইয়ের দাম শীঘ্রই যোগ হবে — অর্ডার করতে WhatsApp-এ যোগাযোগ করুন'); return true; }
   return false;
 }
-function addToCart(){
+function addToCart(buyNow){
   if(!currentBook) return false;
   if(window.isOutOfStock){ showToast('এই পণ্যটি এই মুহূর্তে স্টকে নেই'); return false; }
   if(noPrice(currentBook.bid)) return false;
   const cart = odGet('od_cart2', []); // সবসময় সর্বশেষ কার্ট — পুরনো কপি দিয়ে লিখলে ড্রয়ারে মোছা পণ্য ফিরে আসত
   const existing = cart.find(i => i.bid === currentBook.bid);
-  if(existing){ existing.qty += qty; }
+  if(existing){ existing.qty = buyNow ? qty : existing.qty + qty; } // "এখনই কিনুন"-এ পরিমাণ দ্বিগুণ না হয়ে বাছাই করা সংখ্যাই থাকে
   else { cart.push({bid: currentBook.bid, qty}); }
   odSet('od_cart2', cart);
   updateCartBadge();
@@ -1098,7 +1106,7 @@ function addToCart(){
   return true;
 }
 function buyNow(){
-  if(!addToCart()) return;
+  if(!addToCart(true)) return;
   setTimeout(() => location.href = 'checkout.html', 400);
 }
 
@@ -1586,7 +1594,7 @@ function showToast(msg){
 
 /* ══ INIT ══ */
 init();
-const fy = document.getElementById('fyear'); if(fy) fy.textContent = new Date().getFullYear().toLocaleString('bn-BD');
+const fy = document.getElementById('fyear'); if(fy) fy.textContent = new Date().getFullYear().toLocaleString('bn-BD',{useGrouping:false});
 
 /* ডেস্কটপ/মোবাইল ভার্সন টগল */
 function toggleViewMode(){

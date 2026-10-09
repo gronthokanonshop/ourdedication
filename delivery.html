@@ -32,9 +32,10 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="OurDedication লোগো">
 <link rel="manifest" href="manifest.webmanifest?v=4">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=4">
-<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4">
-<link rel="apple-touch-icon" sizes="180x180" href="icon-180.png?v=4">
+<link rel="icon" href="favicon.ico?v=5" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=5">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=5">
+<link rel="apple-touch-icon" sizes="180x180" href="icon-180.png?v=5">
 <meta name="theme-color" content="#ffffff">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -139,6 +140,7 @@ body{font-family:var(--font-bn);background:var(--navy);color:#1e1b4b;overflow-x:
 .footer-col a:hover{color:var(--amber);}
 .footer-bottom{max-width:1200px;margin:20px auto 0;padding-top:16px;border-top:1px solid rgba(255,255,255,0.1);font-size:0.75rem;color:#7d89bd;text-align:center;}
 </style>
+<link rel="stylesheet" href="od-theme.css?v=1">
 </head>
 <body>
 
@@ -238,7 +240,7 @@ body{font-family:var(--font-bn);background:var(--navy);color:#1e1b4b;overflow-x:
       <a href="https://www.tiktok.com/@sajidurrahman9804" target="_blank"><svg class="fico" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 2h-3.2v13.5a2.7 2.7 0 1 1-2.7-2.7c.24 0 .47.02.7.07V9.6a6 6 0 1 0 5.2 5.95V8.83a7.7 7.7 0 0 0 4.5 1.44V6.98A4.28 4.28 0 0 1 16.5 2z"/></svg> টিকটক</a>
     </div>
   </div>
-  <div class="footer-bottom">© <span id="fyear"></span> OurDedication — সর্বস্বত্ব সংরক্ষিত &nbsp;·&nbsp; <a href="javascript:void(0)" id="viewModeToggle" onclick="toggleViewMode()" style="color:#9ca8d8;text-decoration:underline;">ডেস্কটপ ভার্সন দেখুন</a></div>
+  <div class="footer-bottom">© <span id="fyear"></span> OurDedication (আওয়ার ডেডিকেশন) — সর্বস্বত্ব সংরক্ষিত &nbsp;·&nbsp; <a href="javascript:void(0)" id="viewModeToggle" onclick="toggleViewMode()" style="color:#9ca8d8;text-decoration:underline;">ডেস্কটপ ভার্সন দেখুন</a></div>
 </footer>
 
 <nav class="bottom-nav">
@@ -275,7 +277,7 @@ function updateCartBadge(){
   if(bn) bn.textContent = c;
 }
 updateCartBadge();
-const fy = document.getElementById('fyear'); if(fy) fy.textContent = new Date().getFullYear().toLocaleString('bn-BD');
+const fy = document.getElementById('fyear'); if(fy) fy.textContent = new Date().getFullYear().toLocaleString('bn-BD',{useGrouping:false});
 
 /* ডেস্কটপ/মোবাইল ভার্সন টগল */
 function toggleViewMode(){

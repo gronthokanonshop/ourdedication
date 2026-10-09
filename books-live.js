@@ -40,7 +40,8 @@
         try { localStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), d: arr })); } catch (e) {}
     }
 
-    function fetchFresh() {
+    // ফেরত দেয় true — শুধু যদি নতুন ডেটা আগেরটা থেকে আলাদা হয় এবং books বদলানো হয়
+    function fetchFresh(prev) {
         return fetch(DBURL)
             .then(function (r) { return r.ok ? r.json() : null; })
             .then(function (data) {
@@ -49,6 +50,7 @@
                 else if (data && typeof data === 'object') arr = Object.values(data).filter(Boolean);
                 if (arr && arr.length) {
                     writeCache(arr);
+                    if (prev && JSON.stringify(prev) === JSON.stringify(arr)) return false;
                     return applyBooks(arr);
                 }
                 return false;
@@ -56,14 +58,19 @@
             .catch(function () { return false; });
     }
 
+    /* OD_BOOKS_LIVE: পেজ প্রথমবার দেখানোর পরে books বদলালে true দেয় —
+       তখন পেজগুলো আবার রেন্ডার করে (প্রথম ভিজিটে অ্যাডমিন থেকে যোগ করা
+       নতুন বই/দাম যেন সাথে সাথে দেখা যায়)।
+       OD_BOOKS_REFRESH(): দরকার হলে (যেমন প্রোডাক্ট পেজে বই না পেলে) জোর করে নতুন ডেটা আনে। */
     var cached = readCache();
     if (cached && (Date.now() - cached.t) < CACHE_TTL) {
-        window.OD_BOOKS_LIVE = Promise.resolve(applyBooks(cached.d));
+        applyBooks(cached.d);
+        window.OD_BOOKS_LIVE = Promise.resolve(false);
     } else if (cached) {
         applyBooks(cached.d);
-        window.OD_BOOKS_LIVE = Promise.resolve(true);
-        fetchFresh();
+        window.OD_BOOKS_LIVE = fetchFresh(cached.d);
     } else {
         window.OD_BOOKS_LIVE = fetchFresh();
     }
+    window.OD_BOOKS_REFRESH = function () { return fetchFresh(); };
 })();

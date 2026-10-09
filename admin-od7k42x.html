@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>OD Panel</title>
+<link rel="icon" href="favicon.ico?v=5" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=5">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -14,8 +16,8 @@
 
 <style>
 :root{
-  --primary:#6366f1; --primary-d:#4f46e5; --primary-l:#eef2ff;
-  --bg:#f4f5f9; --surface:#ffffff; --border:#e5e7eb; --text:#1f2330; --text-2:#6b7280;
+  --primary:#CB2527; --primary-d:#A81E20; --primary-l:#FDF1F1;
+  --bg:#F5F6F8; --surface:#ffffff; --border:#e5e7eb; --text:#1f2330; --text-2:#6b7280;
   --green:#16a34a; --green-l:#dcfce7; --red:#dc2626; --red-l:#fee2e2;
   --amber:#d97706; --amber-l:#fef3c7; --blue:#2563eb; --blue-l:#dbeafe; --purple:#7c3aed; --purple-l:#f3e8ff;
   --radius:12px;
@@ -33,13 +35,15 @@ input,select,textarea{font-family:inherit; font-size:14px;}
 /* ---------- Login screen ---------- */
 #loginScreen{
   min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px;
-  background:linear-gradient(135deg,#6366f1 0%,#4338ca 100%);
+  background:#F5F6F8 radial-gradient(circle at 15% 10%, #FDF1F1 0, transparent 45%), radial-gradient(circle at 90% 95%, #ECEDF0 0, transparent 40%);
 }
+.login-logo{display:block; width:190px; height:auto; margin:4px auto 6px;}
 .login-card{
   background:var(--surface); border-radius:16px; padding:36px 32px; width:100%; max-width:380px;
-  box-shadow:0 20px 60px rgba(0,0,0,.25);
+  box-shadow:0 20px 50px rgba(16,24,40,.10); border:1px solid #ECEDF0;
 }
 .login-card h1{font-size:20px; margin:0 0 4px; text-align:center; color:var(--primary-d);}
+.login-card h1.sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);}
 .login-card p.sub{text-align:center; color:var(--text-2); font-size:13px; margin:0 0 24px;}
 .field{margin-bottom:14px;}
 .field label{display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:var(--text);}
@@ -55,7 +59,8 @@ input,select,textarea{font-family:inherit; font-size:14px;}
 .btn-primary{background:var(--primary); color:#fff;}
 .btn-primary:hover{background:var(--primary-d);}
 .btn-block{width:100%;}
-.btn-ghost{background:transparent; color:var(--primary-d); text-decoration:underline; padding:4px;}
+.btn-ghost{background:transparent; border:none; color:var(--primary-d); text-decoration:none; padding:4px; font-weight:600;}
+.btn-ghost:hover{text-decoration:underline;}
 .btn-outline{background:#fff; border:1.5px solid var(--border); color:var(--text);}
 .btn-outline:hover{border-color:var(--primary);}
 .btn-danger{background:var(--red-l); color:var(--red);}
@@ -72,11 +77,12 @@ input,select,textarea{font-family:inherit; font-size:14px;}
 #app{display:none; min-height:100vh;}
 #app.show{display:flex;}
 .sidebar{
-  width:230px; flex-shrink:0; background:#1e1b3a; color:#e5e7eb; min-height:100vh;
+  width:230px; flex-shrink:0; background:#16181D; color:#e5e7eb; min-height:100vh;
   display:flex; flex-direction:column; position:sticky; top:0; align-self:flex-start; height:100vh; overflow-y:auto;
 }
 .sidebar .brand{padding:20px 18px 14px; font-weight:700; font-size:17px; color:#fff; border-bottom:1px solid rgba(255,255,255,.1);}
-.sidebar .brand small{display:block; font-weight:400; font-size:11px; color:#a5b4fc; margin-top:2px;}
+.sidebar .brand small{display:block; font-weight:400; font-size:11px; color:#9CA3AF; margin-top:2px;}
+.sidebar .brand .red{color:#EF4444;}
 .navlist{list-style:none; margin:0; padding:10px;}
 .navlist li{margin-bottom:2px;}
 .navlist button{
@@ -98,7 +104,7 @@ input,select,textarea{font-family:inherit; font-size:14px;}
   #app.show{display:block;}
   .mobile-topbar{
     display:flex; align-items:center; gap:12px; position:sticky; top:0; z-index:300;
-    background:#1e1b3a; color:#fff; padding:12px 16px; font-weight:700; font-size:16px;
+    background:#16181D; color:#fff; padding:12px 16px; font-weight:700; font-size:16px;
   }
   .mobile-topbar button{
     background:rgba(255,255,255,.12); border:none; color:#fff; width:36px; height:36px;
@@ -188,7 +194,7 @@ input,select,textarea{font-family:inherit; font-size:14px;}
 .attr-row input{flex:1;}
 
 table.simple{width:100%; border-collapse:collapse; font-size:13.5px;}
-table.simple th, table.simple td{padding:8px 10px; border-bottom:1px solid var(--border); text-align:right;}
+table.simple th, table.simple td{padding:8px 10px; border-bottom:1px solid var(--border); text-align:left;}
 table.simple th{color:var(--text-2); font-weight:600; font-size:12.5px;}
 .table-wrap{overflow-x:auto;}
 
@@ -229,10 +235,12 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
 .nav-section-label{padding:14px 14px 6px; font-size:11px; font-weight:700; color:#7c86a8; letter-spacing:.5px;}
 .nav-subgroup{list-style:none; margin:2px 0 4px; padding:0 0 0 10px;}
 .nav-subgroup li{margin-bottom:1px;}
-.tool-cat-item{width:100%; text-align:right; background:transparent; border:none; color:#9aa4c4; padding:8px 12px;
+.tool-cat-item{width:100%; text-align:right; background:transparent; border:none; color:#A3A9B4; padding:8px 12px;
   border-radius:7px; font-size:12.5px; display:block;}
 .tool-cat-item:hover{background:rgba(255,255,255,.08); color:#fff;}
-.tool-cat-item.active{background:rgba(99,102,241,.35); color:#fff;}
+.tool-cat-item.active{background:rgba(203,37,39,.30); color:#fff;}
+.navlist button, .tool-cat-item{text-align:left;}
+.nav-section-label{color:#6B7280;}
 .tools-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:16px; align-items:start;}
 .tool-card.wide{grid-column:1/-1;}
 .tool-card-highlight{outline:2px solid var(--primary); outline-offset:2px;}
@@ -301,6 +309,16 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
 .subtag-list{max-height:320px; overflow-y:auto; border:1px solid var(--border); border-radius:8px;}
 .subtag-row{display:flex; align-items:center; gap:8px; padding:8px 10px; border-bottom:1px solid var(--border); font-size:12.5px;}
 .subtag-row:last-child{border-bottom:none;}
+
+/* ---------- ভাষা বাটন (বাংলা / English) ---------- */
+.login-card{position:relative;}
+.lang-btn{
+  border:1.5px solid var(--border); background:#fff; color:var(--text); border-radius:20px;
+  padding:5px 12px; font-size:12.5px; font-weight:600;
+}
+.lang-btn:hover{border-color:var(--primary); color:var(--primary);}
+.login-card .lang-btn{position:absolute; top:14px; right:14px;}
+.sidebar-foot .lang-btn{width:100%; margin-bottom:8px; background:rgba(255,255,255,.08); color:#e5e7eb; border-color:rgba(255,255,255,.2);}
 </style>
 </head>
 <body>
@@ -308,7 +326,9 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
 <!-- ===================== LOGIN SCREEN ===================== -->
 <div id="loginScreen">
   <div class="login-card">
-    <h1>OurDedication</h1>
+    <button type="button" class="lang-btn" data-lang-toggle>English</button>
+    <img src="ourdedication10-logo.png?v=4" alt="OurDedication" class="login-logo">
+    <h1 class="sr">OurDedication</h1>
     <p class="sub" id="loginSub">নিয়ন্ত্রণ প্যানেল — লগইন করুন</p>
 
     <form id="loginForm">
@@ -355,7 +375,7 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
   </div>
   <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
   <div class="sidebar" id="sidebarEl">
-    <div class="brand">OurDedication<small>নিয়ন্ত্রণ প্যানেল</small></div>
+    <div class="brand">Our<span class="red">Dedication</span><small>নিয়ন্ত্রণ প্যানেল</small></div>
     <ul class="navlist" id="navList">
       <li><button data-tab="dashboard" class="active">📊 ড্যাশবোর্ড</button></li>
       <li><button data-tab="orders">🧾 অর্ডারসমূহ</button></li>
@@ -388,6 +408,7 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
     </ul>
     <div class="sidebar-foot">
       <div class="who" id="whoAmI"></div>
+      <button type="button" class="lang-btn" data-lang-toggle>English</button>
       <button class="btn btn-outline btn-sm btn-block" id="logoutBtn">লগআউট</button>
     </div>
   </div>
@@ -414,7 +435,6 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
         <h2>অর্ডারসমূহ</h2>
         <button class="btn btn-outline" id="refreshOrders">🔄 রিফ্রেশ</button>
       </div>
-      <div class="note-box">কুরিয়ারে পাঠাতে হলে Settings-এ courier API key এবং একটি Cloudflare Worker proxy URL লাগবে (পরে দেওয়া হবে)।</div>
       <div class="filter-row" id="orderFilters"></div>
       <div id="ordersList"><div class="empty-state"><div class="emoji">🧾</div>এখনো কিছু নেই</div></div>
     </section>
@@ -480,7 +500,6 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
     <!-- ---------- DAILY SUMMARY ---------- -->
     <section class="tab-section" id="tab-daily">
       <div class="topbar"><h2>দৈনিক সারাংশ</h2></div>
-      <p class="hint" style="margin-bottom:14px;">প্রতিদিনের অর্ডার আলাদাভাবে গ্রুপ করে দেখায় — কোন দিনে কয়টা অর্ডার, কত টাকার বিক্রি হলো তা এক নজরে বোঝার জন্য। দিনের নামে ক্লিক করলে সেদিনের অর্ডারগুলো খুলবে/বন্ধ হবে, কোনো অর্ডারে ক্লিক করলে অর্ডার ট্যাবে নিয়ে যাবে।</p>
       <div id="dailyList"><div class="empty-state"><div class="emoji">📅</div>এখনো কিছু নেই</div></div>
     </section>
 
@@ -582,7 +601,6 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
         <div class="form-grid">
           <div class="field full"><input type="text" id="setProxyUrl" placeholder="https://your-worker.workers.dev/?u="></div>
         </div>
-        <div class="hint">কুরিয়ার API ব্রাউজার থেকে সরাসরি কল করা যায় না (CORS)। নিজের Cloudflare Worker ডিপ্লয় করে তার URL এখানে বসান।</div>
         <button class="btn btn-primary btn-sm" id="saveProxy" style="margin-top:8px;">সংরক্ষণ করুন</button>
       </div>
 
@@ -596,7 +614,6 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
 
       <div class="card tool-card" data-cat="misc">
         <h3>Google Drive API Key</h3>
-        <p class="hint">প্রকাশনীর Drive ফোল্ডার থেকে ছবি/PDF/বিবরণ স্বয়ংক্রিয়ভাবে আনার জন্য (নিচের বক্স দেখুন)। Google Cloud Console থেকে Drive API key নিয়ে এখানে সেভ করুন।</p>
         <div class="form-grid">
           <div class="field full"><input type="text" id="setDriveKey" placeholder="AIza..."></div>
         </div>
@@ -606,7 +623,6 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
 
       <div class="card tool-card wide" data-cat="misc" id="driveFolderCard">
         <h3>📂 Drive ফোল্ডার থেকে অটো-ইমপোর্ট (ছবি + PDF + বিবরণ)</h3>
-        <p class="hint">প্রকাশনীর Google Drive ফোল্ডারের লিংক দিন — <b>ভেতরে প্রতিটা বইয়ের জন্য আলাদা আলাদা সাব-ফোল্ডার থাকতে হবে</b>, আর সাব-ফোল্ডারের নাম দোকানে থাকা বইয়ের নামের কাছাকাছি হতে হবে (হুবহু না হলেও চলবে)। প্রতিটা সাব-ফোল্ডারে সেই বইয়ের প্রচ্ছদ ছবি, একটা sample/short PDF এবং ইচ্ছা হলে একটা বিবরণ ডকুমেন্ট (Google Doc/.docx/.txt) রাখুন। ফোল্ডারের নাম মিলিয়ে দোকানের বই খুঁজে বের করে — যেই বইয়ে যা নেই শুধু সেটাই বসানো হবে; দাম/ক্যাটাগরি/লেখক ছোঁয়া হয় না, আর নতুন বইও এখান থেকে তৈরি হয় না (না মেলা ফোল্ডার শেষে তালিকায় দেখাবে)। ফোল্ডারটা অবশ্যই <b>"Anyone with the link"</b> হিসেবে শেয়ার করা থাকতে হবে।</p>
         <div class="form-grid">
           <div class="field full">
             <label>Drive ফোল্ডার লিংক</label>
@@ -621,13 +637,11 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
 
       <div class="card tool-card wide" data-cat="misc">
         <h3>📇 Phone Index ঠিক করা</h3>
-        <p class="hint">পুরনো অর্ডারগুলোর phoneIndex ঠিক করতে (ফ্রড চেক ও ফোন অনুযায়ী খোঁজার জন্য দরকার)।</p>
         <button class="btn btn-outline btn-sm" id="btnMigratePhoneIndex">Phone Index ঠিক করুন</button>
       </div>
 
       <div class="card tool-card wide" data-cat="misc">
         <h3>🔍 ম্যানুয়াল ফ্রড চেক</h3>
-        <p class="hint">ফোন নম্বর দিয়ে সেই কাস্টমারের সম্পূর্ণ অর্ডার হিস্ট্রি ও সন্দেহজনক প্যাটার্ন চেক করুন।</p>
         <div class="toolbar">
           <input type="tel" id="fraudPhoneInput" placeholder="যেমন: 01712345678">
           <button class="btn btn-primary btn-sm" id="btnFraudCheck">চেক করুন</button>
@@ -637,19 +651,16 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
 
       <div class="card tool-card" data-cat="misc">
         <h3>📥 book.js ডাউনলোড</h3>
-        <p class="hint">বর্তমান বই/প্রোডাক্ট তালিকা book.js হিসেবে ডাউনলোড করুন (ব্যাকআপ/GitHub আপডেটের জন্য)।</p>
         <button class="btn btn-primary btn-sm btn-block" id="btnDownloadBookJs">book.js ডাউনলোড করুন</button>
       </div>
 
       <div class="card tool-card" data-cat="misc">
         <h3>🗺️ sitemap.xml ডাউনলোড</h3>
-        <p class="hint">Google-এর জন্য সব বইয়ের লিংকসহ sitemap বানিয়ে ডাউনলোড করুন।</p>
         <button class="btn btn-primary btn-sm btn-block" id="btnDownloadSitemap">sitemap.xml ডাউনলোড করুন</button>
       </div>
 
       <div class="card tool-card wide" data-cat="tags">
         <h3>ক্যাটাগরি, উপ-বিভাগ ও ট্যাগ তালিকা</h3>
-        <p class="hint">ভুল নাম মুছুন বা নতুন যোগ করুন — মুছলে পুরনো বইয়ের ডেটা বদলায় না, শুধু তালিকা থেকে বাদ পড়ে।</p>
         <div style="font-weight:700; font-size:13.5px; margin:10px 0;">বিভাগ ও উপ-বিভাগ</div>
         <div id="catTreeBox"></div>
         <div class="curate-add-box">
@@ -673,7 +684,6 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
 
       <div class="card tool-card wide" data-cat="cleanup">
         <h3>লেখক / প্রকাশনী / বিষয় ঠিক করুন</h3>
-        <p class="hint">ভুল বানান বাছুন, সঠিক নাম লিখে "নাম বদলে দিন" চাপুন — সব বইয়ে একসাথে ঠিক হয়ে যাবে। "মুছে দিন" চাপলে নামটা সব বই থেকে ফাঁকা হয়ে যাবে।</p>
         <div class="toolbar">
           <select id="apFixType">
             <option value="author">লেখক</option>
@@ -693,21 +703,18 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
 
       <div class="card tool-card wide" data-cat="catCards">
         <h3>হোমপেজ ক্যাটাগরি কার্ড — বিষয়ের ছবি</h3>
-        <p class="hint">হোমপেজের ক্যাটাগরি কার্ডে প্রতিটা বিভাগের নিচে সর্বোচ্চ ৪টা ছোট বিষয়-টাইল থাকে — কোন বিষয়ে কোন বইয়ের কভার দেখাবে তা এখান থেকে বাছাই করুন (নতুন ছবি আপলোড লাগবে না, বিদ্যমান বইয়ের কভার ব্যবহার হবে)। <b>মনে রাখবেন:</b> এই টুলের তথ্য এখনো হোমপেজে সরাসরি দেখানো শুরু হয়নি — সেটার জন্য index.html-এ আলাদা কোড যোগ করা লাগবে (ডেভেলপারকে জানানো হয়েছে)।</p>
         <div id="catCardsBox"></div>
         <button type="button" class="btn btn-primary btn-sm" id="saveCatCardsBtn" style="margin-top:8px;">কার্ড সংরক্ষণ করুন</button>
       </div>
 
       <div class="card tool-card wide" data-cat="catCards">
         <h3>বিষয় অনুযায়ী বই ট্যাগ করুন</h3>
-        <p class="hint">ক্যাটাগরি কার্ডের কোনো টাইলে ক্লিক করলে সেই বিষয়ের সব বই একসাথে দেখাতে হলে, বইগুলোর "বিষয়" ফিল্ডে একই নাম বসানো থাকতে হয়। একটা বিভাগ ও বিষয় বেছে নিচের তালিকা থেকে বইগুলোতে টিক দিন — একসাথে অনেক বইয়ে বসিয়ে দেওয়া যাবে।</p>
         <select id="subTagCatSelect" style="margin-bottom:10px; padding:9px 12px; border:1.5px solid var(--border); border-radius:8px;"></select>
         <div id="subTagBox"></div>
       </div>
 
       <div class="card tool-card wide" data-cat="pubOffer">
         <h3>প্রকাশনী-ভিত্তিক অফার (এক ক্লিকে সব বইয়ে ছাড়)</h3>
-        <p class="hint">একটা প্রকাশনী (বা সব বই) বেছে ছাড়ের % দিন — MRP (আসল মূল্য)-এর উপর সেই % ছাড়ে বিক্রয়মূল্য বসে যাবে, MRP কখনো বদলাবে না।</p>
         <select id="pubOfferSelect" style="margin-bottom:10px; padding:9px 12px; border:1.5px solid var(--border); border-radius:8px; width:100%;"><option value="">— প্রকাশনী বাছুন —</option></select>
         <div class="toolbar">
           <input type="number" id="pubOfferPct" min="0" max="90" step="1" placeholder="ছাড় % (যেমন 20)">
@@ -720,7 +727,6 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
 
       <div class="card tool-card wide" data-cat="offerPopup">
         <h3>অফার পোস্টার পপআপ</h3>
-        <p class="hint">সাইটে ঢুকলেই ছবিওয়ালা অফার পোস্টার দেখানোর জন্য (সর্বোচ্চ ৩টা)। <b>মনে রাখবেন:</b> এই টুল দিয়ে পোস্টার সেভ করলেও সাইটে এখনো পপআপ দেখানোর কোড নেই — index.html-এ আলাদা কোড যোগ করা লাগবে (ডেভেলপারকে জানানো হয়েছে)।</p>
         <label class="hint" style="display:flex; align-items:center; gap:8px;"><input type="checkbox" id="ofPopEnabled" style="width:auto;"> পোস্টার পপআপ চালু রাখুন</label>
         <div id="ofPopList" style="margin:10px 0;"></div>
         <div class="curate-add-box">
@@ -738,7 +744,6 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
 
       <div class="card tool-card wide" data-cat="homeChips">
         <h3>হোমপেজ ক্যাটাগরি চিপ</h3>
-        <p class="hint">হোমপেজের ক্যাটাগরি গ্রিডে কোন কোন বিভাগ, কোন ক্রমে দেখাবে তা এখান থেকে ঠিক করুন। নাম অবশ্যই বইয়ের বিভাগ (cat)-এর সাথে হুবহু মিলতে হবে। কিছু যোগ না করলে সাইট নিজে থেকেই সবচেয়ে জনপ্রিয় বিভাগগুলো দেখাবে।</p>
         <div id="homeCatList"></div>
         <div class="curate-add-box">
           <div class="form-grid">
@@ -754,7 +759,6 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
 
       <div class="card tool-card wide" data-cat="homeChips">
         <h3>হোমপেজ প্রকাশনী চিপ</h3>
-        <p class="hint">হোমপেজে প্রকাশনীর লোগো/নাম চিপ দেখানোর জন্য এখান থেকে নিয়ন্ত্রণ করুন। নাম লেখার সময় বইয়ের ডেটা থেকে সাজেশন আসবে। কিছু যোগ না করলে সাইট নিজে থেকেই জনপ্রিয় প্রকাশনী দেখাবে।</p>
         <div id="homePubList"></div>
         <div class="curate-add-box">
           <div class="form-grid">
@@ -770,7 +774,6 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
 
       <div class="card tool-card wide" data-cat="homeChips">
         <h3>হোমপেজ প্রিয় লেখক চিপ</h3>
-        <p class="hint">হোমপেজে লেখকের ছবি/নাম চিপ দেখানোর জন্য এখান থেকে নিয়ন্ত্রণ করুন। নাম লেখার সময় বইয়ের ডেটা থেকে সাজেশন আসবে। কিছু যোগ না করলে সাইট নিজে থেকেই জনপ্রিয় লেখক দেখাবে।</p>
         <div id="homeAuthorList"></div>
         <div class="curate-add-box">
           <div class="form-grid">
@@ -786,7 +789,6 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
 
       <div class="card tool-card wide" data-cat="banner">
         <h3>হোমপেজ ব্যানার / স্লাইডার</h3>
-        <p class="hint">হোমপেজের উপরের স্লাইডার ব্যানার এখান থেকে বদলান। ছবির লিংক দিন বা আপলোড করুন, ক্লিক করলে কোথায় যাবে তা চাইলে লিংকে বসান। কিছু যোগ না করে খালি রাখলে সাইটের ডিফল্ট ব্যানার দুটো দেখাবে।</p>
         <div id="bannerList"></div>
         <div class="curate-add-box">
           <div class="form-grid">
@@ -801,9 +803,7 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
       </div>
 
       </div><!-- /.tools-grid -->
-      <div class="card" id="ownerOnlyNote" hidden>
-        <p class="hint">মডারেটর হিসেবে আপনি কিছু সংবেদনশীল সেটিংস (API key) দেখতে পারবেন কিন্তু পরিবর্তন করতে পারবেন না।</p>
-      </div>
+      <div id="ownerOnlyNote" hidden></div>
     </section>
   </div>
 </div>
@@ -870,7 +870,6 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
   <div class="modal modal-wide">
     <div class="modal-close-row"><button class="btn-ghost" data-close="bulkModalOverlay">✕ বন্ধ করুন</button></div>
     <h3>বাল্ক আপলোড (.xlsx)</h3>
-    <p class="hint">প্রথমে টেমপ্লেট ডাউনলোড করে সেটার ফরম্যাট অনুযায়ী পূরণ করুন, তারপর এখানে আপলোড করুন।</p>
     <input type="file" id="bulkFileInput" accept=".xlsx">
     <div id="bulkPreviewWrap" style="margin-top:14px;"></div>
     <div class="flex-between" style="margin-top:14px;">
@@ -907,6 +906,323 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
 <div id="invoiceOffscreen"></div>
 
 <div class="toast-wrap" id="toastWrap"></div>
+
+<!-- ===================== LANGUAGE (বাংলা / English) =====================
+     English mode translates the panel's UI text in place (incl. text the app
+     renders later, toasts and confirm dialogs). Book/order data stays as-is.
+     Switching language reloads the page; the open tab is restored. -->
+<script>
+(function(){
+'use strict';
+// English is the default; বাংলা only when chosen with the toggle button
+var LANG_KEY = 'od_admin_lang2', TAB_KEY = 'od_admin_tab';
+var lang = 'en';
+try{ if(localStorage.getItem(LANG_KEY) === 'bn') lang = 'bn'; }catch(e){}
+window.OD_ADMIN_LANG = lang;
+
+/* ---- toggle buttons + remember open tab across the reload ---- */
+document.querySelectorAll('[data-lang-toggle]').forEach(function(b){
+  b.textContent = lang === 'en' ? 'বাংলা' : 'English';
+  b.addEventListener('click', function(){
+    try{ localStorage.setItem(LANG_KEY, lang === 'en' ? 'bn' : 'en'); }catch(e){}
+    var active = document.querySelector('#navList button[data-tab].active');
+    try{ if(active) sessionStorage.setItem(TAB_KEY, active.dataset.tab); }catch(e){}
+    location.reload();
+  });
+});
+var savedTab = null;
+try{ savedTab = sessionStorage.getItem(TAB_KEY); sessionStorage.removeItem(TAB_KEY); }catch(e){}
+if(savedTab){
+  var app = document.getElementById('app');
+  var tries = 0, t = setInterval(function(){
+    if(++tries > 100){ clearInterval(t); return; }
+    if(!app.classList.contains('show')) return;
+    clearInterval(t);
+    var btn = document.querySelector('#navList button[data-tab="'+savedTab+'"]');
+    if(btn && btn.style.display !== 'none') btn.click();
+  }, 150);
+}
+
+if(lang !== 'en') return;
+document.documentElement.lang = 'en';
+
+/* ---- dates & numbers: 'bn-BD' → English ---- */
+function fixLoc(l, en){ return (l === 'bn-BD' || l === 'bn') ? en : l; }
+var nTL = Number.prototype.toLocaleString;
+Number.prototype.toLocaleString = function(l, o){ return nTL.call(this, fixLoc(l,'en-US'), o); };
+['toLocaleString','toLocaleDateString','toLocaleTimeString'].forEach(function(fn){
+  var orig = Date.prototype[fn];
+  Date.prototype[fn] = function(l, o){ return orig.call(this, fixLoc(l,'en-GB'), o); };
+});
+
+/* ---- exact UI strings ---- */
+var EN = {
+  // login
+  'নিয়ন্ত্রণ প্যানেল — লগইন করুন':'Control Panel — Sign in','ইমেইল':'Email','পাসওয়ার্ড':'Password','লগইন করুন':'Sign in',
+  'নাম':'Name','অনুরোধ পাঠান':'Send request','মডারেটর হিসেবে সাইনআপ করুন':'Sign up as moderator',
+  'পাসওয়ার্ড ভুলে গেছেন?':'Forgot password?','লগইন এ ফিরে যান':'Back to sign in','মডারেটর অনুরোধ পাঠান':'Send moderator request',
+  'আগে ইমেইল লিখুন।':'Enter your email first.','পাসওয়ার্ড রিসেট লিংক ইমেইলে পাঠানো হয়েছে।':'Password reset link sent to your email.',
+  'আপনার অনুরোধ পাঠানো হয়েছে, অ্যাডমিনের অনুমোদনের অপেক্ষা করুন।':'Request sent. Please wait for admin approval.',
+  'আপনার অনুরোধ অনুমোদনের অপেক্ষায় আছে।':'Your request is awaiting approval.','আপনার অ্যাডমিন অ্যাক্সেস নেই।':'You do not have admin access.',
+  // shell / nav
+  'মেনু':'Menu','OurDedication প্যানেল':'OurDedication Panel','নিয়ন্ত্রণ প্যানেল':'Control Panel',
+  '📊 ড্যাশবোর্ড':'📊 Dashboard','🧾 অর্ডারসমূহ':'🧾 Orders','📅 দৈনিক সারাংশ':'📅 Daily summary','ক্যাটালগ':'Catalog',
+  '📚 বই/প্রোডাক্ট':'📚 Books/Products','🏷️ কুপন':'🏷️ Coupons','বিশ্লেষণ':'Insights','📈 অ্যানালিটিক্স':'📈 Analytics',
+  '🧮 বিক্রয় রিপোর্ট':'🧮 Sales report','⭐ রিভিউ':'⭐ Reviews','সিস্টেম':'System','👥 মডারেটর':'👥 Moderators','🧰 টুলস':'🧰 Tools',
+  'সব টুলস':'All tools','🖼️ ব্যানার':'🖼️ Banners','🎯 অফার পোস্টার':'🎯 Offer poster','🏠 হোমপেজ চিপ':'🏠 Homepage chips',
+  '🗂️ ক্যাটাগরি কার্ড টাইল':'🗂️ Category card tiles','🔖 ক্যাটাগরি-ট্যাগ তালিকা':'🔖 Categories & tags',
+  '🧹 লেখক/প্রকাশনী ঠিক':'🧹 Fix authors/publishers','💸 প্রকাশনী অফার':'💸 Publisher offer','📸 ছবি ও Pixel':'📸 Images & Pixel',
+  '🚚 কুরিয়ার':'🚚 Courier','📦 ডাউনলোড ও অন্যান্য':'📦 Downloads & more','লগআউট':'Log out',
+  // dashboard / orders
+  'ড্যাশবোর্ড':'Dashboard','মোট অর্ডার':'Total orders','অপেক্ষমাণ অর্ডার':'Pending orders','আজকের বিক্রি (৳)':"Today's sales (৳)",
+  'মোট বই/প্রোডাক্ট':'Total books/products','সাম্প্রতিক অর্ডার':'Recent orders','এখনো কিছু নেই':'Nothing here yet',
+  'অর্ডারসমূহ':'Orders','🔄 রিফ্রেশ':'🔄 Refresh','সব':'All','অপেক্ষমাণ':'Pending','নিশ্চিত হয়েছে':'Confirmed',
+  'প্রস্তুত হচ্ছে':'Processing','পাঠানো হয়েছে':'Shipped','পৌঁছে গেছে':'Delivered','বাতিল':'Cancelled',
+  'আইটেম নেই':'No items','🚚 কুরিয়ারে পাঠান':'🚚 Send to courier','🧾 ইনভয়েস':'🧾 Invoice','অ্যাডমিন নোট...':'Admin note...',
+  'নোট সংরক্ষণ করুন':'Save note','অর্ডার রিফ্রেশ হয়েছে':'Orders refreshed','অর্ডার স্ট্যাটাস আপডেট হয়েছে':'Order status updated',
+  'নোট সংরক্ষণ হয়েছে':'Note saved','আগে Settings-এ Cloudflare Worker প্রক্সি URL সেট করুন।':'Set the Cloudflare Worker proxy URL first.',
+  'Steadfast API key/secret Settings-এ দিন।':'Enter the Steadfast API key/secret first.','RedX token Settings-এ দিন।':'Enter the RedX token first.',
+  'Steadfast এ পাঠানো হয়েছে':'Sent to Steadfast','RedX এ পাঠানো হয়েছে':'Sent to RedX',
+  // invoice
+  'পণ্য':'Item','পরিমাণ':'Qty','একক মূল্য':'Unit price','মোট':'Total','ডেলিভারি চার্জ':'Delivery charge','সর্বমোট':'Grand total',
+  'ক্রেতা:':'Customer:','ঠিকানা:':'Address:','পেমেন্ট:':'Payment:','স্ট্যাটাস:':'Status:',
+  // books
+  'বই / প্রোডাক্ট':'Books / Products','📥 টেমপ্লেট ডাউনলোড করুন':'📥 Download template','📤 বাল্ক আপলোড':'📤 Bulk upload',
+  '➕ নতুন যোগ করুন':'➕ Add new','নাম দিয়ে খুঁজুন...':'Search by name...','সব ধরন':'All types','বই':'Book','প্রোডাক্ট':'Product',
+  'সব বিভাগ':'All categories','আরও দেখুন':'Load more','লোড হচ্ছে...':'Loading...','✏️ এডিট':'✏️ Edit','স্টক টগল':'Toggle stock',
+  '🔔 নোটিফাই':'🔔 Notify list','● স্টকে আছে':'● In stock','● স্টকে নেই':'● Out of stock','স্টক অবস্থা আপডেট হয়েছে':'Stock status updated',
+  'ফোন':'Phone','সময়':'Time','লেবেল':'Label','মান':'Value','এডিট করুন':'Edit item','নতুন বই/প্রোডাক্ট যোগ করুন':'Add new book/product',
+  '✕ বন্ধ করুন':'✕ Close','ধরন':'Type','নাম *':'Name *','BID (ফাঁকা রাখলে স্বয়ংক্রিয়)':'BID (auto if left blank)',
+  'স্বয়ংক্রিয়ভাবে তৈরি হবে':'Generated automatically','মূল্য (৳) *':'Price (৳) *','আসল মূল্য (৳)':'Original price (৳)',
+  'বিভাগ (cat)':'Category (cat)','উপবিভাগ (subcat)':'Subcategory (subcat)','লেখক':'Author','বিষয় (subject)':'Subject',
+  'বাঁধাই (cover)':'Binding (cover)','প্রকাশনী (pub)':'Publisher (pub)','পৃষ্ঠা':'Pages','১৯২ পৃষ্ঠা':'192 pages','ব্র্যান্ড':'Brand',
+  'ছবির URL':'Image URL','ছবি আপলোড (imgbb)':'Upload image (imgbb)','বিবরণ':'Description','ট্যাগ (কমা দিয়ে আলাদা)':'Tags (comma separated)',
+  'Best Selling, নতুন':'Best Selling, New','অতিরিক্ত তথ্য (Attributes)':'Additional info (Attributes)','➕ সারি যোগ করুন':'➕ Add row',
+  'সংরক্ষণ করুন':'Save','মুছে ফেলুন':'Delete','সংরক্ষণ হয়েছে':'Saved','মুছে ফেলা হয়েছে':'Deleted',
+  'আপনি কি নিশ্চিত এটি মুছে ফেলতে চান?':'Are you sure you want to delete this?',
+  'দাম ০ দেওয়া হয়েছে — ক্রেতারা এই পণ্য অর্ডার করতে পারবে না ("দাম শীঘ্রই" দেখাবে)। তবুও সেভ করবেন?':'Price is 0 — customers will not be able to order this item (it will show "price coming soon"). Save anyway?',
+  'ত্রুটি: imgbb key সেট করা নেই (Settings ট্যাব দেখুন)।':'Error: imgbb key is not set.','ত্রুটি: imgbb key সেট করা নেই (এই পেজের উপরে দেখুন)।':'Error: imgbb key is not set.',
+  'আপলোড হচ্ছে...':'Uploading...','আপলোড সম্পন্ন ✓':'Upload complete ✓','আপলোড ব্যর্থ':'Upload failed',
+  'স্টক নোটিফাই তালিকা':'Stock notification list','বাল্ক আপলোড (.xlsx)':'Bulk upload (.xlsx)','বৈধ সারিগুলো যোগ করুন':'Add valid rows',
+  'সারি':'Row','ত্রুটি':'Error','নাম নেই':'Name missing','মূল্য অবৈধ':'Invalid price','মূল্য':'Price',
+  'কুরিয়ারে পাঠান':'Send to courier','Steadfast এ পাঠান':'Send to Steadfast','RedX এ পাঠান':'Send to RedX',
+  '🖨️ প্রিন্ট করুন':'🖨️ Print','⬇️ PDF ডাউনলোড করুন':'⬇️ Download PDF',
+  // coupons
+  'কুপন':'Coupons','নতুন কুপন যোগ করুন':'Add new coupon','কোড':'Code','শতাংশ ছাড় (percent)':'Percent off (percent)',
+  'টাকায় ছাড় (taka)':'Flat amount off (taka)','ফ্রি ডেলিভারি (delivery)':'Free delivery (delivery)',
+  'নির্দিষ্ট ডেলিভারি চার্জ (delivery_fixed)':'Fixed delivery charge (delivery_fixed)','সক্রিয়':'Active','নিষ্ক্রিয়':'Inactive',
+  'যোগ করুন':'Add','সকল কুপন':'All coupons','অবস্থা':'Status','একশন':'Actions','টগল':'Toggle','মুছুন':'Delete',
+  'আপডেট হয়েছে':'Updated','কুপন যোগ হয়েছে':'Coupon added','কোড অবৈধ (শুধু A-Z, 0-9, ৩-২০ অক্ষর)':'Invalid code (A-Z, 0-9 only, 3-20 characters)',
+  // moderators
+  'মডারেটর':'Moderators','অনুরোধসমূহ':'Requests','বর্তমান মডারেটর':'Current moderators','অনুমোদন':'Approve','বাতিল করুন':'Reject',
+  'অনুমোদন করা হয়েছে':'Approved','বাতিল করা হয়েছে':'Rejected','সরিয়ে দিন':'Remove','সরিয়ে দেওয়া হয়েছে':'Removed',
+  'এই মডারেটরকে সরিয়ে দিতে চান?':'Remove this moderator?','শুধুমাত্র মালিক এটি পরিবর্তন করতে পারবেন':'Only the owner can change this',
+  // daily / analytics / report / reviews
+  'দৈনিক সারাংশ':'Daily summary','অ্যানালিটিক্স':'Analytics','🏆 সবচেয়ে বেশি বিক্রিত বই/প্রোডাক্ট':'🏆 Best-selling books/products',
+  'ডেটা নেই':'No data','📍 এলাকাভিত্তিক অর্ডার':'📍 Orders by area','💳 পেমেন্ট পদ্ধতি':'💳 Payment methods','📦 স্ট্যাটাস বিভাজন':'📦 Status breakdown',
+  'অজানা':'Unknown','বিক্রয় রিপোর্ট':'Sales report','⬇️ CSV ডাউনলোড':'⬇️ Download CSV','শুরু:':'From:','শেষ:':'To:','প্রয়োগ করুন':'Apply',
+  '৭ দিন':'7 days','৩০ দিন':'30 days','সব সময়':'All time','মোট বিক্রি (৳)':'Total sales (৳)','দৈনিক বিক্রি (গ্রাফ)':'Daily sales (chart)',
+  'বিস্তারিত তালিকা':'Detailed list','তারিখ':'Date','অর্ডার':'Order','স্ট্যাটাস':'Status','এই সময়ে কোনো বিক্রি নেই':'No sales in this period',
+  'এই সময়ে কোনো অর্ডার নেই':'No orders in this period','তারিখ দিন':'Pick a date range','পাঠকদের রিভিউ':'Reader reviews',
+  'এখনো কোনো রিভিউ আসেনি':'No reviews yet','রিভিউটি মুছে ফেলবেন?':'Delete this review?','রিভিউ মুছে ফেলা হয়েছে':'Review deleted',
+  // tools
+  'টুলস':'Tools','imgbb API Key (ছবি আপলোডের জন্য)':'imgbb API Key (for image uploads)','Steadfast কুরিয়ার API':'Steadfast Courier API',
+  'RedX কুরিয়ার API':'RedX Courier API','Cloudflare Worker Proxy URL (কুরিয়ার API কল করার জন্য)':'Cloudflare Worker Proxy URL (for courier API calls)',
+  'key দিন':'Enter a key','Pixel ID অবৈধ (৫-২০ ডিজিট)':'Invalid Pixel ID (5-20 digits)',
+  '📂 Drive ফোল্ডার থেকে অটো-ইমপোর্ট (ছবি + PDF + বিবরণ)':'📂 Auto-import from a Drive folder (image + PDF + description)',
+  'Drive ফোল্ডার লিংক':'Drive folder link','আলাদা front কভার না পেলে, চওড়া ফুল-কভার ছবি থেকে front অংশ কেটে নাও':'If there is no separate front cover, crop the front from a wide full-cover image',
+  'আগে থেকে ছবি/PDF/বিবরণ থাকলেও Drive থেকে নতুনটা দিয়ে বদলে দাও (Replace)':'Replace existing image/PDF/description with the one from Drive',
+  '📥 ছবি + PDF + বিবরণ আনো':'📥 Fetch image + PDF + description','চলছে...':'Working...',
+  'ফোল্ডার থেকে বইয়ের তালিকা আনা হচ্ছে...':'Reading the folder list...','Firebase-এ সেভ হচ্ছে...':'Saving to Firebase...',
+  'কোনো সাব-ফোল্ডার পাওয়া যায়নি — এই ফোল্ডারের ভেতরে প্রতিটা বইয়ের জন্য আলাদা সাব-ফোল্ডার থাকতে হবে।':'No sub-folders found — the folder needs one sub-folder per book.',
+  'আগে Google Drive API Key সেভ করুন (উপরের বক্সে)':'Save the Google Drive API key first','Drive ফোল্ডারের লিংক দিন':'Enter the Drive folder link',
+  'সঠিক Drive ফোল্ডার লিংক দিন (drive.google.com/drive/folders/... আকারে)':'Enter a valid Drive folder link (drive.google.com/drive/folders/...)',
+  'imgbb key সেভ করা নেই — ছবি বাদ দিয়ে শুধু PDF/বিবরণ আনা হবে':'imgbb key not saved — only PDF/description will be imported',
+  '📇 Phone Index ঠিক করা':'📇 Fix Phone Index','Phone Index ঠিক করুন':'Fix Phone Index','✓ সম্পন্ন':'✓ Done',
+  'কোনো অর্ডার নেই':'No orders','সব অর্ডার migrate সম্পন্ন হয়েছে':'All orders migrated',
+  '🔍 ম্যানুয়াল ফ্রড চেক':'🔍 Manual fraud check','যেমন: 01712345678':'e.g. 01712345678','চেক করুন':'Check',
+  'একটা ফোন নম্বর লিখুন':'Enter a phone number','⚠️ সঠিক ফোন নম্বর দিন':'⚠️ Enter a valid phone number',
+  'এই নম্বরে কোনো অর্ডার হিস্ট্রি পাওয়া যায়নি — নতুন কাস্টমার।':'No order history for this number — new customer.',
+  'সম্পন্নের হার':'Completion rate','কোনো সন্দেহজনক প্যাটার্ন পাওয়া যায়নি।':'No suspicious pattern found.',
+  '📥 book.js ডাউনলোড':'📥 Download book.js','book.js ডাউনলোড করুন':'Download book.js','book.js ডাউনলোড হচ্ছে':'Downloading book.js',
+  '🗺️ sitemap.xml ডাউনলোড':'🗺️ Download sitemap.xml','sitemap.xml ডাউনলোড করুন':'Download sitemap.xml',
+  'ক্যাটাগরি, উপ-বিভাগ ও ট্যাগ তালিকা':'Categories, subcategories & tags','বিভাগ ও উপ-বিভাগ':'Categories & subcategories',
+  'নতুন বিভাগের নাম':'New category name','যেমন: শিশুতোষ বই':"e.g. Children's books",'➕ বিভাগ যোগ করুন':'➕ Add category',
+  'বিভাগ তালিকা সংরক্ষণ করুন':'Save category list','ট্যাগ তালিকা':'Tag list','নতুন ট্যাগ':'New tag','যেমন: ঈদ স্পেশাল':'e.g. Eid special',
+  '➕ ট্যাগ যোগ করুন':'➕ Add tag','ট্যাগ তালিকা সংরক্ষণ করুন':'Save tag list','কোনো বিভাগ নেই':'No categories','কোনো ট্যাগ নেই':'No tags',
+  'কোনো উপ-বিভাগ নেই':'No subcategories','নতুন উপ-বিভাগ':'New subcategory','✕ বিভাগ মুছুন':'✕ Delete category',
+  'এই উপ-বিভাগ আগেই আছে':'This subcategory already exists','বিভাগের নাম দিন':'Enter a category name','এই বিভাগ আগেই আছে':'This category already exists',
+  'বিভাগ তালিকা সংরক্ষণ হয়েছে':'Category list saved','ট্যাগের নাম দিন':'Enter a tag name','এই ট্যাগ আগেই আছে':'This tag already exists',
+  'ট্যাগ তালিকা সংরক্ষণ হয়েছে':'Tag list saved',
+  'লেখক / প্রকাশনী / বিষয় ঠিক করুন':'Fix author / publisher / subject','প্রকাশনী':'Publisher','বিষয়':'Subject','— বাছুন —':'— Select —',
+  'সঠিক / নতুন নাম লিখুন':'Type the correct / new name','✅ নাম বদলে দিন (সব বইয়ে)':'✅ Rename (in all books)',
+  '🗑️ মুছে দিন (ফাঁকা হবে)':'🗑️ Clear (leaves it blank)','আগে একটা নাম বাছুন':'Select a name first','কোনো বই পাওয়া যায়নি':'No books found',
+  'সঠিক/নতুন নাম লিখুন':'Type the correct / new name',
+  'হোমপেজ ক্যাটাগরি কার্ড — বিষয়ের ছবি':'Homepage category cards — subject images','কার্ড সংরক্ষণ করুন':'Save cards',
+  'বিষয়ের নাম':'Subject name','কভারের জন্য বই খুঁজুন...':'Search a book for the cover...','খালি করুন':'Clear','➕ টাইল যোগ করুন':'➕ Add tile',
+  'কিছু পাওয়া যায়নি':'Nothing found','ক্যাটাগরি কার্ড সংরক্ষণ হয়েছে':'Category cards saved',
+  'বিষয় অনুযায়ী বই ট্যাগ করুন':'Tag books by subject','— বিভাগ বাছুন —':'— Select category —','— বিষয় বাছুন —':'— Select subject —',
+  'অথবা নতুন বিষয় লিখুন':'or type a new subject','✅ বাছাই করা বইগুলোতে এই বিষয় বসান':'✅ Set this subject on the selected books',
+  'আগে একটা বিভাগ বাছুন':'Select a category first','বিষয় বাছুন বা লিখুন':'Select or type a subject','কোনো বই নেই':'No books',
+  'বিভাগ ও বিষয় বাছুন':'Select a category and subject','কোনো পরিবর্তন হয়নি':'Nothing changed',
+  'প্রকাশনী-ভিত্তিক অফার (এক ক্লিকে সব বইয়ে ছাড়)':'Publisher offer (discount all books in one click)','— প্রকাশনী বাছুন —':'— Select publisher —',
+  '— প্রকাশনী/ব্র্যান্ড বাছুন —':'— Select publisher/brand —','ছাড় % (যেমন 20)':'Discount % (e.g. 20)','🏷️ অফার দিন':'🏷️ Apply offer',
+  '🧾 MRP-তে ফেরান (ছাড় নেই)':'🧾 Reset to MRP (no discount)','আগে প্রকাশনী/ব্র্যান্ড বাছুন':'Select a publisher/brand first',
+  'ছাড় ০-৯০%-এর মধ্যে দিন':'Discount must be 0-90%','এই বাছাইয়ে কোনো বই নেই':'No books in this selection','সংরক্ষণ হচ্ছে...':'Saving...',
+  'অফার প্রয়োগ হয়েছে':'Offer applied','দাম MRP-তে ফেরানো হয়েছে':'Prices reset to MRP','সব বই/প্রোডাক্ট':'All books/products',
+  '(নাম নেই)':'(no name)',
+  'অফার পোস্টার পপআপ':'Offer poster popup','পোস্টার পপআপ চালু রাখুন':'Keep poster popup on','পোস্টার ছবির URL':'Poster image URL',
+  'ছবি আপলোড':'Upload image','শিরোনাম (ঐচ্ছিক)':'Title (optional)','সাবটাইটেল (ঐচ্ছিক)':'Subtitle (optional)','লিংক (ঐচ্ছিক)':'Link (optional)',
+  '➕ তালিকায় যোগ করুন':'➕ Add to list','সব পোস্টার সংরক্ষণ করুন':'Save all posters','(শিরোনাম নেই)':'(no title)',
+  'এখনো কোনো পোস্টার যোগ করা হয়নি।':'No posters added yet.','পোস্টার ছবির URL দিন':'Enter a poster image URL',
+  'অন্তত একটা পোস্টার যোগ করুন অথবা পপআপ বন্ধ রাখুন':'Add at least one poster or turn the popup off','অফার পোস্টার সংরক্ষণ হয়েছে':'Offer posters saved',
+  'হোমপেজ ক্যাটাগরি চিপ':'Homepage category chips','বিভাগের নাম':'Category name','যেমন: ইসলামি বই':'e.g. Islamic books',
+  'ছবি URL (ঐচ্ছিক)':'Image URL (optional)','ছবি আপলোড (ঐচ্ছিক)':'Upload image (optional)','সংরক্ষণ করুন (হোমপেজে লাইভ)':'Save (live on homepage)',
+  'কোনো কাস্টম ক্যাটাগরি চিপ নেই':'No custom category chips','এই ক্যাটাগরি আগে থেকেই আছে':'This category is already listed',
+  'হোমপেজ ক্যাটাগরি সংরক্ষণ হয়েছে':'Homepage categories saved',
+  'হোমপেজ প্রকাশনী চিপ':'Homepage publisher chips','প্রকাশনীর নাম':'Publisher name','প্রকাশনীর নাম লিখুন':'Type publisher name',
+  'লোগো URL (ঐচ্ছিক)':'Logo URL (optional)','লোগো আপলোড (ঐচ্ছিক)':'Upload logo (optional)','কোনো প্রকাশনী চিপ নেই':'No publisher chips',
+  'প্রকাশনীর নাম দিন':'Enter a publisher name','এই প্রকাশনী আগে থেকেই আছে':'This publisher is already listed','হোমপেজ প্রকাশনী চিপ সংরক্ষণ হয়েছে':'Homepage publisher chips saved',
+  'হোমপেজ প্রিয় লেখক চিপ':'Homepage favourite author chips','লেখকের নাম':'Author name','লেখকের নাম লিখুন':'Type author name',
+  'কোনো লেখক চিপ নেই':'No author chips','লেখকের নাম দিন':'Enter an author name','এই লেখক আগে থেকেই আছে':'This author is already listed',
+  'হোমপেজ লেখক চিপ সংরক্ষণ হয়েছে':'Homepage author chips saved',
+  'হোমপেজ ব্যানার / স্লাইডার':'Homepage banner / slider','ছবি URL':'Image URL','শিরোনাম (ঐচ্ছিক, alt text হিসেবে ব্যবহৃত হবে)':'Title (optional, used as alt text)',
+  'যেমন: ঈদ অফার':'e.g. Eid offer','filter.html?cat=... অথবা পুরো URL':'filter.html?cat=... or a full URL',
+  'সব ব্যানার সংরক্ষণ করুন (সাইটে লাইভ)':'Save all banners (live on site)','কোনো কাস্টম ব্যানার নেই':'No custom banners','(শুধু ছবি)':'(image only)',
+  'ছবির লিংক দিন বা আপলোড করুন':'Enter an image link or upload one','ব্যানার সংরক্ষণ হয়েছে — হোমপেজে লাইভ!':'Banners saved — live on homepage!',
+  'সংরক্ষণ হয়েছে — সাইটে ডিফল্ট ব্যানার দেখাবে':'Saved — the site will show the default banners'
+};
+
+/* ---- patterns for text with numbers/names (digits already ASCII here) ---- */
+var P = [
+  [/^(\d+) অপেক্ষমাণ · (\d+) পৌঁছে গেছে$/, '$1 pending · $2 delivered'],
+  [/^(\d+) অর্ডার$/, function(m,n){ return n + (n === '1' ? ' order' : ' orders'); }],
+  [/^(\d+)\s?টি ডুপ্লিকেট বই-ID ঠিক করা হয়েছে$/, 'Fixed $1 duplicate book IDs'],
+  [/^(\d+)\s?টি আইটেম যোগ হয়েছে$/, '$1 items added'],
+  [/^(\d+)টা বই আপডেট হয়েছে$/, '$1 books updated'],
+  [/^(\d+)টি বইয়ে বিষয় বসানো হয়েছে$/, 'Subject set on $1 books'],
+  [/^মোট রিভিউ: (\d+)টি$/, 'Total reviews: $1'],
+  [/^বৈধ সারি: (\d+) · অবৈধ সারি: (\d+)$/, 'Valid rows: $1 · Invalid rows: $2'],
+  [/^🌐 সব বই\/প্রোডাক্ট \((\d+)টি\)$/, '🌐 All books/products ($1)'],
+  [/^(.+) \((\d+)(টা|টি)\)$/, '$1 ($2)'],
+  [/^📚 (\d+)টি বই\/প্রোডাক্ট(?: · (\d+)% দিলে উদাহরণ: (.*))?$/, function(m,n,p,ex){ return '📚 '+n+' books/products'+(p?' · at '+p+'%, e.g. '+ex:''); }],
+  [/^(.+) — (\d+)টি আইটেমে (\d+)% ছাড় বসবে \(MRP-এর উপর\)। এগিয়ে যাবেন\?$/, function(m,l,n,p){ return tr(l)+' — '+p+'% off will be applied to '+n+' items (on MRP). Continue?'; }],
+  [/^✅ (\d+)টি আইটেমে (\d+)% ছাড় বসেছে।$/, '✅ $2% off applied to $1 items.'],
+  [/^(.+) — (\d+)টি আইটেম MRP-তে \(ছাড় ছাড়া\) ফেরানো হবে। এগিয়ে যাবেন\?$/, function(m,l,n){ return tr(l)+' — '+n+' items will be reset to MRP (no discount). Continue?'; }],
+  [/^✅ (\d+)টি আইটেম MRP-তে ফিরেছে।$/, '✅ $1 items reset to MRP.'],
+  [/^সর্বোচ্চ (\d+)টা পোস্টার যোগ করা যাবে$/, 'You can add up to $1 posters'],
+  [/^কুপন "(.*)" মুছে ফেলতে চান\?$/, 'Delete coupon "$1"?'],
+  [/^"(.*)" বিভাগটা তালিকা থেকে মুছে ফেলতে চান\? বইয়ের ডেটা বদলাবে না।$/, 'Remove category "$1" from the list? Book data will not change.'],
+  [/^"(.*)" সব বই থেকে মুছে ফেলতে \(ফাঁকা করতে\) চান\? এই কাজ পূর্বাবস্থায় ফেরানো যাবে না।$/, 'Clear "$1" from all books? This cannot be undone.'],
+  [/^এই ID \("(.*)"\) আরেকটি বইয়ে আগেই আছে — অন্য ID দিন বা ঘরটা খালি রাখুন$/, 'ID "$1" is already used by another book — enter a different ID or leave it blank'],
+  [/^sitemap\.xml ডাউনলোড হচ্ছে \((\d+)টি আইটেম\)$/, 'Downloading sitemap.xml ($1 items)'],
+  [/^এই নম্বরে (\d+)টি অর্ডার হয়েছে কিন্তু একটিও ডেলিভারি সম্পন্ন হয়নি।$/, '$1 orders from this number but none delivered.'],
+  [/^ডেলিভারি সম্পন্নের হার মাত্র (\d+)%, গড়ের চেয়ে অনেক কম।$/, 'Delivery completion rate is only $1% — far below average.'],
+  [/^এখনো (\d+)টি অর্ডার পেন্ডিং অবস্থায় আছে — যাচাই না করে কনফার্ম করবেন না।$/, '$1 orders still pending — verify before confirming.'],
+  [/^একই দিনে (\d+)টি অর্ডার করা হয়েছে — সম্ভবত ভুয়া\/টেস্ট অর্ডার।$/, '$1 orders on the same day — possibly fake/test orders.'],
+  [/^ছবি (\d+) \(কাটা (\d+)\) · PDF (\d+) · বিবরণ (\d+)$/, 'Images $1 (cropped $2) · PDF $3 · Descriptions $4'],
+  [/^ছবি (\d+) · PDF (\d+) · বিবরণ (\d+) বসেছে$/, 'Images $1 · PDF $2 · Descriptions $3 added'],
+  [/^সম্পন্ন — ছবি (\d+)টি \(তার মধ্যে ফুল-কভার থেকে কাটা (\d+)টি\) · PDF (\d+)টি · বিবরণ (\d+)টি বসেছে$/, 'Done — $1 images ($2 cropped from full covers) · $3 PDFs · $4 descriptions added'],
+  [/^কাটা ছবিগুলো একবার বই-এডিট করে দেখে নিন \(flap\/spine ঢুকে গেলে ম্যানুয়ালি ছবি বদলে দিন\): (.*)$/, 'Check the cropped images in the book editor (replace manually if a flap/spine got in): $1'],
+  [/^ছবি বসেনি (\d+)টিতে:$/, 'Image not set for $1:'],
+  [/^(\d+)টিতে ডকুমেন্ট ছিল কিন্তু বিবরণ পড়া যায়নি \(পুরনো \.doc বা খালি ফাইল\?\): (.*)$/, '$1 had a document but the description could not be read (old .doc or empty file?): $2'],
+  [/^(\d+)টি ফোল্ডার দোকানের কোনো বইয়ের সাথে মেলেনি \(.*?\): (.*)$/, '$1 folders did not match any book in the shop: $2'],
+  [/^কোন বইয়ে কোন ছবি বসল \((\d+)\)$/, 'Which image went to which book ($1)'],
+  [/^বই · (.*)$/, 'Book · $1'],
+  [/^প্রোডাক্ট · (.*)$/, 'Product · $1']
+];
+
+/* ---- label fragments inside mixed text (e.g. "পেমেন্ট: cod · ডেলিভারি চার্জ: ৳60") ---- */
+var PARTS = {
+  'অর্ডার লোড করতে সমস্যা হয়েছে:':'Could not load orders:','ডুপ্লিকেট ID সেভ ব্যর্থ:':'Saving duplicate IDs failed:',
+  'রিভিউ লোড করা যায়নি:':'Could not load reviews:','কুপন লোড ব্যর্থ:':'Could not load coupons:','Drive import ব্যর্থ:':'Drive import failed:',
+  'Drive API ত্রুটি:':'Drive API error:','PDF তৈরি ব্যর্থ:':'PDF generation failed:','আপডেট ব্যর্থ:':'Update failed:','লগইন ব্যর্থ:':'Sign in failed:',
+  'লোড ব্যর্থ:':'Load failed:','ব্যর্থ:':'Failed:','ত্রুটি:':'Error:','আপলোড ব্যর্থ —':'upload failed —',
+  'নোট (ক্রেতা):':'Customer note:','ডেলিভারি চার্জ:':'Delivery charge:','পেমেন্ট:':'Payment:','কুপন:':'Coupon:','মোট:':'Total:',
+  'ছাড়:':'Discount:','তারিখ:':'Date:','বর্তমান:':'Current:','ইনভয়েস #':'Invoice #','অর্ডার #':'Order #','বই #':'Book #',
+  ' (মালিক)':' (Owner)',' (মডারেটর)':' (Moderator)','ছাড় (':'Discount (',
+  '(ফোল্ডারটা "Anyone with the link" হিসেবে শেয়ার করা আছে তো? key সঠিক তো?)':'(is the folder shared as "Anyone with the link"? is the key correct?)',
+  // Drive import report reasons
+  'শুধু full-cover (চওড়া) ছবি আছে, আলাদা front নেই (কাটা বন্ধ আছে)':'only a full-cover (wide) image, no separate front (cropping is off)',
+  'full-cover থেকে front কেটে নেওয়া:':'front cropped from full cover:','— যাচাই করুন':'— please check',
+  'টা front-এর মধ্যে বাছাই:':' fronts, picked:','শুধু চওড়া ফোনে-তোলা ছবি আছে, আসল কভার নেই':'only wide phone photos, no real cover',
+  'শুধু বর্গাকার ছবি (promo?)':'only square images (promo?)','ছবির মাপ পড়া যায়নি':'could not read image size',
+  'ছবি খোলা যায়নি':'could not open image','কাটা যায়নি':'could not crop','ছবি নেই':'no image',
+  'imgbb key নেই':'imgbb key missing','imgbb আপলোড ব্যর্থ':'imgbb upload failed','JSZip লোড হয়নি':'JSZip failed to load'
+};
+
+var BN_DIGITS = /[০-৯]/g;
+function toAscii(s){ return s.replace(BN_DIGITS, function(d){ return String(d.charCodeAt(0) - 0x09E6); }); }
+var HAS_BN = /[ঀ-৿]/;
+var EXACT = new Map(), partKeys = [];
+Object.keys(EN).forEach(function(k){ EXACT.set(toAscii(k), EN[k]); });
+Object.keys(PARTS).forEach(function(k){ partKeys.push(k); });
+partKeys.sort(function(a,b){ return b.length - a.length; });
+var PART_RE = new RegExp(partKeys.map(function(k){ return k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); }).join('|'), 'g');
+
+// Bengali letters (not digits / ৳) — text with letters that matches nothing is data, left untouched
+var BN_LETTER = /[ঀ-৥ৰ-৲৴-৿]/;
+function tr(text){
+  if(!text || !HAS_BN.test(text)) return text;
+  var s = toAscii(text);
+  var m = s.match(/^(\s*)([\s\S]*?)(\s*)$/), core = m[2];
+  if(EXACT.has(core)) return m[1] + EXACT.get(core) + m[3];
+  for(var i=0;i<P.length;i++){
+    if(P[i][0].test(core)) return m[1] + core.replace(P[i][0], P[i][1]) + m[3];
+  }
+  if(!BN_LETTER.test(core)) return s;
+  var parted = core.replace(PART_RE, function(k){ return PARTS[k]; });
+  return parted === core ? text : m[1] + parted + m[3];
+}
+window.OD_TR = tr;
+
+/* ---- apply to the page, now and whenever the app renders ---- */
+var SKIP = {SCRIPT:1, STYLE:1, TEXTAREA:1, NOSCRIPT:1};
+var done = new WeakMap();
+function doText(n){
+  var p = n.parentNode;
+  if(!p || SKIP[p.nodeName]) return;
+  var v = n.nodeValue;
+  if(done.get(n) === v) return;
+  var out = tr(v);
+  done.set(n, out);
+  if(out !== v) n.nodeValue = out;
+}
+function doAttrs(el){
+  ['placeholder','title','aria-label'].forEach(function(a){
+    var v = el.getAttribute && el.getAttribute(a);
+    if(v && HAS_BN.test(v)){ var o = tr(v); if(o !== v) el.setAttribute(a, o); }
+  });
+}
+function walk(root){
+  if(root.nodeType === 3){ doText(root); return; }
+  if(root.nodeType !== 1 || SKIP[root.nodeName]) return;
+  doAttrs(root);
+  var w = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT, {
+    acceptNode: function(n){
+      if(n.nodeType === 1 && SKIP[n.nodeName]){ doAttrs(n); return NodeFilter.FILTER_REJECT; }
+      return NodeFilter.FILTER_ACCEPT;
+    }
+  });
+  var n;
+  while((n = w.nextNode())){ if(n.nodeType === 3) doText(n); else doAttrs(n); }
+}
+walk(document.body);
+new MutationObserver(function(list){
+  list.forEach(function(m){
+    if(m.type === 'characterData') doText(m.target);
+    else if(m.type === 'attributes') doAttrs(m.target);
+    else m.addedNodes.forEach(walk);
+  });
+}).observe(document.body, {childList:true, subtree:true, characterData:true, attributes:true, attributeFilter:['placeholder','title','aria-label']});
+
+/* ---- dialogs ---- */
+var oAlert = window.alert, oConfirm = window.confirm, oPrompt = window.prompt;
+window.alert = function(msg){ return oAlert.call(window, tr(String(msg))); };
+window.confirm = function(msg){ return oConfirm.call(window, tr(String(msg))); };
+window.prompt = function(msg, def){ return oPrompt.call(window, tr(String(msg)), def); };
+})();
+</script>
 
 <!-- ===================== Firebase + data ===================== -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -1992,7 +2308,7 @@ function loadModerators(){
             <div><b>${escapeHtml(r.name)}</b> — ${escapeHtml(r.email)}<div class="meta">${new Date(r.t).toLocaleString('bn-BD')}</div></div>
             <div class="small-btn-group">
               <button class="btn btn-primary btn-sm" data-approve="${escapeHtml(uid)}">অনুমোদন</button>
-              <button class="btn btn-danger btn-sm" data-reject="${escapeHtml(uid)}">বাতিল</button>
+              <button class="btn btn-danger btn-sm" data-reject="${escapeHtml(uid)}">বাতিল করুন</button>
             </div>
           </div>
         </div>`;
@@ -2219,7 +2535,7 @@ function renderHomeCatList(){
   const box = document.getElementById('homeCatList');
   if(!box) return;
   if(!homeCatsData.length){
-    box.innerHTML = '<div class="hint">কোনো কাস্টম ক্যাটাগরি চিপ নেই — নিচে থেকে যোগ করুন। (এখন সাইটে সবচেয়ে জনপ্রিয় বিভাগগুলো স্বয়ংক্রিয়ভাবে দেখানো হচ্ছে।)</div>';
+    box.innerHTML = '<div class="hint">কোনো কাস্টম ক্যাটাগরি চিপ নেই</div>';
     return;
   }
   box.innerHTML = homeCatsData.map((c,i)=>{
@@ -2273,7 +2589,7 @@ function renderHomePubList(){
   const box = document.getElementById('homePubList');
   if(!box) return;
   if(!homePubsData.length){
-    box.innerHTML = '<div class="hint">কোনো প্রকাশনী চিপ নেই — নিচে থেকে যোগ করুন। (কিছু না থাকলে হোমপেজে এই সেকশন দেখাবে না।)</div>';
+    box.innerHTML = '<div class="hint">কোনো প্রকাশনী চিপ নেই</div>';
     return;
   }
   box.innerHTML = homePubsData.map((p,i)=>{
@@ -2327,7 +2643,7 @@ function renderHomeAuthorList(){
   const box = document.getElementById('homeAuthorList');
   if(!box) return;
   if(!homeAuthorsData.length){
-    box.innerHTML = '<div class="hint">কোনো লেখক চিপ নেই — নিচে থেকে যোগ করুন। (কিছু না থাকলে হোমপেজে এই সেকশন দেখাবে না।)</div>';
+    box.innerHTML = '<div class="hint">কোনো লেখক চিপ নেই</div>';
     return;
   }
   box.innerHTML = homeAuthorsData.map((a,i)=>{
@@ -2380,7 +2696,7 @@ function renderBannerList(){
   const box = document.getElementById('bannerList');
   if(!box) return;
   if(!bannerData.length){
-    box.innerHTML = '<div class="hint">কোনো কাস্টম ব্যানার নেই — সেভ করলে সাইটের ডিফল্ট দুইটি ব্যানার দেখাবে। নিচে থেকে নতুন যোগ করতে পারেন।</div>';
+    box.innerHTML = '<div class="hint">কোনো কাস্টম ব্যানার নেই</div>';
     return;
   }
   box.innerHTML = bannerData.map((b,i)=>{
@@ -2725,7 +3041,7 @@ function loadCatTreeAndTags(){
 function renderCatTreeBox(){
   const box = document.getElementById('catTreeBox');
   if(!box) return;
-  if(!siteCatTreeData.length){ box.innerHTML = '<div class="hint">কোনো বিভাগ নেই — নিচে থেকে যোগ করুন।</div>'; return; }
+  if(!siteCatTreeData.length){ box.innerHTML = '<div class="hint">কোনো বিভাগ নেই</div>'; return; }
   box.innerHTML = siteCatTreeData.map((c,i)=>{
     const chips = (c.subs||[]).map((s,j)=>`<span class="cattree-chip">${escapeHtml(s)} <span data-rmsub="${i}|${j}" title="মুছুন">✕</span></span>`).join('');
     return `<div class="cattree-card">
@@ -2775,7 +3091,7 @@ document.getElementById('saveCatTreeBtn').addEventListener('click', function(){
 function renderTagListBox(){
   const box = document.getElementById('tagListBox');
   if(!box) return;
-  if(!siteTagsData.length){ box.innerHTML = '<div class="hint">কোনো ট্যাগ নেই — নিচে থেকে যোগ করুন।</div>'; return; }
+  if(!siteTagsData.length){ box.innerHTML = '<div class="hint">কোনো ট্যাগ নেই</div>'; return; }
   box.innerHTML = siteTagsData.map((name,i)=>`
     <div class="curate-row">
       <span class="curate-name">${escapeHtml(name)}</span>
