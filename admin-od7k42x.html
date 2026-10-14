@@ -327,7 +327,7 @@ hr.sep{border:none; border-top:1px solid var(--border); margin:16px 0;}
 <div id="loginScreen">
   <div class="login-card">
     <button type="button" class="lang-btn" data-lang-toggle>English</button>
-    <img src="ourdedication10-logo.png?v=4" alt="OurDedication" class="login-logo">
+    <img src="ourdedication10-logo.png?v=5" alt="OurDedication" class="login-logo">
     <h1 class="sr">OurDedication</h1>
     <p class="sub" id="loginSub">নিয়ন্ত্রণ প্যানেল — লগইন করুন</p>
 
@@ -957,6 +957,10 @@ Number.prototype.toLocaleString = function(l, o){ return nTL.call(this, fixLoc(l
 
 /* ---- exact UI strings ---- */
 var EN = {
+  'বইয়ের লাইভ লিস্ট আনা যায়নি (নেট সমস্যা) — পেজ রিলোড করুন। ততক্ষণ বই/অফার সেভ বন্ধ থাকবে।':'Could not load the live book list (network problem) — reload the page. Saving books/offers is disabled until then.',
+  'বইয়ের লাইভ লিস্ট লোড হয়নি — পেজ রিলোড করে আবার চেষ্টা করুন':'Live book list not loaded — reload the page and try again',
+  'মোট টাকার হিসাব মিলছে না — কনফার্মের আগে যাচাই করুন':'Total does not add up — verify before confirming',
+  'কোনো পণ্যের দাম দোকানের বর্তমান দামের চেয়ে কম — যাচাই করুন':'An item price is lower than the current shop price — verify',
   // login
   'নিয়ন্ত্রণ প্যানেল — লগইন করুন':'Control Panel — Sign in','ইমেইল':'Email','পাসওয়ার্ড':'Password','লগইন করুন':'Sign in',
   'নাম':'Name','অনুরোধ পাঠান':'Send request','মডারেটর হিসেবে সাইনআপ করুন':'Sign up as moderator',
@@ -1500,11 +1504,27 @@ function initData(){
 }
 
 /* ================= BOOKS: load/merge ================= */
+/* ~২ MB bookList Firebase SDK-র WebSocket দিয়ে নয়, সাধারণ HTTPS (REST) দিয়ে আনা/পাঠানো হয়।
+   কিছু নেটওয়ার্কে WebSocket আটকে যায় (কনসোলে "WebSocket ... ERR_CONNECTION_TIMED_OUT") — তখন SDK
+   ধীর long-polling-এ চলে যায় আর ২ MB আনা/সেভ করা কখনো শেষ হয় না (প্রকাশনী অফার ইত্যাদি কাজ করত না)। */
+const DB_REST = (window.OD_DB_URL || '').replace(/\/$/, '');
+function fetchWithTimeout(url, opts, ms){
+  const ctl = new AbortController();
+  const t = setTimeout(()=>ctl.abort(), ms);
+  return fetch(url, Object.assign({}, opts, {signal: ctl.signal})).finally(()=>clearTimeout(t));
+}
+function loadBookListRaw(){
+  return fetchWithTimeout(DB_REST + '/bookList.json', {}, 90000)
+    .then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+    .catch(()=> db.ref('bookList').get().then(snap=>snap.val())); // REST না চললে SDK দিয়ে চেষ্টা
+}
+// লাইভ লিস্ট আনা না গেলে book.js-এর পুরনো কপি দেখানো হয় — তখন সেভ করলে নতুন বই/দাম মুছে যেত, তাই সেভ বন্ধ
+let booksLoadFailed = false;
 function loadBooksMerged(){
   const baseline = (typeof books !== 'undefined' && Array.isArray(books)) ? books.slice() : [];
-  db.ref('bookList').get().then(snap=>{
-    if(snap.exists() && snap.val()){
-      const val = snap.val();
+  loadBookListRaw().then(val=>{
+    booksLoadFailed = false;
+    if(val){
       workingBooks = Array.isArray(val) ? val.filter(Boolean) : Object.values(val).filter(Boolean);
       fixDuplicateBids();
     } else {
@@ -1516,6 +1536,8 @@ function loadBooksMerged(){
     populateCurationDatalists();
     onWorkingBooksReady();
   }).catch(()=>{
+    booksLoadFailed = true;
+    toast('বইয়ের লাইভ লিস্ট আনা যায়নি (নেট সমস্যা) — পেজ রিলোড করুন। ততক্ষণ বই/অফার সেভ বন্ধ থাকবে।', 'err');
     workingBooks = baseline;
     renderDashboard();
     renderBookCatFilterOptions();
@@ -1552,9 +1574,31 @@ function fixDuplicateBids(){
     .catch(err=> toast('ডুপ্লিকেট ID সেভ ব্যর্থ: '+err.message, 'err'));
 }
 
-function saveBookListToFirebase(){
+/* bookList-এর সাথে siteConfig/bookListV-এ ভার্সন (সার্ভারের সময়) লেখা হয় — একসাথে, একটাই আপডেটে।
+   সাইট (books-live.js) প্রথমে শুধু এই ছোট নম্বরটা দেখে; বদলালে তবেই পুরো ~২ MB লিস্ট নামায়। */
+async function saveBookListToFirebase(){
+  if(booksLoadFailed) throw new Error('বইয়ের লাইভ লিস্ট লোড হয়নি — পেজ রিলোড করে আবার চেষ্টা করুন');
   const arr = workingBooks.filter(Boolean);
-  return db.ref('bookList').set(arr);
+  const user = auth.currentUser;
+  if(user && DB_REST){
+    let res = null;
+    try{
+      const token = await user.getIdToken();
+      // print=silent: সার্ভার ২ MB ডেটা ফেরত পাঠায় না
+      res = await fetchWithTimeout(DB_REST + '/.json?print=silent&auth=' + encodeURIComponent(token), {
+        method: 'PATCH',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ bookList: arr, 'siteConfig/bookListV': {'.sv': 'timestamp'} })
+      }, 120000);
+    }catch(e){ res = null; } // নেট সমস্যা — নিচে SDK দিয়ে চেষ্টা
+    if(res){
+      if(res.ok) return;
+      let msg = 'HTTP ' + res.status;
+      try{ const j = await res.json(); if(j && j.error) msg = j.error; }catch(e){}
+      throw new Error(msg);
+    }
+  }
+  return db.ref().update({ bookList: arr, 'siteConfig/bookListV': firebase.database.ServerValue.TIMESTAMP });
 }
 
 /* ================= DASHBOARD ================= */
@@ -1606,7 +1650,11 @@ function loadOrders(){
       const val = snap.val();
       Object.keys(val).forEach(key=>{
         const o = val[key];
+        if(!o || typeof o !== 'object') return;
         o.orderId = o.orderId || key;
+        // ভুল/ক্ষতিকর ডেটায় (items যদি লিস্ট না হয়) পুরো অর্ডার তালিকা যেন ভেঙে না যায়
+        if(!Array.isArray(o.items)) o.items = (o.items && typeof o.items === 'object') ? Object.values(o.items) : [];
+        o.items = o.items.filter(it => it && typeof it === 'object');
         allOrders.push(o);
       });
     }
@@ -1639,6 +1687,23 @@ function renderOrderFilters(){
   });
 }
 
+/* দাম ক্রেতার ব্রাউজারে হিসাব হয়ে আসে — কেউ চাইলে বদলে পাঠাতে পারে। তাই কনফার্মের আগে
+   অ্যাডমিনকে সতর্ক করা হয়: (১) পণ্য+ডেলিভারি−ছাড় = মোট মিলছে কিনা, (২) কোনো পণ্যের দাম
+   দোকানের বর্তমান দামের চেয়ে কম কিনা */
+function orderPriceIssues(o){
+  const out = [];
+  const items = o.items || [];
+  const sum = items.reduce((s,it)=>s + (Number(it.price)||0) * (Number(it.qty)||1), 0);
+  const expected = sum + (Number(o.delivery)||0) - (Number(o.discount)||0);
+  if(Math.abs(expected - (Number(o.total)||0)) > 1) out.push('মোট টাকার হিসাব মিলছে না — কনফার্মের আগে যাচাই করুন');
+  const low = items.some(it=>{
+    const b = workingBooks.find(x=>x && x.name === it.name);
+    return b && Number(b.price) > 0 && (Number(it.price)||0) < Number(b.price);
+  });
+  if(low) out.push('কোনো পণ্যের দাম দোকানের বর্তমান দামের চেয়ে কম — যাচাই করুন');
+  return out;
+}
+
 function renderOrders(){
   const wrap = document.getElementById('ordersList');
   let list = allOrders.slice().sort((a,b)=>b.createdAt-a.createdAt);
@@ -1648,7 +1713,8 @@ function renderOrders(){
     return;
   }
   wrap.innerHTML = list.map(o=>{
-    const itemsHtml = (o.items||[]).map(it=>`<div>${escapeHtml(it.name)} × ${it.qty} — ৳${it.price}</div>`).join('');
+    const itemsHtml = (o.items||[]).map(it=>`<div>${escapeHtml(it.name)} × ${escapeHtml(String(it.qty))} — ৳${escapeHtml(String(it.price))}</div>`).join('');
+    const priceIssues = orderPriceIssues(o).map(m=>`<div class="meta" style="color:var(--red);font-weight:600;">⚠️ ${escapeHtml(m)}</div>`).join('');
     const couponHtml = o.coupon ? `<span class="tag-coupon">কুপন: ${escapeHtml(o.coupon)} (${escapeHtml(o.couponType||'')})</span>` : '';
     return `
     <div class="order-card" data-orderid="${escapeHtml(o.orderId)}">
@@ -1659,7 +1725,8 @@ function renderOrders(){
       <div class="meta">${escapeHtml(o.address||'')}, ${escapeHtml(o.district||'')} ${o.upazila?('/ '+escapeHtml(o.upazila)):''}</div>
       <div class="meta">${new Date(o.createdAt).toLocaleString('bn-BD')} · পেমেন্ট: ${escapeHtml(o.payment||'')}${o.txnId ? ` (TxnID: <b>${escapeHtml(o.txnId)}</b>)` : ''} · ডেলিভারি চার্জ: ৳${escapeHtml(String(o.delivery||'0'))} ${couponHtml}</div>
       <div class="items">${itemsHtml || '<i>আইটেম নেই</i>'}</div>
-      <div class="meta"><b>মোট: ৳${escapeHtml(String(o.total))}</b>${o.discount?(' · ছাড়: ৳'+o.discount):''}</div>
+      <div class="meta"><b>মোট: ৳${escapeHtml(String(o.total))}</b>${o.discount?(' · ছাড়: ৳'+escapeHtml(String(o.discount))):''}</div>
+      ${o.status === 'pending' || o.status === 'confirmed' ? priceIssues : ''}
       ${o.customerNote ? `<div class="meta">নোট (ক্রেতা): ${escapeHtml(o.customerNote)}</div>` : ''}
       ${o.steadfast ? `<div class="meta">Steadfast: ${escapeHtml(JSON.stringify(o.steadfast))}</div>` : ''}
       ${o.redx ? `<div class="meta">RedX: ${escapeHtml(JSON.stringify(o.redx))}</div>` : ''}
@@ -3834,7 +3901,14 @@ document.getElementById('btnDownloadSitemap').addEventListener('click', function
   URL.revokeObjectURL(url);
   toast('sitemap.xml ডাউনলোড হচ্ছে ('+workingBooks.length+'টি আইটেম)', 'ok');
 });
-document.getElementById('btnDownloadBookJs').addEventListener('click', function(){
+document.getElementById('btnDownloadBookJs').addEventListener('click', async function(){
+  /* আগে একবার সেভ করে নতুন ভার্সন নেওয়া হয় — book.js-এ সেটা লেখা থাকে (OD_BOOKS_V)।
+     ফলে এই book.js আপলোড করার পর নতুন ভিজিটরদের আর Firebase থেকে পুরো লিস্ট নামাতে হয় না। */
+  let ver = 0;
+  try{
+    await saveBookListToFirebase();
+    ver = Number(await fetchWithTimeout(DB_REST + '/siteConfig/bookListV.json', {}, 30000).then(r=>r.json())) || 0;
+  }catch(err){ toast('ভার্সন সেভ করা যায়নি ('+err.message+') — book.js ভার্সন ছাড়াই ডাউনলোড হচ্ছে', 'err'); }
   const FIELDS = ['bid','type','name','author','price','original_price','cat','subcat','subject','cover','pub','pages','brand','img'];
   const esc = s=>String(s==null?'':s).replace(/\\/g,'\\\\').replace(/"/g,'\\"').replace(/\r\n/g,'\\n').replace(/\r/g,'\\n').replace(/\n/g,'\\n');
   const lines = workingBooks.map(b=>{
@@ -3849,7 +3923,10 @@ document.getElementById('btnDownloadBookJs').addEventListener('click', function(
     fields.push('pdfLink: "'+esc(b.pdfLink)+'"');
     return '  { '+fields.join(', ')+' }';
   });
-  const code = 'const books = [\n'+lines.join(',\n')+'\n];\n';
+  const code = (ver ? 'var OD_BOOKS_V = '+ver+'; // Firebase siteConfig/bookListV — books-live.js এটা মিলিয়ে দেখে\n' : '') +
+    'const books = [\n'+lines.join(',\n')+'\n];\n\n' +
+    '/* ═══ IMAGE FALLBACK ═══ আসল কভার URL না থাকলে বইয়ের কভার-টেমপ্লেট দেখানো হয় */\n' +
+    'books.forEach(function(b){\n    if(!b.img || !/^https?:\\/\\//.test(b.img)) b.img = \'book-placeholder.svg\';\n});\n';
   const blob = new Blob([code], {type:'text/javascript;charset=utf-8'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a'); a.href=url; a.download='book.js'; a.click();
