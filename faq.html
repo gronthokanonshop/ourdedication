@@ -38,7 +38,9 @@
 <link rel="apple-touch-icon" sizes="180x180" href="icon-180.png?v=5">
 <meta name="theme-color" content="#ffffff">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
 <style>
 :root {
   --navy:     #ffffff;
@@ -145,11 +147,11 @@ body{font-family:var(--font-bn);background:var(--navy);color:#1e1b4b;overflow-x:
 <nav class="nav">
   <div class="nav-wrap">
     <a href="index.html" class="logo">
-      <img src="ourdedication10-logo.png?v=4" alt="OurDedication" style="height:46px;width:106px;display:block;object-fit:contain;">
+      <img src="ourdedication10-logo.png?v=5" alt="OurDedication" style="height:46px;width:106px;display:block;object-fit:contain;">
     </a>
     <div class="nav-search">
-      <input type="text" id="searchInp" placeholder="পণ্য খুঁজুন... Search products" onkeydown="if(event.key==='Enter') doSearch()">
-      <button onclick="doSearch()"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+      <input type="text" id="searchInp" aria-label="পণ্য খুঁজুন" placeholder="পণ্য খুঁজুন... Search products" onkeydown="if(event.key==='Enter') doSearch()">
+      <button onclick="doSearch()" aria-label="খুঁজুন"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
     </div>
     <div class="nav-actions">
       <a href="#" class="nav-btn" title="wishlist"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></a>
@@ -157,7 +159,7 @@ body{font-family:var(--font-bn);background:var(--navy);color:#1e1b4b;overflow-x:
         <svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
         <span class="nav-badge" id="cartCount">0</span>
       </a>
-      <button class="nav-btn ham" id="hamBtn" onclick="toggleMenu()"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <button class="nav-btn ham" id="hamBtn" onclick="toggleMenu()" aria-label="মেনু"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
     </div>
   </div>
 </nav>
@@ -221,7 +223,7 @@ body{font-family:var(--font-bn);background:var(--navy);color:#1e1b4b;overflow-x:
 <footer class="site-footer">
   <div class="footer-wrap">
     <div class="footer-brand">
-      <img src="ourdedication10-logo.png?v=4" alt="OurDedication" loading="lazy" style="height:56px;width:128px;display:inline-block;vertical-align:top;object-fit:contain;background:#fff;border-radius:12px;padding:8px 14px;box-sizing:content-box;box-shadow:0 4px 14px rgba(0,0,0,.25);">
+      <img src="ourdedication10-logo.png?v=5" alt="OurDedication" loading="lazy" style="height:56px;width:128px;display:inline-block;vertical-align:top;object-fit:contain;background:#fff;border-radius:12px;padding:8px 14px;box-sizing:content-box;box-shadow:0 4px 14px rgba(0,0,0,.25);">
       <p>ইসলামিক ও সাধারণ বইয়ের অনলাইন দোকান — সারাদেশে হোম ডেলিভারি, ক্যাশ অন ডেলিভারি সুবিধা সহ।</p>
     </div>
     <div class="footer-col">
@@ -241,7 +243,7 @@ body{font-family:var(--font-bn);background:var(--navy);color:#1e1b4b;overflow-x:
       <a href="https://www.tiktok.com/@sajidurrahman9804" target="_blank"><svg class="fico" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 2h-3.2v13.5a2.7 2.7 0 1 1-2.7-2.7c.24 0 .47.02.7.07V9.6a6 6 0 1 0 5.2 5.95V8.83a7.7 7.7 0 0 0 4.5 1.44V6.98A4.28 4.28 0 0 1 16.5 2z"/></svg> টিকটক</a>
     </div>
   </div>
-  <div class="footer-bottom">© <span id="fyear"></span> OurDedication (আওয়ার ডেডিকেশন) — সর্বস্বত্ব সংরক্ষিত &nbsp;·&nbsp; <a href="javascript:void(0)" id="viewModeToggle" onclick="toggleViewMode()" style="color:#9ca8d8;text-decoration:underline;">ডেস্কটপ ভার্সন দেখুন</a></div>
+  <div class="footer-bottom">© <span id="fyear"></span> OurDedication (আওয়ার ডেডিকেশন) — সর্বস্বত্ব সংরক্ষিত &nbsp;·&nbsp; <button type="button" id="viewModeToggle" onclick="toggleViewMode()" style="color:#9ca8d8;text-decoration:underline;background:none;border:0;padding:0;font:inherit;cursor:pointer;">ডেস্কটপ ভার্সন দেখুন</button></div>
 </footer>
 
 <nav class="bottom-nav">
@@ -255,10 +257,6 @@ body{font-family:var(--font-bn);background:var(--navy);color:#1e1b4b;overflow-x:
 <a href="https://wa.me/8801355490565" class="wa-float" target="_blank" title="WhatsApp">💬</a>
 <div class="toast-wrap" id="toastWrap"></div>
 
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-<script src="firebase-config.js"></script>
 <script>
 function doSearch(){
   const q = document.getElementById('searchInp').value.trim();

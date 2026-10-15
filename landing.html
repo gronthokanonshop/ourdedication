@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>অফার — OurDedication</title>
+<meta name="description" content="OurDedication — বিশেষ অফার। সারাদেশে হোম ডেলিভারি, ক্যাশ অন ডেলিভারি সুবিধা।">
+<!-- প্রতিটা অফার-পাতা আলাদা (Facebook অ্যাডের জন্য) — Google-এ আলাদা করে দেখানোর দরকার নেই -->
+<meta name="robots" content="noindex">
+<meta property="og:site_name" content="OurDedication">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://ourdedication.com/og-image.jpg?v=4">
+<link rel="icon" href="favicon.ico?v=5" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=5">
+<link rel="apple-touch-icon" sizes="180x180" href="icon-180.png?v=5">
+<meta name="theme-color" content="#ffffff">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Hind Siliguri','SolaimanLipi',Arial,sans-serif;background:#f5f6f8;color:#1a1a1a;padding-bottom:96px;-webkit-tap-highlight-color:transparent;}
+.lp-top{display:flex;align-items:center;justify-content:center;padding:12px 16px;background:#fff;border-bottom:1px solid #e5e7eb;}
+.lp-top img{height:40px;width:auto;display:block;}
+.lp-wrap{max-width:480px;margin:0 auto;padding:0 16px 20px;background:#fff;min-height:60vh;}
+.lp-banner{width:calc(100% + 32px);margin:0 -16px;aspect-ratio:1/1;object-fit:contain;background:#f7f8fa;display:block;}
+.lp-badge{display:inline-flex;align-items:center;gap:5px;background:#fdecec;color:#CB2527;font-size:0.75rem;font-weight:700;padding:5px 12px;border-radius:20px;margin-top:14px;}
+.lp-headline{font-size:1.4rem;font-weight:800;line-height:1.35;margin:12px 0 6px;}
+.lp-sub{font-size:0.9rem;color:#4b5563;line-height:1.7;margin-bottom:12px;}
+.lp-social-row{display:flex;align-items:center;gap:12px;margin:2px 0 10px;flex-wrap:wrap;font-size:0.8rem;font-weight:700;color:#374151;}
+.lp-stars{color:#f59e0b;letter-spacing:1px;}
+.lp-price-row{display:flex;align-items:baseline;gap:10px;margin:6px 0 14px;flex-wrap:wrap;}
+.lp-price{font-size:1.7rem;font-weight:800;color:#CB2527;}
+.lp-oprice{font-size:0.95rem;color:#9ca3af;text-decoration:line-through;}
+.lp-disc{font-size:0.75rem;font-weight:800;color:#CB2527;background:#fdecec;padding:3px 9px;border-radius:20px;}
+.lp-bullets,.lp-diff{list-style:none;margin:0 0 16px;display:flex;flex-direction:column;gap:9px;}
+.lp-bullets li,.lp-diff li{font-size:0.88rem;font-weight:600;display:flex;align-items:flex-start;gap:8px;}
+.lp-ok{flex-shrink:0;width:18px;height:18px;color:#16a34a;margin-top:2px;}
+.lp-cta{display:block;width:100%;padding:15px;background:#CB2527;color:#fff;border:none;border-radius:12px;font:800 1rem 'Hind Siliguri',Arial,sans-serif;cursor:pointer;text-align:center;}
+.lp-cta:hover{background:#a91d1f;}
+.lp-cta:active{transform:scale(0.98);}
+.lp-wa{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;margin-top:10px;background:#f0fdf4;color:#15803d;border:1.5px solid #bbf7d0;border-radius:12px;font-size:0.88rem;font-weight:700;cursor:pointer;text-decoration:none;}
+.lp-trust{display:flex;justify-content:space-between;gap:8px;margin-top:18px;padding-top:14px;border-top:1px dashed #e5e7eb;}
+.lp-trust div{flex:1;text-align:center;font-size:0.7rem;color:#4b5563;font-weight:600;line-height:1.5;}
+.lp-countdown{margin:12px 0;padding:12px;background:#1f2937;border-radius:12px;text-align:center;}
+.lp-countdown-label{font-size:0.75rem;font-weight:700;color:#fecaca;margin-bottom:8px;}
+.lp-countdown-row{display:flex;justify-content:center;gap:8px;}
+.lp-countdown-box{background:rgba(255,255,255,0.12);border-radius:8px;padding:6px 10px;min-width:48px;}
+.lp-countdown-num{font-size:1.2rem;font-weight:800;color:#fff;line-height:1.1;}
+.lp-countdown-unit{font-size:0.6rem;color:#fecaca;font-weight:600;}
+.lp-section-title{font-size:1.05rem;font-weight:800;margin:24px 0 12px;border-left:3px solid #CB2527;padding-left:8px;}
+.lp-why-list,.lp-reviews{display:flex;flex-direction:column;gap:10px;}
+.lp-why-item,.lp-review-card,.lp-faq details{background:#fff;border:1.5px solid #e5e7eb;border-radius:12px;padding:10px 12px;}
+.lp-why-title{font-size:0.88rem;font-weight:700;}
+.lp-why-desc{font-size:0.78rem;color:#4b5563;margin-top:2px;line-height:1.5;}
+.lp-review-head{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+.lp-review-avatar{width:36px;height:36px;border-radius:50%;object-fit:cover;background:#CB2527;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;flex-shrink:0;}
+.lp-review-name{font-size:0.84rem;font-weight:700;}
+.lp-review-comment{font-size:0.82rem;color:#4b5563;line-height:1.6;}
+.lp-faq details{margin-bottom:8px;}
+.lp-faq summary{font-size:0.86rem;font-weight:700;cursor:pointer;list-style:none;}
+.lp-faq summary::-webkit-details-marker{display:none;}
+.lp-faq summary::after{content:'+';float:right;font-weight:800;color:#CB2527;}
+.lp-faq details[open] summary::after{content:'−';}
+.lp-faq-a{font-size:0.82rem;color:#4b5563;margin-top:8px;line-height:1.6;}
+.lp-benefits{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.lp-benefits li{display:flex;gap:10px;align-items:flex-start;font-size:0.86rem;font-weight:600;}
+.lp-bn-num{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:#CB2527;color:#fff;font-size:0.7rem;font-weight:800;display:flex;align-items:center;justify-content:center;}
+.lp-video{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden;}
+.lp-video iframe{width:100%;height:100%;border:0;}
+.lp-gallery{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch;}
+.lp-gallery-card{flex:0 0 130px;background:#fff;border:1.5px solid #e5e7eb;border-radius:12px;overflow:hidden;text-decoration:none;color:inherit;}
+.lp-gallery-card img{width:100%;height:150px;object-fit:contain;display:block;background:#f7f8fa;}
+.lp-gallery-name{font-size:0.72rem;font-weight:700;padding:6px 8px 2px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.lp-gallery-price{font-size:0.8rem;font-weight:800;color:#CB2527;padding:0 8px 8px;}
+.lp-closing{background:#1f2937;border-radius:14px;padding:20px 16px;text-align:center;margin-top:26px;}
+.lp-closing-text{color:#fff;font-size:0.95rem;font-weight:700;line-height:1.6;margin-bottom:14px;}
+.lp-quickgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;}
+.lp-quickbtn{display:flex;align-items:center;justify-content:center;gap:6px;padding:11px;border-radius:10px;font-size:0.8rem;font-weight:700;text-decoration:none;}
+.lp-qb-call{background:#fbbf24;color:#78350f;} .lp-qb-wa{background:#22c55e;color:#fff;} .lp-qb-fb{background:#2563eb;color:#fff;} .lp-qb-track{background:rgba(255,255,255,0.16);color:#fff;}
+.lp-sticky{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid #e5e7eb;padding:10px 16px;z-index:99;box-shadow:0 -4px 20px rgba(0,0,0,0.08);}
+.lp-sticky-inner{max-width:480px;margin:0 auto;}
+.lp-empty{text-align:center;padding:80px 20px;color:#4b5563;}
+.lp-empty a{color:#CB2527;font-weight:700;}
+</style>
+</head>
+<body>
+
+<a class="lp-top" href="index.html"><img src="ourdedication10-logo.png?v=5" alt="OurDedication"></a>
+
+<div class="lp-wrap" id="lpWrap">
+  <div style="text-align:center;padding:60px 0;color:#6b7280;">লোড হচ্ছে...</div>
+</div>
+
+<script>window.OD_DB_URL = 'https://ourdedication-2a2d5-default-rtdb.asia-southeast1.firebasedatabase.app';</script>
+<!-- Meta Pixel (siteConfig/metaPixelId থেকে অ্যাডমিন প্যানেলে সেট করলে চালু হবে) -->
+<script>
+(function(){
+  fetch(window.OD_DB_URL + '/siteConfig/metaPixelId.json')
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(id){
+      if(!id || !/^\d{5,20}$/.test(id)) return;
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', id);
+      fbq('track', 'PageView');
+    }).catch(function(){});
+})();
+</script>
+<script src="book.js"></script>
+<script src="books-live.js"></script>
+<script>
+/* ল্যান্ডিং পেজ — অ্যাডমিন প্যানেলের "ল্যান্ডিং পেজ" টুলে বানানো (siteConfig/landingPages/{slug})।
+   দাম/ছবি book.js থেকে, তাই সবসময় এখনকার দাম দেখায়। রেটিং/রিভিউ/বিক্রির সংখ্যা শুধু অ্যাডমিন যা দেন তাই — নিজে থেকে কিছু বানানো হয় না। */
+const WA_NUM = '8801355490565', CALL_NUM = '01842970565', FB_PAGE = 'https://www.facebook.com/Sajidbookshop';
+function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+function bn(n){ return String(n).replace(/\d/g, d => '০১২৩৪৫৬৭৮৯'[d]); }
+const OK_IC = '<svg class="lp-ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-6"/></svg>';
+function stars(n){ n = Math.min(5, Math.max(1, Math.round(Number(n)||5))); return '★'.repeat(n) + '☆'.repeat(5 - n); }
+const lpSlug = new URLSearchParams(location.search).get('slug');
+
+function lpShowEmpty(){
+  document.getElementById('lpWrap').innerHTML = `<div class="lp-empty">
+      <div style="font-weight:700;margin-bottom:8px;">এই অফার পেজটি আর নেই</div>
+      <div style="font-size:0.85rem;margin-bottom:10px;">চিন্তা নেই, আমাদের পুরো কালেকশন দেখুন —</div>
+      <a href="index.html">হোমপেজে যান</a></div>`;
+}
+
+let lpBook = null;
+function lpRender(lp, book){
+  const price = Number(book.price)||0, oprice = Number(book.original_price)||0;
+  const pct = oprice > price ? Math.round((oprice - price) / oprice * 100) : 0;
+  const imgRaw = String(lp.img || book.img || '');
+  const img = /^https?:\/\//.test(imgRaw) ? imgRaw : 'book-placeholder.svg';
+  const list = (a) => Array.isArray(a) ? a.filter(Boolean) : [];
+  const bullets = list(lp.bullets).length ? list(lp.bullets) : ['১০০% অরিজিনাল বই','ক্যাশ অন ডেলিভারি সুবিধা','সারাদেশে হোম ডেলিভারি'];
+  const deadlineOk = lp.deadline && new Date(lp.deadline).getTime() > Date.now();
+  const cd = deadlineOk ? `<div class="lp-countdown" id="lpCountdown"><div class="lp-countdown-label">অফারটি শেষ হচ্ছে</div><div class="lp-countdown-row">
+      <div class="lp-countdown-box"><div class="lp-countdown-num" id="lpCdD">০০</div><div class="lp-countdown-unit">দিন</div></div>
+      <div class="lp-countdown-box"><div class="lp-countdown-num" id="lpCdH">০০</div><div class="lp-countdown-unit">ঘণ্টা</div></div>
+      <div class="lp-countdown-box"><div class="lp-countdown-num" id="lpCdM">০০</div><div class="lp-countdown-unit">মিনিট</div></div>
+      <div class="lp-countdown-box"><div class="lp-countdown-num" id="lpCdS">০০</div><div class="lp-countdown-unit">সেকেন্ড</div></div></div></div>` : '';
+  const social = (lp.rating || lp.soldcount) ? `<div class="lp-social-row">${lp.rating ? `<span><span class="lp-stars">${stars(lp.rating)}</span> ${esc(lp.rating)}/5</span>` : ''}${lp.soldcount ? `<span>${esc(lp.soldcount)}</span>` : ''}</div>` : '';
+  const why = list(lp.why).length ? `<div class="lp-section-title">কেন কিনবেন?</div><div class="lp-why-list">${list(lp.why).map(w => `<div class="lp-why-item"><div class="lp-why-title">${esc(w.title)}</div>${w.desc ? `<div class="lp-why-desc">${esc(w.desc)}</div>` : ''}</div>`).join('')}</div>` : '';
+  const reviews = list(lp.reviews).length ? `<div class="lp-section-title">কাস্টমারদের মতামত</div><div class="lp-reviews">${list(lp.reviews).map(r => `<div class="lp-review-card"><div class="lp-review-head">${r.img && /^https?:\/\//.test(r.img) ? `<img class="lp-review-avatar" src="${esc(r.img)}" alt="">` : `<div class="lp-review-avatar">${esc((r.name||'?').trim().charAt(0))}</div>`}<div><div class="lp-review-name">${esc(r.name || 'কাস্টমার')}</div><div class="lp-stars">${stars(r.rating)}</div></div></div><div class="lp-review-comment">${esc(r.comment || '')}</div></div>`).join('')}</div>` : '';
+  const faq = list(lp.faq).length ? `<div class="lp-section-title">সচরাচর জিজ্ঞাসা</div><div class="lp-faq">${list(lp.faq).map(f => `<details><summary>${esc(f.q)}</summary><div class="lp-faq-a">${esc(f.a)}</div></details>`).join('')}</div>` : '';
+  const diff = list(lp.different).length ? `<div class="lp-section-title">কেন আমরা অন্য সবার থেকে আলাদা?</div><ul class="lp-diff">${list(lp.different).map(t => `<li>${OK_IC} ${esc(t)}</li>`).join('')}</ul>` : '';
+  const benefits = list(lp.benefits).length ? `<div class="lp-section-title">উপকারিতা</div><ul class="lp-benefits">${list(lp.benefits).map((t, i) => `<li><span class="lp-bn-num">${bn(i + 1)}</span> ${esc(t)}</li>`).join('')}</ul>` : '';
+  const yt = String(lp.youtube || '').trim();
+  const video = /^[A-Za-z0-9_-]{6,20}$/.test(yt) ? `<div class="lp-section-title">ভিডিওতে দেখুন</div><div class="lp-video"><iframe src="https://www.youtube.com/embed/${encodeURIComponent(yt)}" title="ভিডিও" loading="lazy" allowfullscreen></iframe></div>` : '';
+  let related = list(lp.gallery).length ? list(lp.gallery).map(n => books.find(b => b.name === n)).filter(Boolean)
+    : books.filter(b => b !== book && Number(b.price) > 0 && ((b.cat && b.cat === book.cat) || (b.subject && b.subject === book.subject))).slice(0, 8);
+  related = related.filter(b => Number(b.price) > 0);
+  const gallery = related.length ? `<div class="lp-section-title">আরও দেখুন</div><div class="lp-gallery">${related.map(b => `<a class="lp-gallery-card" href="product.html?id=${encodeURIComponent(b.bid)}"><img src="${esc(/^https?:\/\//.test(b.img) ? b.img : 'book-placeholder.svg')}" alt="${esc(b.name)}" loading="lazy"><div class="lp-gallery-name">${esc(b.name)}</div><div class="lp-gallery-price">৳${bn(Number(b.price)||0)}</div></a>`).join('')}</div>` : '';
+  const cta = esc(lp.cta || 'এখনই অর্ডার করুন');
+  document.getElementById('lpWrap').innerHTML = `
+    <img class="lp-banner" src="${esc(img)}" alt="${esc(book.name)}" onerror="this.onerror=null;this.src='book-placeholder.svg'">
+    ${lp.badge ? `<div class="lp-badge">${esc(String(lp.badge).replace(/<[^>]*>/g, '').trim())}</div>` : ''}
+    <h1 class="lp-headline">${esc(lp.headline)}</h1>
+    ${lp.subheadline ? `<p class="lp-sub">${esc(lp.subheadline)}</p>` : ''}
+    ${social}${cd}
+    <div class="lp-price-row"><span class="lp-price">৳${bn(price)}</span>${oprice > price ? `<span class="lp-oprice">৳${bn(oprice)}</span><span class="lp-disc">${bn(pct)}% ছাড়ে</span>` : ''}</div>
+    <ul class="lp-bullets">${bullets.map(t => `<li>${OK_IC} ${esc(t)}</li>`).join('')}</ul>
+    ${why}
+    <button type="button" class="lp-cta" onclick="lpOrder()">${cta}</button>
+    <a class="lp-wa" href="#" onclick="lpOrderWA(event)">WhatsApp-এ অর্ডার করুন</a>
+    <div class="lp-trust"><div>১০০% অরিজিনাল</div><div>সারাদেশে হোম ডেলিভারি</div><div>ক্যাশ অন ডেলিভারি</div></div>
+    ${gallery}${diff}${video}${benefits}${reviews}${faq}
+    <div class="lp-closing">
+      <div class="lp-closing-text">${esc(book.name)}<br>এখনই অর্ডার করতে নিচের বাটনে চাপুন</div>
+      <button type="button" class="lp-cta" onclick="lpOrder()">${cta}</button>
+      <div class="lp-quickgrid">
+        <a class="lp-quickbtn lp-qb-call" href="tel:${CALL_NUM}">কল করুন</a>
+        <a class="lp-quickbtn lp-qb-wa" href="#" onclick="lpOrderWA(event)">WhatsApp</a>
+        <a class="lp-quickbtn lp-qb-fb" href="${FB_PAGE}" target="_blank" rel="noopener">Facebook পেজ</a>
+        <a class="lp-quickbtn lp-qb-track" href="track.html">অর্ডার ট্র্যাক</a>
+      </div>
+    </div>
+    <div class="lp-sticky"><div class="lp-sticky-inner"><button type="button" class="lp-cta" onclick="lpOrder()">${cta} — ৳${bn(price)}</button></div></div>`;
+  document.title = lp.headline + ' — OurDedication';
+  if(deadlineOk) lpStartCountdown(lp.deadline);
+  if(window.fbq){ try{ fbq('track', 'ViewContent', {content_name: book.name, value: price, currency: 'BDT'}); }catch(e){} }
+}
+let lpCd = null;
+function lpStartCountdown(deadline){
+  const target = new Date(deadline).getTime(), pad = n => bn(String(n).padStart(2, '0'));
+  function tick(){
+    const diff = target - Date.now(), box = document.getElementById('lpCountdown');
+    if(!box) return;
+    if(diff <= 0){ box.style.display = 'none'; clearInterval(lpCd); return; }
+    document.getElementById('lpCdD').textContent = pad(Math.floor(diff / 864e5));
+    document.getElementById('lpCdH').textContent = pad(Math.floor(diff % 864e5 / 36e5));
+    document.getElementById('lpCdM').textContent = pad(Math.floor(diff % 36e5 / 6e4));
+    document.getElementById('lpCdS').textContent = pad(Math.floor(diff % 6e4 / 1e3));
+  }
+  tick(); lpCd = setInterval(tick, 1000);
+}
+/* এই সাইটের কার্ট (od_cart2 = [{bid, qty}]) — চেকআউট পাতা সেখান থেকেই পড়ে */
+function lpOrder(){
+  if(!lpBook) return;
+  let cart = [];
+  try{ cart = JSON.parse(localStorage.getItem('od_cart2') || '[]'); if(!Array.isArray(cart)) cart = []; }catch(e){ cart = []; }
+  const ex = cart.find(i => i && i.bid === lpBook.bid);
+  if(ex) ex.qty = (ex.qty || 1) + 1; else cart.push({bid: lpBook.bid, qty: 1});
+  try{ localStorage.setItem('od_cart2', JSON.stringify(cart)); }catch(e){}
+  if(window.fbq){ try{ fbq('track', 'AddToCart', {content_name: lpBook.name, value: lpBook.price, currency: 'BDT'}); }catch(e){} }
+  location.href = 'checkout.html';
+}
+function lpOrderWA(e){
+  e.preventDefault();
+  if(!lpBook) return;
+  const msg = `আস-সালামু আলাইকুম,\nআমি এটি অর্ডার করতে চাই:\n\n${lpBook.name}\nমূল্য: ৳${lpBook.price}\n\nলিংক: ${location.href}`;
+  window.open('https://wa.me/' + WA_NUM + '?text=' + encodeURIComponent(msg), '_blank');
+}
+function lpLoad(){
+  if(!lpSlug || !/^[^.#$\[\]\/]{1,80}$/.test(lpSlug)){ lpShowEmpty(); return; }
+  fetch(window.OD_DB_URL + '/siteConfig/landingPages/' + encodeURIComponent(lpSlug) + '.json')
+    .then(r => r.ok ? r.json() : null)
+    .then(lp => {
+      if(!lp || !lp.bookName || !lp.headline){ lpShowEmpty(); return; }
+      const tryMatch = () => { const b = books.find(x => x && x.name === lp.bookName); if(b){ lpBook = b; lpRender(lp, b); return true; } return false; };
+      if(!tryMatch()) (window.OD_BOOKS_LIVE || Promise.resolve()).then(() => { if(!tryMatch()) lpShowEmpty(); });
+    }).catch(lpShowEmpty);
+}
+lpLoad();
+</script>
+</body>
+</html>

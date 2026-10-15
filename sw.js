@@ -1,4 +1,4 @@
-const CACHE = 'ourdedication-v3';
+const CACHE = 'ourdedication-v4';
 const SHELL = ['./index.html','./book.js','./books-live.js','./firebase-config.js','./book-placeholder.svg','./od-theme.css'];
 
 self.addEventListener('install', e => {
@@ -12,16 +12,19 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
-  const url = e.request.url;
-  // Firebase কল কখনো cache/intercept করা হবে না
-  if(url.includes('firebaseio.com') || url.includes('googleapis.com') || url.includes('firebasedatabase.app')) return;
-  if(e.request.method !== 'GET') return;
-  // অন্য সাইটের ফাইল (বইয়ের কভার ছবি, ফন্ট, CDN) ক্যাশ করা হয় না — এগুলো জমে ফোনের স্টোরেজ ভরে ফেলত
-  if(new URL(url).origin !== self.location.origin) return;
+  const req = e.request;
+  if(req.method !== 'GET') return;
+  const url = new URL(req.url);
+  // Firebase/অন্য সাইটের ফাইল (বইয়ের কভার ছবি, ফন্ট, CDN) ক্যাশ/intercept করা হয় না — এগুলো জমে ফোনের স্টোরেজ ভরে ফেলত
+  if(url.origin !== self.location.origin) return;
+  // পেজগুলো (product.html?id=... ইত্যাদি) query ছাড়া একটা নামেই ক্যাশ হয় — প্রতিটা বইয়ের জন্য আলাদা কপি জমে না
+  const key = req.mode === 'navigate' ? url.origin + url.pathname : req;
   e.respondWith(
-    fetch(e.request).then(res => {
-      if(res.ok){ const copy = res.clone(); caches.open(CACHE).then(c => c.put(e.request, copy)); }
+    fetch(req).then(res => {
+      if(res.ok && res.type === 'basic'){ const copy = res.clone(); caches.open(CACHE).then(c => c.put(key, copy)); }
       return res;
-    }).catch(() => caches.match(e.request).then(cached => cached || caches.match('./index.html')))
+    }).catch(() => caches.match(key)
+      .then(cached => cached || (req.mode === 'navigate' ? caches.match('./index.html') : null))
+      .then(r => r || Response.error()))
   );
 });

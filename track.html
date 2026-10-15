@@ -38,7 +38,9 @@
 <link rel="apple-touch-icon" sizes="180x180" href="icon-180.png?v=5">
 <meta name="theme-color" content="#ffffff">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
 <style>
 :root{
   --bg:#f7f8fa;--white:#ffffff;--indigo:#CB2527;--indigo2:#1a1a1a;
@@ -265,7 +267,7 @@ body{font-family:var(--font-bn);background:#ffffff;color:#1e1b4b;min-height:100v
   <div class="nav-wrap">
     <a href="index.html" class="back-btn">←</a>
     <div class="nav-title">অর্ডার ট্র্যাক করুন</div>
-    <a href="index.html" style="display:flex;align-items:center;flex-shrink:0;"><img src="ourdedication10-logo.png?v=4" alt="OurDedication" style="height:38px;width:84px;display:block;object-fit:contain;"></a>
+    <a href="index.html" style="display:flex;align-items:center;flex-shrink:0;"><img src="ourdedication10-logo.png?v=5" alt="OurDedication" style="height:38px;width:84px;display:block;object-fit:contain;"></a>
   </div>
 </nav>
 
@@ -348,7 +350,7 @@ body{font-family:var(--font-bn);background:#ffffff;color:#1e1b4b;min-height:100v
 <footer class="site-footer">
   <div class="footer-wrap">
     <div class="footer-brand">
-      <img src="ourdedication10-logo.png?v=4" alt="OurDedication" style="height:56px;width:128px;display:inline-block;vertical-align:top;object-fit:contain;background:#fff;border-radius:12px;padding:8px 14px;box-sizing:content-box;box-shadow:0 4px 14px rgba(0,0,0,.25);">
+      <img src="ourdedication10-logo.png?v=5" alt="OurDedication" style="height:56px;width:128px;display:inline-block;vertical-align:top;object-fit:contain;background:#fff;border-radius:12px;padding:8px 14px;box-sizing:content-box;box-shadow:0 4px 14px rgba(0,0,0,.25);">
       <p>ইসলামিক ও সাধারণ বইয়ের অনলাইন দোকান — সারাদেশে হোম ডেলিভারি, ক্যাশ অন ডেলিভারি সুবিধা সহ।</p>
     </div>
     <div class="footer-col">
@@ -368,7 +370,7 @@ body{font-family:var(--font-bn);background:#ffffff;color:#1e1b4b;min-height:100v
       <a href="https://www.tiktok.com/@sajidurrahman9804" target="_blank"><svg class="fico" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 2h-3.2v13.5a2.7 2.7 0 1 1-2.7-2.7c.24 0 .47.02.7.07V9.6a6 6 0 1 0 5.2 5.95V8.83a7.7 7.7 0 0 0 4.5 1.44V6.98A4.28 4.28 0 0 1 16.5 2z"/></svg> টিকটক</a>
     </div>
   </div>
-  <div class="footer-bottom">© <span id="fyear"></span> OurDedication (আওয়ার ডেডিকেশন) — সর্বস্বত্ব সংরক্ষিত &nbsp;·&nbsp; <a href="javascript:void(0)" id="viewModeToggle" onclick="toggleViewMode()" style="color:#9ca8d8;text-decoration:underline;">ডেস্কটপ ভার্সন দেখুন</a></div>
+  <div class="footer-bottom">© <span id="fyear"></span> OurDedication (আওয়ার ডেডিকেশন) — সর্বস্বত্ব সংরক্ষিত &nbsp;·&nbsp; <button type="button" id="viewModeToggle" onclick="toggleViewMode()" style="color:#9ca8d8;text-decoration:underline;background:none;border:0;padding:0;font:inherit;cursor:pointer;">ডেস্কটপ ভার্সন দেখুন</button></div>
 </footer>
 
 <!-- BOTTOM NAV -->
@@ -385,7 +387,7 @@ body{font-family:var(--font-bn);background:#ffffff;color:#1e1b4b;min-height:100v
 <div class="cart-drawer" id="wishDrawer">
   <div class="cd-head">
     <h3>পছন্দের তালিকা <span class="cd-head-badge" id="wlBadge">0 টি</span></h3>
-    <button class="cd-close" onclick="closeWishlist()"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <button class="cd-close" onclick="closeWishlist()" aria-label="পছন্দের তালিকা বন্ধ করুন"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
   </div>
   <div class="cd-items" id="wishItems" style="padding:0;"></div>
 </div>
@@ -475,6 +477,8 @@ const STATUS_MAP = {
   shipped:     {label:'পাঠানো হয়েছে',  cls:'sp-shipped',    icon:'🚚', step:3},
   delivered:   {label:'পৌঁছে গেছে',    cls:'sp-delivered',  icon:'🎉', step:4},
   cancelled:   {label:'বাতিল',          cls:'sp-cancelled',  icon:'✕',  step:-1},
+  returned:    {label:'ফেরত',           cls:'sp-cancelled',  icon:'↩',  step:-1},
+  failed:      {label:'ডেলিভারি ব্যর্থ', cls:'sp-cancelled',  icon:'!',  step:-1},
 };
 const STEPS = [
   {key:'pending',    label:'অর্ডার প্রাপ্ত',     desc:'আপনার অর্ডার আমরা পেয়েছি'},
@@ -484,14 +488,32 @@ const STEPS = [
   {key:'delivered',  label:'ডেলিভারি সম্পন্ন',  desc:'পণ্য পৌঁছে গেছে'},
 ];
 
+/* ক্রেতার নাম/মোবাইল/ঠিকানা শুধু অ্যাডমিন আর লগইন করা ক্রেতা নিজে পড়তে পারেন (Firebase rules)।
+   শুধু অর্ডার ID জানলে (যেমন কেউ ট্র্যাকিং লিংক শেয়ার করলে) দেখা যায় অবস্থা, পণ্য, মোট আর এলাকা —
+   তাই পুরো অর্ডার পড়ার অনুমতি না থাকলে এই অংশগুলো আলাদা করে আনা হয়। */
+const PUBLIC_ORDER_FIELDS = ['orderId','status','statusTimes','items','total','delivery','discount','payment','createdAt','district','upazila','phoneMasked'];
+async function loadOrder(id){
+  if(!/^[A-Z0-9]{4,39}$/.test(id)) return null;
+  try{
+    const snap = await db.ref('orders/' + id).get();
+    return snap.val();
+  }catch(e){
+    const vals = await Promise.all(PUBLIC_ORDER_FIELDS.map(f =>
+      db.ref('orders/' + id + '/' + f).get().then(s => s.val()).catch(() => null)));
+    if(vals[1] == null) return null; // status নেই মানে এই ID-তে কোনো অর্ডার নেই
+    const o = {};
+    PUBLIC_ORDER_FIELDS.forEach((f,i) => { if(vals[i] != null) o[f] = vals[i]; });
+    return o;
+  }
+}
+
 async function trackOrder(){
-  const id = document.getElementById('trackInput').value.trim().toUpperCase();
+  const id = document.getElementById('trackInput').value.trim().toUpperCase().replace(/[^A-Z0-9]/g,'');
   if(!id){ showToast('অর্ডার ID দিন'); return; }
   if(typeof db === 'undefined'){ showToast('এখনো Firebase সংযোগ দেওয়া হয়নি'); return; }
   document.getElementById('notFound').style.display = 'none';
   try{
-    const snap = await db.ref('orders/' + id).get();
-    const order = snap.val();
+    const order = await loadOrder(id);
     if(!order){ document.getElementById('resultSection').classList.remove('show'); document.getElementById('notFound').style.display='block'; return; }
     renderOrder(order);
   }catch(e){
@@ -510,16 +532,21 @@ function renderOrder(order){
   pill.textContent = st.icon + ' ' + st.label;
   pill.className = 'status-pill ' + st.cls;
   document.getElementById('resName').textContent  = order.name   || '—';
-  document.getElementById('resPhone').textContent = order.phone  || '—';
+  document.getElementById('resName').parentElement.style.display = order.name ? '' : 'none';
+  document.getElementById('resPhone').textContent = order.phone  || order.phoneMasked || '—';
   const district = order.district === 'dhaka' ? 'ঢাকা' : (order.district||'');
-  document.getElementById('resAddr').textContent  = (order.address||'') + (order.upazila?', '+order.upazila:'') + (district?' · '+district:'');
-  const payLabel = {cod:'ক্যাশ অন ডেলিভারি',office:'অগ্রিম পেমেন্ট (কুরিয়ার অফিস থেকে সংগ্রহ)',bkash:'বিকাশ',nagad:'নগদ/রকেট',card:'কার্ড'};
+  const addr = [order.address, order.upazila].filter(Boolean).join(', ') + (district ? ' · ' + district : '');
+  document.getElementById('resAddr').textContent  = addr.replace(/^ · /, '') || '—';
+  document.getElementById('resAddr').previousElementSibling.textContent = order.address ? 'ঠিকানা' : 'ডেলিভারি এলাকা';
+  const payLabel = {cod:'ক্যাশ অন ডেলিভারি',cash:'হাতে নগদ (দোকানে)',office:'অগ্রিম পেমেন্ট (কুরিয়ার অফিস থেকে সংগ্রহ)',bkash:'বিকাশ',nagad:'নগদ/রকেট',card:'কার্ড'};
   document.getElementById('resPay').textContent = payLabel[order.payment] || order.payment || '—';
 
   // Timeline
   const tl = document.getElementById('timeline');
-  if(order.status === 'cancelled'){
-    tl.innerHTML = `<div class="tl-item"><div class="tl-dot" style="background:#ef4444;border-color:#ef4444;color:white;">✕</div><div class="tl-title">অর্ডার বাতিল হয়েছে</div></div>`;
+  const DEAD_TXT = {cancelled:'অর্ডার বাতিল হয়েছে', returned:'অর্ডার ফেরত এসেছে', failed:'ডেলিভারি ব্যর্থ হয়েছে'};
+  if(DEAD_TXT[order.status]){
+    const dt = getStepTime(order, order.status);
+    tl.innerHTML = `<div class="tl-item"><div class="tl-dot" style="background:#ef4444;border-color:#ef4444;color:white;">${st.icon}</div><div class="tl-title">${DEAD_TXT[order.status]}</div>${dt ? `<div class="tl-time">${dt}</div>` : ''}</div>`;
   } else {
     const activeStep = st.step;
     tl.innerHTML = STEPS.map((s,i) => {
@@ -559,12 +586,13 @@ function renderOrder(order){
   document.getElementById('psTotal').textContent = '৳' + Number(order.total||sub+del).toLocaleString('bn-BD');
 
   // WA button — সরাসরি অ্যাকাউন্ট পরিবর্তনের বদলে যোগাযোগ করে জানাতে হবে
-  const waMsg = encodeURIComponent(`আস-সালামু আলাইকুম! আমার অর্ডার সম্পর্কে জানতে চাই।\nঅর্ডার ID: ${order.orderId||order.id}\nনাম: ${order.name}\nমোবাইল: ${order.phone}`);
+  const waMsg = encodeURIComponent(`আস-সালামু আলাইকুম! আমার অর্ডার সম্পর্কে জানতে চাই।\nঅর্ডার ID: ${order.orderId||order.id}` +
+    (order.name ? `\nনাম: ${order.name}` : '') + (order.phone ? `\nমোবাইল: ${order.phone}` : ''));
   document.getElementById('waBtn').href = `https://wa.me/8801355490565?text=${waMsg}`;
 
   // Cancel button — সরাসরি ডেটাবেজে বদলানো হয় না (নিরাপত্তার জন্য), WhatsApp-এ অনুরোধ পাঠায়
   const cancelBtn = document.getElementById('cancelBtn');
-  if(['delivered','cancelled','shipped'].includes(order.status)){
+  if(['delivered','cancelled','shipped','returned','failed'].includes(order.status)){
     cancelBtn.style.display = 'none';
   } else {
     cancelBtn.style.display = 'flex';
@@ -587,7 +615,8 @@ function cancelOrder(){
   if(!confirm('অর্ডার বাতিলের অনুরোধ WhatsApp-এ পাঠাতে চান?')) return;
   const name = document.getElementById('resName').textContent;
   const phone = document.getElementById('resPhone').textContent;
-  const msg = encodeURIComponent(`আস-সালামু আলাইকুম! আমি আমার অর্ডারটি বাতিল করতে চাই।\nঅর্ডার ID: ${id}\nনাম: ${name}\nমোবাইল: ${phone}`);
+  const msg = encodeURIComponent(`আস-সালামু আলাইকুম! আমি আমার অর্ডারটি বাতিল করতে চাই।\nঅর্ডার ID: ${id}` +
+    (name && name !== '—' ? `\nনাম: ${name}` : '') + (phone && phone !== '—' && !phone.includes('•') ? `\nমোবাইল: ${phone}` : ''));
   window.open(`https://wa.me/8801355490565?text=${msg}`, '_blank');
 }
 
@@ -608,7 +637,7 @@ async function showMyOrders(){
   list.innerHTML = '<div style="padding:16px;text-align:center;color:var(--text2);">লোড হচ্ছে...</div>';
 
   const results = await Promise.all(recent.map(r =>
-    db.ref('orders/' + r.id).get().then(s => s.val()).catch(() => null)
+    loadOrder(String(r.id||'').toUpperCase()).catch(() => null)
   ));
   const orders = results.filter(Boolean);
   if(!orders.length){ sec.style.display = 'none'; return; }

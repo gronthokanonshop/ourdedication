@@ -52,8 +52,8 @@
   "name": "OurDedication",
   "alternateName": "আওয়ার ডেডিকেশন",
   "url": "https://ourdedication.com/",
-  "logo": "https://ourdedication.com/ourdedication10-logo.png?v=4",
-  "image": "https://ourdedication.com/ourdedication10-logo.png?v=4",
+  "logo": "https://ourdedication.com/ourdedication10-logo.png?v=5",
+  "image": "https://ourdedication.com/ourdedication10-logo.png?v=5",
   "description": "ইসলামিক ও সাধারণ বইয়ের অনলাইন দোকান — সারাদেশে হোম ডেলিভারি, ক্যাশ অন ডেলিভারি সুবিধা।",
   "telephone": "+8801842970565",
   "email": "sajidurr317@gmail.com",
@@ -75,7 +75,9 @@
 <link rel="apple-touch-icon" sizes="180x180" href="icon-180.png?v=5">
 <meta name="theme-color" content="#ffffff">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
 <style>
 /* ══════════════════════════════════════
    OurDedication — Design Tokens
@@ -376,6 +378,10 @@ body::before{
   touch-action:pan-y;
 }
 .banner-track a{flex:0 0 100%;height:100%;display:block;text-decoration:none;}
+.banner-track picture{display:block;height:100%;}
+.banner-text-slide{display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:16px;background:linear-gradient(135deg,#1f2937,#111827);color:#fff;}
+.banner-text-slide .bts-t{font-size:clamp(1.1rem,4vw,2rem);font-weight:800;}
+.banner-text-slide .bts-s{font-size:clamp(0.8rem,2.4vw,1.1rem);opacity:.85;}
 .banner-track img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;user-select:none;}
 .banner-dots{
   position:absolute;bottom:12px;left:50%;transform:translateX(-50%);
@@ -447,6 +453,22 @@ body::before{
 /* ══════════════════════════════════════
    PRODUCT CARD
 ══════════════════════════════════════ */
+/* মাসের বেস্টসেলার কার্ড — প্রতিটা বিষয়ের সেরা ১০টা */
+.bsm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+@media(max-width:900px){.bsm-grid{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:86%;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;}}
+.bsm-card{background:#fff;border:1.5px solid #e5e7eb;border-radius:14px;padding:12px;scroll-snap-align:start;min-width:0;}
+.bsm-hd{font-weight:800;font-size:0.95rem;color:#1a1a1a;margin-bottom:8px;border-left:3px solid #CB2527;padding-left:8px;}
+.bsm-list{display:flex;flex-direction:column;gap:6px;max-height:420px;overflow-y:auto;}
+.bsm-row{display:flex;gap:10px;align-items:center;text-decoration:none;color:inherit;padding:6px;border-radius:10px;}
+.bsm-row:hover{background:#f7f8fa;}
+.bsm-cv{position:relative;flex-shrink:0;width:44px;height:60px;border-radius:6px;overflow:hidden;background:#f3f4f6;}
+.bsm-cv img{width:100%;height:100%;object-fit:cover;}
+.bsm-rank{position:absolute;left:0;top:0;background:#CB2527;color:#fff;font-size:0.68rem;font-weight:800;padding:1px 5px;border-radius:0 0 6px 0;}
+.bsm-tx{min-width:0;display:flex;flex-direction:column;gap:1px;}
+.bsm-nm{font-size:0.82rem;font-weight:700;color:#1a1a1a;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.bsm-au{font-size:0.72rem;color:#6b7280;}
+.bsm-pr{font-size:0.8rem;color:#CB2527;font-weight:800;}
+.bsm-pr s{color:#9ca3af;font-weight:500;margin-left:6px;}
 .products-grid{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(132px,1fr));
@@ -1029,15 +1051,15 @@ body{padding-bottom:70px;}
   <div class="nav-wrap">
     <!-- Logo -->
     <a href="index.html" class="logo">
-      <img src="ourdedication10-logo.png?v=4" alt="OurDedication" class="nav-logo-img">
+      <img src="ourdedication10-logo.png?v=5" alt="OurDedication" class="nav-logo-img">
     </a>
 
     <!-- Search -->
     <div class="search-wrap-outer">
       <div class="nav-search">
-        <input type="text" id="searchInp" placeholder="পণ্য খুঁজুন... Search products" autocomplete="off"
+        <input type="text" id="searchInp" aria-label="পণ্য খুঁজুন" placeholder="পণ্য খুঁজুন... Search products" autocomplete="off"
           oninput="handleSearchInput()" onkeydown="if(event.key==='Enter') doSearch()" onfocus="handleSearchInput()">
-        <button onclick="doSearch()"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+        <button onclick="doSearch()" aria-label="খুঁজুন"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
       </div>
       <div class="search-suggest" id="searchSuggest"></div>
     </div>
@@ -1055,7 +1077,7 @@ body{padding-bottom:70px;}
         <svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
         <span class="nav-badge" id="cartCount">0</span>
       </button>
-      <button class="nav-btn ham" id="hamBtn" onclick="toggleMenu()"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <button class="nav-btn ham" id="hamBtn" onclick="toggleMenu()" aria-label="মেনু"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
     </div>
   </div>
 </nav>
@@ -1066,8 +1088,8 @@ body{padding-bottom:70px;}
 <div class="banner-slider">
   <div class="banner-viewport" id="bannerViewport">
     <div class="banner-track" id="bannerTrack">
-      <a href="filter.html"><img src="banner.jpeg?v=2" alt="ব্যানার ১"></a>
-      <a href="filter.html"><img src="banner2.jpeg?v=2" alt="ব্যানার ২"></a>
+      <a href="filter.html"><picture><source type="image/webp" srcset="banner-800.webp 800w, banner.webp 1280w" sizes="(min-width:700px) 820px, 100vw"><img src="banner.jpeg?v=2" alt="ব্যানার ১" width="1280" height="853" fetchpriority="high"></picture></a>
+      <a href="filter.html"><picture><source type="image/webp" srcset="banner2-800.webp 800w, banner2.webp 1280w" sizes="(min-width:700px) 820px, 100vw"><img src="banner2.jpeg?v=2" alt="ব্যানার ২" width="1280" height="853" fetchpriority="low"></picture></a>
     </div>
     <button class="banner-arrow prev" onclick="bannerGo(-1)" aria-label="আগের ব্যানার"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"/></svg></button>
     <button class="banner-arrow next" onclick="bannerGo(1)" aria-label="পরের ব্যানার"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button>
@@ -1214,6 +1236,17 @@ body{padding-bottom:70px;}
 
 <div class="divider"></div>
 
+<!-- ══ মাসের বেস্টসেলার — অ্যাডমিনে আসল অর্ডার থেকে হিসাব করে প্রকাশ করা (siteConfig/bestsellerNow) ══ -->
+<section class="section" id="bsMonthSection" style="display:none;">
+  <div class="section-wrap">
+    <div class="section-head">
+      <h2>মাসের <span>বেস্টসেলার</span> <small id="bsMonthLabel" style="font-size:0.8rem;color:#6b7280;font-weight:600;"></small></h2>
+      <a href="bestseller.html" class="see-all">সব মাস →</a>
+    </div>
+    <div class="bsm-grid" id="bsMonthGrid"></div>
+  </div>
+</section>
+
 <!-- ══════════════════════════════════════
      BESTSELLERS
 ══════════════════════════════════════ -->
@@ -1231,8 +1264,8 @@ body{padding-bottom:70px;}
 <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
 <div class="menu-drawer" id="menuDrawer">
   <div class="md-head">
-    <img src="ourdedication10-logo.png?v=4" alt="OurDedication" loading="lazy" style="height:36px;width:83px;display:block;object-fit:contain;">
-    <button class="md-close" onclick="closeMenu()"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <img src="ourdedication10-logo.png?v=5" alt="OurDedication" loading="lazy" style="height:36px;width:83px;display:block;object-fit:contain;">
+    <button class="md-close" onclick="closeMenu()" aria-label="মেনু বন্ধ করুন"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
   </div>
   <div class="md-body">
     <a class="md-link" href="index.html"><span class="ic">🏠</span> হোম</a>
@@ -1258,7 +1291,7 @@ body{padding-bottom:70px;}
 <div class="cart-drawer" id="cartDrawer">
   <div class="cd-head">
     <h3>🛒 আমার কার্ট <span class="cd-head-badge" id="cdBadge">0 টি</span></h3>
-    <button class="cd-close" onclick="closeCart()"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <button class="cd-close" onclick="closeCart()" aria-label="কার্ট বন্ধ করুন"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
   </div>
   <div class="cd-items" id="cdItems"></div>
   <div class="cd-footer" id="cdFooter" style="display:none;">
@@ -1277,7 +1310,7 @@ body{padding-bottom:70px;}
 <div class="cart-drawer" id="wishDrawer">
   <div class="cd-head">
     <h3>♡ পছন্দের তালিকা <span class="cd-head-badge" id="wlBadge">0 টি</span></h3>
-    <button class="cd-close" onclick="closeWishlist()"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <button class="cd-close" onclick="closeWishlist()" aria-label="পছন্দের তালিকা বন্ধ করুন"><svg class="eico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
   </div>
   <div class="cd-items" id="wishItems" style="padding:0;"></div>
 </div>
@@ -1296,7 +1329,7 @@ body{padding-bottom:70px;}
 <footer class="site-footer">
   <div class="footer-wrap">
     <div class="footer-brand">
-      <img src="ourdedication10-logo.png?v=4" alt="OurDedication" loading="lazy" style="height:56px;width:128px;display:inline-block;vertical-align:top;object-fit:contain;background:#fff;border-radius:12px;padding:8px 14px;box-sizing:content-box;box-shadow:0 4px 14px rgba(0,0,0,.25);">
+      <img src="ourdedication10-logo.png?v=5" alt="OurDedication" loading="lazy" style="height:56px;width:128px;display:inline-block;vertical-align:top;object-fit:contain;background:#fff;border-radius:12px;padding:8px 14px;box-sizing:content-box;box-shadow:0 4px 14px rgba(0,0,0,.25);">
       <p>ইসলামিক ও সাধারণ বইয়ের অনলাইন দোকান — সারাদেশে হোম ডেলিভারি, ক্যাশ অন ডেলিভারি সুবিধা সহ।</p>
     </div>
     <div class="footer-col">
@@ -1304,6 +1337,8 @@ body{padding-bottom:70px;}
       <a href="about.html">আমাদের সম্পর্কে</a>
       <a href="contact.html">যোগাযোগ</a>
       <a href="faq.html">সচরাচর জিজ্ঞাসা</a>
+      <a href="blog.html">ব্লগ</a>
+      <a href="bestseller.html">মাসের বেস্টসেলার</a>
       <a href="delivery.html">ডেলিভারি তথ্য</a>
       <a href="return.html">রিটার্ন নীতি</a>
     </div>
@@ -1316,7 +1351,7 @@ body{padding-bottom:70px;}
       <a href="https://www.tiktok.com/@sajidurrahman9804" target="_blank"><svg class="fico" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 2h-3.2v13.5a2.7 2.7 0 1 1-2.7-2.7c.24 0 .47.02.7.07V9.6a6 6 0 1 0 5.2 5.95V8.83a7.7 7.7 0 0 0 4.5 1.44V6.98A4.28 4.28 0 0 1 16.5 2z"/></svg> টিকটক</a>
     </div>
   </div>
-  <div class="footer-bottom">© <span id="fyear"></span> OurDedication (আওয়ার ডেডিকেশন) — সর্বস্বত্ব সংরক্ষিত &nbsp;·&nbsp; <a href="javascript:void(0)" id="viewModeToggle" onclick="toggleViewMode()" style="color:#9ca8d8;text-decoration:underline;">ডেস্কটপ ভার্সন দেখুন</a></div>
+  <div class="footer-bottom">© <span id="fyear"></span> OurDedication (আওয়ার ডেডিকেশন) — সর্বস্বত্ব সংরক্ষিত &nbsp;·&nbsp; <button type="button" id="viewModeToggle" onclick="toggleViewMode()" style="color:#9ca8d8;text-decoration:underline;background:none;border:0;padding:0;font:inherit;cursor:pointer;">ডেস্কটপ ভার্সন দেখুন</button></div>
 </footer>
 
 <!-- ══ BOTTOM NAV ══ -->
@@ -1402,6 +1437,7 @@ body{padding-bottom:70px;}
     window.OD_CATCARDS_PROMISE = Promise.resolve(null);
     window.OD_OFFERPOPUP_PROMISE = Promise.resolve(null);
     window.OD_ALL_REVIEWS_PROMISE = Promise.resolve(null);
+    window.OD_BSNOW_PROMISE = Promise.resolve(null);
     return;
   }
   var base = window.OD_DB_URL.replace(/\/$/,'');
@@ -1417,6 +1453,7 @@ body{padding-bottom:70px;}
   window.OD_CATCARDS_PROMISE = fetchJson('/siteConfig/catCards');
   window.OD_OFFERPOPUP_PROMISE = fetchJson('/siteConfig/offerPopups');
   window.OD_ALL_REVIEWS_PROMISE = fetchJson('/reviews');
+  window.OD_BSNOW_PROMISE = fetchJson('/siteConfig/bestsellerNow');
 })();
 </script>
 <!-- বইয়ের ডেটা: book.js (মূল তালিকা) + books-live.js (অ্যাডমিন থেকে সেভ করা পরিবর্তন লাইভ দেখায়) -->
@@ -1499,7 +1536,38 @@ renderFlash();
 renderNew();
 renderBest();
 /* অ্যাডমিন থেকে আপডেট হওয়া বইয়ের লিস্ট পরে এলে আবার দেখানো */
-if(window.OD_BOOKS_LIVE) window.OD_BOOKS_LIVE.then(changed => { if(changed){ renderFlash(); renderNew(); renderBest(); } });
+if(window.OD_BOOKS_LIVE) window.OD_BOOKS_LIVE.then(changed => { if(changed){ renderFlash(); renderNew(); renderBest(); renderBsMonth(); } });
+
+/* মাসের বেস্টসেলার — অ্যাডমিন প্রকাশ করলে (siteConfig/bestsellerNow = {m, label, groups:[{name, ids:[bid…]}]})।
+   নাম/দাম/কভার book.js থেকে, তাই সবসময় এখনকার দাম দেখায়; লুকানো (দাম ০) বই বাদ */
+let bsNowData = null;
+function bsmEsc(s){ return String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function bsmCard(g){
+  if(!g || !Array.isArray(g.ids)) return '';
+  const rows = [];
+  g.ids.forEach(id => {
+    if(rows.length >= 10) return;
+    const b = books.find(x => x && x.bid === id);
+    if(!b || !(Number(b.price) > 0)) return;
+    const mrp = Number(b.original_price)||0, p = Number(b.price)||0;
+    rows.push(`<a class="bsm-row" href="product.html?id=${encodeURIComponent(b.bid)}">
+      <span class="bsm-cv"><img src="${bsmEsc(getImg(b))}" alt="" loading="lazy" onerror="this.onerror=null;this.src='book-placeholder.svg?v=2'"><b class="bsm-rank">${(rows.length+1).toLocaleString('bn-BD')}</b></span>
+      <span class="bsm-tx"><span class="bsm-nm">${bsmEsc(b.name)}</span>${b.author ? `<span class="bsm-au">${bsmEsc(b.author)}</span>` : ''}
+        <span class="bsm-pr">৳${p.toLocaleString('bn-BD')}${mrp > p ? `<s>৳${mrp.toLocaleString('bn-BD')}</s>` : ''}</span></span></a>`);
+  });
+  if(rows.length < 2) return '';
+  return `<div class="bsm-card"><div class="bsm-hd">${bsmEsc(g.name)}</div><div class="bsm-list">${rows.join('')}</div></div>`;
+}
+function renderBsMonth(){
+  const sec = document.getElementById('bsMonthSection');
+  if(!sec || !bsNowData || !Array.isArray(bsNowData.groups) || !books.length) return;
+  const cards = bsNowData.groups.slice(0,3).map(bsmCard).filter(Boolean);
+  if(!cards.length){ sec.style.display = 'none'; return; }
+  document.getElementById('bsMonthGrid').innerHTML = cards.join('');
+  document.getElementById('bsMonthLabel').textContent = bsNowData.label ? '— ' + bsNowData.label : '';
+  sec.style.display = '';
+}
+(window.OD_BSNOW_PROMISE || Promise.resolve(null)).then(d => { if(d && typeof d === 'object'){ bsNowData = d; renderBsMonth(); } });
 
 /* ══ লেখক/প্রকাশনী চিপ স্ট্রিপ ══
    অ্যাডমিন প্যানেলের সেটিংসে siteConfig/homeAuthors বা siteConfig/homePubs-এ কিউরেটেড
@@ -1767,7 +1835,8 @@ if(window.OD_BOOKS_LIVE) window.OD_BOOKS_LIVE.then(changed => { if(changed){ ren
     slidesWrap.innerHTML = posters.map((p,i) => {
       const img = `<img src="${ofpEsc(p.img)}" alt="${ofpEsc(p.title||'অফার')}" loading="lazy">`;
       const cap = (p.title || p.sub) ? `<div class="offer-popup-cap">${p.title?`<div class="t">${ofpEsc(p.title)}</div>`:''}${p.sub?`<div class="s">${ofpEsc(p.sub)}</div>`:''}</div>` : '';
-      const inner = p.link ? `<a href="${ofpEsc(p.link)}">${img}</a>${cap}` : `${img}${cap}`;
+      const safeLink = p.link && !(/^\s*[a-z][a-z0-9+.-]*:/i.test(p.link) && !/^https?:/i.test(p.link)) ? p.link : ''; // javascript: ইত্যাদি লিংক চলবে না
+      const inner = safeLink ? `<a href="${ofpEsc(safeLink)}">${img}</a>${cap}` : `${img}${cap}`;
       return `<div class="offer-popup-slide${i===0?' active':''}" data-i="${i}">${inner}</div>`;
     }).join('');
 
@@ -1814,9 +1883,16 @@ if(window.OD_BOOKS_LIVE) window.OD_BOOKS_LIVE.then(changed => { if(changed){ ren
     return String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   }
   function buildSlide(b){
+    if(!b || typeof b !== 'object') return '';
     const img = (b.img||'').trim();
-    if(!img) return '';
-    const href = (b.link||'').trim() || 'filter.html';
+    let href = (b.link||'').trim() || 'filter.html';
+    if(/^\s*[a-z][a-z0-9+.-]*:/i.test(href) && !/^https?:/i.test(href)) href = 'filter.html'; // javascript: ইত্যাদি লিংক চলবে না
+    if(!img){
+      /* ছবি ছাড়া শুধু লেখার ব্যানার (অ্যাডমিনে "বড় লেখা / ছোট লেখা") */
+      const t = (b.title||'').trim(), s = (b.subtitle||b.sub||'').trim();
+      if(!t && !s) return '';
+      return `<a href="${bannerEsc(href)}" class="banner-text-slide"><span class="bts-t">${bannerEsc(t)}</span>${s ? `<span class="bts-s">${bannerEsc(s)}</span>` : ''}</a>`;
+    }
     const alt = bannerEsc(b.title || 'ব্যানার');
     return `<a href="${bannerEsc(href)}"><img src="${bannerEsc(img)}" alt="${alt}"></a>`;
   }
@@ -1863,6 +1939,8 @@ if(window.OD_BOOKS_LIVE) window.OD_BOOKS_LIVE.then(changed => { if(changed){ ren
 
   const bannersPromise = window.OD_BANNERS_PROMISE || Promise.resolve(null);
   bannersPromise.then(v => {
+    /* অ্যাডমিন সব ব্যানার মুছে সেভ করলে {none:true} থাকে — তখন ব্যানার অংশটাই লুকানো */
+    if(v && v.none === true){ const sl = track.closest('.banner-slider'); if(sl) sl.style.display = 'none'; return; }
     let curated = null;
     if(Array.isArray(v)) curated = v.filter(Boolean);
     else if(v && typeof v === 'object') curated = Object.values(v).filter(Boolean);
