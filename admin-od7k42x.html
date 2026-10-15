@@ -1277,6 +1277,31 @@
         .be-chip{border:1px dashed var(--border);background:var(--bg);color:var(--text-main);border-radius:999px;padding:4px 10px;font-size:12px;font-family:inherit;cursor:pointer;}
         .be-chip:hover{border-color:#CB2527;color:#CB2527;border-style:solid;}
 
+        /* অ্যাকাউন্ট ও ডেটা (২০২৬-১০-১৫) */
+        body:not(.gk-is-owner) .gk-owner-only{display:none!important;}
+        .ac-box{border:1px solid var(--border);border-radius:12px;padding:14px;margin-top:12px;background:var(--bg);}
+        .ac-danger{border-color:#fecaca;background:rgba(254,226,226,.35);}
+        [data-theme="dark"] .ac-danger{border-color:rgba(248,113,113,.35);background:rgba(127,29,29,.15);}
+        .ac-t{font-weight:800;font-size:14px;margin-bottom:4px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+        .ac-only{font-size:11px;font-weight:700;background:#fee2e2;color:#b91c1c;border-radius:999px;padding:2px 8px;}
+        .ac-p{font-size:12.5px;color:var(--text-muted);margin:0 0 10px;line-height:1.6;}
+        .ac-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;}
+        .ac-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px;}
+        .ac-msg{font-size:13px;font-weight:600;margin-top:8px;min-height:1px;}
+        .ac-opts{display:flex;flex-direction:column;gap:8px;}
+        .ac-opt{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;font-weight:600;cursor:pointer;}
+        .ac-opt small{color:var(--text-muted);font-weight:600;}
+        .ac-sub{display:flex;flex-direction:column;gap:6px;margin:-2px 0 4px 26px;font-size:13px;}
+        .ac-sub label{display:flex;align-items:center;gap:6px;flex-wrap:wrap;cursor:pointer;}
+        .ac-sub input[type=date]{width:auto;padding:4px 8px;font-size:12.5px;}
+        .ac-sum{margin-top:10px;font-size:13px;font-weight:700;color:#b91c1c;}
+        .ac-del{background:#dc2626;color:#fff;border:none;}
+        .ac-del:disabled{opacity:.45;cursor:not-allowed;}
+        /* ভাষা বাটন (English / বাংলা) */
+        .lang-btn{font:600 12px/1 inherit;font-family:inherit;padding:7px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#e5e7eb;cursor:pointer;flex-shrink:0;}
+        .lang-btn:hover{border-color:#CB2527;color:#fff;}
+        .login-card .lang-btn{position:absolute;top:14px;right:14px;}
+        .lang-btn-side{margin-left:auto;margin-right:6px;}
         /* খণ্ডসমূহ (বই এডিটর, ২০২৬-১০-১৫) */
         .vol-rows{display:flex;flex-direction:column;gap:6px;}
         .vol-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;background:var(--surface,#fff);border:1px solid var(--border);border-radius:8px;padding:6px;}
@@ -1564,7 +1589,8 @@
 
 <!-- LOGIN GATE -->
 <div id="loginGate" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:var(--sidebar-bg);">
-    <div class="login-card">
+    <div class="login-card" style="position:relative;">
+        <button type="button" class="lang-btn" data-lang-toggle aria-label="Language">বাংলা</button>
         <div class="login-icon">
             <svg class="icon icon-lg" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
         </div>
@@ -1667,6 +1693,7 @@
                     <button class="nav-sub-item tool-cat-item" data-cat="imgPixel" onclick="switchTool('imgPixel',this)"><i class=gi-camera></i> ছবি ও Pixel</button>
                     <button class="nav-sub-item tool-cat-item" data-cat="moderator" onclick="switchTool('moderator',this)"><i class=gi-users></i> মডারেটর</button>
                     <button class="nav-sub-item tool-cat-item" data-cat="courier" onclick="switchTool('courier',this)"><i class=gi-truck></i> কুরিয়ার</button>
+                    <button class="nav-sub-item tool-cat-item" data-cat="account" onclick="switchTool('account',this)"><i class=gi-lock></i> অ্যাকাউন্ট ও ডেটা</button>
                     <button class="nav-sub-item tool-cat-item" data-cat="misc" onclick="switchTool('misc',this)"><i class=gi-package></i> ডাউনলোড ও অন্যান্য</button>
                 </div>
             </div>
@@ -1682,6 +1709,7 @@
                 <strong>Admin</strong>
                 <small>OurDedication</small>
             </div>
+            <button type="button" class="lang-btn lang-btn-side" data-lang-toggle aria-label="Language">বাংলা</button>
             <button class="sidebar-logout" onclick="adminLogout()" title="লগআউট">
                 <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
             </button>
@@ -2137,6 +2165,45 @@
             <!-- ═══ TOOLS TAB ═══ -->
             <div id="tabPanelTools" style="display:none;">
                 <div class="sec-title">টুলস ও ইউটিলিটি</div>
+                <div class="tool-card" id="toolCard_account" style="grid-column:1/-1;">
+                    <h3><i class=gi-lock></i> অ্যাকাউন্ট ও ডেটা</h3>
+                    <div class="ac-box">
+                        <div class="ac-t"><i class=gi-lock></i> পাসওয়ার্ড বদলান</div>
+                        <p class="ac-p">লগইন করা অ্যাকাউন্টের (<b id="acEmail">—</b>) পাসওয়ার্ড এখান থেকেই বদলানো যায় — Firebase-এ যেতে হবে না।</p>
+                        <div class="ac-grid">
+                            <input class="form-input" type="password" id="acCur" placeholder="এখনকার পাসওয়ার্ড" autocomplete="current-password" aria-label="এখনকার পাসওয়ার্ড">
+                            <input class="form-input" type="password" id="acNew" placeholder="নতুন পাসওয়ার্ড (কমপক্ষে ৮ অক্ষর)" autocomplete="new-password" aria-label="নতুন পাসওয়ার্ড">
+                            <input class="form-input" type="password" id="acNew2" placeholder="নতুন পাসওয়ার্ড আবার" autocomplete="new-password" aria-label="নতুন পাসওয়ার্ড আবার">
+                        </div>
+                        <div class="ac-row">
+                            <button class="btn btn-primary btn-sm" type="button" id="acPassBtn" onclick="acChangePass()"><i class=gi-ok></i> পাসওয়ার্ড বদলান</button>
+                            <button class="btn btn-ghost btn-sm" type="button" onclick="acSendReset()">পাসওয়ার্ড মনে নেই? রিসেট লিংক ইমেইলে পাঠান</button>
+                        </div>
+                        <div class="ac-msg" id="acPassMsg" role="status"></div>
+                    </div>
+                    <div class="ac-box ac-danger gk-owner-only">
+                        <div class="ac-t"><i class=gi-trash></i> পুরনো ডেটা মুছে পরিষ্কার করুন <span class="ac-only">শুধু মালিক</span></div>
+                        <p class="ac-p">মোছার আগে নিজে থেকেই সব মোছা জিনিসের একটা ব্যাকআপ ফাইল (.json) কম্পিউটারে নামবে। মোছা ডেটা আর ফেরত আসে না — তাই ফাইলটা রেখে দিন।</p>
+                        <div class="ac-opts">
+                            <label class="ac-opt"><input type="checkbox" id="acOrd" onchange="acRefresh()"> <span>অর্ডার <small id="acOrdN"></small></span></label>
+                            <div class="ac-sub" id="acOrdSub" style="display:none;">
+                                <label><input type="radio" name="acOrdMode" value="all" checked onchange="acRefresh()"> সব অর্ডার</label>
+                                <label><input type="radio" name="acOrdMode" value="dead" onchange="acRefresh()"> শুধু বাতিল / ফেরত / ডেলিভারি ব্যর্থ</label>
+                                <label><input type="radio" name="acOrdMode" value="before" onchange="acRefresh()"> এই তারিখের আগের সব <input class="form-input" type="date" id="acOrdDate" onchange="acRefresh()" aria-label="তারিখ"></label>
+                            </div>
+                            <label class="ac-opt"><input type="checkbox" id="acUsed" onchange="acRefresh()"> <span>কুপন ব্যবহারের রেকর্ড (কে কোন কুপন নিয়েছে) <small id="acUsedN"></small></span></label>
+                            <label class="ac-opt"><input type="checkbox" id="acNotify" onchange="acRefresh()"> <span>"স্টকে এলে জানান" অনুরোধ <small id="acNotifyN"></small></span></label>
+                            <label class="ac-opt"><input type="checkbox" id="acBlog" onchange="acRefresh()"> <span>পাঠকদের জমা দেওয়া ব্লগ (প্রকাশ হয়নি এমন) <small id="acBlogN"></small></span></label>
+                            <label class="ac-opt"><input type="checkbox" id="acRev" onchange="acRefresh()"> <span>সব রিভিউ <small id="acRevN"></small></span></label>
+                        </div>
+                        <div class="ac-sum" id="acSum">কী মুছবেন টিক দিন</div>
+                        <div class="ac-row">
+                            <input class="form-input" id="acConfirm" placeholder="নিশ্চিত করতে লিখুন: মুছে ফেলুন" oninput="acRefresh()" style="flex:1;min-width:200px;" aria-label="নিশ্চিত করতে লিখুন: মুছে ফেলুন">
+                            <button class="btn btn-sm ac-del" type="button" id="acDelBtn" onclick="acWipe()" disabled><i class=gi-trash></i> ব্যাকআপ নিয়ে মুছে ফেলুন</button>
+                        </div>
+                        <div class="ac-msg" id="acWipeMsg" role="status"></div>
+                    </div>
+                </div>
                 <div class="tool-card" id="toolCard_phoneIndex">
                     <h3><svg style="width:1em;height:1em;vertical-align:-0.15em;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 .49-3.5"></path></svg> Phone Index Migration</h3>
                     <p>পুরনো orders এর phoneIndex ঠিক করতে।</p>
@@ -2806,6 +2873,11 @@ function showDashboard(){
     const courierCard=document.getElementById('courierCard');
     const modCard=document.getElementById('modManageCard');
     const imgbbCard=document.getElementById('imgbbCard');
+    /* মালিক-শুধু জিনিস (কুরিয়ার কী, মডারেটর, imgbb কী, ডেটা মোছা) — ক্লাস দিয়ে লুকাই, যাতে টুলসের মেনু থেকে
+       বিভাগ খুললেও (switchTool display বদলায়) মডারেটরের কাছে আবার দেখা না যায় */
+    document.body.classList.toggle('gk-is-owner',!!IS_OWNER);
+    [courierCard,modCard,imgbbCard].forEach(c=>{ if(c) c.classList.add('gk-owner-only'); });
+    document.querySelectorAll('.tool-cat-item[data-cat="moderator"],.tool-cat-item[data-cat="courier"]').forEach(b=>b.classList.add('gk-owner-only'));
     if(!IS_OWNER){
         if(courierCard)courierCard.style.display='none';
         if(modCard)modCard.style.display='none';
@@ -2850,7 +2922,7 @@ function switchTab(tab, btnEl){
     if(tab==='books') renderBookManage();
     if(tab==='dashboard') gkRenderDash();
     if(tab==='orders') renderOrders();   /* পর্দার মাপ অনুযায়ী টেবিল/কার্ড */
-    if(tab==='tools'){ renderOrderSummary(); loadTagsAdmin(); loadCatTreeAdmin(); apFixTypeChanged(); loadHomeCatsAdmin(); loadCatCardsAdmin(); loadHomePubsAdmin(); loadHomeAuthorsAdmin(); loadBannersAdmin(); loadCouponsAdmin(); loadOfferPopupAdmin(); loadBlogAdmin(); loadModAdmin(); loadLandingAdmin(); }
+    if(tab==='tools'){ renderOrderSummary(); acInit(); loadTagsAdmin(); loadCatTreeAdmin(); apFixTypeChanged(); loadHomeCatsAdmin(); loadCatCardsAdmin(); loadHomePubsAdmin(); loadHomeAuthorsAdmin(); loadBannersAdmin(); loadCouponsAdmin(); loadOfferPopupAdmin(); loadBlogAdmin(); loadModAdmin(); loadLandingAdmin(); }
     if(tab==='report') renderReport();
     if(tab==='editor') beInit();
     if(tab==='daily') renderDailyOrders();
@@ -2920,6 +2992,7 @@ const TOOL_CATEGORIES={
     imgPixel:['imgbbCard','pixelCard'],
     moderator:['modManageCard'],
     courier:['courierCard'],
+    account:['toolCard_account'],
     misc:['toolCard_phoneIndex','toolCard_orderSummary','toolCard_fraudCheck','toolCard_bookJs','toolCard_sitemap','toolCard_bulkUpload']
 };
 function switchTool(key, btnEl){
@@ -8817,6 +8890,136 @@ async function gkQsSave(){
     if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',start); else start();
 })();
 
+/* ══════════════════════════════════════════════
+   অ্যাকাউন্ট ও ডেটা (২০২৬-১০-১৫) — Firebase কনসোলে না গিয়ে অ্যাডমিন থেকেই পাসওয়ার্ড বদলানো আর পুরনো
+   ডেটা (অর্ডার ইত্যাদি) মোছা। মোছা শুধু মালিক পারে (মডারেটর না); মোছার আগে সব মোছা জিনিসের JSON
+   ব্যাকআপ নামে, আর "মুছে ফেলুন" লিখে নিশ্চিত করতে হয়।
+   এই সাইটের ঘর: orders, phoneIndex/{ফোন}/{আইডি}, usedCoupons, stockNotify/{bid}, blogSubmissions,
+   reviews/{bid}/{রিভিউ} ("সম্প্রতি কিনেছেন" এই সাইটে নেই)।
+══════════════════════════════════════════════ */
+function acMsg(id,txt,ok){ const e=document.getElementById(id); if(!e) return; e.style.color=ok?'#059669':'#dc2626'; e.innerHTML=txt; }
+function acInit(){
+    const u=auth.currentUser, em=document.getElementById('acEmail'); if(em) em.textContent=(u&&u.email)||'—';
+    if(IS_OWNER) acCounts();
+}
+async function acChangePass(){
+    const u=auth.currentUser; if(!u||!u.email){ acMsg('acPassMsg','আগে লগইন করুন'); return; }
+    const g=id=>document.getElementById(id).value;
+    const cur=g('acCur'), n1=g('acNew'), n2=g('acNew2');
+    if(!cur){ acMsg('acPassMsg','এখনকার পাসওয়ার্ড লিখুন'); return; }
+    if(n1.length<8){ acMsg('acPassMsg','নতুন পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের দিন'); return; }
+    if(n1!==n2){ acMsg('acPassMsg','নতুন পাসওয়ার্ড দুইবার একই হয়নি'); return; }
+    if(n1===cur){ acMsg('acPassMsg','নতুন পাসওয়ার্ড আগেরটার মতোই — অন্য কিছু দিন'); return; }
+    const btn=document.getElementById('acPassBtn'); btn.disabled=true;
+    acMsg('acPassMsg','বদলানো হচ্ছে...',true);
+    try{
+        await u.reauthenticateWithCredential(firebase.auth.EmailAuthProvider.credential(u.email,cur));
+        await u.updatePassword(n1);
+        ['acCur','acNew','acNew2'].forEach(id=>{ document.getElementById(id).value=''; });
+        acMsg('acPassMsg','<i class=gi-ok></i> পাসওয়ার্ড বদলানো হয়েছে। পরেরবার নতুন পাসওয়ার্ড দিয়ে লগইন করবেন।',true);
+    }catch(e){
+        const c=(e&&e.code)||'';
+        acMsg('acPassMsg', /wrong-password|invalid-credential|invalid-login/.test(c)?'এখনকার পাসওয়ার্ড ভুল হয়েছে'
+            : c==='auth/weak-password'?'নতুন পাসওয়ার্ড খুব দুর্বল — অক্ষর, সংখ্যা মিলিয়ে লম্বা দিন'
+            : c==='auth/too-many-requests'?'অনেকবার চেষ্টা হয়েছে — কিছুক্ষণ পরে আবার চেষ্টা করুন'
+            : c==='auth/network-request-failed'?'ইন্টারনেট সংযোগ দেখুন'
+            : 'বদলানো যায়নি: '+escapeHTML((e&&e.message)||c));
+    }
+    btn.disabled=false;
+}
+async function acSendReset(){
+    const u=auth.currentUser; if(!u||!u.email) return;
+    try{ await auth.sendPasswordResetEmail(u.email); acMsg('acPassMsg',escapeHTML(u.email)+'-এ রিসেট লিংক পাঠানো হয়েছে — Gmail দেখুন (Spam-ও)।',true); }
+    catch(e){ acMsg('acPassMsg','লিংক পাঠানো যায়নি — একটু পরে চেষ্টা করুন'); }
+}
+let AC={counts:{}};
+function acCountObj(v,depth){ if(!v||typeof v!=='object') return 0; if(depth<=1) return Object.keys(v).length; return Object.values(v).reduce((s,x)=>s+acCountObj(x,depth-1),0); }
+async function acCounts(){
+    const read=async p=>{ try{ return (await db.ref(p).once('value')).val(); }catch(e){ return null; } };
+    const r=await Promise.all([read('usedCoupons'),read('stockNotify'),read('blogSubmissions'),read('reviews')]);
+    AC.counts={used:acCountObj(r[0],2),notify:acCountObj(r[1],2),blog:acCountObj(r[2],1),rev:acCountObj(r[3],2)};
+    acRefresh();
+}
+function acOrdMode(){ const r=document.querySelector('input[name="acOrdMode"]:checked'); return r?r.value:'all'; }
+function acOrdersToDelete(){
+    const mode=acOrdMode();
+    const list=(allOrders||[]).filter(o=>o&&o.orderId);
+    if(mode==='dead') return list.filter(o=>gkIsDead(o));
+    if(mode==='before'){
+        const d=document.getElementById('acOrdDate').value; if(!d) return [];
+        const t=new Date(d+'T00:00:00').getTime();
+        return list.filter(o=>(Number(o.createdAt)||0)<t);
+    }
+    return list;
+}
+function acRefresh(){
+    const bn=n=>drvBn(n), on=id=>{ const e=document.getElementById(id); return !!(e&&e.checked); };
+    const set=(id,t)=>{ const e=document.getElementById(id); if(e) e.textContent=t; };
+    set('acOrdN','('+bn((allOrders||[]).length)+'টা আছে)');
+    const c=AC.counts||{}, cn=k=>c[k]!=null?'('+bn(c[k])+')':'';
+    set('acUsedN',cn('used')); set('acNotifyN',cn('notify')); set('acBlogN',cn('blog')); set('acRevN',cn('rev'));
+    const sub=document.getElementById('acOrdSub'); if(sub) sub.style.display=on('acOrd')?'':'none';
+    const parts=[];
+    if(on('acOrd')) parts.push(bn(acOrdersToDelete().length)+'টা অর্ডার');
+    if(on('acUsed')) parts.push('কুপন রেকর্ড');
+    if(on('acNotify')) parts.push('স্টক-অনুরোধ');
+    if(on('acBlog')) parts.push('জমা দেওয়া ব্লগ');
+    if(on('acRev')) parts.push('সব রিভিউ');
+    set('acSum', parts.length?'মুছবে: '+parts.join(', '):'কী মুছবেন টিক দিন');
+    const cv=((document.getElementById('acConfirm')||{}).value||'').trim(), typed=cv==='মুছে ফেলুন'||cv.toUpperCase()==='DELETE';
+    const btn=document.getElementById('acDelBtn');
+    if(btn) btn.disabled=!(parts.length && typed && !(on('acOrd')&&!acOrdersToDelete().length));
+}
+function acDownload(obj){
+    const d=new Date(), p=n=>String(n).padStart(2,'0');
+    const name='backup-'+d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+'-'+p(d.getHours())+p(d.getMinutes())+'.json';
+    const url=URL.createObjectURL(new Blob([JSON.stringify(obj,null,1)],{type:'application/json'}));
+    const a=document.createElement('a'); a.href=url; a.download=name; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),4000);
+    return name;
+}
+async function acWipe(){
+    if(!IS_OWNER){ acMsg('acWipeMsg','শুধু মালিক মুছতে পারেন'); return; }
+    const on=id=>document.getElementById(id).checked;
+    const btn=document.getElementById('acDelBtn'); btn.disabled=true;
+    const read=async p=>(await db.ref(p).once('value')).val();
+    try{
+        acMsg('acWipeMsg','ব্যাকআপ তৈরি হচ্ছে...',true);
+        const backup={_site:location.host,_at:new Date().toISOString()}, whole=[], single=[];
+        if(on('acOrd')){
+            const del=acOrdersToDelete();
+            /* ব্যাকআপে Firebase-এর আসল অর্ডার — এই পেজের তালিকায় অর্ডারগুলো দেখানোর জন্য একটু সাজানো থাকে (odNormOrder) */
+            const raw=await read('orders')||{};
+            backup.orders={}; del.forEach(o=>{ backup.orders[o.orderId]=raw[o.orderId]||o; });
+            if(acOrdMode()==='all'){ backup.orders=raw; backup.phoneIndex=await read('phoneIndex'); whole.push('orders','phoneIndex'); }
+            else del.forEach(o=>{ const r=raw[o.orderId]||o; single.push('orders/'+o.orderId); if(r.phone) single.push('phoneIndex/'+String(r.phone).replace(/[.#$\/\[\]]/g,'_')+'/'+o.orderId); });
+        }
+        if(on('acUsed')){ backup.usedCoupons=await read('usedCoupons'); whole.push('usedCoupons'); }
+        if(on('acNotify')){ backup.stockNotify=await read('stockNotify'); whole.push('stockNotify'); }
+        if(on('acBlog')){ backup.blogSubmissions=await read('blogSubmissions'); whole.push('blogSubmissions'); }
+        /* রিভিউ — Firebase নিয়মে একটা একটা করে মোছার অনুমতি (reviews/{বই}/{রিভিউ}), পুরো ঘর একবারে না */
+        if(on('acRev')){ const v=await read('reviews')||{}; backup.reviews=v; Object.keys(v).forEach(b=>Object.keys(v[b]||{}).forEach(r=>single.push('reviews/'+b+'/'+r))); }
+        if(!whole.length&&!single.length){ acMsg('acWipeMsg','মোছার মতো কিছু নেই'); acRefresh(); return; }
+        const file=acDownload(backup);
+        if(!confirm('ব্যাকআপ ফাইল "'+file+'" নামানো হয়েছে।\n\n'+document.getElementById('acSum').textContent+'\n\nএটা আর ফেরত আসবে না। সত্যিই মুছবেন?')){
+            acMsg('acWipeMsg','বাতিল করা হয়েছে — কিছুই মোছা হয়নি',true); acRefresh(); return;
+        }
+        acMsg('acWipeMsg','মোছা হচ্ছে...',true);
+        for(const p of whole) await db.ref(p).remove();
+        for(let i=0;i<single.length;i+=400){
+            const up={}; single.slice(i,i+400).forEach(p=>{ up[p]=null; });
+            await db.ref().update(up);
+            acMsg('acWipeMsg','মোছা হচ্ছে... '+drvBn(Math.min(i+400,single.length))+'/'+drvBn(single.length),true);
+        }
+        document.getElementById('acConfirm').value='';
+        ['acOrd','acUsed','acNotify','acBlog','acRev'].forEach(id=>{ document.getElementById(id).checked=false; });
+        acMsg('acWipeMsg','<i class=gi-ok></i> মোছা শেষ। ব্যাকআপ ফাইল: '+escapeHTML(file),true);
+        acCounts();
+    }catch(e){
+        acMsg('acWipeMsg','মোছা যায়নি: '+escapeHTML((e&&e.message)||'')+' — কিছু মুছে গিয়ে থাকলে তা ব্যাকআপ ফাইলে আছে');
+    }
+    acRefresh();
+}
 /* বড় পর্দা ↔ মোবাইলের মাঝে গেলে অর্ডার তালিকা টেবিল/কার্ডে বদলাই */
 (function(){ let wide=window.innerWidth>=900; window.addEventListener('resize',()=>{ const w=window.innerWidth>=900; if(w!==wide){ wide=w; if(document.getElementById('tabPanelOrders')&&document.getElementById('tabPanelOrders').style.display!=='none') renderOrders(); } }); })();
 
@@ -9407,6 +9610,1890 @@ function renderAnalytics(){
     </div>
 </div>
 <!-- INVOICE PRINT AREA -->
-<div id="invoicePrintArea" style="display:none;"></div>
+<div id="invoicePrintArea" translate="no" style="display:none;"></div>
+<!-- LANG-START -->
+<!-- ভাষা (English / বাংলা) — ২০২৬-১০-১৫
+     English ডিফল্ট; বাংলা শুধু বাটন চাপলে। English-এ প্যানেলের লেখা (পরে আঁকা লেখা, টোস্ট, confirm-ও)
+     জায়গায় বসেই ইংরেজি হয়; বই/অর্ডারের ডেটা যেমন আছে তেমন থাকে। translate="no" দেওয়া অংশ (যেমন
+     ক্রেতার ইনভয়েস) বাংলাই থাকে। ভাষা বদলালে পেজ রিলোড হয়, খোলা ট্যাব ফিরে আসে। -->
+<script>
+(function(){
+'use strict';
+var LANG_KEY='od_admin_lang2', TAB_KEY='od_admin_tab';
+var lang='en';
+try{ if(localStorage.getItem(LANG_KEY)==='bn') lang='bn'; }catch(e){}
+window.OD_ADMIN_LANG=lang;
+
+/* ---- ভাষা বাটন + রিলোডের পরে আগের ট্যাব ---- */
+document.querySelectorAll('[data-lang-toggle]').forEach(function(b){
+  b.textContent = lang==='en' ? 'বাংলা' : 'English';
+  b.setAttribute('translate','no');
+  b.addEventListener('click', function(){
+    try{ localStorage.setItem(LANG_KEY, lang==='en' ? 'bn' : 'en'); }catch(e){}
+    var a=document.querySelector('#sidebar .nav-item.active[id]');
+    try{ if(a) sessionStorage.setItem(TAB_KEY, a.id); }catch(e){}
+    location.reload();
+  });
+});
+var savedTab=null;
+try{ savedTab=sessionStorage.getItem(TAB_KEY); sessionStorage.removeItem(TAB_KEY); }catch(e){}
+if(savedTab){
+  var tries=0, t=setInterval(function(){
+    if(++tries>120){ clearInterval(t); return; }
+    var shell=document.getElementById('appShell');
+    if(!shell||shell.classList.contains('hidden')) return;
+    clearInterval(t);
+    var btn=document.getElementById(savedTab);
+    if(btn&&btn.offsetParent!==null) btn.click();
+  },150);
+}
+
+if(lang!=='en') return;
+document.documentElement.lang='en';
+
+/* ---- তারিখ ও সংখ্যা: 'bn-BD' → English ---- */
+function fixLoc(l,en){ return (l==='bn-BD'||l==='bn') ? en : l; }
+var nTL=Number.prototype.toLocaleString;
+Number.prototype.toLocaleString=function(l,o){ return nTL.call(this, fixLoc(l,'en-US'), o); };
+['toLocaleString','toLocaleDateString','toLocaleTimeString'].forEach(function(fn){
+  var orig=Date.prototype[fn];
+  Date.prototype[fn]=function(l,o){ return orig.call(this, fixLoc(l,'en-GB'), o); };
+});
+if(window.Intl&&Intl.DateTimeFormat){
+  var DTF=Intl.DateTimeFormat;
+  Intl.DateTimeFormat=function(l,o){ return new DTF(fixLoc(l,'en-GB'),o); };
+  Intl.DateTimeFormat.prototype=DTF.prototype; Intl.DateTimeFormat.supportedLocalesOf=DTF.supportedLocalesOf;
+}
+
+/* ---- হুবহু লেখা ---- */
+var EN = {
+'% ছাড়':'% off',
+'% ছাড় বসবে (MRP-এর উপর)।':'% off will be applied (on MRP).',
+'% ছাড় বসেছে':'% off applied',
+'% ছাড় বসেছে — সাইটে লাইভ।':'% off applied — live on the site.',
+'% দিলে উদাহরণ:':'% example:',
+'% পাতা বাদ':'% page trimmed',
+'% বাদ, লোগোসহ)। প্রতিটা বইয়ে আধা থেকে এক মিনিট লাগতে পারে — পেজটা খোলা রাখুন। শুরু করবেন?':'% trimmed, with logo). Each book may take half a minute to a minute — keep this page open. Start?',
+'% সফল':'% success',
+'%, গড়ের চেয়ে অনেক কম।':'%, far below average.',
+'(Drive-এর ফাইল মুছবে না — শুধু দোকান থেকে লিংকটা সরবে। ঠিক PDF পরে Drive টুল বা বই এডিট থেকে বসাতে পারবেন।)':'(The Drive file will not be deleted — only the link is removed from the shop. You can add the right PDF later from the Drive tool or the book editor.)',
+'(অনুপাত 2ঃ1, অর্থাৎ চওড়া দ্বিগুণ)। JPG ফরম্যাট, 500 KB-এর নিচে রাখলে সাইট দ্রুত লোড হবে। ছবি এই মাপে বানিয়ে':'(ratio 2:1, i.e. twice as wide). JPG format; under 500 KB keeps the site fast. Make the image in this size and',
+'(উপরে প্রকাশনী বাছলে শুধু সেটার, না বাছলে সব বইয়ের)':'(only that publisher if one is selected above, otherwise all books)',
+'(এই বই)':'(this book)',
+'(একই বিবরণ — বাড়তি লাইন সরিয়ে পরিষ্কার করে বসবে)':'(same description — will be cleaned of extra lines)',
+'(একবার দিলে মনে থাকবে)':'(remembered once entered)',
+'(ওই বইয়ে এখন আছে:':'(that book now has: "',
+'(খালি)':'(empty)',
+'(ছবি ব্যানার)':'(image banner)',
+'(দোকানে আগে অন্য বিবরণ আছে)':'(the shop already has a different description)',
+'(দোকানে আগে থেকে PDF আছে)':'(the shop already has a PDF)',
+'(দোকানে বিবরণ নেই — এটা বসবে)':'(no description in the shop — this will be added)',
+'(দোকানে শুধু অটো-লেখা ছোট বিবরণ — Drive-এর আসল বিবরণ বসবে)':'(the shop only has a short auto-written description — the real Drive description will be added)',
+'(দোকানেও এই বিবরণই আছে)':'(the shop has this same description)',
+'(প্রকাশনী নেই)':'(no publisher)',
+'(বিশেষ ছাড়/সমঝোতা হলে)':'(for special discounts/deals)',
+'(যেমন "মৃত্যু প্যাকেজ" ৳487 = ৳163 + ৳324)। আপনি টিক দিয়ে সেভ করলে তবেই সাইটে দেখাবে। না মিললে বই এডিটে গিয়ে নিজে বাছুন।':'(e.g. "মৃত্যু প্যাকেজ" ৳487 = ৳163 + ৳324). It shows on the site only after you tick and save. If nothing matches, go to the book editor and pick them yourself.',
+'(লিখে খুঁজুন)':'(type to search)',
+'(শিরোনামহীন)':'(untitled)',
+'(শুধু admin দেখবে)':'(admin only)',
+'+ ডেলিভারি':'+ delivery',
+'+ ডেলিভারি(৳':') + delivery (৳',
+'+ নতুন বই':'+ New book',
+', কিন্তু':'), but',
+', প্যাকেজের মুদ্রিত দাম ৳':', package printed price ৳',
+', বর্তমান দাম ৳':', current price ৳',
+'-এ আপলোড করে লিংকটি নিচে বসান।':'and paste the link below.',
+'-এ এখন যে PDF আছে':'currently has PDF (',
+'-এ পাঠানো হবে':'will be sent to',
+'-এ পাঠানো হয়েছে ·':'sent ·',
+'-এ বসানো':'set on',
+'-এ বসাবেন?':')?',
+'-এ রিসেট লিংক পাঠানো হয়েছে — Gmail দেখুন (Spam-ও)।':'— reset link sent — check Gmail (Spam too).',
+'-এ রিসেট লিংক পাঠানো হয়েছে। Gmail খুলে (Spam-ও দেখুন) 1 ঘণ্টার মধ্যে নতুন লিংকে ক্লিক করে পাসওয়ার্ড দিন।':'— reset link sent. Open Gmail (check Spam too) and click the new link within 1 hour to set a password.',
+'-এ সরান':'move to',
+'-এর PDF খোলা হচ্ছে…':'opening PDF…',
+'-এর কোনো বইয়ে':'in any book of',
+'-এর বইয়ের সাথে মেলে,':'matches books of',
+'-এর বেস্টসেলার':'bestsellers (',
+'-এর সাথে নয় — ঠিক প্রকাশনীর ফোল্ডার দিয়েছেন তো? (উপরের প্রকাশনী ঘর থেকে বদলাতে পারেন)':'not with — did you give the right publisher\'s folder? (you can change it in the publisher box above)',
+'1 বার':'1 time',
+'2 বার':'2 times',
+'200 পৃষ্ঠা':'200 pages',
+'3 বার':'3 times',
+'300 KB-এর বড় কোনো কভার নেই':'No cover bigger than 300 KB',
+'7 দিনের অর্ডার ট্রেন্ড':'7-day order trend',
+'API keys লোড হয়েছে':'API keys loaded',
+'API keys সেভ হয়েছে!':'API keys saved!',
+'Admin access নেই':'No admin access',
+'Admin লগইন':'Admin login',
+'CLOUDFLARE WORKER প্রক্সি':'CLOUDFLARE WORKER PROXY',
+'CSV ডাউনলোড হচ্ছে...':'Downloading CSV...',
+'Courier API keys সেভ হয়েছে':'Courier API keys saved',
+'Cover ছবি সেট হয়েছে — সেভ করুন':'Cover image set — save it',
+'Cover সেট':'Cover set',
+'Drive API key সেভ করা আছে':'Drive API key is saved',
+'Drive API key সেভ হয়েছে':'Drive API key saved',
+'Drive API key সেভ হলো':'Drive API key saved',
+'Drive folder link দিন':'Enter the Drive folder link',
+'Drive রিভিউ':'Drive review',
+'Drive লিংক সেভ করা আছে — সরাসরি স্ক্যান করতে পারেন':'Drive link is saved — you can scan directly',
+'Drive-এ ছবি নেই':'No images in Drive',
+'Drive-এর নামে বাড়তি শব্দ — Drive:':'Extra words in the Drive name — Drive: "',
+'Drive-এর বাইরের লিংক — যাচাই করা যায়নি':'Link outside Drive — could not verify',
+'Drive-এর বিবরণ পড়ুন —':'Read the Drive description — "',
+'Drive-এর শর্ট PDF থেকে প্রথম কয়েকটা পাতা নিয়ে (শেষের অংশ বাদ), প্রতিটা পাতায় OurDedicationের লোগো বসিয়ে ছবি বানায় (imgbb-এ রাখে)। সাইটে তখন Drive-এর বদলে নিজের রিডারে এই পাতাগুলো দেখায় — পুরো PDF খোলার লিংক থাকে না। একবার বানালে আর বানাতে হয় না; বইয়ের PDF লিংক বদলালে সাইট নিজে থেকে আবার Drive দেখায়, তখন এখানে আবার চালান।':'Takes the first few pages of the Drive short PDF (skipping the end), puts the OurDedication logo on each page and makes images (kept on imgbb). The site then shows these pages in its own reader instead of Drive — no link to open the full PDF. Make them once; if the book\'s PDF link changes, the site shows Drive again by itself — then run this again.',
+'English বই':'English books',
+'Facebook-এ অ্যাড চালালে Pixel লাগে — এতে Facebook শিখে যায় কারা বই কেনে, অ্যাডের টাকা কম নষ্ট হয়।':'Facebook ads need a Pixel — it teaches Facebook who buys books, so less ad money is wasted.',
+'Firebase sync ব্যর্থ':'Firebase sync failed',
+'Firebase sync ব্যর্থ:':'Firebase sync failed:',
+'Firebase অনুমতি দিচ্ছে না — মালিক বা মডারেটরের অ্যাকাউন্টে লগইন আছেন তো? লগআউট করে আবার লগইন করে চেষ্টা করুন।':'Firebase is not allowing this — are you logged in with the owner or a moderator account? Log out, log in again and retry.',
+'Firebase-এ তুলুন':'Upload to Firebase',
+'Firebase-এ সেভ হয়েছে':'Saved to Firebase',
+'Google-এর জন্য সব বইয়ের লিংকসহ sitemap বানিয়ে ডাউনলোড করুন। মাসে একবার হোস্টিংয়ে আপলোড করলেই যথেষ্ট।':'Build a sitemap with links to all books for Google and download it. Uploading it to hosting once a month is enough.',
+'JSZip লোড হয়নি':'JSZip did not load',
+'Key দিন':'Enter a key',
+'MRP-এর উপর':'on MRP',
+'MRP-তে (ছাড় ছাড়া)':'at MRP (no discount)',
+'MRP-তে ফেরাও':'Back to MRP',
+'MRP-তে ফেরাও (ছাড় নেই)':'Back to MRP (no discount)',
+'Meta Pixel (Facebook অ্যাড)':'Meta Pixel (Facebook ads)',
+'Notification অনুমতি দেওয়া হয়নি — তবে প্যানেলে সব অর্ডার দেখতে পাবেন':'Notification permission not given — but you can still see all orders in the panel',
+'OurDedication — নতুন অর্ডার!':'OurDedication — new order!',
+'OurDedication-বাল্ক-আপলোড-টেমপ্লেট.xlsx':'OurDedication-bulk-upload-template.xlsx',
+'PDF link সেট হয়েছে — সেভ করুন':'PDF link set — save it',
+'PDF ঠিক বইয়ে সরানো হয়েছে — কাজ শেষে book.js ডাউনলোড করে আপলোড করুন':'PDF moved to the right book — when done, download book.js and upload it',
+'PDF তৈরি হচ্ছে...':'Creating PDF...',
+'PDF তৈরি হয়নি':'PDF not created',
+'PDF ফাইলের নাম এই বইয়ের মতো নয়:':'PDF file name does not match this book: "',
+'PDF লাইব্রেরি লোড হয়নি — নেট চেক করুন':'PDF library did not load — check the net',
+'PDF লিংক সরানো হয়েছে — কাজ শেষে book.js ডাউনলোড করে আপলোড করুন':'PDF link removed — when done, download book.js and upload it',
+'PDF সেট':'PDF set',
+'PDF-এর নামে বাড়তি শব্দ আছে — একই বই কিনা খুলে দেখুন':'The PDF name has extra words — open it to check it is the same book',
+'PDF.js লোড হয়নি — ইন্টারনেট দেখুন':'PDF.js did not load — check the internet',
+'Phone Index ঠিক করুন':'Fix Phone Index',
+'Pixel ID (যেমন: 1234567890123456)':'Pixel ID (e.g. 1234567890123456)',
+'Pixel ID শুধু সংখ্যা হয় — Events Manager থেকে কপি করুন':'A Pixel ID is numbers only — copy it from Events Manager',
+'Pixel ID সেট করা নেই':'Pixel ID is not set',
+'Pixel ID সেভ হলো — সাইটে চালু':'Pixel ID saved — active on the site',
+'Pixel চালু আছে — ID:':'Pixel is on — ID:',
+'Pixel বন্ধ করতে ঘরটা খালি রেখে সেভ চাপুন।':'To turn the Pixel off, leave the box empty and press Save.',
+'Pixel বন্ধ করা হলো':'Pixel turned off',
+'Publisher-এর Drive folder থেকে ছবি, PDF, desc automatically আনার জন্য। Google Cloud Console থেকে Drive API key নিয়ে এখানে সেভ করুন।':'To automatically fetch images, PDFs and descriptions from a publisher\'s Drive folder. Get a Drive API key from Google Cloud Console and save it here.',
+'RedX token নেই':'No RedX token',
+'RedX token সেভ করা আছে':'RedX token is saved',
+'Redx API Token (Bearer ছাড়া)':'Redx API Token (without Bearer)',
+'Redx API Token সেট করুন (Tools → কুরিয়ার)':'Set the Redx API Token (Tools → Courier)',
+'Redx পিকআপ রিকোয়েস্ট সম্পন্ন! Parcel ID:':'Redx pickup request done! Parcel ID:',
+'Status বিভাজন':'Status breakdown',
+'Steadfast API Key সেট করুন (Tools → কুরিয়ার)':'Set the Steadfast API Key (Tools → Courier)',
+'Steadfast key নেই':'No Steadfast key',
+'Steadfast key সেভ করা আছে':'Steadfast key is saved',
+'Steadfast পিকআপ রিকোয়েস্ট সম্পন্ন! Tracking:':'Steadfast pickup request done! Tracking:',
+'TxID (বিকাশ/নগদ হলে)':'TxID (for bKash/Nagad)',
+'book.js ছোট রূপ পূর্ণ রূপের সাথে মেলেনি — পূর্ণ রূপ দেওয়া হলো':'book.js small version did not match the full one — using the full version',
+'book.js ছোট রূপ বানানো যায়নি — পূর্ণ রূপ দেওয়া হলো':'Could not make a small book.js — using the full version',
+'book.js ডাউনলোড':'Download book.js',
+'book.js ডাউনলোড করুন':'Download book.js',
+'book.js ডাউনলোড হচ্ছে — GitHub-এ আপলোড করুন':'Downloading book.js — upload it to GitHub',
+'book.js থেকে':'from book.js',
+'book.js পাওয়া যাচ্ছে না!':'book.js not found!',
+'book.js ফাইলেও নতুন দাম রাখতে চাইলে নিচে "book.js ডাউনলোড করুন" দিয়ে GitHub-এ আপলোড করুন।':'To keep the new prices in the book.js file too, use "Download book.js" below and upload it to GitHub.',
+'book.js রিলোড':'Reload book.js',
+'full-cover থেকে front কেটে নেওয়া:':'front cropped from full cover:',
+'imgbb key (ছবি আপলোডের জন্য)':'imgbb key (for image uploads)',
+'imgbb key নেই':'No imgbb key',
+'imgbb key সেভ করা আছে — ছবি আপলোড চালু':'imgbb key is saved — image upload is on',
+'imgbb key সেভ হলো':'imgbb key saved',
+'imgbb আপলোড':'imgbb upload',
+'imgbb আপলোড ব্যর্থ':'imgbb upload failed',
+'imgbb.com-এ ফ্রি অ্যাকাউন্ট খুলে':'Open a free account at imgbb.com',
+'key সেভ করা নেই':'key is not saved',
+'key সেভ করা নেই — imgbb.com থেকে key নিয়ে সেভ করুন':'key is not saved — get a key from imgbb.com and save it',
+'logo.png পাওয়া যায়নি':'logo.png not found',
+'migrate ব্যর্থ:':'migrate failed:',
+'n\n(Drive-এর ফাইল মুছবে না — শুধু দোকান থেকে লিংকটা সরবে। ঠিক PDF পরে Drive টুল বা বই এডিট থেকে বসাতে পারবেন।)':'(The Drive file will not be deleted — only the link is removed from the shop. You can add the right PDF later from the Drive tool or the book editor.)',
+'n\nএটা আর ফেরত আসবে না। সত্যিই মুছবেন?':'This cannot be undone. Really delete?',
+'n\nএরপরও এগোতে চান?':'Continue anyway?',
+'n\nএরপরও কনফার্ম করতে চান?':'Confirm anyway?',
+'n\nসাবধান:':'Careful:',
+'sitemap.xml ডাউনলোড':'Download sitemap.xml',
+'sitemap.xml ডাউনলোড করুন':'Download sitemap.xml',
+'sitemap.xml ডাউনলোড হচ্ছে':'Downloading sitemap.xml (',
+'· একই PDF আরও বসানো:':'· same PDF also on:',
+'· দোকানে:':'· In shop:',
+'· মুদ্রিত ৳':'· printed ৳',
+'· শর্ট PDF আছে':'· has short PDF',
+'· ৳':'· ৳',
+'। একই বই না হলে "বই বদলান" চাপুন':'. If it is not the same book, press "Change book"',
+'। এটা আলাদা বই হতে পারে — একই বই না হলে "বই বদলান" চাপুন':'. This may be a different book — if it is not the same book, press "Change book"',
+'। চালিয়ে যাবেন?':'. Continue?',
+'অংশ':'part',
+'অক্টোবর':'October',
+'অক্ষর':'characters',
+'অগ্রিম পেমেন্ট (কুরিয়ার অফিস)':'Advance payment (courier office)',
+'অজানা কুরিয়ার':'Unknown courier',
+'অটো খুঁজুন':'Auto find',
+'অটো-খোঁজা':'Auto-find',
+'অতিরিক্ত ছবি (গ্যালারি — ঐচ্ছিক, একাধিক দেওয়া যাবে)':'Extra images (gallery — optional, you can add several)',
+'অতিরিক্ত বৈশিষ্ট্য (Size, Color, মেয়াদ ইত্যাদি — যা প্রয়োজন যোগ করুন)':'Extra attributes (Size, Color, expiry etc. — add what you need)',
+'অতিরিক্ত বৈশিষ্ট্য (Size, Color, মেয়াদ ইত্যাদি)':'Extra attributes (Size, Color, expiry etc.)',
+'অনলাইন বইয়ের দোকান':'Online bookshop',
+'অনুপাত 2ঃ1, অর্থাৎ চওড়া দ্বিগুণ)। JPG ফরম্যাট, 500 KB-এর নিচে রাখলে সাইট দ্রুত লোড হবে। ছবি এই মাপে বানিয়ে':'ratio 2:1, i.e. twice as wide). JPG format; under 500 KB keeps the site fast. Make the image in this size and',
+'অনুমতি দিচ্ছে না — মালিক বা মডারেটরের অ্যাকাউন্টে লগইন আছেন তো? লগআউট করে আবার লগইন করে চেষ্টা করুন।':'not allowed — are you logged in with the owner or a moderator account? Log out, log in again and retry.',
+'অনুমতি দেওয়া হয়নি — তবে প্যানেলে সব অর্ডার দেখতে পাবেন':'Permission not given — but you can still see all orders in the panel',
+'অনুমোদন':'Approve',
+'অনুমোদন দিলে মডারেটর নিজের ইমেইল-পাসওয়ার্ড দিয়ে এই প্যানেলে ঢুকে সব মেইনটেইন করতে পারবে। শুধু Courier API আর মডারেটর ম্যানেজ আপনার হাতে থাকবে।':'Once approved, the moderator can log in to this panel with their own email and password and maintain everything. Only the Courier API and moderator management stay with you.',
+'অনুমোদন ব্যর্থ হলো':'Approval failed',
+'অনুরোধ':'Request',
+'অনেকবার চেষ্টা হয়েছে — কিছুক্ষণ পরে আবার চেষ্টা করুন':'Too many attempts — try again in a while',
+'অন্তত 1টা ট্যাগ রাখতে হবে':'Keep at least 1 tag',
+'অন্তত 1টা বিভাগ রাখতে হবে':'Keep at least 1 category',
+'অন্তত একটা পোস্টার যোগ করুন অথবা পপআপ বন্ধ রাখুন':'Add at least one poster or turn the popup off',
+'অন্তত একটা বই যোগ করুন':'Add at least one book',
+'অন্য কোনো ডিভাইস/মডারেটর থেকে বই বদলানো হয়েছে — এই পেজের লিস্ট পুরনো।':'Books were changed from another device/moderator — this page\'s list is old.',
+'অন্য কোনো ডিভাইস/মডারেটর থেকে বই বদলানো হয়েছে — এই পেজের লিস্ট পুরনো।\n\nপেজটা রিফ্রেশ করে তারপর book.js ডাউনলোড করুন।':'Books were changed from another device/moderator — this page\'s list is old.\n\nRefresh the page, then download book.js.',
+'অন্য ডিভাইস থেকে বদল':'Changed from another device',
+'অন্য প্রকাশনীর বইয়ের সাথে মিলেছে':'Matched a book of another publisher',
+'অন্যান্য':'Others',
+'অপশন (সাইজ / রং / পরিমাণ) — সাইটে দামের নিচে বাটন দেখাবে, চাপলে সেই অপশনের ছবি ও দাম':'Options (size / color / amount) — buttons show under the price on the site; pressing one shows that option\'s image and price',
+'অপশনের পণ্যের নাম লিখে বাছুন...':'Type an option product name and pick...',
+'অফার দাও':'Apply offer',
+'অফার পোস্টার':'Offer poster',
+'অফার পোস্টার পপআপ':'Offer poster popup',
+'অফার পোস্টার সেভ হয়েছে — সাইটে লাইভ!':'Offer poster saved — live on the site!',
+'অফার বসানো ব্যর্থ:':'Applying the offer failed:',
+'অফার মূল্য':'Offer price',
+'অফার শেষ হওয়ার সময় (ঐচ্ছিক) — দিলে কাউন্টডাউন টাইমার দেখাবে':'Offer end time (optional) — shows a countdown timer if set',
+'অফারের আগের দামে':'at the pre-offer price',
+'অবশ্যই বইয়ের বিভাগের সাথে হুবহু মিলতে হবে (যেমন: ইসলামি বই)। ছবি লাগে না — কার্ডে বইয়ের প্রচ্ছদ আপনিই বসে (নিচের':'Must match the book category exactly (e.g. ইসলামি বই). No image needed — the card uses a book cover automatically (from the',
+'অবশ্যই বইয়ের বিভাগের সাথে হুবহু মিলতে হবে (যেমন: ইসলামি বই)। ছবি লাগে না — কার্ডে বইয়ের প্রচ্ছদ আপনিই বসে (নিচের "ক্যাটাগরি কার্ড" থেকে বদলানো যায়)। সেভ করলেই হোমপেজে লাইভ। (কিছু না থাকলে ডিফল্ট তালিকা দেখাবে।)':'Must match the book category exactly (e.g. ইসলামি বই). No image needed — the card uses a book cover automatically (change it from "Category cards" below). Saving makes it live on the homepage. (If empty, the default list shows.)',
+'অবস্থা':'Status',
+'অর্ডার':'Orders',
+'অর্ডার ID':'Order ID',
+'অর্ডার আইডি':'Order ID',
+'অর্ডার কনফার্ম হয়েছে':'Order confirmed',
+'অর্ডার করা বইসমূহ':'Ordered books',
+'অর্ডার খুঁজুন':'Search orders',
+'অর্ডার তালিকা':'Order list',
+'অর্ডার থেকে হিসাব করুন':'Calculate from orders',
+'অর্ডার দেখুন':'View order',
+'অর্ডার পড়া যায়নি:':'Could not read orders:',
+'অর্ডার পাওয়া যায়নি':'Order not found',
+'অর্ডার সংক্ষেপ':'Order summary',
+'অর্ডার সংখ্যা':'Number of orders',
+'অর্ডার সেভ করুন':'Save order',
+'অর্ডার সেভ হয়েছে, কিন্তু':'Order saved, but',
+'অর্ডার সেভ হয়েছে, কিন্তু "ডেলিভারড" করা যায়নি — অর্ডার খুলে করে দিন':'Order saved, but could not mark it "Delivered" — open the order and do it',
+'অর্ডার সেভ হয়েছে:':'Order saved:',
+'অর্ডার স্ট্যাটাস বিভাজন':'Order status breakdown',
+'অর্ডার)':'orders)',
+'অর্ডারকৃত বই':'Ordered books',
+'অর্ডারগুলো দেখা হচ্ছে…':'Checking orders…',
+'অর্ডারে ৳':'in order ৳',
+'অ্যাকশন':'Actions',
+'অ্যাকাউন্ট ও ডেটা':'Account & data',
+'অ্যাকাউন্ট খুলুন →':'Create account →',
+'অ্যাকাউন্ট খোলা যায়নি — আবার চেষ্টা করুন':'Could not create the account — try again',
+'অ্যাকাউন্ট খোলার পর মালিকের অনুমোদন লাগবে':'The owner must approve after the account is created',
+'অ্যাডমিন':'Admin',
+'অ্যানালিটিক্স':'Analytics',
+'আইডি কপি':'Copy ID',
+'আইডি, নাম বা ফোন দিয়ে খুঁজুন':'Search by ID, name or phone',
+'আগস্ট':'August',
+'আগে':'Before',
+'আগে "ছবি আপলোড সেটিংস"-এ imgbb key সেভ করুন':'First save the imgbb key in "Image upload settings"',
+'আগে 1 নম্বরে প্রকাশনী বাছুন':'First select a publisher in step 1',
+'আগে API key লিখুন':'Enter the API key first',
+'আগে Tools-এ Drive API key সেভ করুন':'First save the Drive API key in Tools',
+'আগে উপরে Drive API key সেভ করুন':'First save the Drive API key above',
+'আগে উপরের ঘরে আপনার ইমেইল লিখুন, তারপর এখানে চাপুন':'First type your email in the box above, then press here',
+'আগে একটা নাম বাছুন':'Select a name first',
+'আগে একটা মাস বাছুন':'Select a month first',
+'আগে টুলস ট্যাবে imgbb API key সেভ করুন':'First save the imgbb API key in the Tools tab',
+'আগে টুলস → imgbb key দিন':'First add the imgbb key in Tools',
+'আগে টুলস → কুরিয়ার-এ Cloudflare Worker প্রক্সি URL সেভ করুন':'First save the Cloudflare Worker proxy URL in Tools → Courier',
+'আগে টুলস → ছবি আপলোড সেটিংসে imgbb key দিন':'First add the imgbb key in Tools → Image upload settings',
+'আগে টেবিলে টিক দিয়ে অর্ডার বাছুন':'First tick orders in the table',
+'আগে প্রকাশনী বাছুন':'Select a publisher first',
+'আগে বানানো বইগুলোও আবার বানাও':'Rebuild books made earlier too',
+'আগে লগইন করুন':'Log in first',
+'আগেই আছে':'already exists',
+'আগেই সেট করা':'already set',
+'আগের':'Previous',
+'আগের দামে ফেরাও':'"Back to old price"',
+'আগের মাসগুলোও পাতায় থেকে যায়। বিক্রির সংখ্যা সাইটে দেখায় না — শুধু ক্রম।':'previous months stay on the page. Sales numbers are not shown on the site — only the order.',
+'আজ':'Today',
+'আজ +':'Today +',
+'আজকের অর্ডার':'Today\'s orders',
+'আজকের কোনো অর্ডার নেই':'No orders today',
+'আজকের বই লিস্ট':'Today\'s book list',
+'আজকের বই লিস্ট download হচ্ছে...':'Downloading today\'s book list...',
+'আজকের বই লিস্ট —':'Today\'s book list —',
+'আপডেট':'Update',
+'আপডেট ব্যর্থ':'Update failed',
+'আপনার আবেদন এখনো অনুমোদনের অপেক্ষায় আছে — মালিককে জানান':'Your request is still waiting for approval — tell the owner',
+'আপনার আসল অর্ডারগুলো দেখে হিসাব করে কোন বই কোন বইয়ের সাথে একসাথে কেনা হয়েছে।':'Looks at your real orders to work out which books were bought together.',
+'আপনার আসল অর্ডারগুলো দেখে হিসাব করে কোন বই কোন বইয়ের সাথে একসাথে কেনা হয়েছে। "সাইটে বসান" চাপলে বইয়ের পাতায় দাম-বাটনের নিচে সেই বইগুলো দেখায়। নতুন অর্ডার জমলে মাঝে মাঝে (যেমন মাসে একবার) আবার চালান। অনেক বইয়ের বড় অর্ডার (12টার বেশি আলাদা বই) হিসাবে ধরা হয় না — নইলে সব বই সবার সাথে "একসাথে কেনা" হয়ে যেত।':'Looks at your real orders to work out which books were bought together. Press "Put on site" to show those books under the price button on the book page. Run it again now and then (e.g. once a month) as new orders come in. Very large orders (more than 12 different books) are not counted — otherwise every book would be "bought together" with every other.',
+'আপনার নাম':'Your name',
+'আপনার নাম লিখুন':'Enter your name',
+'আপনি':'You',
+'আপনি "ঠিক আছে" বলেছেন — আর দেখাবে না':'You said "OK" — it won\'t show again',
+'আপনি আগে':'You earlier',
+'আপনি আগে "ঠিক আছে" বলেছেন':'You said "OK" earlier',
+'আপলোড':'Upload',
+'আপলোড ব্যর্থ':'Upload failed',
+'আপলোড ব্যর্থ — API key ঠিক আছে কিনা দেখুন':'Upload failed — check that the API key is correct',
+'আপলোড ব্যর্থ — ইন্টারনেট দেখুন':'Upload failed — check the internet',
+'আপলোড ব্যর্থ:':'Upload failed:',
+'আপলোড হচ্ছে...':'Uploading...',
+'আবার চেষ্টা করুন':'Try again',
+'আবেদন জমা হয়েছে! মালিক অনুমোদন দিলে এই ইমেইল-পাসওয়ার্ড দিয়েই লগইন করতে পারবেন।':'Request submitted! Once the owner approves, you can log in with this email and password.',
+'আবেদন বাতিল হলো':'Request rejected',
+'আবেদনটি বাতিল করবেন?':'Reject this request?',
+'আরও':'More',
+'আরও কিনেছেন':'Also bought',
+'আরও দেখান':'Show more',
+'আরেকটা PDF':'Another PDF',
+'আরেকটা ফোল্ডারও এই বইয়ে মিলেছে:':'Another folder also matched this book:',
+'আসল বিবরণ আছে':'Has real description',
+'আসল বিবরণ নেই':'No real description',
+'আসল মূল্য (৳)':'Original price (৳)',
+'আসসালামু আলাইকুম! আপনি':'Assalamu alaikum! You',
+'ই-বুক':'E-book',
+'ইংরেজি নাম (মেলানো যায়নি)':'English name (could not match)',
+'ইউটিউব ভিডিও আইডি (ঐচ্ছিক)':'YouTube video ID (optional)',
+'ইঞ্চি':'inch',
+'ইত্যাদি) — আসল URL না —':'etc.) — not the real URL —',
+'ইন্টারনেট সংযোগ দেখুন':'Check the internet connection',
+'ইন্টারনেট সংযোগ নেই — নেট চেক করে আবার চেষ্টা করুন':'No internet connection — check the net and try again',
+'ইন্টারনেট সংযোগ নেই — নেট চেক করে আবার চেষ্টা করুন।':'No internet connection — check the net and try again.',
+'ইমেইল':'Email',
+'ইমেইল দিন এবং পাসওয়ার্ড কমপক্ষে 6 অক্ষরের দিন':'Enter an email and a password of at least 6 characters',
+'ইমেইল বা পাসওয়ার্ড ভুল':'Wrong email or password',
+'ইমেইলটা ঠিকমতো লিখুন':'Type the email correctly',
+'উত্তর':'Answer',
+'উদাহরণ প্রোডাক্টের নাম':'Sample product name',
+'উদাহরণ বইয়ের নাম':'Sample book name',
+'উদাহরণ হিসেবে লেখা ভরা আছে':'Filled with sample text',
+'উপ-বিভাগ (Sub-category)':'Sub-category',
+'উপ-বিভাগ (ঐচ্ছিক) —':'Sub-category (optional) —',
+'উপ-বিভাগ অনুযায়ী বই ট্যাগ':'Tag books by sub-category',
+'উপ-বিভাগ) সব বই থেকে মুছে ফেলতে চান? বই মুছে যাবে না, শুধু এই উপ-বিভাগের মানটা ফাঁকা হয়ে যাবে। এই কাজ পূর্বাবস্থায় ফেরানো যাবে না।':'sub-category) from all books? Books will not be deleted — only this sub-category value becomes empty. This cannot be undone.',
+'উপকারিতা / বৈশিষ্ট্য (ঐচ্ছিক) — প্রতি লাইনে একটা, নম্বর দিয়ে দেখাবে':'Benefits / features (optional) — one per line, shown numbered',
+'উপবিভাগ':'Subcategory',
+'উপরে':'Up',
+'উপরে টাইপ করুন...':'Type above...',
+'উপরে প্রকাশনী বাছলে শুধু সেটার, না বাছলে সব বইয়ের)':'only that publisher if one is selected above, otherwise all books)',
+'উপাদান / কাপড়':'Material / fabric',
+'উৎপত্তি দেশ':'Country of origin',
+'উৎস':'Source',
+'এ imgbb key সেভ করুন':'save the imgbb key',
+'এ অ্যাড চালালে Pixel লাগে — এতে Facebook শিখে যায় কারা বই কেনে, অ্যাডের টাকা কম নষ্ট হয়।':'— Facebook ads need a Pixel — it teaches Facebook who buys books, so less ad money is wasted.',
+'এ আপলোড করে লিংকটি নিচে বসান।':'— upload it and paste the link below.',
+'এ এখন যে PDF আছে':'currently has PDF',
+'এ ছবি নেই':'has no images',
+'এ তুলুন':'upload to',
+'এ পাঠানো হবে':'will be sent to',
+'এ পাঠানো হয়েছে ·':'sent ·',
+'এ ফ্রি অ্যাকাউন্ট খুলে':'— open a free account at',
+'এ বসানো':'set on',
+'এ বসাবেন?':'set on?',
+'এ মাসের প্রতিযোগিতার বিষয়':'This month\'s competition topic',
+'এ রিসেট লিংক পাঠানো হয়েছে — Gmail দেখুন (Spam-ও)।':'— reset link sent — check Gmail (Spam too).',
+'এ রিসেট লিংক পাঠানো হয়েছে। Gmail খুলে (Spam-ও দেখুন) 1 ঘণ্টার মধ্যে নতুন লিংকে ক্লিক করে পাসওয়ার্ড দিন।':'— reset link sent. Open Gmail (check Spam too) and click the new link within 1 hour to set a password.',
+'এ সরান':'move to',
+'এ সেভ হয়েছে':'saved',
+'এই':'This',
+'এই অর্ডার ইতিমধ্যে':'This order is already',
+'এই অর্ডার সম্পর্কে private note লিখুন... যেমন: ঠিকানা confirm করতে হবে, আগেও অর্ডার করেছে ইত্যাদি':'Write a private note about this order... e.g. address needs confirming, has ordered before, etc.',
+'এই অর্ডারে দামের গরমিল পাওয়া গেছে (হয়তো checkout বাইপাস করে বসানো হয়েছে):':'Price mismatch found in this order (maybe placed by bypassing checkout):',
+'এই অর্ডারে দামের গরমিল পাওয়া গেছে:':'Price mismatch found in this order:',
+'এই অ্যাকাউন্ট বন্ধ করা হয়েছে':'This account has been disabled',
+'এই ইমেইলে আগেই অ্যাকাউন্ট খোলা আছে — লগইন করে দেখুন':'An account with this email already exists — try logging in',
+'এই ইমেইলে কোনো অ্যাকাউন্ট নেই — বানান ঠিক আছে কিনা দেখুন':'No account with this email — check the spelling',
+'এই উপ-বিভাগ আগেই আছে':'This sub-category already exists',
+'এই ক্যাটাগরি আগেই আছে':'This category already exists',
+'এই জমা লেখাটি মুছবেন?':'Delete this submitted article?',
+'এই ট্যাগ আগেই আছে':'This tag already exists',
+'এই তারিখের আগের সব':'Everything before this date',
+'এই নম্বরে':'This number',
+'এই নম্বরে কোনো অর্ডার হিস্ট্রি পাওয়া যায়নি — নতুন কাস্টমার।':'No order history for this number — new customer.',
+'এই পণ্যের আর কোনো সাইজ / রং / পরিমাণ আছে? অপশন জুড়ে দিন':'Does this product come in other sizes / colors / amounts? Add options',
+'এই প্রকাশনী আগেই আছে':'This publisher is already added',
+'এই প্রকাশনীর Drive ফোল্ডারের লিংক':'Drive folder link for this publisher',
+'এই প্রকাশনীর Drive লিংক এখনো দেওয়া হয়নি — নিচে দিন':'No Drive link for this publisher yet — add it below',
+'এই প্রকাশনীর কোনো বইয়ে MRP নেই — অফার বসানো যাবে না।':'No book of this publisher has an MRP — cannot apply an offer.',
+'এই প্রকাশনীর কোনো বইয়ে শর্ট PDF নেই':'No book of this publisher has a short PDF',
+'এই প্রকাশনীর সঠিক Drive folder লিংক দিন':'Enter the correct Drive folder link for this publisher',
+'এই ফোল্ডারে বইয়ের আলাদা ফোল্ডার নেই, আর ফাইলের নাম থেকেও কোনো বই মেলানো গেল না।':'This folder has no separate book folders, and no book could be matched from the file names either.',
+'এই ফোল্ডারের বেশিরভাগ বই':'Most books in this folder',
+'এই বই আগেই আছে':'This book is already added',
+'এই বই থেকে লিংক সরান':'Remove the link from this book',
+'এই বই)':'this book)',
+'এই বইটি মুছে ফেলবেন? Firebase থেকেও মুছে যাবে।':'Delete this book? It will be deleted from Firebase too.',
+'এই বইয়ের bid নেই — Tools থেকে একবার':'This book has no bid — run once from Tools:',
+'এই বইয়ের bid নেই — Tools থেকে একবার "Firebase-এ তুলুন" চালান':'This book has no bid — run "Upload to Firebase" once from Tools',
+'এই বইয়ের bid নেই — আগে একবার সেভ করুন':'This book has no bid — save it once first',
+'এই বইয়ের আরও খণ্ড আছে? খণ্ডগুলো জুড়ে দিন':'Does this book have more volumes? Add the volumes',
+'এই বছর':'This year',
+'এই বাছাইয়ে কোনো বই নেই':'No books in this selection',
+'এই বাছাইয়ের কোনো বইয়ে MRP নেই':'No book in this selection has an MRP',
+'এই বিভাগ আগেই আছে':'This category already exists',
+'এই বিষয়ের বই-ই এখানে দেখাবে':'Only books of this subject will show here',
+'এই ব্রাউজার Notification সাপোর্ট করে না':'This browser does not support notifications',
+'এই ভাগে কিছু নেই':'Nothing in this group',
+'এই ভাগে কোনো বই নেই':'No books in this group',
+'এই মডারেটরকে সরাবেন? সে আর প্যানেলে ঢুকতে পারবে না।':'Remove this moderator? They will no longer be able to enter the panel.',
+'এই মাস':'This month',
+'এই মাসে কোনো অর্ডার নেই।':'No orders this month.',
+'এই মাসের অর্ডার':'This month\'s orders',
+'এই লেখক আগেই আছে':'This author is already added',
+'এই ল্যান্ডিং পেজটি মুছে ফেলবেন?':'Delete this landing page?',
+'এই সপ্তাহ':'This week',
+'এই সময়ে কোনো অর্ডার নেই':'No orders in this period',
+'এই সময়ে কোনো বিক্রয় নেই':'No sales in this period',
+'এইমাত্র':'Just now',
+'এক চাপে সব বই দেখে সমস্যাগুলো ভাগ করে দেখায় — দাম নেই, কভার নেই, বিবরণ নেই, লেখকের নামের বানান আলাদা, একই বই দুবার ইত্যাদি। যেকোনো ঘরে চাপলে তালিকা খোলে, প্রতিটা বইয়ের পাশে':'Checks all books in one click and groups the problems — no price, no cover, no description, different spellings of an author name, the same book twice, etc. Click any box to open the list; next to each book',
+'এক চাপে সব বই দেখে সমস্যাগুলো ভাগ করে দেখায় — দাম নেই, কভার নেই, বিবরণ নেই, লেখকের নামের বানান আলাদা, একই বই দুবার ইত্যাদি। যেকোনো ঘরে চাপলে তালিকা খোলে, প্রতিটা বইয়ের পাশে "এডিট" চাপলে সরাসরি সেই বই এডিটে খোলে।':'Checks all books in one click and groups the problems — no price, no cover, no description, different spellings of an author name, the same book twice, etc. Click any box to open the list; press "Edit" next to a book to open it straight in the editor.',
+'এক-দুই লাইনে বইটা কেন কেনা উচিত লিখুন':'Write in a line or two why this book is worth buying',
+'একই PDF আরও বসানো:':'Same PDF also on:',
+'একই দিনে':'On the same day',
+'একই নামের অন্য কোনো খণ্ড পাওয়া যায়নি — নিচে নাম লিখে বাছুন':'No other volume with the same name was found — type a name below and pick',
+'একই বই দুবার':'Same book twice',
+'একই বই না হলে':'If it is not the same book',
+'একই বিবরণ — বাড়তি লাইন সরিয়ে পরিষ্কার করে বসবে)':'same description — will be cleaned of extra lines)',
+'একই লেখক মনে হচ্ছে — বানান মিলিয়ে নিন':'Looks like the same author — make the spelling match',
+'একটা পাতা দেখুন':'View a page',
+'একটা প্রকাশনী (বা সব বই) বেছে ছাড়ের % দিন — ঐ সব বইয়ের বিক্রয়মূল্য':'Pick a publisher (or all books) and enter the discount % — the selling price of all those books',
+'একটা ফোন নম্বর লিখুন':'Enter a phone number',
+'একটা মাস বাছুন — সেই মাসের আসল অর্ডার থেকে বিষয় অনুযায়ী সবচেয়ে বেশি বিক্রি হওয়া বইয়ের তালিকা বানায় — সাইটে সবচেয়ে বেশি বিক্রির 3টা বিষয় দেখায় (চাইলে টিক দিয়ে বিষয় বদলান)। আগে দেখে নিন, দরকার হলে কোনো বই বাদ দিন, তারপর':'Pick a month — it builds a list of the best-selling books by subject from that month\'s real orders — the site shows the top 3 subjects (tick to change subjects if you want). Check it first, drop any book if needed, then',
+'একটা মাস বাছুন — সেই মাসের আসল অর্ডার থেকে বিষয় অনুযায়ী সবচেয়ে বেশি বিক্রি হওয়া বইয়ের তালিকা বানায় — সাইটে সবচেয়ে বেশি বিক্রির 3টা বিষয় দেখায় (চাইলে টিক দিয়ে বিষয় বদলান)। আগে দেখে নিন, দরকার হলে কোনো বই বাদ দিন, তারপর "প্রকাশ করুন"। হোমপেজে আর':'Pick a month — it builds a list of the best-selling books by subject from that month\'s real orders — the site shows the top 3 subjects (tick to change subjects if you want). Check it first, drop any book if needed, then "Publish". On the homepage and',
+'একটু পড়ুন':'Read a little',
+'একটু পরে আবার চেষ্টা করুন':'Try again a little later',
+'একবার দিলে মনে থাকবে)':'remembered once entered)',
+'একবারেই সব বই — একাধিক আলাদা রাইট না করে':'All books at once — not several separate writes',
+'একসাথে অনেক বই/প্রোডাক্ট যোগ করতে চাইলে — প্রথমে টেমপ্লেট ডাউনলোড করে এক্সেলে পূরণ করুন (ছবি আগে imgbb.com বা অন্য কোথাও আপলোড করে লিংক বসাবেন), তারপর এখানে আপলোড করুন। আপলোডের আগে প্রিভিউ দেখাবে — কোনো সারিতে সমস্যা থাকলে লাল দেখাবে, সেগুলো বাদ দিয়ে শুধু ঠিক সারিগুলোই যোগ হবে।':'To add many books/products at once — first download the template and fill it in Excel (upload images to imgbb.com or elsewhere first and paste the links), then upload it here. A preview shows before upload — rows with problems show in red and are skipped; only the good rows are added.',
+'একসাথে কেনা':'Bought together',
+'একসাথে কেনা বই —':'Bought together —',
+'একসাথে কেনা বই — "যাঁরা এই বইটি কিনেছেন, তাঁরা আরও কিনেছেন':'Bought together — "Readers who bought this book also bought"',
+'একসাথে কেনা হলে দেখাবে':'Shows when bought together',
+'এক্সেল লাইব্রেরি লোড হয়নি — নেট চেক করুন':'Excel library did not load — check the net',
+'এক্সেল/CSV দিয়ে বাল্ক বই আপলোড':'Bulk book upload with Excel/CSV',
+'এখন এখানে ঠিক PDF বসানো হয়েছে:':'The right PDF is now set here:',
+'এখন দেখাচ্ছে':'Now showing',
+'এখনই দেখুন':'View now',
+'এখনকার কভার রাখুন':'Keep the current cover',
+'এখনকার পাসওয়ার্ড':'Current password',
+'এখনকার পাসওয়ার্ড ভুল হয়েছে':'The current password is wrong',
+'এখনকার পাসওয়ার্ড লিখুন':'Enter the current password',
+'এখনো':'Still',
+'এখনো কিছু প্রকাশিত হয়নি':'Nothing published yet',
+'এখনো কোনো অর্ডার আসেনি':'No orders yet',
+'এখনো কোনো খণ্ড যোগ করা হয়নি — নিচে নাম লিখে বাছুন বা':'No volumes added yet — type a name below and pick, or',
+'এখনো কোনো খণ্ড যোগ করা হয়নি — নিচে নাম লিখে বাছুন বা "অটো খুঁজুন" চাপুন':'No volumes added yet — type a name below and pick, or press "Auto find"',
+'এখনো কোনো পোস্টার যোগ করা হয়নি — নিচে থেকে যোগ করুন।':'No posters added yet — add one below.',
+'এখনো কোনো বই বাছা হয়নি':'No books selected yet',
+'এখনো কোনো বই যোগ করা হয়নি':'No books added yet',
+'এখনো কোনো মডারেটর নেই':'No moderators yet',
+'এখনো কোনো রিভিউ আসেনি':'No reviews yet',
+'এখনো কোনো লেখা জমা পড়েনি':'No articles submitted yet',
+'এখনো কোনো ল্যান্ডিং পেজ তৈরি হয়নি।':'No landing pages created yet.',
+'এখানে key বসিয়ে সেভ করুন। Firebase-এ এমন জায়গায় থাকে যেটা শুধু মালিক আর মডারেটর পড়তে পারে।':'Paste the key here and save. It is kept in a place in Firebase that only the owner and moderators can read.',
+'এখানে সেভ করলে সব অপশনের পাতায় একই বাটন বসে যাবে।':'Saving here puts the same buttons on every option\'s page.',
+'এগিয়ে যাবেন?':'Continue?',
+'এগুলো অ্যাডমিন প্যানেলে দেখা যায় না, আর সাইটে লাইভ লিস্ট এলে হারিয়ে যায়। একবার':'These do not show in the admin panel and get lost when the live list loads on the site. Once',
+'এগুলো অ্যাডমিন প্যানেলে দেখা যায় না, আর সাইটে লাইভ লিস্ট এলে হারিয়ে যায়। একবার "Firebase-এ তুলুন" চাপলেই ঠিক হয়ে যাবে।':'These do not show in the admin panel and get lost when the live list loads on the site. Pressing "Upload to Firebase" once fixes it.',
+'এগুলো টুলস →':'These can be fixed in Tools →',
+'এগুলো টুলস → "বড় কভার ছোট করুন" দিয়ে এক চাপে ঠিক করা যায়।':'These can be fixed in one click with Tools → "Shrink big covers".',
+'এগুলো সেভ হয়নি:':'These were not saved:',
+'এটা':'This',
+'এটা PDF নয় — একটা ফোল্ডারের লিংক':'This is not a PDF — it is a folder link',
+'এটা PDF ফাইল নয়':'This is not a PDF file',
+'এটা অন্য বইয়ের PDF মনে হচ্ছে —':'This looks like another book\'s PDF —',
+'এটা আর ফেরত আসবে না। সত্যিই মুছবেন?':'This cannot be undone. Really delete?',
+'এটা আলাদা বই হতে পারে — একই বই না হলে':'This may be a different book — if it is not the same book',
+'এটা প্যাকেজ? ভেতরের বই যোগ করুন':'Is this a package? Add the books inside',
+'এডিট':'Edit',
+'এপ্রিল':'April',
+'এর Drive folder থেকে ছবি, PDF, desc automatically আনার জন্য। Google Cloud Console থেকে Drive API key নিয়ে এখানে সেভ করুন।':'— to automatically fetch images, PDFs and descriptions from the Drive folder. Get a Drive API key from Google Cloud Console and save it here.',
+'এর PDF খোলা হচ্ছে…':'— opening PDF…',
+'এর উপর':'on',
+'এর চেয়ে ছোট করা গেল না':'could not be made smaller than this',
+'এর জন্য সব বইয়ের লিংকসহ sitemap বানিয়ে ডাউনলোড করুন। মাসে একবার হোস্টিংয়ে আপলোড করলেই যথেষ্ট।':'— build a sitemap with links to all books and download it. Uploading it to hosting once a month is enough.',
+'এর নামে বাড়তি শব্দ আছে — একই বই কিনা খুলে দেখুন':'has extra words in its name — open it to check it is the same book',
+'এর নামে বাড়তি শব্দ — Drive:':'has extra words in its name — Drive:',
+'এর ফাইল মুছবে না — শুধু দোকান থেকে লিংকটা সরবে। ঠিক PDF পরে Drive টুল বা বই এডিট থেকে বসাতে পারবেন।)':'— the file will not be deleted; only the link is removed from the shop. You can add the right PDF later from the Drive tool or the book editor.)',
+'এর বইয়ের সাথে মেলে':'matches books of',
+'এর বাইরের লিংক — যাচাই করা যায়নি':'link outside — could not verify',
+'এর বিবরণ পড়ুন —':'read the description —',
+'এর বেস্টসেলার':'bestsellers',
+'এর মধ্যে কভার বদলানো হয়েছে — বাদ দিলাম':'cover was changed in the meantime — skipped',
+'এর শর্ট PDF থেকে প্রথম কয়েকটা পাতা নিয়ে (শেষের অংশ বাদ), প্রতিটা পাতায় OurDedicationের লোগো বসিয়ে ছবি বানায় (imgbb-এ রাখে)। সাইটে তখন Drive-এর বদলে নিজের রিডারে এই পাতাগুলো দেখায় — পুরো PDF খোলার লিংক থাকে না। একবার বানালে আর বানাতে হয় না':'— takes the first few pages of the short PDF (skipping the end), puts the OurDedication logo on each page and makes images (kept on imgbb). The site then shows these pages in its own reader instead of Drive — no link to open the full PDF. Make them once',
+'এর সাথে নয় — ঠিক প্রকাশনীর ফোল্ডার দিয়েছেন তো? (উপরের প্রকাশনী ঘর থেকে বদলাতে পারেন)':'not with — did you give the right publisher\'s folder? (you can change it in the publisher box above)',
+'এরপরও এগোতে চান?':'Continue anyway?',
+'এরপরও কনফার্ম করতে চান?':'Confirm anyway?',
+'এলাকা ভিত্তিক অর্ডার':'Orders by area',
+'ঐ % কমে যাবে, Firebase-এ সাথে সাথে সেভ হবে। MRP (original_price) কখনো বদলায় না। অফার দেওয়ার আগে প্রতিটা বইয়ের তখনকার দাম মনে রাখা হয় — তাই পরে':'will drop by that %, saved to Firebase at once. MRP (original_price) never changes. Each book\'s price before the offer is remembered — so later',
+'ওই বইয়ে এখন আছে:':'that book now has:',
+'ওজন':'Weight',
+'ওজন / পরিমাণ':'Weight / amount',
+'ওটার এখনকার PDF বদলাবে)':'its current PDF will change)',
+'ওয়ারেন্টি':'Warranty',
+'ওয়েবসাইট':'Website',
+'কনফার্ম':'Confirm',
+'কনফার্ম অর্ডার':'Confirmed orders',
+'কনফার্ম করুন':'Confirm',
+'কপি':'Copy',
+'কপি করা যায়নি, নিজে সিলেক্ট করে কপি করুন':'Could not copy — select and copy it yourself',
+'কপি করুন:':'Copy:',
+'কপি হয়েছে:':'Copied:',
+'কপি)':'copy)',
+'কভার':'Cover',
+'কভার আছে':'Has cover',
+'কভার নেই':'No cover',
+'কভার বসাতে imgbb key লাগে — Tools-এ imgbb key সেভ করুন, অথবা কভার':'Setting a cover needs an imgbb key — save the imgbb key in Tools, or set the cover to',
+'কভার বসাতে imgbb key লাগে — Tools-এ imgbb key সেভ করুন, অথবা কভার "এখনকার কভার রাখুন" করে দিন।':'Setting a cover needs an imgbb key — save the imgbb key in Tools, or set the cover to "Keep the current cover".',
+'কভারের জন্য একটা বই খুঁজুন...':'Search a book for the cover...',
+'কভারের মাপ দেখা হচ্ছে…':'Checking cover size…',
+'কমপক্ষে':'At least',
+'কমান':'Reduce',
+'কমিয়ে দেখুন, বা আরও অর্ডার জমলে আবার চালান।':'Try fewer, or run again when more orders come in.',
+'কম্বো':'Combo',
+'করা যায়নি — অর্ডার খুলে করে দিন':'could not be done — open the order and do it',
+'করে দিন':'do it',
+'করে দিন।':'do it.',
+'কাছাকাছি নামের আরেকটা বইও আছে — মিলটা ঠিক কিনা দেখে নিন':'There is another book with a similar name — check the match is right',
+'কাটা যায়নি':'could not crop',
+'কার্ড':'Card',
+'কার্ড সেভ করুন (হোমপেজে লাইভ)':'Save cards (live on homepage)',
+'কাস্টম':'Custom',
+'কাস্টম বিভাগ (বই এডিটরে সরাসরি লেখা হয়েছে, তালিকায় নেই)':'Custom categories (typed straight in the book editor, not in the list)',
+'কাস্টমার':'Customers',
+'কাস্টমার রিভিউ (ঐচ্ছিক — শুধু আসল কাস্টমারের রিভিউ) — প্রতি লাইনে: নাম':'Customer reviews (optional — real customers only) — per line: name',
+'কাস্টমার রিভিউ (ঐচ্ছিক — শুধু আসল কাস্টমারের রিভিউ) — প্রতি লাইনে: নাম | রেটিং(1-5) | মন্তব্য | ছবিলিংক(ঐচ্ছিক)':'Customer reviews (optional — real customers only) — per line: name | rating(1-5) | comment | imagelink(optional)',
+'কাস্টমারদের জমা দেওয়া লেখা এখানে আসবে। পড়ে পছন্দ হলে':'Articles submitted by customers come here. Read them, and if you like one',
+'কাস্টমারের নোট':'Customer note',
+'কিছু':'Some',
+'কিছু পাওয়া যায়নি':'Nothing found',
+'কিছু বই এখনো Firebase-এ তোলা হয়নি (নিচের কমলা বক্স দেখুন)। আগে':'Some books are not in Firebase yet (see the orange box below). First',
+'কিছু বই এখনো Firebase-এ তোলা হয়নি (নিচের কমলা বক্স দেখুন)। আগে "Firebase-এ তুলুন" চাপুন, তারপর book.js ডাউনলোড করুন — নইলে ওই বইগুলো book.js থেকে বাদ পড়বে।':'Some books are not in Firebase yet (see the orange box below). First press "Upload to Firebase", then download book.js — otherwise those books will be missing from book.js.',
+'কিছু বইয়ের কভার ছবি অনেক বড় (1–8 MB) — মোবাইলে পাতা ধীরে খোলে, ডেটাও বেশি খরচ হয়।':'Some book covers are very large (1–8 MB) — pages open slowly on mobile and use more data.',
+'কিছু মুছে গিয়ে থাকলে তা ব্যাকআপ ফাইলে আছে':'anything that was deleted is in the backup file',
+'কিনা দেখুন':'check',
+'কিন্তু':'but',
+'কী মুছবেন টিক দিন':'Tick what to delete',
+'কুপন':'Coupons',
+'কুপন কোড ম্যানেজমেন্ট':'Coupon code management',
+'কুপন ব্যবহারের রেকর্ড (কে কোন কুপন নিয়েছে)':'Coupon usage records (who used which coupon)',
+'কুপন মুছে ফেলা হয়েছে':'Coupon deleted',
+'কুপন যোগ হয়েছে — সাইটে লাইভ!':'Coupon added — live on the site!',
+'কুপন রেকর্ড':'coupon records',
+'কুপন:':'Coupon:',
+'কুপনটি মুছবেন?':'Delete this coupon?',
+'কুরিয়ার':'Courier',
+'কুরিয়ার অফিস থেকে নেবেন — ৳50':'Pick up from courier office — ৳50',
+'কুরিয়ার ট্র্যাকিং':'Courier tracking',
+'কুরিয়ার পিকআপ রিকোয়েস্ট':'Courier pickup request',
+'কুরিয়ারে পাঠানো':'Sent to courier',
+'কে':'Who',
+'কেজি':'kg',
+'কেন আমরা অন্য সবার থেকে আলাদা (ঐচ্ছিক) — প্রতি লাইনে একটা পয়েন্ট':'Why we are different (optional) — one point per line',
+'কেন কিনবেন (ঐচ্ছিক) — প্রতি লাইনে: শিরোনাম':'Why buy (optional) — per line: title',
+'কেন কিনবেন (ঐচ্ছিক) — প্রতি লাইনে: শিরোনাম | বিবরণ':'Why buy (optional) — per line: title | description',
+'কোড (যেমন: EID25)':'Code (e.g. EID25)',
+'কোড 3-20 অক্ষর, শুধু A-Z ও 0-9':'Code must be 3-20 characters, A-Z and 0-9 only',
+'কোনো key সেভ নেই':'No key saved',
+'কোনো order নেই':'No orders',
+'কোনো অর্ডার নেই':'No orders',
+'কোনো উপ-বিভাগ নেই':'No sub-categories',
+'কোনো ক্যাটাগরি নেই — নিচে যোগ করুন':'No categories — add below',
+'কোনো ট্যাগ নেই — নিচে যোগ করুন':'No tags — add below',
+'কোনো ডেটা নেই':'No data',
+'কোনো নতুন আবেদন নেই':'No new requests',
+'কোনো প্যাকেজ পাওয়া যায়নি':'No packages found',
+'কোনো প্রকাশনী চিপ নেই — নিচে যোগ করুন':'No publisher chips — add below',
+'কোনো ফলাফল পাওয়া যায়নি':'No results found',
+'কোনো ফাইল পাওয়া যায়নি। Folder কি public share করা?':'No files found. Is the folder shared publicly?',
+'কোনো বই পাওয়া যায়নি':'No books found',
+'কোনো বইয়ে':'in any book',
+'কোনো বদল নেই — সাইটে আগে থেকেই এটাই আছে':'No change — the site already has this',
+'কোনো বিভাগ বাছাই করা হয়নি — নিচ থেকে যোগ করুন':'No category selected — add from below',
+'কোনো বৈশিষ্ট্য যোগ করা হয়নি — নিচ থেকে যোগ করুন':'No attributes added — add from below',
+'কোনো ব্যানার নেই — সেভ করলে সাইটে ব্যানার সেকশন লুকানো থাকবে। নিচে থেকে নতুন যোগ করতে পারেন।':'No banners — saving will hide the banner section on the site. You can add new ones below.',
+'কোনো লেখক চিপ নেই — নিচে যোগ করুন':'No author chips — add below',
+'কোনো লেখক, প্রকাশনী বা বিষয়ের নাম ভুল লেখা হলে — এখান থেকে বাছুন, নতুন/সঠিক নাম লিখুন':'If an author, publisher or subject name is misspelled — pick it here, type the new/correct name',
+'কোনো লেখক, প্রকাশনী বা বিষয়ের নাম ভুল লেখা হলে — এখান থেকে বাছুন, নতুন/সঠিক নাম লিখুন, "নাম বদলে দিন" চাপুন — সব বইয়ে একসাথে ঠিক হয়ে Firebase-এ সেভ হবে। "মুছে দিন" চাপলে নামটা সব বই থেকে ফাঁকা হয়ে যাবে।':'If an author, publisher or subject name is misspelled — pick it here, type the new/correct name and press "Rename" — it is fixed in all books at once and saved to Firebase. "Clear" makes that name empty in all books.',
+'কোনো সন্দেহজনক প্যাটার্ন পাওয়া যায়নি।':'No suspicious pattern found.',
+'কোনো সমস্যা পাওয়া যায়নি':'No problems found',
+'ক্যাটাগরি':'Category',
+'ক্যাটাগরি অনুযায়ী বই':'Books by category',
+'ক্যাটাগরি কার্ড':'Category cards',
+'ক্যাটাগরি কার্ড সেভ হয়েছে — লাইভ!':'Category cards saved — live!',
+'ক্যাটাগরি সেভ করুন (হোমপেজে লাইভ)':'Save categories (live on homepage)',
+'ক্যাটাগরি, উপ-বিভাগ ও ট্যাগ তালিকা':'Categories, sub-categories & tags',
+'ক্যাটাগরি-ট্যাগ তালিকা':'Category & tag list',
+'ক্যাটাগরির নাম (বইয়ের বিভাগের সাথে মিলতে হবে)':'Category name (must match the book category)',
+'ক্যাটাগরির নাম দিন':'Enter a category name',
+'ক্যাটালগে বইটাই খুঁজে পাওয়া যায়নি':'the book was not found in the catalog',
+'ক্যাশ অন ডেলিভারি':'Cash on delivery',
+'ক্লিক করলে কোথায় যাবে (ঐচ্ছিক) — যেমন: filter.html?sort':'Where a click goes (optional) — e.g. filter.html?sort',
+'ক্লিক করলে কোথায় যাবে (ঐচ্ছিক) — যেমন: filter.html?sort=bestseller':'Where a click goes (optional) — e.g. filter.html?sort=bestseller',
+'ক্লিক করলে কোথায় যাবে (যেমন: filter.html?sort':'Where a click goes (e.g. filter.html?sort',
+'ক্লিক করলে কোথায় যাবে (যেমন: filter.html?sort=bestseller) — ঐচ্ছিক':'Where a click goes (e.g. filter.html?sort=bestseller) — optional',
+'ক্লিক করে বদলান — সাথে সাথে সাইটে লাইভ':'Click to change — live on the site at once',
+'খণ্ড':'Volume',
+'খণ্ডসমূহ — সাইটে দামের নিচে খণ্ডের বাটন দেখাবে, চাপলে সেই খণ্ডের ছবি ও দাম':'Volumes — volume buttons show under the price on the site; pressing one shows that volume\'s image and price',
+'খণ্ডের নাম লিখে বাছুন...':'Type a volume name and pick...',
+'খালি রাখলে এই বইয়ের সাথে একই বিভাগের বইগুলো স্বয়ংক্রিয়ভাবেই দেখাবে। নির্দিষ্ট বই দেখাতে চাইলে এখানে নাম লিখুন — যেমন:\nপ্যারাডক্সিকেল সাজিদ 2\nহায়াতের দিন ফুরোলে':'If left empty, books of the same category show automatically with this book. To show specific books, type their names here — e.g.:\nপ্যারাডক্সিকেল সাজিদ ২\nহায়াতের দিন ফুরোলে',
+'খালি রাখলে এই বইয়ের সাথে একই বিভাগের বইগুলো স্বয়ংক্রিয়ভাবেই দেখাবে। নির্দিষ্ট বই দেখাতে চাইলে এখানে নাম লিখুন — যেমন:&#10;প্যারাডক্সিকেল সাজিদ 2&#10;হায়াতের দিন ফুরোলে':'If left empty, books of the same category show automatically with this book. To show specific books, type their names here — e.g.:\nপ্যারাডক্সিকেল সাজিদ ২\nহায়াতের দিন ফুরোলে',
+'খুঁজুন...':'Search...',
+'খুঁজুন... (type to search)':'Search... (type to search)',
+'খুঁজুন... (লিখে খুঁজুন)':'Search... (type to search)',
+'খুলে দেখুন':'Open and check',
+'খুলে দেখে ঠিক হলে':'Open it and, if it is right,',
+'খোঁজা হচ্ছে…':'Searching…',
+'খোলা হচ্ছে':'Opening',
+'গড় অর্ডার মূল্য':'Average order value',
+'গায়ের মূল্য':'Cover price',
+'গিফট — প্যাকেজ করুন':'Gift — wrap it',
+'গ্যালারিতে ছবি যোগ করুন':'Add images to gallery',
+'গ্যালারিতে নির্দিষ্ট বই (ঐচ্ছিক) — প্রতি লাইনে একটা বইয়ের নাম (হুবহু বইয়ের তালিকার নামের মতো লিখুন)':'Specific books in the gallery (optional) — one book name per line (write it exactly as in the book list)',
+'গ্রন্থের নাম':'Book name',
+'গ্রাম':'g',
+'গ্রাহক':'Customer',
+'গ্রাহক তথ্য':'Customer info',
+'গ্রাহকের তথ্য':'Customer info',
+'ঘণ্টা আগে':'hours ago',
+'চওড়া ছবি':'Wide image',
+'চলছে...':'Working...',
+'চাপলে imgbb-এ রাখা সব কভারের মাপ দেখে 300 KB-এর বেশিগুলোর তালিকা দেয়।':'Press to check the size of every cover kept on imgbb and list those over 300 KB.',
+'চাপলে তবেই বসবে।':'is set only when you press it.',
+'চাপলে নামটা সব বই থেকে ফাঁকা হয়ে যাবে।':'makes that name empty in all books.',
+'চাপলে প্রতিটা ছবি 800px চওড়া করে নতুন করে তুলে বইয়ে বসায় — দেখতে একই থাকে, শুধু হালকা হয়। পুরনো ছবি মোছে না।':'Press to re-upload every image at 800px wide and set it on the book — looks the same, only lighter. Old images are not deleted.',
+'চাপলে বইয়ের পাতায় দাম-বাটনের নিচে সেই বইগুলো দেখায়। নতুন অর্ডার জমলে মাঝে মাঝে (যেমন মাসে একবার) আবার চালান। অনেক বইয়ের বড় অর্ডার (12টার বেশি আলাদা বই) হিসাবে ধরা হয় না — নইলে সব বই সবার সাথে':'shows those books under the price button on the book page. Run it again now and then (e.g. once a month) as new orders come in. Very large orders (more than 12 different books) are not counted — otherwise every book would be bought together with',
+'চাপলে বাকিগুলো থেকে চলবে':'press to continue from the rest',
+'চাপলে সরাসরি সেই বই এডিটে খোলে।':'opens that book straight in the editor.',
+'চাপলে সেই প্রকাশনীর প্রতিটা বইয়ের একটা তালিকা আসবে — কভার, শর্ট PDF':'Press to get a list of every book of that publisher — cover, short PDF',
+'চাপলে সেই প্রকাশনীর প্রতিটা বইয়ের একটা তালিকা আসবে — কভার, শর্ট PDF, "বই সম্পর্কে" ফাইলের বিবরণ, আর যেখানে তথ্য মেলে না সেখানে':'Press to get a list of every book of that publisher — cover, short PDF, the description from the "About the book" file, and wherever details do not match',
+'চাপলেই ঠিক হয়ে যাবে।':'press it and it is fixed.',
+'চাপুন':'Press',
+'চাপুন — সব বইয়ে একসাথে ঠিক হয়ে Firebase-এ সেভ হবে।':'— it is fixed in all books at once and saved to Firebase.',
+'চাপুন — সাইটের ব্লগ ও হোমপেজে লাইভ হবে। লেখকের ফোন নম্বরে যোগাযোগ করে':'— it goes live on the site\'s blog and homepage. Contact the writer by phone and',
+'চাপুন, তারপর book.js ডাউনলোড করুন — নইলে ওই বইগুলো book.js থেকে বাদ পড়বে।':'press it, then download book.js — otherwise those books will be missing from book.js.',
+'চাপুন।':'press.',
+'চালান':'Run',
+'চালিয়ে যাবেন?':'Continue?',
+'চালু':'On',
+'চালু আছে — ID:':'is on — ID:',
+'চালু/বন্ধ':'On/Off',
+'চিহ্নিত, সাধারণত front cover)':'marked, usually the front cover)',
+'চেক করুন':'Check',
+'ছবি':'Image',
+'ছবি আছে':'Has image',
+'ছবি আছে:':'Has image:',
+'ছবি আপলোড':'Upload image',
+'ছবি আপলোড সেটিংস':'Image upload settings',
+'ছবি আপলোড সেটিংস (imgbb)':'Image upload settings (imgbb)',
+'ছবি আপলোড হচ্ছে...':'Uploading image...',
+'ছবি আপলোড হয়েছে':'Image uploaded',
+'ছবি ও Pixel':'Images & Pixel',
+'ছবি খোলা যায়নি':'could not open image',
+'ছবি নামানো যায়নি':'Could not download image',
+'ছবি নেই':'No image',
+'ছবি নেই:':'No image:',
+'ছবি ব্যানার)':'image banner)',
+'ছবি সেট হয়েছে — সেভ করুন':'Image set — save it',
+'ছবি — কোনটা Cover? (সবচেয়ে আগে upload হওয়াটা':'Images — which is the Cover? (the first uploaded one is',
+'ছবির ফাইল বাছুন':'Choose an image file',
+'ছবির মাপ পড়া যায়নি':'could not read image size',
+'ছবির লিংক':'Image link',
+'ছবির লিংক / URL (1200×600px) — ঐচ্ছিক':'Image link / URL (1200×600px) — optional',
+'ছবির লিংক অথবা লেখা — অন্তত একটি দিন':'Give an image link or text — at least one',
+'ছবিলিংক(ঐচ্ছিক)':'imagelink(optional)',
+'ছাড়':'Discount',
+'ছাড় %':'Discount %',
+'ছাড় % (যেমন 50)':'Discount % (e.g. 50)',
+'ছাড় (৳)':'Discount (৳)',
+'ছাড় 0 থেকে 90%-এর মধ্যে দিন':'Discount must be between 0 and 90%',
+'ছাড় 1-100% এর মধ্যে দিন':'Discount must be between 1-100%',
+'ছাড় মূল্য':'Discount price',
+'ছাড় ৳ (যেমন: 50)':'Discount ৳ (e.g. 50)',
+'ছাড়(৳':'Discount (৳',
+'ছাড়: ৳':'Discount: ৳',
+'ছোট ব্যাজ (ঐচ্ছিক) — হেডলাইনের উপরে দেখাবে':'Small badge (optional) — shows above the headline',
+'ছোট রূপ পূর্ণ রূপের সাথে মেলেনি — পূর্ণ রূপ দেওয়া হলো':'The small version did not match the full one — using the full version',
+'ছোট রূপ বানানো যায়নি — পূর্ণ রূপ দেওয়া হলো':'Could not make a small version — using the full version',
+'ছোট লেখা (যেমন: সীমিত সময়ের জন্য)':'Small text (e.g. for a limited time)',
+'জন স্টক নোটিফিকেশন চেয়েছেন — WhatsApp-এ ক্লিক করে সরাসরি মেসেজ পাঠান (আগে থেকেই লেখা থাকবে)':'people asked to be notified — click WhatsApp to message them directly (the text is pre-written)',
+'জন)':'people)',
+'জমা দেওয়া ব্লগ':'Submitted blogs',
+'জমা পড়া লেখা':'Submitted articles',
+'জানুয়ারি':'January',
+'জুন':'June',
+'জুলাই':'July',
+'টা PDF:':'PDFs:',
+'টা front-এর মধ্যে বাছাই:':'fronts, picked:',
+'টা imgbb কভার মাপা হলো':'imgbb covers measured',
+'টা অর্ডার':'orders',
+'টা অর্ডার দেখা হলো —':'orders checked —',
+'টা আছে)':'present)',
+'টা কভার ছোট করা হয়েছে — কাজ শেষে book.js ডাউনলোড করে আপলোড করুন':'covers shrunk — when done, download book.js and upload it',
+'টা কভার ছোট করে নতুন করে তোলা হবে (দেখতে একই থাকবে)। প্রতিটায় কয়েক সেকেন্ড লাগে — পেজটা খোলা রাখুন। শুরু করবেন?':'covers will be shrunk and re-uploaded (they look the same). Each takes a few seconds — keep the page open. Start?',
+'টা কভার মাপা হলো —':'covers measured —',
+'টা কি':'how many',
+'টা খণ্ড পাওয়া গেছে — নাম ঠিক আছে কিনা দেখে':'volumes found — check the names and',
+'টা খণ্ড পাওয়া গেছে — নাম ঠিক আছে কিনা দেখে "সেভ ও আপলোড" চাপুন':'volumes found — check the names and press "Save & upload"',
+'টা ছোট করা হয়েছে':'shrunk',
+'টা ঠিক আছে':'are fine',
+'টা থেকে পুরনোটা সরবে':'the old one will be removed from',
+'টা দেখান (বাকি':'shown (rest',
+'টা পোস্টার যোগ করা যাবে':'posters can be added',
+'টা প্যাকেজ':'packages',
+'টা প্যাকেজ সেভ হয়েছে — কাজ শেষে book.js ডাউনলোড করে আপলোড করুন':'packages saved — when done, download book.js and upload it',
+'টা প্যাকেজ:':'packages:',
+'টা প্যাকেজে ভেতরের বইয়ের তালিকা সেভ হবে। চালিয়ে যাবেন?':'packages will get their inside-book lists saved. Continue?',
+'টা ফাইল পাওয়া গেছে — নামে বইয়ের নাম আছে কিনা দেখুন)':'files found — check the names contain book names)',
+'টা ফাইল)':'files)',
+'টা ফাইলের নাম থেকে কোন বই বোঝা যায়নি — নামে বইয়ের নাম থাকলে আবার স্ক্যান করুন, নইলে বই খুলে নিজে বসান:':'file names did not show which book — scan again if the names contain the book name, otherwise open the book and set it yourself:',
+'টা ফাইলের নাম থেকে বই বোঝা যায়নি (তালিকার নিচে দেখুন)':'file names did not show which book (see the bottom of the list)',
+'টা ফাইলের নাম মিলিয়ে)':'file names matched)',
+'টা ফোল্ডার ·':'folders ·',
+'টা ফোল্ডার থেকে':'from folders',
+'টা ফোল্ডার থেকে,':'from folders,',
+'টা বই':'books',
+'টা বই (সাইটে দেখায়':'books (shown on site',
+'টা বই · PDF':'books · PDF',
+'টা বই আপডেট হচ্ছে...':'books updating...',
+'টা বই আপডেট হলো)':'books updated)',
+'টা বই আপলোড করুন':'Upload books',
+'টা বই একসাথে Firebase-এ যোগ করবেন?':'books — add them all to Firebase at once?',
+'টা বই দোকানে আছে কিন্তু এই Drive ফোল্ডারে তাদের ফোল্ডার নেই:':'books are in the shop but have no folder in this Drive folder:',
+'টা বই পাওয়া গেছে':'books found',
+'টা বই মিলেছে ·':'books matched ·',
+'টা বই সফলভাবে যোগ হয়েছে!':'books added successfully!',
+'টা বই সেভ হয়েছে':'books saved',
+'টা বই সেভ হয়েছে — কাজ শেষে Tools থেকে book.js ডাউনলোড করে আপলোড করুন':'books saved — when done, download book.js from Tools and upload it',
+'টা বই সেভের জন্য বাছাই করা':'books selected to save',
+'টা বই)':'books)',
+'টা বইও আপডেট হয়েছে':'books also updated',
+'টা বইয়ে':'in books',
+'টা বইয়ে "আরও কিনেছেন" বসবে':'books will get "Also bought"',
+'টা বইয়ে বদল সেভ হবে। চালিয়ে যাবেন?':'books will have changes saved. Continue?',
+'টা বইয়ে সেভ হয়নি — আবার':'books not saved — again',
+'টা বইয়ে সেভ হয়নি — আবার "সেভ ও আপলোড" চাপুন':'books not saved — press "Save & upload" again',
+'টা বইয়ে)':'books)',
+'টা বইয়ের PDF থেকে পাতা বানানো হবে (শেষের':'books will get pages made from their PDF (last',
+'টা বইয়ের পাতা তৈরি হয়েছে — কাজ শেষে book.js ডাউনলোড করে আপলোড করুন':'books\' pages created — when done, download book.js and upload it',
+'টা বইয়ের পাতায়':'on book pages',
+'টা বইয়ের পাতায় "আরও কিনেছেন" দেখাবে':'book pages will show "Also bought"',
+'টা বড় অর্ডার বাদ)':'big orders skipped)',
+'টা বড় কভার বাকি':'big covers left',
+'টা ভাগ প্রকাশ হবে':'groups will be published',
+'টা ভাগ) প্রকাশ হবে':'groups) will be published',
+'টা মিল পাওয়া গেছে — ঠিকটা বাছুন':'matches found — pick the right one',
+'টা মিল পাওয়া গেছে — ঠিকটা বাছুন:':'matches found — pick the right one:',
+'টা সমস্যা আছে (বাদ যাবে)':'have problems (will be skipped)',
+'টা সেভ করুন':'Save',
+'টা হয়নি':'failed',
+'টা হয়েছে':'done',
+'টা — আগে এগুলো ঠিক করে আবার':'— fix these first, then again',
+'টা — আগে এগুলো ঠিক করে আবার "তথ্য যাচাই করুন" চাপুন':'— fix these first, then press "Check details" again',
+'টা)':')',
+'টা) —':') —',
+'টাইল মুছুন':'Delete tile',
+'টাইল যোগ করুন':'Add tile',
+'টাকার অঙ্ক দিন (যেমন: 50)':'Enter an amount (e.g. 50)',
+'টাকার হিসাবে গরমিল পাওয়া গেছে:':'Money mismatch found:',
+'টায়':'in',
+'টায় একাধিক বই ছিল':'had several books',
+'টায় সমস্যা':'have problems',
+'টার মাপ পাওয়া যায়নি)':'sizes not found)',
+'টি · ছাড় আছে':'· discounted',
+'টি অর্ডার':'orders',
+'টি অর্ডার করা হয়েছে — সম্ভবত ভুয়া/টেস্ট অর্ডার।':'orders placed — probably fake/test orders.',
+'টি অর্ডার পেন্ডিং অবস্থায় আছে — যাচাই না করে কনফার্ম করবেন না।':'orders are pending — do not confirm without checking.',
+'টি অর্ডার হয়েছে কিন্তু একটিও ডেলিভারি সম্পন্ন হয়নি।':'orders placed but none delivered.',
+'টি আগেই পাঠানো/বাতিল — বাদ)':'already sent/cancelled — skipped)',
+'টি পাঠানো হয়েছে':'sent',
+'টি ফাইল:':'files:',
+'টি বই':'books',
+'টি বই Firebase-এ উঠেছে — এখন Tools থেকে book.js ডাউনলোড করে আপলোড করুন':'books uploaded to Firebase — now download book.js from Tools and upload it',
+'টি বই Firebase-এ তুলুন':'Upload books to Firebase',
+'টি বই · এখন গড় ছাড়':'books · average discount now',
+'টি বই · ছবি নেই':'books · no image',
+'টি বই লোড হয়েছে। এখন':'books loaded. Now',
+'টি বই লোড হয়েছে। এখন "সব সেভ করুন" চাপুন।':'books loaded. Now press "Save all".',
+'টি বই শুধু book.js-এ আছে, Firebase-এ নেই।':'books are only in book.js, not in Firebase.',
+'টি বই)...':'books)...',
+'টি বইয়ে':'in books',
+'টি বইয়ে MRP নেই — সেগুলো বাদ থাকবে (বই এডিটরে MRP বসালে তবেই অফার পাবে)।':'books have no MRP — they will be skipped (set the MRP in the book editor to include them).',
+'টি বইয়ে MRP নেই — সেগুলো বাদ।)':'books have no MRP — skipped.)',
+'টি বইয়ে আগের দামের রেকর্ড ছিল না (এই টুল দিয়ে অফার দেওয়া হয়নি) — সেগুলো যেমন ছিল তেমনই আছে। দরকার হলে':'books had no old-price record (no offer was given with this tool) — they are left as they were. If needed',
+'টি বইয়ে আগের দামের রেকর্ড ছিল না (এই টুল দিয়ে অফার দেওয়া হয়নি) — সেগুলো যেমন ছিল তেমনই আছে। দরকার হলে "MRP-তে ফেরাও" ব্যবহার করুন।':'books had no old-price record (no offer was given with this tool) — they are left as they were. If needed use "Back to MRP".',
+'টি বইয়ের দাম ফিরেছে':'books\' prices restored',
+'টি ব্যর্থ':'failed',
+'টি সন্দেহজনক অর্ডার (অস্বাভাবিক আইডি) লুকিয়ে রাখা হয়েছে — Firebase-এ orders দেখে মুছে দিন':'suspicious orders (odd IDs) are hidden — check orders in Firebase and delete them',
+'টি)':')',
+'টিক দিন':'Tick',
+'টিতে':'in',
+'টির মধ্যে':'out of',
+'টুলস':'Tools',
+'টুলস ও ইউটিলিটি':'Tools & utilities',
+'টেবিলে টিক দেওয়া অর্ডারগুলো কুরিয়ারে পাঠান':'Send the ticked orders to courier',
+'টেমপ্লেট ডাউনলোড করুন (Excel)':'Download template (Excel)',
+'ট্যাগ':'Tag',
+'ট্যাগ (একাধিক বাছাই করা যাবে)':'Tags (you can pick several)',
+'ট্যাগ তালিকা':'Tag list',
+'ট্যাগ তালিকা সেভ করুন (লাইভ)':'Save tag list (live)',
+'ট্যাগ তালিকা সেভ হয়েছে — সাইটে লাইভ!':'Tag list saved — live on the site!',
+'ট্যাগের নাম (যেমন: ঈদ স্পেশাল)':'Tag name (e.g. Eid special)',
+'ট্যাগের নাম দিন':'Enter a tag name',
+'ঠিক':'Right',
+'ঠিক আছে':'OK',
+'ঠিক আছে, রাখুন':'OK, keep it',
+'ঠিক করা হয়েছে':'Fixed',
+'ঠিক থাকলে রেখে দিন':'keep it if it looks right',
+'ঠিক বই কিনা নিশ্চিত হয়ে নিন':'make sure it is the right book',
+'ঠিক বইয়ে সরানো হয়েছে — কাজ শেষে book.js ডাউনলোড করে আপলোড করুন':'moved to the right book — when done, download book.js and upload it',
+'ঠিক হলে টিক দিন':'tick if it is right',
+'ঠিকানা':'Address',
+'ঠিকানা *':'Address *',
+'ঠিকানা লিখুন':'Enter address',
+'ডাউনলোড':'Download',
+'ডাউনলোড ও অন্যান্য':'Downloads & more',
+'ডাউনলোড করুন':'Download',
+'ডাউনলোড হচ্ছে':'Downloading',
+'ডাউনলোড হচ্ছে — GitHub-এ আপলোড করুন':'Downloading — upload it to GitHub',
+'ডাউনলোড হচ্ছে...':'Downloading...',
+'ডিসেম্বর':'December',
+'ডেটা নেই':'No data',
+'ডেলিভারড':'Delivered',
+'ডেলিভারড অর্ডার':'Delivered orders',
+'ডেলিভারি':'Delivery',
+'ডেলিভারি চার্জ কত?':'Delivery charge?',
+'ডেলিভারি চার্জ দিন (যেমন: 36, ফ্রি হলে 0)':'Enter the delivery charge (e.g. 36, 0 if free)',
+'ডেলিভারি চার্জ ৳ (যেমন: 36)':'Delivery charge ৳ (e.g. 36)',
+'ডেলিভারি নেই / দোকানে — ৳0':'No delivery / in shop — ৳0',
+'ডেলিভারি ব্যর্থ':'Delivery failed',
+'ডেলিভারি সম্পন্নের হার মাত্র':'Delivery completion rate is only',
+'ডেলিভারি ৳':'Delivery ৳',
+'ডেলিভারি(৳':'Delivery (৳',
+'ড্যাশবোর্ড':'Dashboard',
+'ড্রপডাউনটা নিজে বেছে নিতে হবে।':'The dropdown must be picked by hand.',
+'ঢাকা':'Dhaka',
+'ঢাকার বাইরে — ৳95':'Outside Dhaka — ৳95',
+'ঢাকার ভেতরে 60৳, ঢাকার বাইরে 95৳\nটাকা কখন দিতে হবে?':'Inside Dhaka ৳60, outside Dhaka ৳95\nWhen do I pay?',
+'ঢাকার ভেতরে — ৳60':'Inside Dhaka — ৳60',
+'তথ্য যাচাই করুন':'Check details',
+'তথ্যের স্বাস্থ্য — বইয়ের তথ্যে কী কী সমস্যা':'Data health — problems in book details',
+'তারিখ':'Date',
+'তারিখ সেট করুন':'Set the dates',
+'তালিকা আবার খুলুন':'Open the list again',
+'তালিকা ক্লিয়ার হয়েছে':'List cleared',
+'তালিকা থেকে একটা বই বাছুন':'Pick a book from the list',
+'তালিকা থেকে মুছুন':'Remove from list',
+'তালিকাটা দেখে সেভ করুন':'check the list and save',
+'তালিকায় যোগ করুন':'Add to list',
+'তালিকায় যোগ হয়েছে — এখন':'Added to the list — now',
+'তালিকায় যোগ হয়েছে — এখন "বিভাগ তালিকা সেভ করুন" চাপুন':'Added to the list — now press "Save category list"',
+'তালিকায় যোগ হয়েছে — এখন "সব পোস্টার সেভ করুন" চাপুন':'Added to the list — now press "Save all posters"',
+'তালিকায় যোগ হয়েছে — এখন "সব ব্যানার সেভ করুন" চাপুন':'Added to the list — now press "Save all banners"',
+'তে (ছাড় ছাড়া)':'(no discount)',
+'তে ফেরাও':'Back to',
+'তে ফেরাও (ছাড় নেই)':'Back to MRP (no discount)',
+'তৈরি করা ল্যান্ডিং পেজসমূহ':'Created landing pages',
+'তৈরি হচ্ছে...':'Creating...',
+'তৈরি হয়নি':'Not created',
+'তোলা হচ্ছে...':'Uploading...',
+'থানা, জেলা — বাসা/রোড':'Thana, district — house/road',
+'থামান':'Stop',
+'থামানো হয়েছে':'Stopped',
+'থামানো হয়েছে — আবার':'Stopped — again',
+'থামানো হয়েছে — আবার "শুরু করুন" চাপলে বাকিগুলো থেকে চলবে':'Stopped — press "Start" again to continue from the rest',
+'থেকে':'from',
+'থেকে API key নিয়ে এখানে সেভ করুন। তারপর বই এডিট আর ব্যানারে সরাসরি ছবি আপলোড করা যাবে — লিংক কপি-পেস্ট লাগবে না।':'— get an API key and save it here. Then you can upload images straight from the book editor and banners — no copy-pasting links.',
+'থেকে Pixel বানিয়ে ID-টা (শুধু সংখ্যা) এখানে বসান — সাথে সাথে পুরো সাইটে চালু হবে, কোনো ফাইল আপলোড লাগবে না।':'— create a Pixel and paste its ID (numbers only) here — it turns on across the whole site at once, no file upload needed.',
+'থেকে front কেটে নেওয়া:':'front cropped from:',
+'থেকে keys লোড হয়েছে':'keys loaded from',
+'থেকে নিজে বাছুন':'pick it yourself from',
+'থেকে বদলানো যায়)। সেভ করলেই হোমপেজে লাইভ। (কিছু না থাকলে ডিফল্ট তালিকা দেখাবে।)':'). Saving makes it live on the homepage. (If empty, the default list shows.)',
+'থেকে সরিয়ে':') removed from',
+'থেকে — বই এডিটের সময় যে বিষয় দেবেন, বই নিজে থেকেই সেই টাইলে চলে যাবে।':'— the subject you set in the book editor puts the book on that tile.',
+'দাম':'Price',
+'দাম নেই — সাইটে দেখায় না':'No price — not shown on the site',
+'দাম নেই — সাইটে লুকানো':'No price — hidden on the site',
+'দাম ফেরানো ব্যর্থ:':'Restoring prices failed:',
+'দাম ফেরানো হচ্ছে...':'Restoring prices...',
+'দাম বসানো হচ্ছে...':'Setting prices...',
+'দামের যোগফল মিলেছে (৳':'Price total matched (৳',
+'দামের যোগফল মিলেছে, তবে সব বই প্যাকেজের লেখকদের নয় — ভালো করে দেখে নিন':'Price total matched, but not all books are by the package\'s authors — check carefully',
+'দিন':'Enter',
+'দিন অনুযায়ী বিক্রয়':'Sales by day',
+'দিন আগে':'days ago',
+'দিয়ে GitHub-এ আপলোড করুন।':'and upload it to GitHub.',
+'দিয়ে এক চাপে ঠিক করা যায়।':'can be fixed in one click.',
+'দিয়ে শেয়ার করা?':'shared with?',
+'দিলে যার যা ছাড় ছিল সেটাই ফিরে আসে।':'brings back whatever discount each had.',
+'দেখাবে':'Will show',
+'দেখায়':'Shows',
+'দেখুন':'View',
+'দেখুন →':'View →',
+'দেখে নিন':'Check it',
+'দৈনিক':'Daily',
+'দৈনিক অর্ডার':'Daily orders',
+'দৈনিক রিপোর্ট':'Daily report',
+'দোকান থেকে সরাসরি':'Straight from the shop',
+'দোকানে আগে অন্য বিবরণ আছে)':'the shop already has a different description)',
+'দোকানে আগে থেকে PDF আছে)':'the shop already has a PDF)',
+'দোকানে এই নামের বই নেই — আগে book.js-এ বইটা যোগ করুন, তারপর আবার স্ক্যান করুন':'No book with this name in the shop — add the book to book.js first, then scan again',
+'দোকানে নেই':'Not in the shop',
+'দোকানে বসানো PDF-গুলো যাচাই করুন':'Check the PDFs set in the shop',
+'দোকানে বিবরণ নেই — এটা বসবে)':'no description in the shop — this will be added)',
+'দোকানে মেলেনি':'Not matched in the shop',
+'দোকানে শুধু অটো-লেখা ছোট বিবরণ — Drive-এর আসল বিবরণ বসবে)':'the shop only has a short auto-written description — the real Drive description will be added)',
+'দোকানে:':'In shop:',
+'দোকানেই হাতে দিয়েছি — সাথে সাথে':'Handed over in the shop — right away',
+'দোকানেই হাতে দিয়েছি — সাথে সাথে "ডেলিভারড" ও "পরিশোধিত" করে দিন':'Handed over in the shop — mark it "Delivered" and "Paid" right away',
+'দোকানেও এই বিবরণই আছে)':'the shop has this same description)',
+'দোকানের এখনকার বিবরণ পড়ুন':'Read the shop\'s current description',
+'দোকানের বিবরণগুলো মেলানো হচ্ছে...':'Matching the shop\'s descriptions...',
+'দ্রুত অর্ডার':'Quick order',
+'দ্রুত অ্যাকশন':'Quick actions',
+'দ্রুত যোগ:':'Quick add:',
+'ধন্যবাদ আপনার ক্রয়ের জন্য · OurDedication':'Thank you for your purchase · OurDedication',
+'ধরণ':'Type',
+'ধরন':'Type',
+'ধরনের):':'types):',
+'নগদ':'Nagad',
+'নতুন':'New',
+'নতুন key দিন (masked value সেভ হবে না)!':'Enter a new key (a masked value will not be saved)!',
+'নতুন অর্ডার এসেছে!':'New order received!',
+'নতুন আইটেম যোগ ও Firebase-এ সেভ হয়েছে':'New item added and saved to Firebase',
+'নতুন আবেদন':'New requests',
+'নতুন উপ-বিভাগ':'New sub-category',
+'নতুন কুপন':'New coupon',
+'নতুন কুপন কোড ও ছাড়ের হার (%) যোগ করুন — সেভ করলেই সাইটে কাজ করবে।':'Add a new coupon code and discount (%) — it works on the site as soon as it is saved.',
+'নতুন ক্যাটাগরি চিপ':'New category chip',
+'নতুন ট্যাগ':'New tag',
+'নতুন পাসওয়ার্ড':'New password',
+'নতুন পাসওয়ার্ড (কমপক্ষে 8 অক্ষর)':'New password (at least 8 characters)',
+'নতুন পাসওয়ার্ড আগেরটার মতোই — অন্য কিছু দিন':'The new password is the same as the old one — choose something else',
+'নতুন পাসওয়ার্ড আবার':'New password again',
+'নতুন পাসওয়ার্ড কমপক্ষে 8 অক্ষরের দিন':'The new password must be at least 8 characters',
+'নতুন পাসওয়ার্ড খুব দুর্বল — অক্ষর, সংখ্যা মিলিয়ে লম্বা দিন':'The new password is too weak — make it longer, mixing letters and numbers',
+'নতুন পাসওয়ার্ড দুইবার একই হয়নি':'The two new passwords do not match',
+'নতুন পোস্টার যোগ করুন (সর্বোচ্চ 3 টা)':'Add a new poster (max 3)',
+'নতুন প্রকাশনী চিপ':'New publisher chip',
+'নতুন প্রকাশিত':'Newly published',
+'নতুন বই':'New book',
+'নতুন বই যোগ করুন':'Add new book',
+'নতুন বিভাগ':'New category',
+'নতুন বিষয়...':'New subject...',
+'নতুন বিষয়ের নাম লিখুন:':'Type the new subject name:',
+'নতুন ব্যানার যোগ করুন':'Add new banner',
+'নতুন মোট (৳)':'New total (৳)',
+'নতুন লেখক চিপ':'New author chip',
+'নতুন সব বইয়ে bid বসিয়ে দেয়':'Sets a bid on all new books',
+'নভেম্বর':'November',
+'নমুনা':'Sample',
+'না)':'no)',
+'নাম':'Name',
+'নাম (যেমন: Size)':'Name (e.g. Size)',
+'নাম *':'Name *',
+'নাম থেকে মূল নাম বোঝা গেল না — নিচে নাম লিখে বাছুন':'Could not work out the main name — type a name below and pick',
+'নাম দিন':'Enter a name',
+'নাম নেই':'No name',
+'নাম বদলে দিন':'Rename',
+'নাম বদলে দিন (সব বইয়ে)':'Rename (in all books)',
+'নাম বা ফোন দিয়ে খুঁজুন':'Search by name or phone',
+'নাম মিলেছে':'Name matched',
+'নাম মেলেনি — Drive:':'Name did not match — Drive:',
+'নাম লিখুন':'Type a name',
+'নাম, ফোন বা অর্ডার ID দিয়ে খুঁজুন...':'Search by name, phone or order ID...',
+'নাম, লেখক বা প্রকাশনী...':'Name, author or publisher...',
+'নাম, লেখক, প্রকাশনী দিয়ে খুঁজুন':'Search by name, author, publisher',
+'নামানো হয়েছে।':'downloaded.',
+'নামের বানান আলাদা — Drive:':'Different spelling — Drive:',
+'নিচে':'Down',
+'নিচের সব ঘরে':'in all boxes below',
+'নিজে থেকে মেলানো যায়নি':'Could not match automatically',
+'নিজে থেকে মেলানো যায়নি — নাম লিখে বই বাছুন':'Could not match automatically — type a name and pick the book',
+'নির্দিষ্ট একটা বই/অফারের জন্য আলাদা একটা প্রমোশন পেজ বানান — বড় ছবি, নিজের লেখা হেডলাইন ও পয়েন্টসহ। বানানোর পর লিংক কপি করে আপনি নিজে Facebook Page-এ পোস্ট বা Ad-এ ব্যবহার করবেন।':'Make a separate promo page for one book/offer — big image, your own headline and points. After creating it, copy the link and post it on your Facebook Page or use it in an ad.',
+'নির্দিষ্ট ডেলিভারি চার্জ':'Fixed delivery charge',
+'নির্ধারিত মূল্য':'Set price',
+'নিশ্চিত করতে লিখুন: মুছে ফেলুন':'Type to confirm: DELETE',
+'নিশ্চিত মিল':'Sure match',
+'নিশ্চিত মিল পাওয়া গেছে — দেখে নিয়ে':'Sure match found — check it and',
+'নিশ্চিত মিল পাওয়া গেছে — দেখে নিয়ে "সেভ ও আপলোড" চাপুন':'Sure match found — check it and press "Save & upload"',
+'নিশ্চিত মিল — প্যাকেজের লেখকদের বই, দাম':'Sure match — books by the package\'s authors, price',
+'নেই':'None',
+'নোট':'Note',
+'নোট সেভ করুন':'Save note',
+'নোট সেভ ব্যর্থ':'Saving the note failed',
+'নোট সেভ হয়েছে!':'Note saved!',
+'নোট:':'Note:',
+'নোটিফিকেশন':'Notifications',
+'পড়া':'Read',
+'পড়ুন':'Read',
+'পথে আছে':'On the way',
+'পদ্ধতি:':'Method:',
+'পর':'After',
+'পরিবেশক':'Distributor',
+'পরিমাণ':'Quantity',
+'পরিশোধ':'Paid',
+'পরিশোধিত':'Paid',
+'পরিশোধিত চিহ্ন দেওয়া হয়েছে':'Marked as paid',
+'পরিশোধিত চিহ্ন সরানো হয়েছে':'Paid mark removed',
+'পরে':'Later',
+'পরের ›':'Next ›',
+'পাওয়া যাচ্ছে না!':'not found!',
+'পাওয়া যায়নি':'Not found',
+'পাঠক':'Reader',
+'পাঠকদের জমা দেওয়া ব্লগ (প্রকাশ হয়নি এমন)':'Blogs submitted by readers (not yet published)',
+'পাঠকদের ব্লগ (মাসিক প্রতিযোগিতা)':'Readers\' blogs (monthly competition)',
+'পাঠকদের রিভিউ':'Reader reviews',
+'পাঠান':'Send',
+'পাঠানোর আগে গিফটগুলো বইয়ের সাথে প্যাকেজ করুন':'Wrap the gifts with the books before sending',
+'পাতা':'Page',
+'পাতা, লোগোসহ':'pages, with logo',
+'পাতা, সাইটে দেখাবে প্রথম':'pages, the site shows the first',
+'পাতায় দেখাবে':'pages',
+'পাতায় দেখাবে; আগের মাসগুলোও পাতায় থেকে যায়। বিক্রির সংখ্যা সাইটে দেখায় না — শুধু ক্রম।':'pages; previous months stay on the page. Sales numbers are not shown on the site — only the order.',
+'পাতার মধ্যে প্রথম':'the first among the pages',
+'পাসওয়ার্ড':'Password',
+'পাসওয়ার্ড এখান থেকেই বদলানো যায় — Firebase-এ যেতে হবে না।':') password can be changed right here — no need to go to Firebase.',
+'পাসওয়ার্ড কমপক্ষে 6 অক্ষরের দিন':'The password must be at least 6 characters',
+'পাসওয়ার্ড বদলান':'Change password',
+'পাসওয়ার্ড বদলানো হয়েছে। পরেরবার নতুন পাসওয়ার্ড দিয়ে লগইন করবেন।':'Password changed. Use the new password next time you log in.',
+'পাসওয়ার্ড ভুল':'Wrong password',
+'পাসওয়ার্ড ভুলে গেছেন?':'Forgot password?',
+'পাসওয়ার্ড মনে নেই? রিসেট লিংক ইমেইলে পাঠান':'Forgot your password? Email a reset link',
+'পিকআপ রিকোয়েস্ট পাঠানো হচ্ছে...':'Sending pickup request...',
+'পিকআপ রিকোয়েস্ট সম্পন্ন! Parcel ID:':'Pickup request done! Parcel ID:',
+'পিকআপ রিকোয়েস্ট সম্পন্ন! Tracking:':'Pickup request done! Tracking:',
+'পিছন':'Back',
+'পিস':'pcs',
+'পুরনো Drive-ইমপোর্টের কভার (বড় হতে পারে)':'Old Drive-import covers (may be large)',
+'পুরনো orders এর phoneIndex ঠিক করতে।':'To fix the phoneIndex of old orders.',
+'পুরনো ডেটা মুছে পরিষ্কার করুন':'Clear out old data',
+'পুরো কভার':'Full cover',
+'পুরো কভার থেকে ডান পাশের সামনের অংশ কেটে নাও':'Crop the front part (right side) from the full cover',
+'পুরো টাকা পেয়েছি':'Received full payment',
+'পুরো টাকা পেয়েছি (পরিশোধিত)':'Received full payment (paid)',
+'পুরো নাম':'Full name',
+'পূরণ করা এক্সেল/CSV ফাইল বাছুন':'Choose the filled Excel/CSV file',
+'পৃষ্ঠা':'Pages',
+'পৃষ্ঠা সংখ্যা':'Number of pages',
+'পৃষ্ঠাসংখ্যা':'Pages',
+'পেজটা রিফ্রেশ করে তারপর book.js ডাউনলোড করুন।':'Refresh the page, then download book.js.',
+'পেন্ডিং':'Pending',
+'পেন্ডিং ·':'Pending ·',
+'পেন্ডিং অর্ডার':'Pending orders',
+'পেমেন্ট':'Payment',
+'পেমেন্ট অবস্থা':'Payment status',
+'পেমেন্ট ও মূল্য':'Payment & price',
+'পেমেন্ট তথ্য':'Payment info',
+'পেমেন্ট পদ্ধতি':'Payment method',
+'পেমেন্ট মাধ্যম':'Payment method',
+'পেমেন্ট: সব':'Payment: all',
+'পোস্টার #':'Poster #',
+'পোস্টার ছবির URL':'Poster image URL',
+'পোস্টার ছবির URL দিন':'Enter the poster image URL',
+'পোস্টার পপআপ চালু রাখুন':'Keep the poster popup on',
+'প্যাকে কয়টি':'Number in pack',
+'প্যাকেজ':'Package',
+'প্যাকেজ বইয়ের পাতায় ভেতরের বইগুলো আলাদা করে দেখানোর জন্য।':'To show the books inside a package separately on the package\'s page.',
+'প্যাকেজ/সিরিজের একটা বইয়ের PDF':'PDF of one book of the package/series',
+'প্যাকেজগুলোর বই খুঁজুন':'Find books for the packages',
+'প্যাকেজসমূহ':'Packages',
+'প্যাকেজিং':'Packaging',
+'প্যাকেজে লেখকের নাম নেই':'The package has no author name',
+'প্যাকেজেও পাওয়া যায়':'Also available in a package',
+'প্যাকেজের ভেতরে নিজেকেই দেওয়া যায় না':'A package cannot contain itself',
+'প্যাকেজের ভেতরের বই':'Books inside the package',
+'প্যাকেজের ভেতরের বই বাছা হয়নি':'No inside books chosen for the package',
+'প্যাকেজের ভেতরের বই — সাইটে প্যাকেজের পাতায় আলাদা করে দেখাবে':'Books inside the package — shown separately on the package page',
+'প্যাকেজের মুদ্রিত দাম ৳':'Package printed price ৳',
+'প্যাকেজের মুদ্রিত দামের সাথে মিলেছে':'Matched the package\'s printed price',
+'প্রকাশ করুন':'"Publish"',
+'প্রকাশ ব্যর্থ':'Publishing failed',
+'প্রকাশ হয়নি:':'Not published:',
+'প্রকাশ হয়েছে — সাইটে সাথে সাথে দেখাবে':'Published — shows on the site at once',
+'প্রকাশক':'Publisher',
+'প্রকাশকাল':'Published on',
+'প্রকাশনী':'Publisher',
+'প্রকাশনী চিপ সেভ করুন (হোমপেজে লাইভ)':'Save publisher chips (live on homepage)',
+'প্রকাশনী নেই':'No publisher',
+'প্রকাশনী নেই)':'no publisher)',
+'প্রকাশনী বাছুন':'Select publisher',
+'প্রকাশনী বাছুন —':'Select publisher —',
+'প্রকাশনী-ভিত্তিক অফার (এক ক্লিকে সব বইয়ে ছাড়)':'Publisher offer (discount on all books in one click)',
+'প্রকাশনীর Drive থেকে কভার':'Cover from the publisher\'s Drive',
+'প্রকাশনীর Drive থেকে কভার + শর্ট PDF + বিবরণ':'Cover + short PDF + description from the publisher\'s Drive',
+'প্রকাশনীর নাম':'Publisher name',
+'প্রকাশনীর নাম (ড্রপডাউন থেকে বাছুন বা টাইপ করুন)':'Publisher name (pick from the dropdown or type)',
+'প্রকাশনীর নাম দিন':'Enter a publisher name',
+'প্রকাশিত লেখা':'Published articles',
+'প্রকাশিত লেখাটি সাইট থেকে সরাবেন?':'Remove the published article from the site?',
+'প্রকাশিত হয়েছে — সাইটে লাইভ! লেখকের নম্বরে হাদিয়ার জন্য যোগাযোগ করুন:':'Published — live on the site! Contact the writer\'s number for the gift:',
+'প্রক্সি URL https:// দিয়ে শুরু হতে হবে':'The proxy URL must start with https://',
+'প্রক্সি URL সেভ হয়েছে':'Proxy URL saved',
+'প্রক্সি সেভ ব্যর্থ:':'Saving the proxy failed:',
+'প্রচ্ছদ':'Cover',
+'প্রচ্ছদ ও অলংকরণ':'Cover & illustration',
+'প্রচ্ছদ মূল্য':'Cover price',
+'প্রচ্ছদ শিল্পী':'Cover artist',
+'প্রচ্ছদশিল্পী':'Cover artist',
+'প্রতিটা অপশন (যেমন 6 মিলি, 12 মিলি) দোকানে আলাদা পণ্য হিসেবে থাকতে হবে — নিজের ছবি ও দামসহ। বাটনের নাম দিন যেমন':'Each option (e.g. 6 ml, 12 ml) must exist in the shop as a separate product — with its own image and price. Name the buttons like',
+'প্রতিটা অপশন (যেমন 6 মিলি, 12 মিলি) দোকানে আলাদা পণ্য হিসেবে থাকতে হবে — নিজের ছবি ও দামসহ। বাটনের নাম দিন যেমন "6 মিলি"। এখানে সেভ করলে সব অপশনের পাতায় একই বাটন বসে যাবে।':'Each option (e.g. 6 ml, 12 ml) must exist in the shop as a separate product — with its own image and price. Name the buttons like "6 ml". Saving here puts the same buttons on every option\'s page.',
+'প্রতিটা খণ্ড দোকানে আলাদা বই হিসেবে থাকতে হবে (নিজের ছবি ও দামসহ)। এখানে সেভ করলে দলের সব খণ্ডের পাতায় একই বাটন বসে যাবে।':'Each volume must exist in the shop as a separate book (with its own image and price). Saving here puts the same buttons on every volume\'s page in the group.',
+'প্রতিদিনের অর্ডার':'Daily orders',
+'প্রতিদিনের কাজ':'Daily work',
+'প্রথম':'First',
+'প্রথম প্রকাশ':'First published',
+'প্রথমে প্রকাশনী বাছুন, তারপর সেই প্রকাশনীর Drive ফোল্ডারের লিংক দিন (প্রতিটা বইয়ের আলাদা sub-folder, শেয়ার':'First pick a publisher, then give that publisher\'s Drive folder link (a separate sub-folder for each book, shared as',
+'প্রথমে প্রকাশনী বাছুন, তারপর সেই প্রকাশনীর Drive ফোল্ডারের লিংক দিন (প্রতিটা বইয়ের আলাদা sub-folder, শেয়ার "Anyone with the link")।':'First pick a publisher, then give that publisher\'s Drive folder link (a separate sub-folder for each book, shared as "Anyone with the link").',
+'প্রি-অর্ডার':'Pre-order',
+'প্রি-অর্ডার প্রকাশের সম্ভাব্য তারিখ (ঐচ্ছিক) — দিলে বই পেজে হাইলাইট করে দেখাবে':'Pre-order expected publish date (optional) — highlighted on the book page if set',
+'প্রিভিউ)':'preview)',
+'প্রোডাক্ট':'Product',
+'প্রোডাক্ট টাইপ':'Product type',
+'প্রোডাক্ট টাইপ *':'Product type *',
+'প্রোডাক্টের নাম *':'Product name *',
+'প্রোডাক্টের বিবরণ':'Product description',
+'ফাইনাল':'Final',
+'ফাইল থেকে':'file',
+'ফাইল পড়া যায়নি — টেমপ্লেট ফরম্যাট মিলিয়ে দেখুন':'Could not read the file — check it matches the template format',
+'ফাইলটা Drive-এর ট্র্যাশে — লিংক কাজ করবে না':'The file is in Drive\'s trash — the link will not work',
+'ফাইলটা দেখা যাচ্ছে না':'The file cannot be seen',
+'ফাইলে লেখা তথ্য:':'Details written in the file:',
+'ফাইলেও নতুন দাম রাখতে চাইলে নিচে':'To keep the new prices in the file too, below',
+'ফাইলের তথ্য আনা যায়নি — ইন্টারনেট দেখে আবার যাচাই করুন':'Could not get the file details — check the internet and check again',
+'ফাইলের নাম ইংরেজিতে — নিজে থেকে মেলানো যায়নি':'The file name is in English — could not match automatically',
+'ফাইলের নাম এই বইয়ের মতো নয়:':'The file name does not match this book:',
+'ফাইলের নাম থেকে:':'From the file name:',
+'ফাইলের নামে বইয়ের নাম নেই — একবার খুলে দেখুন ঠিক বইয়ের PDF কিনা':'The file name has no book name — open it once to check it is the right book\'s PDF',
+'ফাইলের বিবরণ, আর যেখানে তথ্য মেলে না সেখানে':'the file\'s description, and wherever details do not match',
+'ফিরেছে।':'restored.',
+'ফেব্রুয়ারি':'February',
+'ফেরত':'Returned',
+'ফেরানো হবে। এগিয়ে যাবেন?':'will be restored. Continue?',
+'ফোন':'Phone',
+'ফোন নম্বর দিয়ে সেই কাস্টমারের সম্পূর্ণ অর্ডার হিস্ট্রি ও সন্দেহজনক প্যাটার্ন চেক করুন।':'Check a customer\'s full order history and suspicious patterns by phone number.',
+'ফোন/দোকানের অর্ডার হাতে বসান':'Enter phone/shop orders by hand',
+'ফোল্ডার খোলা হচ্ছে...':'Opening folder...',
+'ফ্রন্ট':'Front',
+'ফ্রি ডেলিভারি':'Free delivery',
+'ফ্ল্যাপ':'Flap',
+'বই':'Book',
+'বই #':'Book #',
+'বই আপডেট করলে সরাসরি website-এ দেখাবে':'Book updates show on the website directly',
+'বই এডিট':'Edit book',
+'বই এডিটরে সরাসরি লেখা হয়েছে, তালিকায় নেই':'typed straight in the book editor, not in the list',
+'বই এডিটে গিয়ে':'go to the book editor and',
+'বই ও স্টক':'Books & stock',
+'বই তালিকা':'Book list',
+'বই থেকে মুছুন':'Delete from book',
+'বই থেকে শর্ট PDF লিংকটা সরাবেন?':'Remove the short PDF link from the book?',
+'বই থেকে শর্ট PDF লিংকটা সরাবেন?\n\nPDF:':'Remove the short PDF link from this book?\n\nPDF:',
+'বই পাওয়া যায়নি':'Book not found',
+'বই বদলান':'Change book',
+'বই বাছাই':'Book selection',
+'বই বাছাই করুন':'"Select books"',
+'বই বাছাই করুন *':'Select a book *',
+'বই বাছুন':'Pick a book',
+'বই যোগ করুন':'Add book',
+'বই লোড হচ্ছে...':'Loading books...',
+'বই লোড হয়নি':'Books did not load',
+'বই সম্পর্কে':'About the book',
+'বই স্টক ম্যানেজ':'Book stock manager',
+'বই হাতে পাওয়ার পর ক্যাশ অন ডেলিভারিতে দিতে পারবেন\nঅর্ডার করলে কতদিনে পাবো?':'You can pay cash on delivery after you get the books\nHow long until I get the order?',
+'বই হাতে পেয়ে টাকা দিন, আগে টাকা লাগবে না':'Pay when you get the books, nothing in advance',
+'বইগুলো দেখা হচ্ছে…':'Checking books…',
+'বইগুলো দেখুন':'View the books',
+'বইগুলোর মুদ্রিত দামের যোগফল ৳':'Total printed price of the books ৳',
+'বইটা পাওয়া যাচ্ছে না':'The book cannot be found',
+'বইটার জন্য স্টক নোটিফিকেশন চেয়েছিলেন — বইটা এখন স্টকে এসেছে! অর্ডার করতে চাইলে:':'asked to be notified about this book — it is now back in stock! To order:',
+'বইটি':'The book',
+'বইয়ের PDF লিংক বদলালে সাইট নিজে থেকে আবার Drive দেখায়, তখন এখানে আবার চালান।':'if the book\'s PDF link changes, the site shows Drive again by itself — then run this again.',
+'বইয়ের PDF — ওই বইয়েও এই একই ফাইল আছে। এই বইয়ের নিজের শর্ট PDF বসান, নইলে লিংকটা সরান':'PDF of that book — the same file is on that book too. Add this book\'s own short PDF, or remove the link',
+'বইয়ের তথ্য পাওয়া যায়নি':'Book details not found',
+'বইয়ের তালিকা':'Book list',
+'বইয়ের তালিকা এখনো লোড হয়নি':'The book list has not loaded yet',
+'বইয়ের তালিকা এখনো লোড হয়নি — একটু পরে চেষ্টা করুন':'The book list has not loaded yet — try again a little later',
+'বইয়ের নাম':'Book name',
+'বইয়ের নাম *':'Book name *',
+'বইয়ের নাম লিখুন...':'Type a book name...',
+'বইয়ের নাম লিখে বাছুন...':'Type a book name and pick...',
+'বইয়ের নাম,প্রকাশনী,পরিমাণ':'Book name,Publisher,Quantity',
+'বইয়ের নামের সাথে PDF-এর নাম মেলেনি — অন্য বইয়ের PDF মনে হচ্ছে':'The PDF name does not match the book name — it looks like another book\'s PDF',
+'বইয়ের পৃষ্ঠা সংখ্যা':'Number of pages',
+'বইয়ের লাইভ লিস্ট আনা যায়নি (নেট সমস্যা) — পেজ রিলোড করুন। ততক্ষণ বই সেভ বন্ধ থাকবে।':'Could not get the live book list (network problem) — reload the page. Book saving stays off until then.',
+'বইয়ের লাইভ লিস্ট লোড হয়নি — পেজ রিলোড করে আবার চেষ্টা করুন':'The live book list did not load — reload the page and try again',
+'বইয়ের লাইভ লিস্ট লোড হয়নি — পেজ রিলোড করে তারপর book.js ডাউনলোড করুন।':'The live book list did not load — reload the page, then download book.js.',
+'বইয়ের সংক্ষিপ্ত বিবরণ এখানে লিখুন':'Write a short description of the book here',
+'বড় কভার খুঁজুন':'"Find bigger cover"',
+'বড় কভার ছোট করুন':'Shrink big covers',
+'বড় কভার ছোট করুন (সাইট দ্রুত করতে)':'Shrink big covers (to speed up the site)',
+'বড় লেখা (যেমন: ঈদ অফার — 30% ছাড়)':'Big text (e.g. Eid offer — 30% off)',
+'বদল হবে':'will change',
+'বদলানো যায়নি:':'Could not change:',
+'বদলানো হচ্ছে...':'Changing...',
+'বন্ধ':'Off',
+'বন্ধ করতে ঘরটা খালি রেখে সেভ চাপুন।':'To turn it off, leave the box empty and press Save.',
+'বন্ধ করা হলো':'Turned off',
+'বন্ধ করুন':'Close',
+'বয়স':'Age',
+'বর্গাকার':'Square',
+'বর্তমান দাম ৳':'Current price ৳',
+'বর্তমান বইয়ের লিস্ট book.js হিসেবে ডাউনলোড করুন।':'Download the current book list as book.js.',
+'বর্তমান মডারেটর':'Current moderators',
+'বলে যখন — একই প্রকাশনী, প্যাকেজের লেখকদের বই, আর বইগুলোর':'when — same publisher, books by the package\'s authors, and the books\'',
+'বলেছেন':'said',
+'বলেছেন — আর দেখাবে না':'said — it won\'t show again',
+'বসবে':'will be set',
+'বা নতুন উপ-বিভাগ লিখুন':'or type a new sub-category',
+'বা নতুন প্রকাশনী':'or a new publisher',
+'বা নতুন প্রকাশনী লিখুন':'or type a new publisher',
+'বা নতুন বিভাগ লিখুন':'or type a new category',
+'বা নতুন বিষয়':'or a new subject',
+'বা নতুন বিষয় লিখুন':'or type a new subject',
+'বা নতুন লেখক':'or a new author',
+'বা নতুন লেখক লিখুন':'or type a new author',
+'বাঁধাই':'Binding',
+'বাইন্ডিং':'Binding',
+'বাকি':'Left',
+'বাছাই করা':'Selected',
+'বাছাই করা সব অর্ডার আগেই কুরিয়ারে গেছে বা বাতিল':'All selected orders already went to courier or are cancelled',
+'বাছাই করা সব সেভ করুন':'"Save all selected"',
+'বাছুন':'Pick',
+'বাছুন —':'Pick —',
+'বাটন দেখাবে':'will show a button',
+'বাটনের নাম (যেমন 1ম খণ্ড)':'Button name (e.g. Volume 1)',
+'বাটনের লেখা':'Button text',
+'বাড়ান':'Increase',
+'বাতিল':'Reject',
+'বাতিল করা হয়েছে — কিছুই মোছা হয়নি':'Cancelled — nothing was deleted',
+'বাদ দিন':'Skip',
+'বার একসাথে কেনা হয়েছে এমন বই নেই —':'times bought together — no such books —',
+'বার একসাথে কেনা হয়েছে এমন বই নেই — "কমপক্ষে" কমিয়ে দেখুন, বা আরও অর্ডার জমলে আবার চালান।':'times bought together — no such books — lower "At least", or run again when more orders come in.',
+'বার)':'times)',
+'বারবার ভুল চেষ্টায় সাময়িক ব্লক — কিছুক্ষণ পর আবার চেষ্টা করুন':'Temporarily blocked after repeated wrong tries — try again in a while',
+'বাল্ক-আপলোড-টেমপ্লেট.xlsx':'bulk-upload-template.xlsx',
+'বিকাশ':'bKash',
+'বিক্রয় মূল্য':'Selling price',
+'বিক্রয় রিপোর্ট':'Sales report',
+'বিক্রয়মূল্য মুদ্রিত দামের বেশি':'Selling price is higher than the printed price',
+'বিক্রি':'Sales',
+'বিক্রি: ৳':'Sales: ৳',
+'বিক্রির সংখ্যা (ঐচ্ছিক — শুধু আসল সংখ্যা, না জানলে খালি রাখুন)':'Number sold (optional — real numbers only, leave empty if unknown)',
+'বিবরণ':'Description',
+'বিবরণ (বই সম্পর্কে)':'Description (about the book)',
+'বিবরণ গোনা হচ্ছে…':'Counting descriptions…',
+'বিবরণ নেই':'No description',
+'বিবরণ...':'Description...',
+'বিভাগ':'Category',
+'বিভাগ (Category) *':'Category *',
+'বিভাগ ও উপ-বিভাগ':'Categories & sub-categories',
+'বিভাগ তালিকা সেভ করুন':'Save category list',
+'বিভাগ তালিকা সেভ করুন (লাইভ)':'Save category list (live)',
+'বিভাগ তালিকা সেভ হয়েছে — সাইটে লাইভ!':'Category list saved — live on the site!',
+'বিভাগ বাছুন —':'Pick a category —',
+'বিভাগ মুছুন':'Delete category',
+'বিভাগ) সব বই থেকে মুছে ফেলতে চান? বই মুছে যাবে না, শুধু এই বিভাগের মানটা ফাঁকা হয়ে যাবে। এই কাজ পূর্বাবস্থায় ফেরানো যাবে না।':'category) from all books? Books will not be deleted — only this category value becomes empty. This cannot be undone.',
+'বিভাগটা তালিকা থেকে মুছে ফেলতে চান? পুরনো বইয়ের ডেটা বদলাবে না, শুধু নতুন বই যোগ/এডিট করার সময় আর এই নামটা দেখাবে না।':'Remove this category from the list? Old book data does not change; the name just won\'t show when adding/editing books.',
+'বিভাগের নাম (যেমন: শিশুতোষ বই)':'Category name (e.g. শিশুতোষ বই)',
+'বিভাগের নাম দিন':'Enter a category name',
+'বিভাজন':'breakdown',
+'বিশেষ ছাড়/সমঝোতা হলে)':'for special discounts/deals)',
+'বিষয়':'Subject',
+'বিষয় বসানো নেই':'No subject set',
+'বিষয় বাছুন —':'Pick a subject —',
+'বিষয় মুছে ফেলা হয়েছে':'Subject deleted',
+'বিষয় সেভ হয়েছে — সাইটে লাইভ!':'Subject saved — live on the site!',
+'বিষয়ের নাম':'Subject name',
+'বিস্তারিত Analytics':'Detailed analytics',
+'বিস্তারিত →':'Details →',
+'বুধবার':'Wednesday',
+'বুলেট পয়েন্ট (ঐচ্ছিক — প্রতি লাইনে একটা)':'Bullet points (optional — one per line)',
+'বৃহস্পতিবার':'Thursday',
+'বেস্টসেলার বই':'Bestseller books',
+'বৈশিষ্ট্য যোগ করুন':'Add attribute',
+'ব্যবহার করুন।':'use it.',
+'ব্যবহারবিধি':'How to use',
+'ব্যবহারবিধি / যত্ন (ঐচ্ছিক — সাইটে আলাদা ট্যাবে দেখাবে)':'How to use / care (optional — shows in a separate tab on the site)',
+'ব্যর্থ':'Failed',
+'ব্যর্থ হলো':'Failed',
+'ব্যর্থ — কোনো দাম বদলায়নি।':'failed — no price changed.',
+'ব্যর্থ:':'Failed:',
+'ব্যাকআপ তৈরি হচ্ছে...':'Creating backup...',
+'ব্যাকআপ নিয়ে মুছে ফেলুন':'Back up and delete',
+'ব্যাকআপ ফাইল':'Backup file',
+'ব্যানার':'Banner',
+'ব্যানার ছবির লিংক (ঐচ্ছিক — না দিলে বইয়ের ছবি ব্যবহার হবে)':'Banner image link (optional — the book image is used if empty)',
+'ব্যানার সেভ হয়েছে — হোমপেজে লাইভ!':'Banner saved — live on the homepage!',
+'ব্রাউজার Notification চালু করুন (ঐচ্ছিক)':'Turn on browser notifications (optional)',
+'ব্রাউজার Notification চালু হলো':'Browser notifications turned on',
+'ব্রাউজার থেকে কুরিয়ারের সাইটে সরাসরি যাওয়া যায় না, তাই আপনার Worker-এর মাধ্যমে পাঠানো হয়।':'The browser cannot reach the courier\'s site directly, so it is sent through your Worker.',
+'ব্র্যান্ড':'Brand',
+'ব্র্যান্ডের নাম':'Brand name',
+'ব্লগ':'Blog',
+'ভলিউম':'Volume',
+'ভার্সন':'Version',
+'ভার্সন বসানো যায়নি:':'Could not set the version:',
+'ভাষা':'Language',
+'ভাষান্তর':'Translation',
+'ভুল নাম মুছুন বা নতুন যোগ করুন — সেভ করলেই অ্যাডমিনের ড্রপডাউন ও পুরো সাইটে (হোম চিপ, ফিল্টার, drawer) এই তালিকাই চলবে। মুছলে পুরনো বইয়ের ডেটা বদলায় না, শুধু তালিকা থেকে যায়।':'Delete wrong names or add new ones — once saved, this list is used in the admin dropdowns and across the site (home chips, filters, drawer). Deleting does not change old book data; it only leaves the list.',
+'ভুল মনে হওয়ার মতো কোনো PDF পাওয়া যায়নি':'No suspicious PDF found',
+'ভুল মনে হচ্ছে':'Looks wrong',
+'ভুল শর্ট PDF খুঁজুন':'Find wrong short PDFs',
+'ভূমিকা':'Introduction',
+'মঙ্গলবার':'Tuesday',
+'মডারেটর':'Moderator',
+'মডারেটর অনুমোদন হলো':'Moderator approved',
+'মডারেটর অ্যাকাউন্ট':'Moderator account',
+'মডারেটর ম্যানেজ':'Manage moderators',
+'মডারেটর সরানো হলো':'Moderator removed',
+'মডারেটর হতে চান? অ্যাকাউন্ট খুলুন':'Want to be a moderator? Create an account',
+'মন্তব্য':'Comment',
+'মাদ্রাসার বই':'Madrasa books',
+'মান (যেমন: Large)':'Value (e.g. Large)',
+'মার্কেটিং':'Marketing',
+'মার্চ':'March',
+'মাস বাছুন —':'Pick a month —',
+'মাসিক বেস্টসেলার':'Monthly bestsellers',
+'মিনিট আগে':'minutes ago',
+'মিলে গেছে':'matched',
+'মুছতে ব্যর্থ হলো':'Delete failed',
+'মুছবে:':'Will delete:',
+'মুছা যায়নি:':'Could not delete:',
+'মুছুন':'Delete',
+'মুছুন (বই থেকেও)':'Delete (from the book too)',
+'মুছে দিন':'Clear',
+'মুছে দিন (ফাঁকা হবে)':'Clear (leaves it blank)',
+'মুছে ফেলা হয়েছে':'deleted',
+'মুছে ফেলুন':'Delete',
+'মুদ্রিত দাম':'Printed price',
+'মুদ্রিত দাম নেই':'No printed price',
+'মুদ্রিত দাম নেই — আগে মুদ্রিত দাম দিন, বা নিচে নাম লিখে বই বাছুন':'No printed price — enter the printed price first, or type a name below and pick a book',
+'মুদ্রিত দাম নেই — নিজে থেকে মেলানো যায়নি':'No printed price — could not match automatically',
+'মুদ্রিত দামের যোগফল হুবহু প্যাকেজের মুদ্রিত দামের সমান':'The printed prices add up exactly to the package\'s printed price',
+'মুদ্রিত মূল্য':'Printed price',
+'মুদ্রিত ৳':'Printed ৳',
+'মূল বৈশিষ্ট্য — প্রতি লাইনে একটা (সাইটে দামের নিচে টিক চিহ্নসহ দেখাবে)':'Key features — one per line (shown with ticks under the price on the site)',
+'মূল লেখক':'Original author',
+'মূল্য':'Price',
+'মূল্য (৳)':'Price (৳)',
+'মূল্য নেই/ভুল':'Price missing/wrong',
+'মে':'May',
+'মেনু':'Menu',
+'মেয়াদ':'Expiry',
+'মেলেনি':'Not matched',
+'মেলেনি, সব বই ঠিক আছে কিনা দেখুন':'did not match — check all the books are right',
+'মোছা যায়নি:':'Could not delete:',
+'মোছা শেষ। ব্যাকআপ ফাইল:':'Deletion done. Backup file:',
+'মোছা হচ্ছে...':'Deleting...',
+'মোছার আগে নিজে থেকেই সব মোছা জিনিসের একটা ব্যাকআপ ফাইল (.json) কম্পিউটারে নামবে। মোছা ডেটা আর ফেরত আসে না — তাই ফাইলটা রেখে দিন।':'Before deleting, a backup file (.json) of everything deleted downloads to your computer automatically. Deleted data never comes back — so keep the file.',
+'মোছার মতো কিছু নেই':'Nothing to delete',
+'মোট':'Total',
+'মোট অর্ডার':'Total orders',
+'মোট অর্ডার:':'Total orders:',
+'মোট কেনা':'Total bought',
+'মোট টাকা আপডেট হয়েছে!':'Total updated!',
+'মোট টাকা বদলান':'Change total',
+'মোট টাকার হিসাব মিলছে না — বই(৳':'Total does not add up — books (৳',
+'মোট পরিমাণ':'Total amount',
+'মোট পৃষ্ঠা':'Total pages',
+'মোট বই/পণ্য':'Total books/products',
+'মোট বিক্রয়':'Total sales',
+'মোট বিক্রি':'Total sales',
+'মোট রিভিউ:':'Total reviews:',
+'মোট ৳':'Total ৳',
+'মোট:':'Total:',
+'মোটিভেশন':'Motivation',
+'মোবাইল নম্বর *':'Mobile number *',
+'যাঁরা এই বইটি কিনেছেন, তাঁরা আরও কিনেছেন':'Readers who bought this book also bought',
+'যাচাই করা যায়নি':'Could not verify',
+'যাচাই করুন':'Check',
+'যাচাই বাকি':'Not checked yet',
+'যাচাই হচ্ছে…':'Checking…',
+'যে সব':'all those',
+'যেগুলো যায়নি:':'These did not go:',
+'যেটা বসাতে চান সেটায় চাপুন':'Press the one you want to set',
+'যেমন: 01712345678':'e.g. 01712345678',
+'যেমন: 4.9':'e.g. 4.9',
+'যেমন: 500+ কাস্টমার (আসল সংখ্যা)':'e.g. 500+ customers (real number)',
+'যেমন: Muslim Corner':'e.g. Muslim Corner',
+'যেমন: dQw4w9WgXcQ (ইউটিউব লিংকের শেষ অংশ)':'e.g. dQw4w9WgXcQ (the end of the YouTube link)',
+'যেমন: ঈদ স্পেশাল অফার — মাত্র 3 দিনের জন্য!':'e.g. Eid special offer — only for 3 days!',
+'যেমন: কব্জি ও কানের পেছনে অল্প করে লাগান। রোদ থেকে দূরে রাখুন।':'e.g. Apply a little on wrists and behind the ears. Keep away from sun.',
+'যেমন: রমজান ও আমার প্রিয় বই':'e.g. Ramadan and my favourite book',
+'যেমন: সরাসরি প্রকাশনী থেকে':'e.g. straight from the publisher',
+'যেমন: সাথে ফ্রি বুকমার্ক ও টুপি':'e.g. free bookmark and cap included',
+'যোগ':'Add',
+'যোগ করুন':'Add',
+'যোগ করুন ও Firebase-এ সেভ':'Add & save to Firebase',
+'রং':'Color',
+'রকেট':'Rocket',
+'রাখলে ও অন্তত একটা পোস্টার থাকলে তবেই দেখাবে।':'and at least one poster added, it shows.',
+'রিভিউ':'Reviews',
+'রিভিউ মুছে ফেলা হয়েছে':'Review deleted',
+'রিভিউ লোড করা যায়নি — ইন্টারনেট বা Firebase Rules দেখুন':'Could not load reviews — check the internet or Firebase Rules',
+'রিভিউটি মুছে ফেলবেন?':'Delete this review?',
+'রিলোড':'Reload',
+'রিসেট ইমেইল পাঠানো যায়নি — ইন্টারনেট দেখুন':'Could not send the reset email — check the internet',
+'রেটিং (ঐচ্ছিক — শুধু আসল রেটিং দিন, না থাকলে খালি রাখুন)':'Rating (optional — real ratings only, leave empty if none)',
+'রেটিং(1-5)':'rating(1-5)',
+'লগআউট':'Log out',
+'লগইন':'Log in',
+'লগইন করা অ্যাকাউন্টের':'Logged-in account (',
+'লগইন করুন →':'Log in →',
+'লগইনে ফিরে যান':'Back to login',
+'লাইব্রেরি':'Library',
+'লাইব্রেরি লোড হয়নি — নেট চেক করুন':'Library did not load — check the net',
+'লাল':'Red',
+'লিংক (ঐচ্ছিক) — ক্লিক করলে কোথায় যাবে':'Link (optional) — where a click goes',
+'লিংক আছে':'Has link',
+'লিংক কপি হয়েছে!':'Link copied!',
+'লিংক কাজ করে না — ফাইলটা মুছে গেছে বা শেয়ার বন্ধ':'The link does not work — the file was deleted or sharing is off',
+'লিংক পাঠানো যায়নি — একটু পরে চেষ্টা করুন':'Could not send the link — try again a little later',
+'লিংক সরানো হয়েছে':'Link removed',
+'লিংক সরানো হয়েছে — কাজ শেষে book.js ডাউনলোড করে আপলোড করুন':'Link removed — when done, download book.js and upload it',
+'লিংক সেভ করা আছে — সরাসরি স্ক্যান করতে পারেন':'Link is saved — you can scan directly',
+'লিখুন — বাংলা বা English':'Type — Bengali or English',
+'লিখে খুঁজুন)':'type to search)',
+'লিটার':'litre',
+'লিস্ট':'List',
+'লুকানো':'Hidden',
+'লুকানো (দাম 0)':'Hidden (price 0)',
+'লেখক':'Author',
+'লেখক / প্রকাশনী':'Author / publisher',
+'লেখক / প্রকাশনী ঠিক করুন':'Fix author / publisher',
+'লেখক ও সংকলক':'Author & compiler',
+'লেখক চিপ সেভ করুন (হোমপেজে লাইভ)':'Save author chips (live on homepage)',
+'লেখক নেই':'No author',
+'লেখক/প্রকাশনী ঠিক':'Fix authors/publishers',
+'লেখক:':'Writer:',
+'লেখকের ছবির লিংক (URL)':'Author photo link (URL)',
+'লেখকের ছবির লিংক (URL) — ঐচ্ছিক':'Author photo link (URL) — optional',
+'লেখকের নাম':'Author name',
+'লেখকের নাম (ড্রপডাউন থেকে বাছুন বা টাইপ করুন)':'Author name (pick from the dropdown or type)',
+'লেখকের নাম দিন':'Enter an author name',
+'লেখকের নামের বানান আলাদা':'Author name spelled differently',
+'লেখাটি সাইটে প্রকাশ করবেন?':'Publish this article on the site?',
+'লেখাটি সাইটে প্রকাশ করবেন?\n(লেখক:':'Publish this article on the site?\n(Writer:',
+'লোগো':'Logo',
+'লোগোর লিংক (URL)':'Logo link (URL)',
+'লোগোর লিংক (URL) — ঐচ্ছিক':'Logo link (URL) — optional',
+'লোড করা যায়নি — Firebase Rules Publish করা আছে কিনা দেখুন':'Could not load — check the Firebase Rules are published',
+'লোড করুন':'Load',
+'লোড ব্যর্থ:':'Load failed:',
+'লোড হচ্ছে...':'Loading...',
+'লোড হয়নি':'Did not load',
+'লোড হয়নি — ইন্টারনেট দেখুন':'Did not load — check the internet',
+'ল্যান্ডিং পেজ':'Landing page',
+'ল্যান্ডিং পেজ (Facebook Ad-এর জন্য)':'Landing page (for Facebook ads)',
+'ল্যান্ডিং পেজ তৈরি করুন':'Create landing page',
+'ল্যান্ডিং পেজ তৈরি হয়েছে! লিংক কপি করে ব্যবহার করুন।':'Landing page created! Copy the link and use it.',
+'শনিবার':'Saturday',
+'শর্ট':'Short',
+'শর্ট PDF':'Short PDF',
+'শর্ট PDF আছে':'Has short PDF',
+'শর্ট PDF বসানো নেই।':'No short PDF set.',
+'শর্ট PDF লিংক (ঐচ্ছিক)':'Short PDF link (optional)',
+'শর্ট PDF লিংক (ঐচ্ছিক) — Google Drive লিংক দিন, বই পেজে':'Short PDF link (optional) — give a Google Drive link; on the book page',
+'শর্ট PDF লিংক (ঐচ্ছিক) — Google Drive লিংক দিন, বই পেজে "একটু পড়ুন" বাটন দেখাবে':'Short PDF link (optional) — give a Google Drive link; the book page shows a "Read a little" button',
+'শর্ট PDF → পাতা কমানো':'Short PDF → fewer pages',
+'শর্ট PDF → পাতা কমানো + লোগো':'Short PDF → fewer pages + logo',
+'শিপড':'Shipped',
+'শিপড অর্ডার':'Shipped orders',
+'শিরোনাম':'Title',
+'শিরোনাম (ঐচ্ছিক)':'Title (optional)',
+'শিরোনাম (ঐচ্ছিক) — যেমন: ঈদ স্পেশাল অফার!':'Title (optional) — e.g. Eid special offer!',
+'শিরোনামহীন)':'untitled)',
+'শীঘ্রই আপডেট করা হবে':'Will be updated soon',
+'শুক্রবার':'Friday',
+'শুধু admin দেখবে)':'admin only)',
+'শুধু full-cover (চওড়া) ছবি আছে, আলাদা front নেই (কাটা বন্ধ আছে)':'only a full-cover (wide) image, no separate front (cropping is off)',
+'শুধু চওড়া ফোনে-তোলা ছবি আছে, আসল কভার নেই':'only wide phone photos, no real cover',
+'শুধু তখনই':'only when',
+'শুধু তখনই "মিলে গেছে" বলে যখন — একই প্রকাশনী, প্যাকেজের লেখকদের বই, আর বইগুলোর':'Says "matched" only when — same publisher, books by the package\'s authors, and the books\'',
+'শুধু বর্গাকার ছবি (promo?)':'only square images (promo?)',
+'শুধু বাতিল / ফেরত / ডেলিভারি ব্যর্থ':'Only cancelled / returned / delivery failed',
+'শুধু বুঝিয়ে দেওয়ার জন্য, কোথায় কী লিখতে হয়। আপনি শুধু ঘরের লেখা মুছে/এডিট করে নিজের আসল তথ্য বসিয়ে দিন। শুধু':'only to show what goes where. Just delete/edit the text in the boxes and put in your real details. Only',
+'শুধু মালিক':'Owner only',
+'শুধু মালিক মুছতে পারেন':'Only the owner can delete',
+'শুধুমাত্র অনুমোদিত admin এর জন্য':'For approved admins only',
+'শুরু করুন':'Start',
+'শুরুর ক্রমিক নম্বর':'Starting serial number',
+'শেয়ার':'Share',
+'শেয়ার করা?':'shared?',
+'শেষ অর্ডার':'Last order',
+'শেষ — book.js ডাউনলোড করে আপলোড করুন':'Done — download book.js and upload it',
+'শেষের':'last',
+'শেষের কুইক-অ্যাকশন (কল/হোয়াটসঅ্যাপ/ফেসবুক/ট্র্যাক) স্বয়ংক্রিয়ভাবেই পেজে যোগ হয়ে যাবে, আলাদা কিছু লিখতে হবে না।':'The quick actions at the end (call/WhatsApp/Facebook/track) are added to the page automatically — nothing extra to write.',
+'সংস্করণ':'Edition',
+'সচরাচর জিজ্ঞাসা / FAQ (ঐচ্ছিক) — প্রতি লাইনে: প্রশ্ন':'FAQ (optional) — per line: question',
+'সচরাচর জিজ্ঞাসা / FAQ (ঐচ্ছিক) — প্রতি লাইনে: প্রশ্ন | উত্তর':'FAQ (optional) — per line: question | answer',
+'সঠিক / নতুন নাম লিখুন':'Type the correct / new name',
+'সঠিক Drive folder link দিন':'Enter a correct Drive folder link',
+'সঠিক টাকার অঙ্ক দিন':'Enter a correct amount',
+'সঠিক ফোন নম্বর দিন':'Enter a correct phone number',
+'সঠিক মোবাইল নম্বর দিন (01XXXXXXXXX)':'Enter a correct mobile number (01XXXXXXXXX)',
+'সঠিক/নতুন নাম লিখুন':'Type the correct/new name',
+'সতর্কতা। দেখে ঠিক করে':'warning. Check and fix',
+'সব':'All',
+'সব orders migrate সম্পন্ন!':'All orders migrated!',
+'সব অর্ডার':'All orders',
+'সব ক্যাটাগরি':'All categories',
+'সব ক্লিয়ার করুন':'Clear all',
+'সব খণ্ড একত্রে':'All volumes together',
+'সব ছোট করুন':'"Shrink all"',
+'সব টুলস':'All tools',
+'সব ঠিক আছে':'All fine',
+'সব দেখান':'Show all',
+'সব দেখুন':'View all',
+'সব দেখুন →':'View all →',
+'সব নোটিফিকেশন পঠিত হলো':'All notifications marked read',
+'সব পঠিত করুন':'Mark all read',
+'সব পরিষ্কার':'All clear',
+'সব পোস্টার সেভ করুন':'Save all posters',
+'সব পোস্টার সেভ করুন (সাইটে লাইভ)':'Save all posters (live on site)',
+'সব প্রকাশনী':'All publishers',
+'সব প্রকাশনী —':'All publishers —',
+'সব বই':'All books',
+'সব বই Firebase-এ সেভ হয়েছে! Website আপডেট হবে।':'All books saved to Firebase! The website will update.',
+'সব বই থেকে মুছে ফেলতে (ফাঁকা করতে) চান? এই কাজ পূর্বাবস্থায় ফেরানো যাবে না।':'from all books (make it empty)? This cannot be undone.',
+'সব বই প্যাকেজের লেখকদের নয়':'Not all books are by the package\'s authors',
+'সব বইয়ের পাতা আগেই বানানো আছে':'Pages for all books are already made',
+'সব বাছুন':'Select all',
+'সব ব্যানার সেভ করুন':'Save all banners',
+'সব ব্যানার সেভ করুন (সাইটে লাইভ)':'Save all banners (live on site)',
+'সব রিভিউ':'All reviews',
+'সব সেভ করুন':'Save all',
+'সবগুলো দেখান':'Show all',
+'সবাইকে জানানো হয়ে গেছে? তালিকাটা মুছে ফেলা হবে।':'Have you told everyone? The list will be deleted.',
+'সমস্যা':'Problem',
+'সমস্যা:':'Problems:',
+'সম্পন্ন':'Done',
+'সম্পন্নের হার':'Completion rate',
+'সম্পর্কে':'About',
+'সম্পাদক':'Editor',
+'সম্পাদনা':'Editing',
+'সম্পূর্ণ':'Complete',
+'সম্পূর্ণ অর্ডার হিস্ট্রি:':'Full order history:',
+'সম্প্রতি কিনেছেন':'Recently bought',
+'সম্ভাব্য বই:':'Possible book:',
+'সরান':'Remove',
+'সরানো হয়েছে':'Removed',
+'সরানো হয়েছে — এখন':'Removed — now',
+'সর্বমোট':'Grand total',
+'সর্বোচ্চ':'Max',
+'সর্বোচ্চ 3টা বিষয় — আগে অন্য একটার টিক তুলুন':'Max 3 subjects — untick another one first',
+'সাইজ':'Size',
+'সাইটে ঢুকলেই ছবিওয়ালা অফার পোস্টার দেখাবে (চেকআউট পেজ বাদে)। 2-3 টা পোস্টার যোগ করতে পারবেন — কাস্টমার হোমপেজে ঢুকলে 1ম পোস্টার দেখবে, তারপর পেজ পাল্টালে (যেমন বুক/ফিল্টার পেজে গেলে) পরের পোস্টারটা দেখবে। সবগুলো একবার করে দেখানো হয়ে গেলে 24 ঘণ্টা আর দেখাবে না।':'An offer poster with an image shows when someone visits the site (except the checkout page). You can add 2-3 posters — a customer sees the 1st on the homepage, then the next one when they change page (e.g. book/filter page). Once all have shown, they don\'t show again for 24 hours.',
+'সাইটে দেখুন':'View on site',
+'সাইটে বসান':'Put on site',
+'সাইটে বসানো হয়েছে — কাজ শেষে book.js ডাউনলোড করে আপলোড করুন':'Put on the site — when done, download book.js and upload it',
+'সাইটে সর্বোচ্চ 3টা বিষয় দেখাবে — যেগুলো চান সেগুলোয় টিক দিন':'The site shows up to 3 subjects — tick the ones you want',
+'সাথে কেনা:':'Bought with:',
+'সাধারণ প্রোডাক্ট':'General product',
+'সাধারণ প্রোডাক্ট (Stationery/খাবার/Sunnah Item ইত্যাদি)':'General product (Stationery/food/Sunnah items etc.)',
+'সাধারণত 1-3 কার্যদিবসের মধ্যে পৌঁছে যায়':'Usually arrives within 1-3 working days',
+'সাব-হেডলাইন / সংক্ষিপ্ত পিচ (ঐচ্ছিক)':'Sub-headline / short pitch (optional)',
+'সাবটাইটেল (ঐচ্ছিক)':'Subtitle (optional)',
+'সাবটাইটেল (ঐচ্ছিক) — যেমন: সব বইয়ে 20% ছাড়':'Subtitle (optional) — e.g. 20% off all books',
+'সাবধান:':'Careful: "',
+'সামনের কভার':'Front cover',
+'সাম্প্রতিক অর্ডার':'Recent orders',
+'সারসংক্ষেপ':'Summary',
+'সারি':'Row',
+'সারি পাওয়া গেছে —':'rows found —',
+'সারিতে চাপ দিলে ওই নম্বরের সব অর্ডার দেখাবে।':'Click a row to see all orders from that number.',
+'সার্চ':'Search',
+'সিরিজ':'Series',
+'সেট':'Set',
+'সেট করা আছে':'Is set',
+'সেটা বদলে যাবে।':') will be replaced.',
+'সেটিংস':'Settings',
+'সেপ্টেম্বর':'September',
+'সেভ':'Save',
+'সেভ ও Firebase-এ আপলোড হয়েছে':'Saved & uploaded to Firebase',
+'সেভ ও আপলোড':'Save & upload',
+'সেভ করলে বদলাবে:':'Saving will change:',
+'সেভ করলেই ব্লগ পেজ ও হোমপেজে নতুন বিষয় দেখাবে। খালি রেখে সেভ করলে বিষয় ছাড়া সাধারণ আহ্বান দেখাবে।':'Once saved, the new topic shows on the blog page and homepage. Saving it empty shows a general call without a topic.',
+'সেভ করা আছে':'Saved',
+'সেভ করা আছে (পরিবর্তন করতে নতুন key দিন)':'Saved (enter a new key to change)',
+'সেভ করা নেই':'Not saved',
+'সেভ করা নেই — imgbb.com থেকে key নিয়ে সেভ করুন':'Not saved — get a key from imgbb.com and save it',
+'সেভ করা যায়নি:':'Could not save:',
+'সেভ করুন':'Save',
+'সেভ ব্যর্থ':'Save failed',
+'সেভ ব্যর্থ হলো':'Save failed',
+'সেভ ব্যর্থ — Rules Publish আছে কিনা দেখুন':'Save failed — check the Rules are published',
+'সেভ ব্যর্থ — আবার চেষ্টা করুন':'Save failed — try again',
+'সেভ ব্যর্থ:':'Save failed:',
+'সেভ হচ্ছে...':'Saving...',
+'সেভ হয়নি:':'Not saved:',
+'সেভ হয়েছে':'Saved',
+'সেভ হয়েছে — সাইটে ব্যানার সেকশন লুকানো থাকবে':'Saved — the banner section will be hidden on the site',
+'সেভ হয়েছে!':'Saved!',
+'সেমি':'cm',
+'সেরা ছবির সাইজ: 1200 × 600 পিক্সেল':'Best image size: 1200 × 600 pixels',
+'সোমবার':'Monday',
+'স্ক্যান':'Scan',
+'স্ক্যান করে তালিকা দেখাও':'Scan and show the list',
+'স্টক':'Stock',
+'স্টক অবস্থা:':'Stock status:',
+'স্টক আছে':'In stock',
+'স্টক আছে — ক্লিক করে শেষ করুন':'In stock — click to mark out',
+'স্টক আছে — চাপলে শেষ':'In stock — press for out',
+'স্টক আপডেট':'Stock update',
+'স্টক আপডেট ব্যর্থ':'Stock update failed',
+'স্টক নোটিফিকেশন রিকোয়েস্ট':'Stock notification requests',
+'স্টক ম্যানেজ':'Stock manager',
+'স্টক শেষ':'Out of stock',
+'স্টক শেষ করা হয়েছে':'Marked out of stock',
+'স্টক শেষ চিহ্নিত হলো':'Marked out of stock',
+'স্টক শেষ — ক্লিক করে আনুন':'Out of stock — click to bring back',
+'স্টক শেষ — চাপলে আছে':'Out of stock — press for in stock',
+'স্টক-অনুরোধ':'stock requests',
+'স্টকে আছে':'In stock',
+'স্টকে এলে জানাতে বলেছেন':'Asked to be told when in stock',
+'স্টকে এলে জানান':'Notify me when in stock',
+'স্টকে এলে জানান" অনুরোধ':'"Notify me when in stock" requests',
+'স্টকে ফেরানো হলো':'Back in stock',
+'স্ট্যাটাস':'Status',
+'স্ট্যাটাস আপডেট':'Status update',
+'স্ট্যাটাস আপডেট করুন':'Update status',
+'স্ট্যাটাস আপডেট হয়েছে':'Status updated',
+'স্ট্যাটাস:':'Status:',
+'স্লিপ PDF ডাউনলোড (ফোনেও চলে)':'Download slip PDF (works on phone too)',
+'হওয়ার কথা, কিন্তু অর্ডারে লেখা ৳':'should be, but the order says ৳',
+'হয়নি:':'Not done:',
+'হয়ে গেছে':'Done',
+'হয়ে যেত।':'otherwise.',
+'হলুদ':'Yellow',
+'হাতে নগদ (দোকানে)':'Cash in hand (in shop)',
+'হাদিয়া':'Gift',
+'হাদিয়া (ঐচ্ছিক) — এই বই/প্যাকেজের সাথে ফ্রি কিছু থাকলে লিখুন':'Gift (optional) — write if something free comes with this book/package',
+'হাদিয়া পাঠাতে ফোন:':'Phone to send the gift:',
+'হাদিয়া পাঠাবেন।':'send the gift.',
+'হিসাব ও রিপোর্ট':'Accounts & reports',
+'হিসাব করে দেখান':'Calculate and show',
+'হেডলাইন (বড় শিরোনাম) *':'Headline (big title) *',
+'হেডলাইন লিখুন':'Write a headline',
+'হোমপেজ ক্যাটাগরি কার্ড — বিষয়ের ছবি':'Homepage category cards — subject images',
+'হোমপেজ ক্যাটাগরি চিপ':'Homepage category chips',
+'হোমপেজ ক্যাটাগরি সেভ হয়েছে — লাইভ!':'Homepage categories saved — live!',
+'হোমপেজ চিপ':'Homepage chips',
+'হোমপেজ থেকে বেস্টসেলার অংশটা সরাবেন? (bestseller.html পাতায় আগের মাসগুলো থেকে যাবে)':'Remove the bestseller section from the homepage? (previous months stay on the bestseller.html page)',
+'হোমপেজ থেকে সরান':'Remove from homepage',
+'হোমপেজ থেকে সরানো হয়েছে':'Removed from homepage',
+'হোমপেজ প্রকাশনী চিপ':'Homepage publisher chips',
+'হোমপেজ প্রকাশনী চিপ সেভ হয়েছে — লাইভ!':'Homepage publisher chips saved — live!',
+'হোমপেজ প্রিয় লেখক চিপ':'Homepage favourite author chips',
+'হোমপেজ ব্যানার / অফার':'Homepage banner / offer',
+'হোমপেজ লেখক চিপ সেভ হয়েছে — লাইভ!':'Homepage author chips saved — live!',
+'হোমপেজে আর':'On the homepage and',
+'হোমপেজে কোন কোন ক্যাটাগরি দেখাবে আর কোনটা আগে-পরে থাকবে, তা এখান থেকে ঠিক করুন।':'Choose here which categories show on the homepage and in what order.',
+'হোমপেজে ক্যাটাগরি চিপের নিচে প্রকাশনীর লোগো/নাম চিপ দেখানোর জন্য এখান থেকে নিয়ন্ত্রণ করুন। নাম বাছার সময় বইয়ের ডেটা থেকে অটোকমপ্লিট সাজেশন আসবে (টাইপো এড়াতে)। সেভ করলেই হোমপেজে লাইভ। কিছু না থাকলে সেকশনটা হোমপেজে দেখাবে না।':'Control the publisher logo/name chips shown under the category chips on the homepage. Autocomplete suggestions come from the book data while picking names (to avoid typos). Saving makes it live on the homepage. If empty, the section does not show.',
+'হোমপেজে লেখকের ছবি/নাম চিপ দেখানোর জন্য এখান থেকে নিয়ন্ত্রণ করুন। নাম বাছার সময় বইয়ের ডেটা থেকে অটোকমপ্লিট সাজেশন আসবে (টাইপো এড়াতে)। সেভ করলেই হোমপেজে লাইভ। কিছু না থাকলে সেকশনটা হোমপেজে দেখাবে না।':'Control the author photo/name chips on the homepage. Autocomplete suggestions come from the book data while picking names (to avoid typos). Saving makes it live on the homepage. If empty, the section does not show.',
+'হোমপেজেও দেখাও':'Show on homepage too',
+'হোমপেজেও দেখাবে':'Will show on homepage too',
+'হোমপেজের ক্যাটাগরি কার্ডে (প্রতিটা ক্যাটাগরির নিচে 4টা ছোট বই-কভার) কোন বিষয়ে কোন বইয়ের কভার দেখাবে তা এখান থেকে বাছাই করুন — নতুন কোনো ছবি আপলোড লাগবে না, শুধু একটা বই খুঁজে বাছাই করলেই তার কভার টাইলে বসে যাবে। বাছাই না করলে ওই বিষয়ের একটা বইয়ের প্রচ্ছদ আপনিই বসে। টাইলে ক্লিক করলে কোন বই দেখাবে তা ঠিক হয় বইয়ের':'Choose which book covers show for which subject on the homepage category cards (4 small book covers under each category) — no new images to upload; just search and pick a book and its cover goes on the tile. If none is picked, a book cover of that subject is used automatically. Which books a tile opens is decided by the book\'s',
+'হোমপেজের ক্যাটাগরি কার্ডে (প্রতিটা ক্যাটাগরির নিচে 4টা ছোট বই-কভার) কোন বিষয়ে কোন বইয়ের কভার দেখাবে তা এখান থেকে বাছাই করুন — নতুন কোনো ছবি আপলোড লাগবে না, শুধু একটা বই খুঁজে বাছাই করলেই তার কভার টাইলে বসে যাবে। বাছাই না করলে ওই বিষয়ের একটা বইয়ের প্রচ্ছদ আপনিই বসে। টাইলে ক্লিক করলে কোন বই দেখাবে তা ঠিক হয় বইয়ের "বিষয়" থেকে — বই এডিটের সময় যে বিষয় দেবেন, বই নিজে থেকেই সেই টাইলে চলে যাবে।':'Choose which book covers show for which subject on the homepage category cards (4 small book covers under each category) — no new images to upload; just search and pick a book and its cover goes on the tile. If none is picked, a book cover of that subject is used automatically. Which books a tile opens is decided by the book\'s "subject" — the subject you set in the book editor puts the book on that tile.',
+'হোমপেজের স্লাইডার ব্যানার এখান থেকেই বদলান। ছবির লিংক (URL) দিন, অথবা ছবি ছাড়া শুধু অফারের লেখা দিন। সেভ করলেই সাইটে লাইভ হবে। (কিছু না থাকলে সাইটে ডিফল্ট ব্যানার দেখাবে।)':'Change the homepage slider banners here. Give an image link (URL), or just offer text without an image. Saving makes it live on the site. (If empty, the site shows the default banners.)',
+'৳ টাকা ছাড়':'৳ off',
+'— PDF খোলা হচ্ছে':'— opening PDF',
+'— PDF-এ':'— in PDF',
+'— folder কি "Anyone with the link" দিয়ে শেয়ার করা?':'— is the folder shared as "Anyone with the link"?',
+'— অর্ডারে ৳':'— in order ৳',
+'— উপ-বিভাগ (ঐচ্ছিক) —':'— Sub-category (optional) —',
+'— ক্যাটালগে বইটাই খুঁজে পাওয়া যায়নি':'— the book was not found in the catalog',
+'— খুলে দেখুন':') — open and check',
+'— খুলে দেখে ঠিক হলে "শর্ট PDF" টিক দিন':'— open it and tick "Short PDF" if it is right',
+'— ঠিক থাকলে রেখে দিন':') — keep it if it looks right',
+'— ঠিক বই কিনা নিশ্চিত হয়ে নিন':') — make sure it is the right book',
+'— ঠিক হলে টিক দিন':'— tick if it is right',
+'— তালিকাটা দেখে সেভ করুন':'— check the list and save',
+'— পাতা':'— page',
+'— প্যাকেজের মুদ্রিত দামের সাথে মিলেছে':'— matched the package\'s printed price',
+'— প্রকাশনী বাছুন':'— Select publisher (',
+'— প্রকাশনী বাছুন —':'— Select publisher —',
+'— বই এডিটে গিয়ে "প্যাকেজের ভেতরের বই" থেকে নিজে বাছুন':'— go to the book editor and pick them yourself in "Books inside the package"',
+'— বাছুন —':'— Pick —',
+'— বিভাগ বাছুন —':'— Pick category —',
+'— বিষয় বাছুন —':'— Pick subject —',
+'— মাস বাছুন —':'— Pick month —',
+'— মেলেনি, সব বই ঠিক আছে কিনা দেখুন':'— did not match, check all the books are right',
+'— মোট':'— total',
+'— যাচাই করুন':'— please check',
+'— শুধু বুঝিয়ে দেওয়ার জন্য, কোথায় কী লিখতে হয়। আপনি শুধু ঘরের লেখা মুছে/এডিট করে নিজের আসল তথ্য বসিয়ে দিন। শুধু':'— only to show what goes where. Just delete/edit the text in the boxes and put in your real details. Only',
+'— শেয়ার "Anyone with the link" কিনা দেখুন':') — check that sharing is "Anyone with the link"',
+'— সব প্রকাশনী —':'— All publishers —',
+'— হোমপেজেও দেখাবে':'— will show on homepage too',
+'‹ আগের':'‹ Prev',
+'← লগইনে ফিরে যান':'← Back to login',
+'− ছাড়':'− discount',
+'− ছাড়(৳':') − discount (৳',
+'＋ টাইল যোগ করুন':'＋ Add tile',
+'＋ তালিকায় যোগ করুন':'＋ Add to list',
+'＋ নতুন বিষয়...':'＋ New subject...',
+'＋ বৈশিষ্ট্য যোগ করুন':'＋ Add attribute',
+'＋ যোগ':'＋ Add'
+};
+
+/* ---- সংখ্যাওয়ালা লেখা (# = সংখ্যা) ---- */
+var NUM = {
+'# অর্ডার':'# orders',
+'#টা অর্ডার':'# orders',
+'#টি অর্ডার':'# orders',
+'# পেন্ডিং · # ডেলিভারড':'# pending · # delivered',
+'পাতা #/#':'Page #/#',
+'আরও #টা দেখান (বাকি #)':'Show # more (# left)',
+'৳# ছাড়':'৳# off',
+'#টি':'#',
+'#টা':'#',
+'(#টা আছে)':'(# total)',
+'(#টা)':'(#)',
+'(#টি)':'(#)',
+'#টা বই':'# books',
+'#টি বই':'# books',
+'# বই':'# books',
+'# দিন আগে':'# days ago',
+'# ঘণ্টা আগে':'# hours ago',
+'# মিনিট আগে':'# minutes ago',
+'# জন':'# people',
+'#জন':'# people',
+'# টা পোস্টার যোগ করা যাবে':'# posters can be added',
+'সর্বোচ্চ #টা পোস্টার যোগ করা যাবে':'You can add up to # posters',
+'#/#':'#/#',
+'মোট রিভিউ: #টি':'Total reviews: #',
+'#টির মধ্যে #–#':'#2–#3 of #1',
+'বই ৳# + ডেলিভারি ৳# − ছাড় ৳# =':'Books ৳# + delivery ৳# − discount ৳# =',
+'কাস্টমার (# জন)':'Customers (#)',
+'আরও #টা দেখান (বাকি #টা)':'Show # more (# left)'
+};
+
+/* ---- দিন/মাসের নাম — একা শব্দ হলেও বদলানো নিরাপদ ---- */
+var WORDS = {'শনিবার':'Saturday','রবিবার':'Sunday','সোমবার':'Monday','মঙ্গলবার':'Tuesday','বুধবার':'Wednesday','বৃহস্পতিবার':'Thursday','শুক্রবার':'Friday',
+  'জানুয়ারি':'January','ফেব্রুয়ারি':'February','মার্চ':'March','এপ্রিল':'April','মে':'May','জুন':'June','জুলাই':'July','আগস্ট':'August','সেপ্টেম্বর':'September','অক্টোবর':'October','নভেম্বর':'November','ডিসেম্বর':'December',
+  'জানু':'Jan','ফেব্রু':'Feb','সেপ্টে':'Sep','অক্টো':'Oct','নভে':'Nov','ডিসে':'Dec',
+  'বিকাশ':'bKash','নগদ':'Nagad','রকেট':'Rocket'};
+
+function toAscii(s){ return s.replace(/[০-৯]/g, function(d){ return String(d.charCodeAt(0)-0x09E6); }); }
+var HAS_BN=/[ঀ-৿]/;
+/* বাংলা অক্ষর (অঙ্ক আর ৳ বাদে) — কোনো কিছুর সাথে না মেলা এমন লেখা ডেটা, ছোঁয়া হয় না */
+var BN_LETTER=/[ঀ-৥ৰ-৲৴-৿]/;
+function isLetter(c){ return !!c && BN_LETTER.test(c); }
+
+var EXACT=new Map(), NUMS=new Map();
+Object.keys(EN).forEach(function(k){ EXACT.set(k, EN[k]); });
+Object.keys(NUM).forEach(function(k){ NUMS.set(k, NUM[k]); });
+/* টুকরো: একাধিক শব্দের লেখা (একা শব্দ বইয়ের নামের ভেতরেও থাকতে পারে, তাই বাদ) */
+var fragKeys=Object.keys(EN).filter(function(k){ return (/\S\s+\S/.test(k) || /:$/.test(k)) && BN_LETTER.test(k) && k.length>=4; });
+Object.keys(WORDS).forEach(function(k){ fragKeys.push(k); });
+fragKeys.sort(function(a,b){ return b.length-a.length; });
+var FRAG={}; fragKeys.forEach(function(k){ FRAG[k]=EN[k]!==undefined?EN[k]:WORDS[k]; });
+var FRAG_RE=new RegExp(fragKeys.map(function(k){ return k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); }).join('|'),'g');
+
+function edge(rep, before, after){
+  if(before && /[0-9A-Za-z)%৳]/.test(before) && /^[A-Za-z(]/.test(rep)) rep=' '+rep;
+  if(after && /[0-9A-Za-z(]/.test(after) && /[A-Za-z).:]$/.test(rep)) rep=rep+' ';
+  return rep;
+}
+function fill(tpl, nums){ var i=0; return tpl.replace(/#(\d)?/g, function(m,k){ return (k ? nums[k-1] : nums[i++])||''; }); }
+/* ধরন মিলিয়ে বদল (ভেতরের অংশ আবার অনুবাদ হয়) */
+var PAT=[
+  [/^মোট (.+?) অর্ডার$/, function(m,x){ return 'Total '+tr(x)+' orders'; }],
+  [/^মোট (.+)$/, function(m,x){ return 'Total '+tr(x); }]
+];
+
+var CACHE=new Map();
+function tr(text){
+  if(!text || !HAS_BN.test(text)) return text;
+  var hit=CACHE.get(text); if(hit!==undefined) return hit;
+  var out=trInner(text);
+  if(CACHE.size>30000) CACHE.clear();
+  CACHE.set(text,out);
+  return out;
+}
+function trInner(text){
+  var s=toAscii(text);
+  var m=s.match(/^(\s*)([\s\S]*?)(\s*)$/), core=m[2].replace(/[ \t]+/g,' ');
+  if(EXACT.has(core)) return m[1]+EXACT.get(core)+m[3];
+  var nums=core.match(/\d+(?:[.,]\d+)*/g)||[], tpl=core.replace(/\d+(?:[.,]\d+)*/g,'#');
+  if(nums.length && NUMS.has(tpl)) return m[1]+fill(NUMS.get(tpl),nums)+m[3];
+  if(!BN_LETTER.test(core)) return s;
+  for(var i=0;i<PAT.length;i++){ if(PAT[i][0].test(core)) return m[1]+core.replace(PAT[i][0],PAT[i][1])+m[3]; }
+  var changed=false;
+  var parted=core.replace(FRAG_RE, function(k, off, str){
+    var before=str.charAt(off-1), after=str.charAt(off+k.length);
+    if(isLetter(before)||isLetter(after)) return k;  // শব্দের ভেতরের অংশ — ছোঁবো না
+    changed=true;
+    return edge(FRAG[k], before, after);
+  });
+  if(!changed) return text;
+  parted=parted.replace(/(\d)\s?(?:টা|টি|টির|টিতে|টায়|জন)(?![ঀ-৥ৰ-৿])/g,'$1');
+  return m[1]+parted+m[3];
+}
+window.OD_TR=tr;
+
+/* ---- পেজে বসানো, এখন আর অ্যাপ যখনই নতুন কিছু আঁকে ---- */
+var SKIP={SCRIPT:1,STYLE:1,TEXTAREA:1,NOSCRIPT:1};
+function skipEl(el){ return SKIP[el.nodeName] || (el.getAttribute && (el.getAttribute('translate')==='no' || el.isContentEditable)); }
+var done=new WeakMap();
+function doText(n){
+  var p=n.parentNode;
+  if(!p || p.nodeType!==1) return;
+  if(SKIP[p.nodeName] || (p.closest && p.closest('[translate="no"],[contenteditable="true"]'))) return;
+  var v=n.nodeValue;
+  if(done.get(n)===v) return;
+  var o=tr(v);
+  done.set(n,o);
+  if(o!==v) n.nodeValue=o;
+}
+function doAttrs(el){
+  if(!el.getAttribute) return;
+  ['placeholder','title','aria-label'].forEach(function(a){
+    var v=el.getAttribute(a);
+    if(v && HAS_BN.test(v)){ var o=tr(v); if(o!==v) el.setAttribute(a,o); }
+  });
+  if(el.nodeName==='INPUT' && /^(button|submit)$/i.test(el.type) && HAS_BN.test(el.value)){ var o=tr(el.value); if(o!==el.value) el.value=o; }
+}
+function walk(root){
+  if(root.nodeType===3){ doText(root); return; }
+  if(root.nodeType!==1) return;
+  if(root.closest && root.closest('[translate="no"]')) return;
+  if(skipEl(root)){ doAttrs(root); return; }
+  doAttrs(root);
+  var w=document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT|NodeFilter.SHOW_TEXT, {
+    acceptNode:function(n){
+      if(n.nodeType===1 && skipEl(n)){ if(n.getAttribute('translate')!=='no') doAttrs(n); return NodeFilter.FILTER_REJECT; }  // textarea-র placeholder বদলায়, ভেতরের লেখা না
+      return NodeFilter.FILTER_ACCEPT;
+    }
+  });
+  var n;
+  while((n=w.nextNode())){ if(n.nodeType===3) doText(n); else doAttrs(n); }
+}
+document.title=tr(document.title);
+walk(document.body);
+new MutationObserver(function(list){
+  list.forEach(function(r){
+    if(r.type==='characterData') doText(r.target);
+    else if(r.type==='attributes') doAttrs(r.target);
+    else r.addedNodes.forEach(walk);
+  });
+}).observe(document.body, {childList:true, subtree:true, characterData:true, attributes:true, attributeFilter:['placeholder','title','aria-label']});
+
+/* ---- ডায়ালগ ---- */
+var oAlert=window.alert, oConfirm=window.confirm, oPrompt=window.prompt;
+window.alert=function(msg){ return oAlert.call(window, tr(String(msg))); };
+window.confirm=function(msg){ return oConfirm.call(window, tr(String(msg))); };
+window.prompt=function(msg,def){ return oPrompt.call(window, tr(String(msg)), def); };
+})();
+</script>
+<!-- LANG-END -->
 </body>
 </html>
