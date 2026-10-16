@@ -1297,6 +1297,25 @@
         .ac-sum{margin-top:10px;font-size:13px;font-weight:700;color:#b91c1c;}
         .ac-del{background:#dc2626;color:#fff;border:none;}
         .ac-del:disabled{opacity:.45;cursor:not-allowed;}
+        /* ছোট ফোনে উপরের বার (২০২৬-১০-১৫): লেখা লুকিয়ে শুধু আইকন, তারিখ এক লাইনে — কিছু যেন কিছুর উপর না ওঠে */
+        .topbar-date{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+        @media(max-width:520px){
+            .topbar{gap:8px;padding:10px 10px;}
+            .topbar-actions{gap:5px;flex-shrink:0;}
+            .topbar .tb-lbl{display:none;}
+            .topbar .topbar-quick-btn,.topbar .topbar-new-btn{width:36px;height:36px;padding:0;justify-content:center;border-radius:10px;font-size:18px;}
+            .topbar-icon-btn,.topbar-menu-btn{width:36px;height:36px;}
+            .topbar-title{font-size:15px;}
+        }
+        @media(max-width:360px){ .topbar-actions{gap:3px;} .topbar .topbar-icon-btn,.topbar .topbar-menu-btn,.topbar .topbar-quick-btn,.topbar .topbar-new-btn{width:32px;height:32px;} }
+        /* খোঁজার ঘরে আইকন যেন লেখার উপর না বসে — `.app-layout .form-input` প্যাডিং ফিরিয়ে দিচ্ছিল */
+        .app-layout .search-wrap .form-input,.search-wrap .form-input{padding-left:36px;}
+        /* ছোট ফোনে ব্যানার/পোস্টার/চিপ তালিকা: নামটা যেন বাটনের চাপে "(i…" না হয়ে যায় — বাটনগুলো দরকার হলে নিচের লাইনে */
+        @media(max-width:480px){
+            #bannerList>div,#ofPopList>div,#homePubList>div,#homeAuthorList>div,#homeCatList>div{flex-wrap:wrap;row-gap:8px;}
+            #bannerList>div>div[style*="flex:1"],#ofPopList>div>div[style*="flex:1"],#homePubList>div>div[style*="flex:1"],#homeAuthorList>div>div[style*="flex:1"],#homeCatList>div>div[style*="flex:1"]{min-width:130px!important;}
+            #bannerList>div>div:last-child,#ofPopList>div>div:last-child,#homePubList>div>div:last-child,#homeAuthorList>div>div:last-child,#homeCatList>div>div:last-child{margin-left:auto;}
+        }
         /* ভাষা বাটন (English / বাংলা) */
         .lang-btn{font:600 12px/1 inherit;font-family:inherit;padding:7px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#e5e7eb;cursor:pointer;flex-shrink:0;}
         .lang-btn:hover{border-color:#CB2527;color:#fff;}
@@ -1751,10 +1770,8 @@
                                 <button class="topbar-icon-btn" onclick="toggleDark()" id="darkBtn" title="Dark Mode">
                     <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
                 </button>
-                <button class="topbar-quick-btn" onclick="gkOpenQuickSale()" title="ফোন/দোকানের অর্ডার হাতে বসান"><i class=gi-cart></i> দ্রুত অর্ডার</button>
-                <button class="topbar-new-btn" onclick="switchTab('editor',document.getElementById('navEditor'));beToggleAddForm()">
-                    + নতুন বই
-                </button>
+                <button class="topbar-quick-btn" onclick="gkOpenQuickSale()" title="ফোন/দোকানের অর্ডার হাতে বসান"><i class=gi-cart></i><span class="tb-lbl"> দ্রুত অর্ডার</span></button>
+                <button class="topbar-new-btn" onclick="switchTab('editor',document.getElementById('navEditor'));beToggleAddForm()" title="নতুন বই" aria-label="নতুন বই">+<span class="tb-lbl"> নতুন বই</span></button>
             </div>
         </div>
 
@@ -8315,7 +8332,8 @@ function renderReport(){
             chartEl.innerHTML = '<div style="color:var(--text-muted);font-size:12px;width:100%;text-align:center;">এই সময়ে কোনো বিক্রয় নেই</div>';
         } else {
             chartEl.innerHTML = dayKeys.map(k => {
-                const h = Math.max(Math.round((dayMap[k]/maxVal)*110), 4);
+                /* বাক্স ১২০px: উপরের টাকার লেখা + নিচের তারিখ মিলিয়ে বার সর্বোচ্চ ৮৪px — নইলে উপরের শিরোনামে উঠে যায় */
+                const h = Math.max(Math.round((dayMap[k]/maxVal)*84), 4);
                 return `<div class="chart-bar-col">
                     <div class="chart-bar-val">৳${(dayMap[k]/1000).toFixed(dayMap[k]>=1000?1:0)}${dayMap[k]>=1000?'k':''}</div>
                     <div class="chart-bar" style="height:${h}px;" title="৳${dayMap[k]}"></div>
@@ -9702,7 +9720,7 @@ var EN = {
 ', কিন্তু':'), but',
 ', প্যাকেজের মুদ্রিত দাম ৳':', package printed price ৳',
 ', বর্তমান দাম ৳':', current price ৳',
-'-এ আপলোড করে লিংকটি নিচে বসান।':'and paste the link below.',
+'-এ আপলোড করে লিংকটি নিচে বসান।':'— upload it there and paste the link below.',
 '-এ এখন যে PDF আছে':'currently has PDF (',
 '-এ পাঠানো হবে':'will be sent to',
 '-এ পাঠানো হয়েছে ·':'sent ·',
@@ -10785,7 +10803,7 @@ var EN = {
 'ফ্রন্ট':'Front',
 'ফ্রি ডেলিভারি':'Free delivery',
 'ফ্ল্যাপ':'Flap',
-'বই':'Book',
+'বই':'Books',
 'বই #':'Book #',
 'বই আপডেট করলে সরাসরি website-এ দেখাবে':'Book updates show on the website directly',
 'বই এডিট':'Edit book',
@@ -11422,7 +11440,9 @@ function tr(text){
 function trInner(text){
   var s=toAscii(text);
   var m=s.match(/^(\s*)([\s\S]*?)(\s*)$/), core=m[2].replace(/[ \t]+/g,' ');
-  if(EXACT.has(core)) return m[1]+EXACT.get(core)+m[3];
+  /* "-এ …" বাংলায় আগের শব্দের গায়ে লাগা (যেমন <b>imgbb.com</b>-এ) — ইংরেজিতে মাঝে একটা ফাঁকা লাগে */
+  if(/^-/.test(core) && !m[1]){ var bare=core.replace(/^-+/,''); if(EXACT.has(bare)){ var v=EXACT.get(bare); return (/^[^\s.,;:!?)]/.test(v)?' ':'')+v+m[3]; } }
+  if(EXACT.has(core)){ var ev=EXACT.get(core); return m[1]+((/^-/.test(core)&&!m[1]&&/^[^\s.,;:!?)]/.test(ev))?' ':'')+ev+m[3]; }
   var nums=core.match(/\d+(?:[.,]\d+)*/g)||[], tpl=core.replace(/\d+(?:[.,]\d+)*/g,'#');
   if(nums.length && NUMS.has(tpl)) return m[1]+fill(NUMS.get(tpl),nums)+m[3];
   if(!BN_LETTER.test(core)) return s;

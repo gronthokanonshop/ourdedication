@@ -151,3 +151,14 @@ body{color:var(--od-ink);-webkit-font-smoothing:antialiased;text-rendering:optim
 .footer-col h4{font-family:var(--font-bn);color:#fff;font-size:.95rem;}
 .footer-bottom{color:#7F8692;border-top-color:rgba(255,255,255,.08);}
 .footer-bottom a{color:#A3A9B4 !important;}
+/* ছোট ফোনে বইয়ের কার্ড (২০২৬-১০-১৫): ছাড়ের ব্যাজ আর পছন্দের বাটন যেন একটার উপর আরেকটা না ওঠে */
+@media(max-width:500px){
+.p-card .p-badges{top:6px;left:6px;right:36px;align-items:flex-start;}
+.p-card .badge{font-size:.6rem;line-height:1.15;padding:2px 6px;max-width:100%;white-space:normal;text-align:center;}
+.p-card .p-wish{top:6px;right:6px;width:26px;height:26px;}
+.p-card .p-wish svg{width:14px;height:14px;}
+}
+/* খোঁজার ঘর যেন নিজের জায়গার বাইরে না যায় (ছোট ফোনে বাটন স্ক্রিনের বাইরে চলে যাচ্ছিল) */
+.search-wrap,.nav-search{min-width:0;}
+.search-wrap input,.nav-search input{min-width:0;width:100%;}
+.search-wrap button,.nav-search button{flex-shrink:0;}

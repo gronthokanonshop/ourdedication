@@ -273,6 +273,8 @@ body{font-family:var(--font-bn);background:#ffffff;color:#1e1b4b;min-height:100v
 @keyframes toastIn{from{opacity:0;transform:translate(-50%,10px);}to{opacity:1;transform:translate(-50%,0);}}
 @media(min-width:900px){.toast{bottom:28px;}}
 
+/* ছোট ফোনে খোঁজার ঘরের জায়গা থাকুক — উপরের সারির লোগো লুকাই (পেছনে যাওয়ার বাটন আছে) (২০২৬-১০-১৫) */
+@media(max-width:380px){ .nav-wrap > a:not(.back-btn){display:none!important;} }
 /* ══ MOBILE FIXES ══ */
 @media(max-width:600px){
   body{font-size:14px;}
